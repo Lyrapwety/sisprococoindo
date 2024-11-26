@@ -8,8 +8,8 @@
     background-color: #D9D9D9 !important;
     padding-top: 20px; /* Jarak dari topbar */
     margin-left: 235px;
-    overflow-y: auto;
-    height: calc(100vh - 70px);
+   overflow -y: auto;
+   height: calc(100vh - 70px);
     width: calc(100% - 235px);
     font-family: 'Inter', sans-serif; !important;
 }
@@ -269,31 +269,25 @@ table td button.delete {
     color: #636362; /* Ganti dengan warna yang diinginkan */
     opacity: 1; /* Mengatur opasitas jika perlu */
 }
-
-.fixed-width {
-    width: 60px; /* Anda bisa menyesuaikan lebar sesuai kebutuhan */
-    max-width: 60px; /* Membatasi lebar maksimum */
-    min-width: 50px; /* Membatasi lebar minimum */
-    white-space: nowrap; /* Mencegah teks untuk wrap ke baris baru */
-    overflow: hidden; /* Menyembunyikan teks yang melebihi lebar kolom */
-    text-overflow: ellipsis; /* Mengganti teks yang terpotong dengan elipsis (...) */
+.supplier{
+    text-align: start;
 }
+
 </style>
 
 <div class="mainbar">
     <div class="container">
         <div class="header">
-            <h2>Data Pegawai</h2>
+            <h2>Laporan Pemakaian Kelapa Bulat</h2>
         </div>
 
         <!-- Filter Section -->
         <div class="filters">
             <select class="pilihtanggal">
-                <option>Pilih Departemen</option>
-                <option>Kupas</option>
-                <option>Produksi</option>
-                <option>Office</option>
-                <option>IPAL</option>
+                <option>Pilih Periode</option>
+                <option>Januari</option>
+                <option>Februari</option>
+         
 
             </select>
             <div class="input-icon">
@@ -304,9 +298,8 @@ table td button.delete {
                 <button class="btn export">
                    <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png" alt="export"/> Export
                 </button>
-         
-
-              <a href="{{ route ('tambah_data_pegawai') }}"><button id="openFormBtn" class="btn add">+ Tambah Data</button></a>
+        
+             <button id="openFormBtn" class="btn add">+ Tambah Data</button>
             </div>
         </div>
 
@@ -316,49 +309,32 @@ table td button.delete {
             <table>
                 <thead>
                     <tr>
-                        <th>NO</th>
-                        <th class="fixed-width">TGL JOIN</th>
-                        <th class="fixed-width">TGL OUT</th>
-                        <th>ID Pegawai</th>
-                        <th>Nama Pegawai</th>
-                        <th>Posisi</th>
-                        <th>Departemen</th>
-                        <th>Kontrak Pegawai</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
+                        <th class="fixed-width2">No KRJ</th>
+                        <th class="fixed-width">Tanggal</th>
+                        <th class="fixed-width1">KB Supplier</th>
+                        <th class="fixed-width4">Sisa Hari Sebelumnya</th>
+                        <th>Total Pengisian</th>
+                        <th>Total Pemakaian</th>
+                        <th>Sisa Hari ini</th>
+                        <th>Detail</th>
+                        <th class="fixed-width3">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
                         <td>12/10/2024</td>
-                        <td>25/11/2024</td>
-                        <td>CAS342</td>
-                        <td>Marcella Corazon Sasmita </td>
-                        <td>Operator</td>
-                        <td>Produksi</td>
-                        <td>PKWT</td>
-                        <td><button class="">Nonaktif</button></td>
-                        <td> 
-                            <a href="{{ route ('edit_data_pegawai') }}"><button class="edit">Edit</button></a>
+                        <td class="supplier">Pembelian KB Bpk Yandi ,Tungkal - KM Nusa Persada, Trip 1</td>
+                        <td>7.595,0</td>
+                        <td>7.595,0</td>
+                        <td>7.595,0</td>
+                        <td>7.595,0</td>
+                        <td><button>Hasil Timbangan</button></td>
+                        <td>
+                            <button class="edit">Edit</button>
                             <button class="delete">Delete</button>
                         </td>
-                    </tr>
-                    <!-- Tambah data lainnya -->
-                    <tr>
-                        <td>2</td>
-                        <td>12/08/2024</td>
-                        <td>25/08/2024</td>
-                        <td>CAS349</td>
-                        <td>Lylia Sasmita</td>
-                        <td>Sheller</td>
-                        <td>Kupas</td>
-                        <td>PROYEK</td>
-                        <td> <button class="">aktif</button></td>
-                        <td> 
-                            <a href="{{ route ('edit_data_pegawai') }}"><button class="edit">Edit</button></a>
-                            <button class="delete">Delete</button>
-                        </td>
+                
                     </tr>
                 </tbody>
             </table>

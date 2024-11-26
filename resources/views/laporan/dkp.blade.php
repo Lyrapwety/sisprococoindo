@@ -1,5 +1,3 @@
-<!-- resources/views/laporan/dkp.blade.php -->
-
 @extends('layouts.app')
 
 @section('content')
@@ -11,8 +9,7 @@
     background-color: #D9D9D9 !important;
     padding-top: 20px; /* Jarak dari topbar */
     margin-left: 235px;
-    overflow-y: auto;
-    height: calc(100vh - 70px);
+    height: auto;
     width: calc(100% - 235px);
     font-family: 'Inter', sans-serif; !important;
 }
@@ -747,7 +744,72 @@ table td button.delete {
                             <button class="delete">Delete</button>
                         </td>
                     </tr>
-                    <!-- Tambah data lainnya -->
+                    <tr>
+                        <td>1</td>
+                        <td>12 Agustus 2024</td>
+                        <td>Marcella</td>
+                        <td>Lylia</td>
+                        <td>50</td>
+                        <td>150</td>
+                        <td><button id="openModal2">Hasil Timbangan</button></td>
+                        <td>
+                            <button class="edit">Edit</button>
+                            <button class="delete">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>12 Agustus 2024</td>
+                        <td>Marcella</td>
+                        <td>Lylia</td>
+                        <td>50</td>
+                        <td>150</td>
+                        <td><button id="openModal2">Hasil Timbangan</button></td>
+                        <td>
+                            <button class="edit">Edit</button>
+                            <button class="delete">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>12 Agustus 2024</td>
+                        <td>Marcella</td>
+                        <td>Lylia</td>
+                        <td>50</td>
+                        <td>150</td>
+                        <td><button id="openModal2">Hasil Timbangan</button></td>
+                        <td>
+                            <button class="edit">Edit</button>
+                            <button class="delete">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>12 Agustus 2024</td>
+                        <td>Marcella</td>
+                        <td>Lylia</td>
+                        <td>50</td>
+                        <td>150</td>
+                        <td><button id="openModal2">Hasil Timbangan</button></td>
+                        <td>
+                            <button class="edit">Edit</button>
+                            <button class="delete">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>12 Agustus 2024</td>
+                        <td>Marcella</td>
+                        <td>Lylia</td>
+                        <td>50</td>
+                        <td>150</td>
+                        <td><button id="openModal2">Hasil Timbangan</button></td>
+                        <td>
+                            <button class="edit">Edit</button>
+                            <button class="delete">Delete</button>
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -913,6 +975,7 @@ table td button.delete {
                             <td>13</td>
                             <td>14</td>
                         </tr>
+                        
                     </tbody>
                 </table>
 

@@ -562,6 +562,62 @@ input[type="date"] {
                             <button class="delete">Delete</button>
                         </td>
                     </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>12 Agustus 2024</td>
+                        <td>123</td>
+                        <td>Kecil</td>
+                        <td>50</td>
+                        <td>10</td>
+                        <td>300</td>
+                        <td><button>Hasil Timbangan</button></td>
+                        <td>
+                            <button class="edit">Edit</button>
+                            <button class="delete">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>12 Agustus 2024</td>
+                        <td>123</td>
+                        <td>Kecil</td>
+                        <td>50</td>
+                        <td>10</td>
+                        <td>300</td>
+                        <td><button>Hasil Timbangan</button></td>
+                        <td>
+                            <button class="edit">Edit</button>
+                            <button class="delete">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>12 Agustus 2024</td>
+                        <td>123</td>
+                        <td>Kecil</td>
+                        <td>50</td>
+                        <td>10</td>
+                        <td>300</td>
+                        <td><button>Hasil Timbangan</button></td>
+                        <td>
+                            <button class="edit">Edit</button>
+                            <button class="delete">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>12 Agustus 2024</td>
+                        <td>123</td>
+                        <td>Kecil</td>
+                        <td>50</td>
+                        <td>10</td>
+                        <td>300</td>
+                        <td><button>Hasil Timbangan</button></td>
+                        <td>
+                            <button class="edit">Edit</button>
+                            <button class="delete">Delete</button>
+                        </td>
+                    </tr>
                     <!-- Tambah data lainnya -->
                 </tbody>
             </table>

@@ -1,8 +1,6 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-      <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-      <!-- Alpine.js untuk toggle sidebar -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -113,7 +111,7 @@
     background-color: #3e759d;
 }
 
-/* Font Awesome Icons */
+
 .fa-folder-open,
 .fa-file-lines,
 .fa-gears,
@@ -151,7 +149,7 @@
     align-items: right;
 }
 
-/* Custom Scrollbar Styling */
+
 .sidebar::-webkit-scrollbar {
     width: 6px;
 }
@@ -173,7 +171,11 @@
 .no_underline {
   text-decoration: none;
 }
-
+.dash{
+    text-decoration: none;
+    color: white;
+    
+}
 </style>
 <div class="flex h-screen">
     <!-- Sidebar -->
@@ -192,8 +194,8 @@
         </div>
         <hr class="horizontal-line">
 
-       <div> <button class="dropdown-btn"><i class="fa-solid fa-house"></i></i>Dashboard  
-       </div>
+       <div> <a class="dash" href="{{ route ('dashboard') }}"><button class="dropdown-btn"><i class="fa-solid fa-house" style="margin-right: 21px;"></i>Dashboard  
+       </a></div>
           
         </button>
         <button class="dropdown-btn"><i class="fa-solid fa-file-lines"></i>Laporan Harian Hasil Kerja
@@ -224,8 +226,8 @@
             <span class="dropdown-arrow">&#9662;</span>
         </button>
         <div class="dropdown-container">
-            <a href="#link1">Santan</a>
-            <a href="#link2">Air Kelapa</a>
+            <a href="{{ route('produksi.santan') }}">Santan</a>
+            <a href="{{ route('produksi.air_kelapa') }}">Air Kelapa</a>
         </div>
 
         <button class="dropdown-btn"><i class="fa-solid fa-box-archive"></i>Stok Barang
@@ -233,7 +235,7 @@
         </button>
         <div class="dropdown-container">
             <a href="{{ route ('card_stock.dkp') }}">DKP</a>
-            <a href="#link2">Kelapa Bulat</a>
+            <a href="{{ route ('card_stock.kelapa_bulat')}}">Kelapa Bulat</a>
             <a href="{{ route ('card_stock.santan') }}">Santan</a>
             <a href="{{ route ('card_stock.air_kelapa') }}">Air Kelapa</a>
             <a href="{{ route ('card_stock.kulit_ari_kering') }}">Kulit Ari Kering</a>
@@ -241,8 +243,6 @@
             <a href="{{ route ('card_stock.kopra_kering') }}">Kopra Kering</a>
             <a href="{{ route ('card_stock.kopra_basah') }}">Kopra Basah</a>
             <a href="{{ route ('card_stock.tempurung_basah') }}">Tempurung Basah</a>
-            <a href="#link6">DC Putih</a>
-            <a href="#link7">DC Yellow-Reject</a>
             <a href="#link5">Pemakaian Kelapa Bulat</a>
         </div>
 

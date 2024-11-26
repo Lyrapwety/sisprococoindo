@@ -45,4 +45,9 @@ class StockController extends Controller
     {
         return view('card_stock.santan');
     }
+
+    public function kelapa_bulat()
+    {
+        return view('card_stock.kelapa_bulat');
+    }
 }
