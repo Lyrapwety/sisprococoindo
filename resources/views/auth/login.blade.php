@@ -5,7 +5,7 @@
                     <!-- Username Field -->
 
                     <div class="mb-4">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Nama</label>
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Usernama</label>
                         <div class="relative">
                             <input type="text" id="name" placeholder="Enter your username" required
                                 class="w-full px-10 py-3 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -13,7 +13,7 @@
                         </div>
                         <span class="text-red-500 text-sm hidden" id="usernameError">This field must be filled in</span>
 
-                        <x-input-label for="email" :value="__('Username')" />
+                        <x-input-label for="email" :value="__('Email')" />
                         <x-text-input id="email" class="block w-full mt-1" type="text" name="email" :value="old('email')" required autofocus />
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
