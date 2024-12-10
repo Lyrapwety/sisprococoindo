@@ -27,12 +27,12 @@
     margin-bottom: 20px;
     padding: 10px;
     padding-bottom: 0;
-   
+
 }
 
 .header h2 {
     font-size: 14px;
-  
+
 }
 
 .content-container {
@@ -86,7 +86,7 @@
     color: #636362;
     text-align: center;
     margin-bottom: 20px;
-     
+
 }
 
 .data-pegawai p {
@@ -127,8 +127,8 @@
 .inline-group{
     display: flex;
     flex-direction: row;
-   
-  
+
+
 }
 .bar-chart {
     display: flex;
@@ -166,7 +166,7 @@
 
 .pemakaian {
     display: flex;
-    position: relative; 
+    position: relative;
     padding-top: 20px;
     flex-direction: column;
     align-items: center;
@@ -184,15 +184,15 @@
     color: #636362;
     margin-bottom: 10px;
     text-align: center;
-    
+
 }
 .pemakaian2 {
     margin:0;
-    
+
 }
 <style>
     #chartLabels div {
- 
+
 }
 #chartLabels div {
     display: flex;
@@ -226,7 +226,7 @@
 
 .pemakaian select {
     position: absolute;
-    align-self: flex-end; 
+    align-self: flex-end;
     top: 55px; /* Jarak dari atas */
     right: 20px;
     z-index: 10; /* Pastikan di atas elemen lainnya */
@@ -249,7 +249,7 @@
     <div class="containera">
         <!-- Header -->
         <div class="header">
-            <h2>Selamat Datang, Cella</h2>
+            <h2>Selamat Datang</h2>
         </div>
         <!-- Main Content -->
         <div class="content-container">
@@ -320,12 +320,12 @@
                 <div class="pemakaian">
                 <div style="text-align: center;">
                     <h2>Laporan Pemakaian Kelapa Bulat</h2>
-                
+
                         <select style="margin-bottom: 20px;">
                             <option>Pilih Tanggal</option>
                             <!-- Tambahkan opsi tanggal jika diperlukan -->
                         </select>
-                  
+
                     <canvas id="myChart" style="max-width: 200px; margin: 0 auto; margin-top:70px; margin-bottom:10px;"></canvas>
                     <div id="chartLabels" style="margin-top: 20px; max-width: 200px; font-size:12px;"></div>
                 </div>
@@ -441,7 +441,7 @@ function buatKalender() {
         [15, 16, 17, 18, 19, 20, 21  ],
         [22, 23, 24, 25, 26, 27, 28],
         [29, 30, 31]
-    
+
     ];
 
     const kalenderContainer = document.getElementById("calendar-days");
@@ -469,4 +469,4 @@ function buatKalender() {
 // Jalankan fungsi saat halaman dimuat
 document.addEventListener("DOMContentLoaded", buatKalender);
 </script>
-@endsection  
+@endsection

@@ -754,7 +754,7 @@
                     <button class="btn export">
                         <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png"
                             alt="export" /> Export</button>
-                    <button id="openFormBtn" class="btn add">+ Tambah Data</button>
+                    <a href="#" id="openFormBtn" class="btn add">+ Tambah Data</a>
                 </div>
             </div>
 
@@ -774,85 +774,23 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($laporandkps as $laporandkp)
                         <tr>
-                            <td>1</td>
-                            <td>12 Agustus 2024</td>
-                            <td>Marcella</td>
-                            <td>Lylia</td>
-                            <td>50</td>
-                            <td>150</td>
+                            <td>{{ $laporandkp->tanggal }}</td>
+                            <td>{{ $laporandkp->tanggal }}</td>
+                            <td>{{ $laporandkp->activity_type }}</td>
                             <td><button id="openModal2">Hasil Timbangan</button></td>
                             <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
+                                <a href="{{ route('laporan.dkp.edit', $laporandkp->id) }}" class="edit">Edit</a>
+                                <form action="{{ route('laporan.dkp.destroy', $laporandkp->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>12 Agustus 2024</td>
-                            <td>Marcella</td>
-                            <td>Lylia</td>
-                            <td>50</td>
-                            <td>150</td>
-                            <td><button id="openModal2">Hasil Timbangan</button></td>
-                            <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>12 Agustus 2024</td>
-                            <td>Marcella</td>
-                            <td>Lylia</td>
-                            <td>50</td>
-                            <td>150</td>
-                            <td><button id="openModal2">Hasil Timbangan</button></td>
-                            <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>12 Agustus 2024</td>
-                            <td>Marcella</td>
-                            <td>Lylia</td>
-                            <td>50</td>
-                            <td>150</td>
-                            <td><button id="openModal2">Hasil Timbangan</button></td>
-                            <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>12 Agustus 2024</td>
-                            <td>Marcella</td>
-                            <td>Lylia</td>
-                            <td>50</td>
-                            <td>150</td>
-                            <td><button id="openModal2">Hasil Timbangan</button></td>
-                            <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>12 Agustus 2024</td>
-                            <td>Marcella</td>
-                            <td>Lylia</td>
-                            <td>50</td>
-                            <td>150</td>
-                            <td><button id="openModal2">Hasil Timbangan</button></td>
-                            <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
-                            </td>
-                        </tr>
 
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -892,7 +830,7 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="nama-sheller">Nama Sheller</label>
-                                    <input type="text" class="kotak" id="nama-sheller" value="Marcella Corazon">
+                                    <input type="text" class="kotak" id="nama-sheller" >
                                 </div>
                                 <div class="form-group-total">
                                     <label>Total: 250 kg</label>
@@ -1098,67 +1036,69 @@
 @endsection
 
 @section('scripts')
-    <script>
-        // Get modal and button elements
-        const modal = document.getElementById('modal');
-        const openFormBtn = document.getElementById('openFormBtn');
-        const closeBtn = document.querySelector('.close');
+<script>
+    // Get modal and button elements
+    const modal = document.getElementById('modal');
+    const openFormBtn = document.getElementById('openFormBtn');
+    const closeBtn = document.querySelector('.close');
 
-        // Open the modal when the "Tambah Data" button is clicked
-        openFormBtn.addEventListener('click', () => {
-            modal.style.display = 'block';
-        });
+    // Open the modal when the "Tambah Data" button is clicked
+    openFormBtn.addEventListener('click', () => {
+        modal.style.display = 'block';
+    });
 
-        // Close the modal when the "X" is clicked
-        closeBtn.addEventListener('click', () => {
+    // Close the modal when the "X" is clicked
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // Close the modal if user clicks outside the modal content
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
             modal.style.display = 'none';
-        });
-
-        // Close the modal if user clicks outside the modal content
-        window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        function openModal2() {
-            const modal2 = document.getElementById('modal2');
-            modal2.style.display = 'block';
         }
+    });
 
-        function closeModal2() {
-            const modal2 = document.getElementById('modal2');
-            modal2.style.display = 'none';
-        }
-        const openModalButton = document.getElementById('openModal2');
-        if (openModalButton) {
-            openModalButton.addEventListener('click', openModal2);
-        }
-        // Close modal2 when the close button is clicked
-        const closeModalButton = document.getElementById('closeModal2');
-        if (closeModalButton) {
-            closeModalButton.addEventListener('click', closeModal2);
-        }
-        // Add new "Anggota Parer" dynamically
+    function openModal2() {
+        const modal2 = document.getElementById('modal2');
+        modal2.style.display = 'block';
+    }
 
-        let anggotaCount = 2;
+    function closeModal2() {
+        const modal2 = document.getElementById('modal2');
+        modal2.style.display = 'none';
+    }
 
-        function addAnggotaParer() {
-            const container = document.getElementById('anggota-parer-container');
-            const anggotaBlock = document.createElement('div');
-            anggotaBlock.classList.add('anggota-block');
+    const openModalButton = document.getElementById('openModal2');
+    if (openModalButton) {
+        openModalButton.addEventListener('click', openModal2);
+    }
 
-            const formRow = `
+    // Close modal2 when the close button is clicked
+    const closeModalButton = document.getElementById('closeModal2');
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', closeModal2);
+    }
+
+    // Add new "Anggota Parer" dynamically
+    let anggotaCount = 2;
+
+    function addAnggotaParer() {
+        const container = document.getElementById('anggota-parer-container');
+        const anggotaBlock = document.createElement('div');
+        anggotaBlock.classList.add('anggota-block');
+
+        const formRow = `
             <div class="form-row">
                 <div class="form-group">
                     <label for="anggota-parer-${anggotaCount}">Anggota Parer ${anggotaCount}</label>
-                    <input type="text" style="transform():translateX(-20px);" class="kotak" id="anggota-parer-${anggotaCount}">
+                    <input type="text" class="kotak" id="anggota-parer-${anggotaCount}">
                 </div>
                 <div class="form-group">
                     <label for="total-keranjang-${anggotaCount}">Total Keranjang</label>
                     <input type="number" class="kotak" min="0" id="total-keranjang-${anggotaCount}">
-                    <label for="tipe-keranjang-${anggotaCount}">Tipe Keranjang </label>
-                    <select class="custom-select id="tipe-keranjang-${anggotaCount}"">
+                    <label for="tipe-keranjang-${anggotaCount}">Tipe Keranjang</label>
+                    <select id="tipe-keranjang-${anggotaCount}" class="custom-select">
                         <option value="A">Keranjang Besar</option>
                         <option value="B">Keranjang Kecil</option>
                     </select>
@@ -1171,11 +1111,37 @@
             <hr class="hori-line">
         `;
 
-            anggotaBlock.innerHTML = formRow;
-            container.appendChild(anggotaBlock);
+        anggotaBlock.innerHTML = formRow;
+        container.appendChild(anggotaBlock);
 
-            anggotaCount++;
+        anggotaCount++;
+    }
 
-        }
-    </script>
+    // Submit form data (for example, to send the data to the server)
+    document.querySelector(".submit-btn").addEventListener("click", function () {
+        let formData = new FormData();
+        formData.append('nama_sheller', document.getElementById("nama-sheller").value);
+        formData.append('tanggal', document.getElementById("tanggal-picker").value);
+        formData.append('anggota_parer1', document.getElementById("anggota-parer1").value);
+        // Append other form data as necessary
+
+        fetch("{{ route('laporan.dkp.store') }}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            // Close modal and reset form, if necessary
+            document.getElementById("modal").style.display = "none";
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    });
+</script>
+
 @endsection

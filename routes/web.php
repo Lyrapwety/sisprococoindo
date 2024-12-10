@@ -4,6 +4,7 @@ use App\Http\Controllers\DatapegawaiController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\LaporandkpController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\StockController;
@@ -23,7 +24,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/laporan/dkp', [LaporanController::class, 'dkp'])->name('laporan.dkp');
+Route::prefix('laporan')->name('laporan.')->group(function () {
+    Route::resource('dkp', LaporandkpController::class);
+    Route::get('dkp/create', [LaporandkpController::class, 'create'])->name('dkp.create');
+    Route::post('dkp', [LaporandkpController::class, 'store'])->name('dkp.store');
+});
 Route::get('/laporan/kulitari', [LaporanController::class, 'kulitari'])->name('laporan.kulitari');
 Route::get('/laporan/airkelapa', [LaporanController::class, 'airkelapa'])->name('laporan.airkelapa');
 Route::get('/laporan/tempurung', [LaporanController::class, 'tempurung'])->name('laporan.tempurung');
