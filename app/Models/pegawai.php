@@ -27,14 +27,4 @@ class pegawai extends Model
 
     protected $keyType = 'string';
 
-    public function laporanHasilKerjaDKPs()
-    {
-        return $this->hasMany(laporan_hasil_kerja_dkp::class, 'id_pegawai', 'id_pegawai');
-    }
-
-    public function laporanHasilKerjaUmums()
-    {
-        return $this->hasMany(laporan_hasil_kerja_umum::class, 'id_pegawai', 'id_pegawai');
-    }
-
 }
