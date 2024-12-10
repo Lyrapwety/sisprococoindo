@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('laporan_dkps', function (Blueprint $table) {
             $table->id();
-            $table->string('id_kelapa_bulat');
-            $table->string('no');
-            $table->string('tanggal');
-            $table->string('nama_sheller');
-            $table->string('nama_parer');
-            $table->string('hasil_kerja_parer');
-            $table->string('hasil_kerja_sheller');
-            $table->string('total_keranjang');
-            $table->string('tipe_keranjang');
-            $table->string('berat_keranjang');
-            $table->string('total_potongan_keranjang');
+            $table->string('id_kelapa_bulat')->nullable();
+            $table->string('no')->nullable();
+            $table->string('tanggal')->nullable();
+            $table->string('nama_sheller')->nullable();
+            $table->string('nama_parer')->nullable();
+            $table->string('hasil_kerja_parer')->nullable();
+            $table->string('hasil_kerja_sheller')->nullable();
+            $table->string('total_keranjang')->nullable();
+            $table->string('tipe_keranjang')->nullable();
+            $table->string('berat_keranjang')->nullable();
+            $table->string('total_potongan_keranjang')->nullable();
             $table->timestamps();
         });
     }

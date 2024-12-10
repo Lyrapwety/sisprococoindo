@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('laporan_tempurung_basahs', function (Blueprint $table) {
             $table->id();
-            $table->string('id_kelapa_bulat');
-            $table->string('no');
-            $table->string('tanggal');
-            $table->string('bruto');
-            $table->string('tipe_keranjang');
-            $table->string('total_keranjang');
-            $table->string('total_potongan_keranjang');
+            $table->string('id_kelapa_bulat')->nullable();
+            $table->string('no')->nullable();
+            $table->string('tanggal')->nullable();
+            $table->string('bruto')->nullable();
+            $table->string('tipe_keranjang')->nullable();
+            $table->string('total_keranjang')->nullable();
+            $table->string('total_potongan_keranjang')->nullable();
             $table->string('netto');
             $table->timestamps();
         });

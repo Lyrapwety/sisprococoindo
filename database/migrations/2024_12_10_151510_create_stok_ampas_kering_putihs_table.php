@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('stok_ampas_kering_putihs', function (Blueprint $table) {
             $table->id();
-            $table->string('id_laporan_santan');
-            $table->string('tanggal');
-            $table->string('keterangan');
-            $table->string('activity_type');
-            $table->string('begin');
-            $table->string('in');
-            $table->string('out');
-            $table->string('remain');
+            $table->string('id_laporan_santan')->nullable();
+            $table->string('tanggal')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->string('activity_type')->nullable();
+            $table->string('begin')->nullable();
+            $table->string('in')->nullable();
+            $table->string('out')->nullable();
+            $table->string('remain')->nullable();
             $table->timestamps();
         });
     }

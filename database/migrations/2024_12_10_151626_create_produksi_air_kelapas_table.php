@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('produksi_air_kelapas', function (Blueprint $table) {
             $table->id();
-            $table->string('id_air_kelapa');
-            $table->string('tanggal');
-            $table->string('keterangan');
-            $table->string('briz');
-            $table->string('ph');
-            $table->string('sn');
-            $table->string('bags');
-            $table->string('begin');
-            $table->string('in');
-            $table->string('out');
-            $table->string('remain');
+            $table->string('id_air_kelapa')->nullable();
+            $table->string('tanggal')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->string('briz')->nullable();
+            $table->string('ph')->nullable();
+            $table->string('sn')->nullable();
+            $table->string('bags')->nullable();
+            $table->string('begin')->nullable();
+            $table->string('in')->nullable();
+            $table->string('out')->nullable();
+            $table->string('remain')->nullable();
             $table->timestamps();
         });
     }

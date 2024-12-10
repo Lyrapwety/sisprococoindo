@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('kelapabulats', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal');
-            $table->string('keterangan');
-            $table->string( 'activity_type');
-            $table->string('begin');
-            $table->string('in');
-            $table->string('out');
+            $table->date('tanggal')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->string( 'activity_type')->nullable();
+            $table->string('begin')->nullable();
+            $table->string('in')->nullable();
+            $table->string('out')->nullable();
             $table->timestamps();
         });
     }

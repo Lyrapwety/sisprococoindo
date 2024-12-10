@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('stok_kulit_ari_basahs', function (Blueprint $table) {
             $table->id();
-            $table->string('id_laporan_kulit_ari_basah');
-            $table->string('tanggal');
-            $table->string('remark');
-            $table->string('activity_type');
-            $table->string('begin');
-            $table->string('in');
-            $table->string('out');
-            $table->string('remain');
+            $table->string('id_laporan_kulit_ari_basah')->nullable();
+            $table->string('tanggal')->nullable();
+            $table->string('remark')->nullable();
+            $table->string('activity_type')->nullable();
+            $table->string('begin')->nullable();
+            $table->string('in')->nullable();
+            $table->string('out')->nullable();
+            $table->string('remain')->nullable();
             $table->timestamps();
         });
     }

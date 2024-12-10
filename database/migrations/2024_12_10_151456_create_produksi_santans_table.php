@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('produksi_santans', function (Blueprint $table) {
             $table->id();
-            $table->string('id_santan');
-            $table->string('tanggal');
-            $table->string('keterangan');
-            $table->string('activity_type');
-            $table->string('briz');
-            $table->string('bags');
-            $table->string('ph');
-            $table->string('steril_nonsteril');
-            $table->string('begin');
-            $table->string('in');
-            $table->string('out');
-            $table->string('remain');
+            $table->string('id_santan')->nullable();
+            $table->string('tanggal')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->string('activity_type')->nullable();
+            $table->string('briz')->nullable();
+            $table->string('bags')->nullable();
+            $table->string('ph')->nullable();
+            $table->string('steril_nonsteril')->nullable();
+            $table->string('begin')->nullable();
+            $table->string('in')->nullable();
+            $table->string('out')->nullable();
+            $table->string('remain')->nullable();
             $table->timestamps();
         });
     }

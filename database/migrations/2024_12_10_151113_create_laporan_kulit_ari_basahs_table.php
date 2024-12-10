@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('laporan_kulit_ari_basahs', function (Blueprint $table) {
             $table->id();
-            $table->string('id_kelapa_bulat');
-            $table->string('no');
-            $table->date('tanggal');
-            $table->string('sheller_parer');
-            $table->string('bruto');
-            $table->string('total_keranjang');
-            $table->string('tipe_keranjang');
-            $table->string('berat_keranjang');
-            $table->string('total_potongan_keranjang');
-            $table->string('hasil_kerja');
+            $table->string('id_kelapa_bulat')->nullable();
+            $table->string('no')->nullable();
+            $table->date('tanggal')->nullable();
+            $table->string('sheller_parer')->nullable();
+            $table->string('bruto')->nullable();
+            $table->string('total_keranjang')->nullable();
+            $table->string('tipe_keranjang')->nullable();
+            $table->string('berat_keranjang')->nullable();
+            $table->string('total_potongan_keranjang')->nullable();
+            $table->string('hasil_kerja')->nullable();
             $table->timestamps();
         });
     }

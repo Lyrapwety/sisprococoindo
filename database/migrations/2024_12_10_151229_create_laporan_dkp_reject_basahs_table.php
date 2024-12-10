@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('laporan_dkp_reject_basahs', function (Blueprint $table) {
             $table->id();
-            $table->string('id_kelapa_bulat');
-            $table->string('tanggal');
-            $table->string('nama_pegawai');
-            $table->string('sheller_parer');
-            $table->string('bruto');
-            $table->string('total_keranjang');
-            $table->string('tipe_keranjang');
-            $table->string('berat_keranjang');
-            $table->string('total_potongan_keranjang');
-            $table->string('hasil_kerja_netto');
+            $table->string('id_kelapa_bulat')->nullable();
+            $table->string('tanggal')->nullable();
+            $table->string('nama_pegawai')->nullable();
+            $table->string('sheller_parer')->nullable();
+            $table->string('bruto')->nullable();
+            $table->string('total_keranjang')->nullable();
+            $table->string('tipe_keranjang')->nullable();
+            $table->string('berat_keranjang')->nullable();
+            $table->string('total_potongan_keranjang')->nullable();
+            $table->string('hasil_kerja_netto')->nullable();
             $table->timestamps();
         });
     }
