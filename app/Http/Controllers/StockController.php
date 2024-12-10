@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
-    public function kopra_kering()
+    public function dkp_reject_kering()
     {
-        return view('card_stock.kopra_kering');
+        return view('card_stock.dkp_reject_kering');
     }
 
-    public function kopra_basah()
+    public function dkp_reject_basah()
     {
-        return view('card_stock.kopra_basah');
+        return view('card_stock.dkp_reject_basah');
     }
 
     public function dkp()
@@ -30,6 +30,11 @@ class StockController extends Controller
     {
         return view('card_stock.kulit_ari_kering');
     }
+    public function kulit_ari_basah()
+    {
+        return view('card_stock.kulit_ari_basah');
+    }
+
 
     public function tempurung_basah()
     {
@@ -49,5 +54,13 @@ class StockController extends Controller
     public function kelapa_bulat()
     {
         return view('card_stock.kelapa_bulat');
+    }
+    public function ampas_kering_putih()
+    {
+        return view('card_stock.ampas_kering_putih');
+    }
+    public function ampas_kering_yellow()
+    {
+        return view('card_stock.ampas_kering_yellow');
     }
 }

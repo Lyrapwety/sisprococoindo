@@ -538,7 +538,7 @@ input[type="date"] {
                     <tr>
                         <th>No</th>
                         <th>Tanggal</th>
-                        <th>Nama Sheller</th>
+                        <th>Nama Pegawai</th>
                         <th>S/P</th>
                         <th>Bruto</th>
                         <th>Potongan Keranjang</th>

@@ -207,19 +207,14 @@
             <a href="{{ route('laporan.kulitari') }}">Kulit Ari </a>     
             <a href="{{ route('laporan.airkelapa') }}">Air Kelapa</a>
             <a href="{{ route('laporan.tempurung') }}">Tempurung</a>
-            <a href="{{ route('laporan.serabutkelapa') }}">Serabut Kelapa</a>
-
         </div>
 
         <button class="dropdown-btn"><i class="fa-regular fa-folder-open"></i>Rekap Hasil Kerja
             <span class="dropdown-arrow">&#9662;</span>
         </button>
         <div class="dropdown-container">
-            <a href="{{ route ('rekap_laporan.dkp') }}">DKP</a>
-            <a href="{{ route ('rekap_laporan.kulit_ari') }}">Kulit Ari</a>
-            <a href="{{ route ('rekap_laporan.tempurung') }}">Tempurung</a>
-            <a href="{{ route ('rekap_laporan.serabut_kelapa') }}">Serabut Kelapa</a>
-            <a href="{{ route ('rekap_laporan.air_kelapa') }}">Air Kelapa</a>
+            <a href="{{ route ('rekap_laporan.pembukaan_tempurung') }}">Tempurung - Sheller</a>
+            <a href="{{ route ('rekap_laporan.pembukaan_kulit_ari') }}">Kulit Ari - Parer</a>
         </div>
 
         <button class="dropdown-btn"><i class="fa-solid fa-gears"></i>Produksi
@@ -239,11 +234,14 @@
             <a href="{{ route ('card_stock.santan') }}">Santan</a>
             <a href="{{ route ('card_stock.air_kelapa') }}">Air Kelapa</a>
             <a href="{{ route ('card_stock.kulit_ari_kering') }}">Kulit Ari Kering</a>
+            <a href="{{ route ('card_stock.kulit_ari_kering') }}">Kulit Ari Basah</a>
             <a href="{{ route ('card_stock.minyak_kelapa') }}">Minyak Kelapa</a>
-            <a href="{{ route ('card_stock.kopra_kering') }}">Kopra Kering</a>
-            <a href="{{ route ('card_stock.kopra_basah') }}">Kopra Basah</a>
+            <a href="{{ route ('card_stock.dkp_reject_kering') }}">DKP Reject Kering</a>
+            <a href="{{ route ('card_stock.dkp_reject_basah') }}">DKP Reject Basah</a>
             <a href="{{ route ('card_stock.tempurung_basah') }}">Tempurung Basah</a>
-            <a href="#link5">Pemakaian Kelapa Bulat</a>
+            <a href="{{ route ('card_stock.ampas_kering_putih') }}">Ampas Kering Putih</a>
+            <a href="{{ route ('card_stock.ampas_kering_yellow') }}">Ampas Kering Yellow</a>
+           
         </div>
 
         <a class="no_underline" href="{{ route ('data_pegawai') }}">
