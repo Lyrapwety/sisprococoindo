@@ -258,7 +258,7 @@ table td button.delete {
     }
 
      .btn.export img {
-      /* Jarak antara ikon dan teks */  
+     
         filter: brightness(0) invert(1);
       
    
@@ -515,8 +515,6 @@ input[type="date"] {
             overflow: auto;
         }
        
-        
-
         .modal-back2 {
             background-color: #D9D9D9;
             margin: auto;
@@ -528,7 +526,6 @@ input[type="date"] {
             max-width: 100%;
             display: flex;
             height: auto;
-           
             flex-direction: column;
         }
 
@@ -723,16 +720,7 @@ input[type="date"] {
         .close-btn2:hover {
             background-color: #3f8d43;
         }
-  .modal, .modal2 {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000; /* Pastikan cukup tinggi */
-}
+
 </style>
 
 <div class="mainbar">
@@ -769,7 +757,7 @@ input[type="date"] {
                         <th>No</th>
                         <th>Tanggal</th>
                         <th>Nama Pegawai</th>
-                        <th> S/P</th>
+                        <th>S/P</th>
                         <th>Bruto</th>
                         <th>Potongan KRJ</th>
                         <th>Hasil Kerja</th>
@@ -785,7 +773,7 @@ input[type="date"] {
                         <td> S </td>
                         <td>50</td>
                         <td>150</td>
-                        <td>30 0</td>
+                        <td>300</td>
                         <td><button id="openFormBtn2">Hasil Timbangan</button></td>
                         <td>
                             <button class="edit">Edit</button>
@@ -1002,6 +990,7 @@ const modal1 = document.getElementById("modal");
 const closeModal1 = modal1.querySelector(".close");
 
 openFormBtn1.addEventListener("click", function () {
+   console.log("Modal 1 dibuka");
     modal1.style.display = "block";
 });
 
@@ -1021,6 +1010,7 @@ const modal2 = document.getElementById("modal2");
 const closeModal2 = document.getElementById("closeModal2");
 
 openFormBtn2.addEventListener("click", function () {
+    console.log("Modal 2 dibuka");
     modal2.style.display = "block";
 });
 

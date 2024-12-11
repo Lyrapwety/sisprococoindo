@@ -287,8 +287,7 @@ table td button.delete {
                 <select class="pilihkategori">
                     <option>Pilih Kategori</option>
                     <option> < 300 </option>
-                    <option> = 300 </option>
-                    <option> < 350 </option>
+                    <option> > 300 < 350 </option>
                     <option> > 350 </option>
                 </select>
             </div>
@@ -316,22 +315,23 @@ table td button.delete {
                         <th>S/P</th>
                         <th>Hasil Kerja</th>
                         <th> < 300 </th>
-                        <th> = 300 </th>
-                        <th> < 350 </th>
-                        <th> > 350 </th>
+                        <th> > 300 < 350</th>
+                        <th> > 350 </th> 
+                        <th> Total Pendapatan</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
                         <td>12 Agustus 2024</td>
-                        <td>123</td>
-                        <td>Kecil</td>
+                        <td>Marcella Corazon</td>
+                        <td>Parer</td>
                         <td>50</td>
                         <td>10</td>
                         <td>300</td>
                         <td>20</td>
-                        <td>29</td>
+                        <td>Rp. 10.000</td>
+                    
                     </tr>
                     <!-- Tambah data lainnya -->
                 </tbody>

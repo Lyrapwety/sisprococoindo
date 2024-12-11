@@ -174,7 +174,7 @@
 .dash{
     text-decoration: none;
     color: white;
-
+    
 }
 </style>
 <div class="flex h-screen">
@@ -194,17 +194,17 @@
         </div>
         <hr class="horizontal-line">
 
-       <div> <a class="dash" href="{{ route ('dashboard') }}"><button class="dropdown-btn"><i class="fa-solid fa-house" style="margin-right: 21px;"></i>Dashboard
+       <div> <a class="dash" href="{{ route ('dashboard') }}"><button class="dropdown-btn"><i class="fa-solid fa-house" style="margin-right: 21px;"></i>Dashboard  
        </a></div>
-
+          
         </button>
         <button class="dropdown-btn"><i class="fa-solid fa-file-lines"></i>Laporan Harian Hasil Kerja
             <span class="dropdown-arrow">&#9662;</span>
         </button>
         <div class="dropdown-container">
-            <a href="{{ route('laporan.dkp.index') }}">DKP</a>
+            <a href="{{ route('laporan.dkp') }}">DKP</a>
             <a href="{{ route('laporan.dkp_reject') }}">DKP Reject</a>
-            <a href="{{ route('laporan.kulitari') }}">Kulit Ari </a>
+            <a href="{{ route('laporan.kulitari') }}">Kulit Ari </a>     
             <a href="{{ route('laporan.airkelapa') }}">Air Kelapa</a>
             <a href="{{ route('laporan.tempurung') }}">Tempurung</a>
         </div>
@@ -213,7 +213,7 @@
             <span class="dropdown-arrow">&#9662;</span>
         </button>
         <div class="dropdown-container">
-            <a href="{{ route ('rekap_laporan.pembukaan_tempurung') }}">Tempurung - Sheller</a>
+          
             <a href="{{ route ('rekap_laporan.pembukaan_kulit_ari') }}">Kulit Ari - Parer</a>
         </div>
 
@@ -241,7 +241,7 @@
             <a href="{{ route ('card_stock.tempurung_basah') }}">Tempurung Basah</a>
             <a href="{{ route ('card_stock.ampas_kering_putih') }}">Ampas Kering Putih</a>
             <a href="{{ route ('card_stock.ampas_kering_yellow') }}">Ampas Kering Yellow</a>
-
+           
         </div>
 
         <a class="no_underline" href="{{ route ('data_pegawai') }}">
@@ -259,7 +259,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-20">
                     <div class="flex">
-
+                   
                     </div>
 
                     <!-- Settings Dropdown -->

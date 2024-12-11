@@ -271,6 +271,241 @@ table td button.delete {
     opacity: 1; /* Mengatur opasitas jika perlu */
 }
 
+.modal {
+            display: block;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        .modal-back {
+            background-color: #F7F7F7;
+            border-radius: 8px;
+            padding: 25px; /* Tambahan padding agar lebih rapi */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px; /* Batas maksimal lebar modal */
+            width: 100%;
+            overflow-y: auto;
+        }
+        .modal-content {
+                position: relative;
+                background-color: #D9D9D9;
+                margin: auto;
+                padding: 20px;
+                width: 60%;
+                border-radius: 10px;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+                max-width: 90%;
+                display: flex;
+                flex-direction: column;
+                height: auto;
+                overflow-y: auto;
+}
+    
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+           
+        }
+
+        .modal-header h2 {
+            font-size: 14px;
+            color: #636362;
+            margin: 10px 0 15px;
+            margin: 0 auto;       
+        }
+
+        .modal-header .close {
+            font-size: 18px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .input h3{    
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 auto; 
+
+        }
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-container label {
+            font-size: 14px;
+        }
+
+        .form-container .column {
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .form-container .column:first-child {
+            margin-left: 0;
+        }
+
+        .form-container .column:last-child {
+            margin-right: 0;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .buttons button {
+            padding: 8px 15px;
+            margin-right: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+    .buttons button:last-child {
+            margin-right: 0;
+        }
+
+    .buttons button:hover {
+            background-color: #0056b3;
+        }
+
+ .timbangan-container {
+        text-align: center;
+        margin-top: 40px;
+}
+
+.timbangan-container h3 {
+        font-size: 14px;
+        color: #636362;
+        margin: 10px 0 15px;
+
+}
+
+.timbangan-inputs {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(7, 1fr);
+    margin: 0 auto; /* Pastikan elemen berada di tengah */
+    width: auto; /* Sesuaikan lebar grid dengan isinya */
+  
+   
+}
+
+.timbangan-inputs div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  
+}
+
+.timbangan-inputs label {
+    font-size: 12px;
+    color: #636362;
+    margin: 0;
+    width: 20px; /* Lebar tetap untuk label */
+    text-align: right; 
+    margin-right: 10px;
+}
+
+.timbangan-inputs input {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    height: 30%;
+}
+
+.total-container {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #636362;
+}
+
+.submit-btn {
+    width: 20%;
+    padding: 10px;
+    border: none;
+    background-color: #104367;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    margin-top: 20px;
+    display: block; /* Membuat tombol tetap dalam satu baris */
+    margin-left: auto; /* Agar berada di sebelah kanan */
+    margin-right: auto;
+}
+
+.submit-btn:hover {
+    background-color: #aaa;
+}
+.input-field {
+  
+    margin-bottom: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    height: 45%;
+}
+
+.input-select {
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    height: 45%;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px; /* Jarak antar elemen */
+}
+
+
+.input-field, .input-select {
+ 
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box; /* Pastikan padding tidak memengaruhi lebar */
+}
+
 </style>
 
 <div class="mainbar">
@@ -335,7 +570,81 @@ table td button.delete {
         </div>
         
 
-      
+        <div class="modal">
+            <div class="modal-content">
+                <div id="modal-back" class="modal-back">
+            <div class="modal-header">
+                <h2>FORM INPUT HASIL TEMPURUNG BASAH</h2>
+                <button class="close">&times;</button>
+            </div>
+    
+            <div class="form-container">
+                <div class="form-row">
+                <div class="column">
+                    <label for="tanggal">Tanggal</label>
+                    <input type="text" id="tanggal"  class="input-field">
+                </div>
+                <div class="column">
+                    <label for="tipe-keranjang">Tipe Keranjang</label>
+                    <select id="tipe-keranjang" class="input-select">
+                        <option value="A">Keranjang Besar</option>
+                        <option value="B">Keranjang Kecil</option>
+                    </select>
+                </div>
+                <div class="column">
+                    <label for="total-keranjang">Total Keranjang</label>
+                    <input type="text" id="total-keranjang" class="input-field">
+                </div>
+            </div>
+            </div>
+    
+       
+    <div class="timbangan-container">
+            <h3>Hasil Timbangan Tempurung Basah</h3>
+            <div class="timbangan-inputs">
+                <!-- Input grid -->
+                <div><label>1</label><input type="number"></div>
+                <div><label>2</label><input type="number"></div>
+                <div><label>3</label><input type="number"></div>
+                <div><label>4</label><input type="number"></div>
+                <div><label>5</label><input type="number"></div>
+                <div><label>6</label><input type="number"></div>
+                <div><label>7</label><input type="number"></div>
+
+                <div><label>8</label><input type="number"></div>
+                <div><label>9</label><input type="number"></div>
+                <div><label>10</label><input type="number"></div>
+                <div><label>11</label><input type="number"></div>
+                <div><label>12</label><input type="number"></div>
+                <div><label>13</label><input type="number"></div>
+                <div><label>14</label><input type="number"></div>
+
+                <div><label>15</label><input type="number"></div>
+                <div><label>16</label><input type="number"></div>
+                <div><label>17</label><input type="number"></div>
+                <div><label>18</label><input type="number"></div>
+                <div><label>19</label><input type="number"></div>
+                <div><label>20</label><input type="number"></div>
+                <div><label>21</label><input type="number"></div>
+
+                <div><label>22</label><input type="number"></div>
+                <div><label>23</label><input type="number"></div>
+                <div><label>24</label><input type="number"></div>
+                <div><label>25</label><input type="number"></div>
+                <div><label>26</label><input type="number"></div>
+                <div><label>27</label><input type="number"></div>
+                <div><label>28</label><input type="number"></div>
+            </div>
+        </div>
+    
+            <div class="total-container">
+                Total: 250 KG
+            </div>
+        
+            <button class="submit-btn">Kirim</button>
+        </div>
+            </div>
+        </div>
 
         <!-- Pagination Section -->
         <hr class="horizontalline1">

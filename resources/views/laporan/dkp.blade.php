@@ -754,7 +754,7 @@
                     <button class="btn export">
                         <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png"
                             alt="export" /> Export</button>
-                    <a href="#" id="openFormBtn" class="btn add">+ Tambah Data</a>
+                    <button id="openFormBtn" class="btn add">+ Tambah Data</button>
                 </div>
             </div>
 
@@ -774,29 +774,66 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($laporandkps as $laporandkp)
                         <tr>
-                            <td>{{ $laporandkp->tanggal }}</td>
-                            <td>{{ $laporandkp->tanggal }}</td>
-                            <td>{{ $laporandkp->activity_type }}</td>
+                            <td>1</td>
+                            <td>12 Agustus 2024</td>
+                            <td>Marcella</td>
+                            <td>Lylia</td>
+                            <td>50</td>
+                            <td>150</td>
                             <td><button id="openModal2">Hasil Timbangan</button></td>
                             <td>
-                                <a href="{{ route('laporan.dkp.edit', $laporandkp->id) }}" class="edit">Edit</a>
-                                <form action="{{ route('laporan.dkp.destroy', $laporandkp->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
+                                <button class="edit">Edit</button>
+                                <button class="delete">Delete</button>
                             </td>
-
                         </tr>
-                        @endforeach
+                        <tr>
+                            <td>1</td>
+                            <td>12 Agustus 2024</td>
+                            <td>Marcella</td>
+                            <td>Lyra</td>
+                            <td>50</td>
+                            <td>150</td>
+                            <td><button id="openModal2">Hasil Timbangan</button></td>
+                            <td>
+                                <button class="edit">Edit</button>
+                                <button class="delete">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>12 Agustus 2024</td>
+                            <td>Marcella</td>
+                            <td>Cilia</td>
+                            <td>50</td>
+                            <td>150</td>
+                            <td><button id="openModal2">Hasil Timbangan</button></td>
+                            <td>
+                                <button class="edit">Edit</button>
+                                <button class="delete">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>12 Agustus 2024</td>
+                            <td>Marcella</td>
+                            <td>Cecilia</td>
+                            <td>50</td>
+                            <td>150</td>
+                            <td><button id="openModal2">Hasil Timbangan</button></td>
+                            <td>
+                                <button class="edit">Edit</button>
+                                <button class="delete">Delete</button>
+                            </td>
+                        </tr>
+                       
+                      
                     </tbody>
                 </table>
             </div>
 
 
-            <!-- Pagination Section -->
+
             <hr class="horizontalline1">
             <div class="pagination-container">
 
@@ -818,7 +855,6 @@
 
             <!-- Modal -->
             <div id="modal" class="modal">
-
                 <div class="modal-content">
                     <div id="modal-back" class="modal-back">
                         <div class="modal-header">
@@ -830,7 +866,7 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="nama-sheller">Nama Sheller</label>
-                                    <input type="text" class="kotak" id="nama-sheller" >
+                                    <input type="text" class="kotak" id="nama-sheller" value="Marcella Corazon">
                                 </div>
                                 <div class="form-group-total">
                                     <label>Total: 250 kg</label>
@@ -849,10 +885,7 @@
                                         <div class="form-group">
                                             <label for="anggota-parer1">Anggota Parer 1</label>
                                             <input type="text" class="kotak" id="anggota-parer1">
-
                                         </div>
-
-
                                         <div class="form-group">
                                             <label for="total-keranjang">Total Keranjang</label>
                                             <input type="number" class="kotak" id="total-keranjang" min="0">
@@ -961,70 +994,7 @@
                         </tbody>
                     </table>
 
-                    <!-- Nama Parer dan Potongan Keranjang (Bagian Kedua) -->
-                    <div class="row2">
-                        <div class="form-group2">
-                            <label for="namaParer2" class="nama-parer2">Nama Parer</label>
-                            <input type="text" id="namaParer2" class="input-nama2">
-                        </div>
-                        <div class="potongan-keranjang2">
-                            <label>Potongan Keranjang</label>
-                            <table class="tabel-potongan2">
-                                <thead>
-                                    <tr>
-                                        <th>Jumlah</th>
-                                        <th>Berat</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>12</td>
-                                        <td>2</td>
-                                        <td>23</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Tabel Hasil (Bagian Kedua) -->
-                    <table class="tabel-hasil2 centered-table2">
-                        <thead>
-                            <tr>
-                                <th>Tanggal</th>
-                                <th>1</th>
-                                <th>2</th>
-                                <th>3</th>
-                                <th>4</th>
-                                <th>5</th>
-                                <th>6</th>
-                                <th>7</th>
-                                <th>8</th>
-                                <th>9</th>
-                                <th>10</th>
-                                <th>11</th>
-                                <th>12</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>2 Januari 2023</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>10</td>
-                                <td>11</td>
-                                <td>12</td>
-                                <td>13</td>
-                            </tr>
+               
                         </tbody>
                     </table>
 
@@ -1036,69 +1006,67 @@
 @endsection
 
 @section('scripts')
-<script>
-    // Get modal and button elements
-    const modal = document.getElementById('modal');
-    const openFormBtn = document.getElementById('openFormBtn');
-    const closeBtn = document.querySelector('.close');
+    <script>
+        // Get modal and button elements
+        const modal = document.getElementById('modal');
+        const openFormBtn = document.getElementById('openFormBtn');
+        const closeBtn = document.querySelector('.close');
 
-    // Open the modal when the "Tambah Data" button is clicked
-    openFormBtn.addEventListener('click', () => {
-        modal.style.display = 'block';
-    });
+        // Open the modal when the "Tambah Data" button is clicked
+        openFormBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+        });
 
-    // Close the modal when the "X" is clicked
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    // Close the modal if user clicks outside the modal content
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
+        // Close the modal when the "X" is clicked
+        closeBtn.addEventListener('click', () => {
             modal.style.display = 'none';
+        });
+
+        // Close the modal if user clicks outside the modal content
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        function openModal2() {
+            const modal2 = document.getElementById('modal2');
+            modal2.style.display = 'block';
         }
-    });
 
-    function openModal2() {
-        const modal2 = document.getElementById('modal2');
-        modal2.style.display = 'block';
-    }
+        function closeModal2() {
+            const modal2 = document.getElementById('modal2');
+            modal2.style.display = 'none';
+        }
+        const openModalButton = document.getElementById('openModal2');
+        if (openModalButton) {
+            openModalButton.addEventListener('click', openModal2);
+        }
+        // Close modal2 when the close button is clicked
+        const closeModalButton = document.getElementById('closeModal2');
+        if (closeModalButton) {
+            closeModalButton.addEventListener('click', closeModal2);
+        }
+        // Add new "Anggota Parer" dynamically
 
-    function closeModal2() {
-        const modal2 = document.getElementById('modal2');
-        modal2.style.display = 'none';
-    }
+        let anggotaCount = 2;
 
-    const openModalButton = document.getElementById('openModal2');
-    if (openModalButton) {
-        openModalButton.addEventListener('click', openModal2);
-    }
+        function addAnggotaParer() {
+            const container = document.getElementById('anggota-parer-container');
+            const anggotaBlock = document.createElement('div');
+            anggotaBlock.classList.add('anggota-block');
 
-    // Close modal2 when the close button is clicked
-    const closeModalButton = document.getElementById('closeModal2');
-    if (closeModalButton) {
-        closeModalButton.addEventListener('click', closeModal2);
-    }
-
-    // Add new "Anggota Parer" dynamically
-    let anggotaCount = 2;
-
-    function addAnggotaParer() {
-        const container = document.getElementById('anggota-parer-container');
-        const anggotaBlock = document.createElement('div');
-        anggotaBlock.classList.add('anggota-block');
-
-        const formRow = `
+            const formRow = `
             <div class="form-row">
                 <div class="form-group">
                     <label for="anggota-parer-${anggotaCount}">Anggota Parer ${anggotaCount}</label>
-                    <input type="text" class="kotak" id="anggota-parer-${anggotaCount}">
+                    <input type="text" style="transform():translateX(-20px);" class="kotak" id="anggota-parer-${anggotaCount}">
                 </div>
                 <div class="form-group">
                     <label for="total-keranjang-${anggotaCount}">Total Keranjang</label>
                     <input type="number" class="kotak" min="0" id="total-keranjang-${anggotaCount}">
-                    <label for="tipe-keranjang-${anggotaCount}">Tipe Keranjang</label>
-                    <select id="tipe-keranjang-${anggotaCount}" class="custom-select">
+                    <label for="tipe-keranjang-${anggotaCount}">Tipe Keranjang </label>
+                    <select class="custom-select id="tipe-keranjang-${anggotaCount}"">
                         <option value="A">Keranjang Besar</option>
                         <option value="B">Keranjang Kecil</option>
                     </select>
@@ -1111,37 +1079,11 @@
             <hr class="hori-line">
         `;
 
-        anggotaBlock.innerHTML = formRow;
-        container.appendChild(anggotaBlock);
+            anggotaBlock.innerHTML = formRow;
+            container.appendChild(anggotaBlock);
 
-        anggotaCount++;
-    }
+            anggotaCount++;
 
-    // Submit form data (for example, to send the data to the server)
-    document.querySelector(".submit-btn").addEventListener("click", function () {
-        let formData = new FormData();
-        formData.append('nama_sheller', document.getElementById("nama-sheller").value);
-        formData.append('tanggal', document.getElementById("tanggal-picker").value);
-        formData.append('anggota_parer1', document.getElementById("anggota-parer1").value);
-        // Append other form data as necessary
-
-        fetch("{{ route('laporan.dkp.store') }}", {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            // Close modal and reset form, if necessary
-            document.getElementById("modal").style.display = "none";
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-    });
-</script>
-
+        }
+    </script>
 @endsection

@@ -501,7 +501,6 @@ input[type="date"] {
    
 }
 
-
 </style>
 
 <div class="mainbar">
@@ -852,15 +851,5 @@ function goToPage(page) {
 
 // Load initial data
 displayData();
-
-
-
-
-
-
-
-
-
-
 
 </script>
