@@ -290,7 +290,7 @@ table td button.delete {
             border-radius: 8px;
             padding: 25px; /* Tambahan padding agar lebih rapi */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 800px; /* Batas maksimal lebar modal */
+            max-width: 100%; /* Batas maksimal lebar modal */
             width: 100%;
             overflow-y: auto;
         }
@@ -299,7 +299,7 @@ table td button.delete {
                 background-color: #D9D9D9;
                 margin: auto;
                 padding: 20px;
-                width: 60%;
+                width: 75%;
                 border-radius: 10px;
                 box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
                 max-width: 90%;
@@ -342,6 +342,26 @@ table td button.delete {
             justify-content: space-between;
             margin-bottom: 20px;
         }
+        .form-row {
+    display: flex;
+    justify-content: space-between; /* Jarak antar kolom */
+    align-items: center; /* Pastikan input sejajar secara vertikal */
+    gap: 20px; /* Jarak antar elemen */
+    flex-wrap: nowrap; /* Tidak membiarkan elemen turun ke baris berikutnya */
+}
+.column {
+    flex: 1; /* Membuat setiap kolom memiliki lebar yang sama */
+    display: flex;
+    flex-direction: column; /* Menumpuk label di atas input */
+    min-width: 150px; /* Memberikan lebar minimum untuk kolom */
+}
+
+.column label {
+    margin-bottom: 5px; /* Jarak antara label dan input */
+    font-size: 14px;
+    color: #636362;
+}
+
 
         .form-container input {
             width: 100%;
@@ -409,7 +429,7 @@ table td button.delete {
     display: grid;
     justify-items: center;
     align-items: center;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     margin: 0 auto; /* Pastikan elemen berada di tengah */
     width: auto; /* Sesuaikan lebar grid dengan isinya */
   
@@ -424,18 +444,18 @@ table td button.delete {
 }
 
 .timbangan-inputs label {
-    font-size: 12px;
+    font-size: 11px;
     color: #636362;
     margin: 0;
     width: 20px; /* Lebar tetap untuk label */
     text-align: right; 
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .timbangan-inputs input {
     text-align: center;
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
@@ -468,42 +488,77 @@ table td button.delete {
 .submit-btn:hover {
     background-color: #aaa;
 }
-.input-field {
-  
-    margin-bottom: 10px;
-    font-size: 14px;
+.input-field, .input-select {
+    width: 100%; /* Mengisi seluruh lebar kolom */
+    padding: 5px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-    width: 60%;
-    height: 45%;
+    box-sizing: border-box; /* Pastikan padding tidak memengaruhi lebar */
+    font-size: 12px;
+    height: 35px;
+}
+.input-select{
+    margin-top: 5px;
+    padding: 8px !important;
 }
 
-.input-select {
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-    width: 60%;
-    height: 45%;
-}
 
 .form-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px; /* Jarak antar elemen */
+    gap: 20px; /* Jarak antar elemen */
 }
 
+.tanggal-container {
+    display: flex; /* Membuat label di sebelah input */
+    align-items: center; /* Menyelaraskan label dan input secara vertikal */
+    gap: 10px; /* Jarak antara label dan input */
+    margin-bottom: 20px;
+    flex: 2; /* Lebar lebih besar dibandingkan sisi kanan */
+}
 
-.input-field, .input-select {
- 
+.tanggal-container label {
     font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
+    color: #636362;
+    white-space: nowrap; /* Mencegah label terpotong */
+}
+
+.tanggal-container .input-field {
+    flex: 1; /* Input mengisi sisa ruang */
+    width: auto;
+    height: 38px; /* Tinggi konsisten */
+}
+
+/* Tata letak sisi kanan */
+.right-container {
+    display: flex;
+    justify-content: flex-end; /* Posisi ke sisi kanan */
+    gap: 20px; /* Jarak antar elemen */
+    flex: 3; /* Lebar sisi kanan */
+}
+
+.right-container .column {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Jarak antara label dan input */
+    min-width: 150px; /* Lebar minimum */
+}
+
+.right-container label {
+    font-size: 14px;
+    color: #636362;
+}
+
+.right-container .input-field,
+.right-container .input-select {
     width: 100%;
-    box-sizing: border-box; /* Pastikan padding tidak memengaruhi lebar */
+    height: 38px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 </style>
@@ -580,10 +635,12 @@ table td button.delete {
     
             <div class="form-container">
                 <div class="form-row">
-                <div class="column">
-                    <label for="tanggal">Tanggal</label>
+                    <div class="tanggal-container">
+                    <label for="tanggal"> Hasil Kerja Tanggal</label>
                     <input type="text" id="tanggal"  class="input-field">
                 </div>
+
+            <div class="right-container">
                 <div class="column">
                     <label for="tipe-keranjang">Tipe Keranjang</label>
                     <select id="tipe-keranjang" class="input-select">
@@ -591,11 +648,15 @@ table td button.delete {
                         <option value="B">Keranjang Kecil</option>
                     </select>
                 </div>
+
                 <div class="column">
                     <label for="total-keranjang">Total Keranjang</label>
                     <input type="text" id="total-keranjang" class="input-field">
                 </div>
             </div>
+           
+
+             </div>
             </div>
     
        
@@ -634,6 +695,31 @@ table td button.delete {
                 <div><label>26</label><input type="number"></div>
                 <div><label>27</label><input type="number"></div>
                 <div><label>28</label><input type="number"></div>
+
+                <div><label>29</label><input type="number"></div>
+                <div><label>30</label><input type="number"></div>
+                <div><label>31</label><input type="number"></div>
+                <div><label>32</label><input type="number"></div>
+                <div><label>33</label><input type="number"></div>
+                <div><label>34</label><input type="number"></div>
+                <div><label>35</label><input type="number"></div>
+
+                <div><label>36</label><input type="number"></div>
+                <div><label>37</label><input type="number"></div>
+                <div><label>38</label><input type="number"></div>
+                <div><label>39</label><input type="number"></div>
+                <div><label>40</label><input type="number"></div>
+                <div><label>41</label><input type="number"></div>
+                <div><label>42</label><input type="number"></div>
+
+                <div><label>43</label><input type="number"></div>
+                <div><label>44</label><input type="number"></div>
+                <div><label>45</label><input type="number"></div>
+                <div><label>46</label><input type="number"></div>
+                <div><label>47</label><input type="number"></div>
+                <div><label>48</label><input type="number"></div>
+                <div><label>49</label><input type="number"></div>
+                <div><label>50</label><input type="number"></div>
             </div>
         </div>
     

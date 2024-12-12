@@ -814,7 +814,6 @@
             </div>
 
 
-            <!-- Modal -->
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <div id="modal-back" class="modal-back">
@@ -822,66 +821,60 @@
                             <h2>FORM INPUT HASIL KERJA SHELLER - PARER ( DKP )</h2>
                             <span class="close">&times;</span>
                         </div>
-                        <form id="dkpForm" action="{{ route('laporan.dkp.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="id" id="record_id">
-                            <div class="form-container">
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="nama_sheller">Nama Sheller</label>
-                                        <input type="text" class="kotak" id="nama_sheller">
-                                    </div>
-                                    <div class="form-group-total">
-                                        <label>Total: 250 kg</label>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="tanggal">Pilih Tanggal</label>
-                                        <input type="date" id="tanggal">
-                                    </div>
+            
+                        <div class="form-container">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nama-sheller-1">Nama Sheller</label>
+                                    <input type="text" class="kotak" id="nama-sheller-1" name="nama_sheller[]" value="Marcella Corazon">
                                 </div>
-
-                                <!-- Container utama untuk anggota parer -->
-                                <div id="anggota-parer-container">
-                                    <div class="anggota-block">
-                                        <div class="form-row">
-                                            <div class="form-group">
-                                                <label for="nama_parer">Anggota Parer 1</label>
-                                                <input type="text" class="kotak" id="nama_parer">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="total_keranjang">Total Keranjang</label>
-                                                <input type="number" class="kotak" id="total_keranjang" min="0">
-
-                                                <label for="tipe_keranjang">Tipe Keranjang</label>
-                                                <select id="tipe_keranjang" class="custom-select">
-                                                    <option value="Keranjang Besa">Keranjang Besar</option>
-                                                    <option value="Keranjang Kecil">Keranjang Kecil</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <span class="label-timbangan">Hasil Timbangan DKP</span>
-                                        <div class="basket-container">
-                                            <!-- Input Basket -->
-                                            @for ($i = 0; $i < 12; $i++)
-                                                <input class="basket-input" id="hasil_kerja_parer" type="text" value="">
-                                            @endfor
-                                        </div>
-                                        <hr class="hori-line">
-                                    </div>
+                                <div class="form-group-total">
+                                    <label>Total: 250 kg</label>
                                 </div>
-
-                                <div class="action-buttons">
-                                    <button class="add-member-btn" onclick="addAnggotaParer()">+ Anggota Parer</button>
-                                    <button class="submit-btn">Kirim</button>
+            
+                                <div class="form-group">
+                                    <label for="tanggal-picker">Pilih Tanggal</label>
+                                    <input type="date" id="tanggal-picker" name="tanggal">
                                 </div>
                             </div>
-                        </form>
+            
+                            <!-- Container utama untuk anggota parer -->
+                            <div id="anggota-parer-container">
+                                <div class="anggota-block">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="anggota-parer-1">Anggota Parer 1</label>
+                                            <input type="text" class="kotak" id="anggota-parer-1" name="anggota_parer[]">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="total-keranjang-1">Total Keranjang</label>
+                                            <input type="number" class="kotak" id="total-keranjang-1" name="total_keranjang[]" min="0">
+            
+                                            <label for="tipe-keranjang-1">Tipe Keranjang</label>
+                                            <select id="tipe-keranjang-1" class="custom-select" name="tipe_keranjang[]">
+                                                <option value="A">Keranjang Besar</option>
+                                                <option value="B">Keranjang Kecil</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <span class="label-timbangan">Hasil Timbangan DKP</span>
+                                    <div class="basket-container">
+                                        @for ($i = 0; $i < 12; $i++)
+                                            <input class="basket-input" type="text" name="hasil_kerja_parer[]" value="">
+                                        @endfor
+                                    </div>
+                                    <hr class="hori-line">
+                                </div>
+                            </div>
+            
+                            <div class="action-buttons">
+                                <button type="button" class="add-member-btn" onclick="addAnggotaParer()">+ Anggota Parer</button>
+                                <button type="submit" class="submit-btn">Kirim</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
         <!-- Modal kedua -->
         <div class="modal2" id="modal2">
             <div class="modal-back2">
@@ -1051,45 +1044,53 @@
         }
 
         // Variabel penghitung untuk anggota "Parer"
-        let anggotaCount = 2;
+        let anggotaCount = 2; // Mulai dari 2 karena elemen pertama sudah ada
 
-        // Fungsi untuk menambahkan anggota "Parer" baru secara dinamis
-        function addAnggotaParer() {
-            const container = document.getElementById('anggota-parer-container');
-            const anggotaBlock = document.createElement('div');
-            anggotaBlock.classList.add('anggota-block');
+function addAnggotaParer() {
+    const container = document.getElementById('anggota-parer-container');
+    const anggotaBlock = document.createElement('div');
+    anggotaBlock.classList.add('anggota-block');
 
-            // Template untuk baris form anggota "Parer"
-            const formRow = `
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="anggota-parer-${anggotaCount}">Anggota Parer ${anggotaCount}</label>
-                        <input type="text" class="kotak" id="anggota-parer-${anggotaCount}">
-                    </div>
-                    <div class="form-group">
-                        <label for="total-keranjang-${anggotaCount}">Total Keranjang</label>
-                        <input type="number" class="kotak" min="0" id="total-keranjang-${anggotaCount}">
-                        <label for="tipe-keranjang-${anggotaCount}">Tipe Keranjang </label>
-                        <select class="custom-select" id="tipe-keranjang-${anggotaCount}">
-                            <option value="A">Keranjang Besar</option>
-                            <option value="B">Keranjang Kecil</option>
-                        </select>
-                    </div>
-                </div>
-                <span class="label-timbangan">Hasil Timbangan DKP</span>
-                <div class="basket-container">
-                    ${new Array(12).fill('<input class="basket-input" type="text" value="">').join('')}
-                </div>
-                <hr class="hori-line">
-            `;
+    // Template untuk baris anggota baru
+    const formRow = `
+        <div class="form-row">
+            <div class="form-group">
+                <label for="nama-sheller-${anggotaCount}">Nama Sheller</label>
+                <input type="text" class="kotak" id="nama-sheller-${anggotaCount}" name="nama_sheller[]" value="">
+            </div>
+            <div class="form-group-total">
+                <label>Total: 250 kg</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="anggota-parer-${anggotaCount}">Anggota Parer ${anggotaCount}</label>
+                <input type="text" class="kotak" id="anggota-parer-${anggotaCount}" name="anggota_parer[]">
+            </div>
+            <div class="form-group">
+                <label for="total-keranjang-${anggotaCount}">Total Keranjang</label>
+                <input type="number" class="kotak" id="total-keranjang-${anggotaCount}" name="total_keranjang[]" min="0">
+                <label for="tipe-keranjang-${anggotaCount}">Tipe Keranjang</label>
+                <select id="tipe-keranjang-${anggotaCount}" class="custom-select" name="tipe_keranjang[]">
+                    <option value="A">Keranjang Besar</option>
+                    <option value="B">Keranjang Kecil</option>
+                </select>
+            </div>
+        </div>
+        <span class="label-timbangan">Hasil Timbangan DKP</span>
+        <div class="basket-container">
+            ${new Array(12).fill('<input class="basket-input" type="text" name="hasil_kerja_parer[]" value="">').join('')}
+        </div>
+        <hr class="hori-line">
+    `;
 
-            // Masukkan template ke dalam elemen baru
-            anggotaBlock.innerHTML = formRow;
-            container.appendChild(anggotaBlock);
+    // Tambahkan baris ke container
+    anggotaBlock.innerHTML = formRow;
+    container.appendChild(anggotaBlock);
 
-            // Increment penghitung anggota
-            anggotaCount++;
-        }
+    // Tambah penghitung anggota
+    anggotaCount++;
+}
 
         document.querySelector('.submit-btn').addEventListener('click', () => {
             const formData = new FormData();
