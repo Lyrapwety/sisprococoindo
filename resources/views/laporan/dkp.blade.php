@@ -751,7 +751,7 @@
                     <i class="fas fa-search"></i> <!-- Ikon pencarian (search icon) -->
                 </div>
                 <div class="actions">
-                    @if (session('success'))
+                            @if (session('success'))
                                 <div class="alert alert-success">
                                     {{ session('success') }}
                                 </div>
@@ -1093,51 +1093,51 @@
         // Variabel penghitung untuk anggota "Parer"
         let anggotaCount = 2; // Mulai dari 2 karena elemen pertama sudah ada
 
-function addAnggotaParer() {
-    const container = document.getElementById('anggota-parer-container');
-    const anggotaBlock = document.createElement('div');
-    anggotaBlock.classList.add('anggota-block');
+        function addAnggotaParer() {
+            const container = document.getElementById('anggota-parer-container');
+            const anggotaBlock = document.createElement('div');
+            anggotaBlock.classList.add('anggota-block');
 
-    // Template untuk baris anggota baru
-    const formRow = `
-        <div class="form-row">
-            <div class="form-group">
-                <label for="nama-sheller-${anggotaCount}">Nama Sheller</label>
-                <input type="text" class="kotak" id="nama-sheller-${anggotaCount}" name="nama_sheller[]" value="">
-            </div>
-            <div class="form-group-total">
-                <label>Total: 250 kg</label>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="anggota-parer-${anggotaCount}">Anggota Parer ${anggotaCount}</label>
-                <input type="text" class="kotak" id="anggota-parer-${anggotaCount}" name="anggota_parer[]">
-            </div>
-            <div class="form-group">
-                <label for="total-keranjang-${anggotaCount}">Total Keranjang</label>
-                <input type="number" class="kotak" id="total-keranjang-${anggotaCount}" name="total_keranjang[]" min="0">
-                <label for="tipe-keranjang-${anggotaCount}">Tipe Keranjang</label>
-                <select id="tipe-keranjang-${anggotaCount}" class="custom-select" name="tipe_keranjang[]">
-                    <option value="A">Keranjang Besar</option>
-                    <option value="B">Keranjang Kecil</option>
-                </select>
-            </div>
-        </div>
-        <span class="label-timbangan">Hasil Timbangan DKP</span>
-        <div class="basket-container">
-            ${new Array(12).fill('<input class="basket-input" type="text" name="hasil_kerja_parer[]" value="">').join('')}
-        </div>
-        <hr class="hori-line">
-    `;
+            // Template untuk baris anggota baru
+            const formRow = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nama-sheller-${anggotaCount}">Nama Sheller</label>
+                        <input type="text" class="kotak" id="nama-sheller-${anggotaCount}" name="nama_sheller[]" value="">
+                    </div>
+                    <div class="form-group-total">
+                        <label>Total: 250 kg</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="anggota-parer-${anggotaCount}">Anggota Parer ${anggotaCount}</label>
+                        <input type="text" class="kotak" id="anggota-parer-${anggotaCount}" name="anggota_parer[]">
+                    </div>
+                    <div class="form-group">
+                        <label for="total-keranjang-${anggotaCount}">Total Keranjang</label>
+                        <input type="number" class="kotak" id="total-keranjang-${anggotaCount}" name="total_keranjang[]" min="0">
+                        <label for="tipe-keranjang-${anggotaCount}">Tipe Keranjang</label>
+                        <select id="tipe-keranjang-${anggotaCount}" class="custom-select" name="tipe_keranjang[]">
+                            <option value="A">Keranjang Besar</option>
+                            <option value="B">Keranjang Kecil</option>
+                        </select>
+                    </div>
+                </div>
+                <span class="label-timbangan">Hasil Timbangan DKP</span>
+                <div class="basket-container">
+                    ${new Array(12).fill('<input class="basket-input" type="text" name="hasil_kerja_parer[]" value="">').join('')}
+                </div>
+                <hr class="hori-line">
+            `;
 
-    // Tambahkan baris ke container
-    anggotaBlock.innerHTML = formRow;
-    container.appendChild(anggotaBlock);
+            // Tambahkan baris ke container
+            anggotaBlock.innerHTML = formRow;
+            container.appendChild(anggotaBlock);
 
-    // Tambah penghitung anggota
-    anggotaCount++;
-}
+            // Tambah penghitung anggota
+            anggotaCount++;
+        }
 
         document.querySelector('.submit-btn').addEventListener('click', () => {
             const formData = new FormData();

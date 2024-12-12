@@ -39,9 +39,9 @@ Route::get('/laporan/tempurung', [LaporanController::class, 'tempurung'])->name(
 //dkp reject
 Route::prefix('laporan')->name('laporan.')->group(function () {
     Route::resource('dkp_reject', LaporandkprejectController::class);
-    Route::get('dkp/create', [LaporandkprejectController::class, 'create'])->name('dkp.create');
-    Route::post('dkp', [LaporandkprejectController::class, 'store'])->name('dkp.store');
-    Route::delete('dkp/{id}', [LaporandkprejectController::class, 'destroy'])->name('dkp.destroy');
+    Route::get('dkp_reject/create', [LaporandkprejectController::class, 'create'])->name('dkp.create');
+    Route::post('dkp_reject', [LaporandkprejectController::class, 'store'])->name('dkp_reject.store');
+    Route::delete('dkp_reject/{id}', [LaporandkprejectController::class, 'destroy'])->name('dkp_reject.destroy');
 });
 
 
