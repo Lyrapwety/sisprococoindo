@@ -774,60 +774,21 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($laporandkps as $laporandkp)
                         <tr>
-                            <td>1</td>
-                            <td>12 Agustus 2024</td>
-                            <td>Marcella</td>
-                            <td>Lylia</td>
-                            <td>50</td>
-                            <td>150</td>
-                            <td><button id="openModal2">Hasil Timbangan</button></td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $laporandkp->tanggal }}</td>
+                            <td>{{ $laporandkp->nama_sheller }}</td>
+                            <td>{{ $laporandkp->nama_parer }}</td>
+                            <td>{{ $laporandkp->hasil_kerja_parer }}</td>
+                            <td>{{ $laporandkp->hasil_kerja_sheller }}</td>
+                            <td><button class="detail-btn" data-id="{{ $laporandkp->id }}">Hasil Timbangan</button></td>
                             <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
+                                <button class="edit-btn" data-id="{{ $laporandkp->id }}">Edit</button>
+                                <button class="delete-btn" data-id="{{ $laporandkp->id }}">Delete</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>12 Agustus 2024</td>
-                            <td>Marcella</td>
-                            <td>Lyra</td>
-                            <td>50</td>
-                            <td>150</td>
-                            <td><button id="openModal2">Hasil Timbangan</button></td>
-                            <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>12 Agustus 2024</td>
-                            <td>Marcella</td>
-                            <td>Cilia</td>
-                            <td>50</td>
-                            <td>150</td>
-                            <td><button id="openModal2">Hasil Timbangan</button></td>
-                            <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>12 Agustus 2024</td>
-                            <td>Marcella</td>
-                            <td>Cecilia</td>
-                            <td>50</td>
-                            <td>150</td>
-                            <td><button id="openModal2">Hasil Timbangan</button></td>
-                            <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
-                            </td>
-                        </tr>
-                       
-                      
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -861,58 +822,61 @@
                             <h2>FORM INPUT HASIL KERJA SHELLER - PARER ( DKP )</h2>
                             <span class="close">&times;</span>
                         </div>
-
-                        <div class="form-container">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="nama-sheller">Nama Sheller</label>
-                                    <input type="text" class="kotak" id="nama-sheller" value="Marcella Corazon">
-                                </div>
-                                <div class="form-group-total">
-                                    <label>Total: 250 kg</label>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="tanggal-picker">Pilih Tanggal</label>
-                                    <input type="date" id="tanggal-picker">
-                                </div>
-                            </div>
-
-                            <!-- Container utama untuk anggota parer -->
-                            <div id="anggota-parer-container">
-                                <div class="anggota-block">
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="anggota-parer1">Anggota Parer 1</label>
-                                            <input type="text" class="kotak" id="anggota-parer1">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="total-keranjang">Total Keranjang</label>
-                                            <input type="number" class="kotak" id="total-keranjang" min="0">
-
-                                            <label for="tipe-keranjang">Tipe Keranjang</label>
-                                            <select id="tipe-keranjang" class="custom-select">
-                                                <option value="A">Keranjang Besar</option>
-                                                <option value="B">Keranjang Kecil</option>
-                                            </select>
-                                        </div>
+                        <form id="dkpForm" action="{{ route('laporan.dkp.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="id" id="record_id">
+                            <div class="form-container">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="nama_sheller">Nama Sheller</label>
+                                        <input type="text" class="kotak" id="nama_sheller">
                                     </div>
-                                    <span class="label-timbangan">Hasil Timbangan DKP</span>
-                                    <div class="basket-container">
-                                        <!-- Input Basket -->
-                                        @for ($i = 0; $i < 12; $i++)
-                                            <input class="basket-input" type="text" value="">
-                                        @endfor
+                                    <div class="form-group-total">
+                                        <label>Total: 250 kg</label>
                                     </div>
-                                    <hr class="hori-line">
+
+                                    <div class="form-group">
+                                        <label for="tanggal">Pilih Tanggal</label>
+                                        <input type="date" id="tanggal">
+                                    </div>
+                                </div>
+
+                                <!-- Container utama untuk anggota parer -->
+                                <div id="anggota-parer-container">
+                                    <div class="anggota-block">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="nama_parer">Anggota Parer 1</label>
+                                                <input type="text" class="kotak" id="nama_parer">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="total_keranjang">Total Keranjang</label>
+                                                <input type="number" class="kotak" id="total_keranjang" min="0">
+
+                                                <label for="tipe_keranjang">Tipe Keranjang</label>
+                                                <select id="tipe_keranjang" class="custom-select">
+                                                    <option value="Keranjang Besa">Keranjang Besar</option>
+                                                    <option value="Keranjang Kecil">Keranjang Kecil</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <span class="label-timbangan">Hasil Timbangan DKP</span>
+                                        <div class="basket-container">
+                                            <!-- Input Basket -->
+                                            @for ($i = 0; $i < 12; $i++)
+                                                <input class="basket-input" id="hasil_kerja_parer" type="text" value="">
+                                            @endfor
+                                        </div>
+                                        <hr class="hori-line">
+                                    </div>
+                                </div>
+
+                                <div class="action-buttons">
+                                    <button class="add-member-btn" onclick="addAnggotaParer()">+ Anggota Parer</button>
+                                    <button class="submit-btn">Kirim</button>
                                 </div>
                             </div>
-
-                            <div class="action-buttons">
-                                <button class="add-member-btn" onclick="addAnggotaParer()">+ Anggota Parer</button>
-                                <button class="submit-btn">Kirim</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -994,7 +958,7 @@
                         </tbody>
                     </table>
 
-               
+
                         </tbody>
                     </table>
 
@@ -1007,83 +971,162 @@
 
 @section('scripts')
     <script>
-        // Get modal and button elements
+        // Open modal for adding a new record
+        document.getElementById('openFormBtn').addEventListener('click', () => {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'block';
+            document.getElementById('dkpForm').reset();
+            document.getElementById('record_id').value = ''; // Reset hidden input
+        });
+
+        // Handle edit button click
+        document.querySelectorAll('.edit-btn').forEach((button) => {
+            button.addEventListener('click', async (event) => {
+                const id = event.target.dataset.id;
+                const modal = document.getElementById('modal');
+
+                // Fetch record data
+                const response = await fetch(`/laporan/dkp/${id}/edit`);
+                const data = await response.json();
+
+                // Populate modal fields
+                document.getElementById('record_id').value = data.id;
+                document.getElementById('tanggal').value = data.tanggal;
+                document.getElementById('nama_sheller').value = data.nama_sheller;
+                document.getElementById('nama_parer').value = data.nama_parer;
+
+                // Show modal
+                modal.style.display = 'block';
+            });
+        });
+
+        // Close modal
+        document.querySelector('.close').addEventListener('click', () => {
+            document.getElementById('modal').style.display = 'none';
+        });
+
         const modal = document.getElementById('modal');
         const openFormBtn = document.getElementById('openFormBtn');
         const closeBtn = document.querySelector('.close');
 
-        // Open the modal when the "Tambah Data" button is clicked
+        // Fungsi untuk membuka modal utama
         openFormBtn.addEventListener('click', () => {
             modal.style.display = 'block';
         });
 
-        // Close the modal when the "X" is clicked
+        // Fungsi untuk menutup modal utama
         closeBtn.addEventListener('click', () => {
             modal.style.display = 'none';
         });
 
-        // Close the modal if user clicks outside the modal content
+        // Fungsi untuk menutup modal jika pengguna klik di luar konten modal
         window.addEventListener('click', (event) => {
             if (event.target === modal) {
                 modal.style.display = 'none';
             }
         });
 
+        // Fungsi untuk membuka modal kedua (modal2)
         function openModal2() {
             const modal2 = document.getElementById('modal2');
             modal2.style.display = 'block';
         }
 
+        // Fungsi untuk menutup modal kedua (modal2)
         function closeModal2() {
             const modal2 = document.getElementById('modal2');
             modal2.style.display = 'none';
         }
+
+        // Tambahkan event listener untuk tombol yang membuka modal kedua
         const openModalButton = document.getElementById('openModal2');
         if (openModalButton) {
             openModalButton.addEventListener('click', openModal2);
         }
-        // Close modal2 when the close button is clicked
+
+        // Tambahkan event listener untuk tombol yang menutup modal kedua
         const closeModalButton = document.getElementById('closeModal2');
         if (closeModalButton) {
             closeModalButton.addEventListener('click', closeModal2);
         }
-        // Add new "Anggota Parer" dynamically
 
+        // Variabel penghitung untuk anggota "Parer"
         let anggotaCount = 2;
 
+        // Fungsi untuk menambahkan anggota "Parer" baru secara dinamis
         function addAnggotaParer() {
             const container = document.getElementById('anggota-parer-container');
             const anggotaBlock = document.createElement('div');
             anggotaBlock.classList.add('anggota-block');
 
+            // Template untuk baris form anggota "Parer"
             const formRow = `
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="anggota-parer-${anggotaCount}">Anggota Parer ${anggotaCount}</label>
-                    <input type="text" style="transform():translateX(-20px);" class="kotak" id="anggota-parer-${anggotaCount}">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="anggota-parer-${anggotaCount}">Anggota Parer ${anggotaCount}</label>
+                        <input type="text" class="kotak" id="anggota-parer-${anggotaCount}">
+                    </div>
+                    <div class="form-group">
+                        <label for="total-keranjang-${anggotaCount}">Total Keranjang</label>
+                        <input type="number" class="kotak" min="0" id="total-keranjang-${anggotaCount}">
+                        <label for="tipe-keranjang-${anggotaCount}">Tipe Keranjang </label>
+                        <select class="custom-select" id="tipe-keranjang-${anggotaCount}">
+                            <option value="A">Keranjang Besar</option>
+                            <option value="B">Keranjang Kecil</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="total-keranjang-${anggotaCount}">Total Keranjang</label>
-                    <input type="number" class="kotak" min="0" id="total-keranjang-${anggotaCount}">
-                    <label for="tipe-keranjang-${anggotaCount}">Tipe Keranjang </label>
-                    <select class="custom-select id="tipe-keranjang-${anggotaCount}"">
-                        <option value="A">Keranjang Besar</option>
-                        <option value="B">Keranjang Kecil</option>
-                    </select>
+                <span class="label-timbangan">Hasil Timbangan DKP</span>
+                <div class="basket-container">
+                    ${new Array(12).fill('<input class="basket-input" type="text" value="">').join('')}
                 </div>
-            </div>
-            <span class="label-timbangan">Hasil Timbangan DKP</span>
-            <div class="basket-container">
-                ${new Array(12).fill('<input class="basket-input" type="text" value="">').join('')}
-            </div>
-            <hr class="hori-line">
-        `;
+                <hr class="hori-line">
+            `;
 
+            // Masukkan template ke dalam elemen baru
             anggotaBlock.innerHTML = formRow;
             container.appendChild(anggotaBlock);
 
+            // Increment penghitung anggota
             anggotaCount++;
-
         }
+
+        document.querySelector('.submit-btn').addEventListener('click', () => {
+            const formData = new FormData();
+
+            formData.append('tanggal', document.getElementById('tanggal').value);
+            formData.append('nama_sheller', document.getElementById('nama_sheller').value);
+
+            // Loop untuk anggota parer
+            const anggotaParerBlocks = document.querySelectorAll('.anggota-block');
+            anggotaParerBlocks.forEach((block, index) => {
+                formData.append(`nama_parer[${index}]`, block.querySelector('[name="nama_parer[]"]').value);
+                formData.append(`total_keranjang[${index}]`, block.querySelector('[name="total_keranjang[]"]').value);
+                formData.append(`tipe_keranjang[${index}]`, block.querySelector('[name="tipe_keranjang[]"]').value);
+
+                const hasilKerjaInputs = block.querySelectorAll('[name="hasil_kerja_parer[]"]');
+                hasilKerjaInputs.forEach((input, basketIndex) => {
+                    formData.append(`hasil_kerja_parer[${index}][${basketIndex}]`, input.value);
+                });
+            });
+
+            fetch('/laporandkp/store', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                },
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Data berhasil ditambahkan!');
+                        location.reload();
+                    } else {
+                        alert('Terjadi kesalahan, coba lagi.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
     </script>
 @endsection
