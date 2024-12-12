@@ -751,9 +751,16 @@
                     <i class="fas fa-search"></i> <!-- Ikon pencarian (search icon) -->
                 </div>
                 <div class="actions">
+                    @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
                     <button class="btn export">
                         <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png"
                             alt="export" /> Export</button>
+
+
                     <button id="openFormBtn" class="btn add">+ Tambah Data</button>
                 </div>
             </div>
@@ -782,10 +789,14 @@
                             <td>{{ $laporandkp->nama_parer }}</td>
                             <td>{{ $laporandkp->hasil_kerja_parer }}</td>
                             <td>{{ $laporandkp->hasil_kerja_sheller }}</td>
-                            <td><button class="detail-btn" data-id="{{ $laporandkp->id }}">Hasil Timbangan</button></td>
+                            <td><button class="detail-btn" id="openModal2" data-id="{{ $laporandkp->id }}">Hasil Timbangan</button></td>
                             <td>
                                 <button class="edit-btn" data-id="{{ $laporandkp->id }}">Edit</button>
-                                <button class="delete-btn" data-id="{{ $laporandkp->id }}">Delete</button>
+                                <form action="{{ route('laporan.dkp.destroy', $laporandkp->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="delete-btn" data-id="{{ $laporandkp->id }}">Delete</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -821,60 +832,96 @@
                             <h2>FORM INPUT HASIL KERJA SHELLER - PARER ( DKP )</h2>
                             <span class="close">&times;</span>
                         </div>
-            
-                        <div class="form-container">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="nama-sheller-1">Nama Sheller</label>
-                                    <input type="text" class="kotak" id="nama-sheller-1" name="nama_sheller[]" value="Marcella Corazon">
-                                </div>
-                                <div class="form-group-total">
-                                    <label>Total: 250 kg</label>
-                                </div>
-            
-                                <div class="form-group">
-                                    <label for="tanggal-picker">Pilih Tanggal</label>
-                                    <input type="date" id="tanggal-picker" name="tanggal">
-                                </div>
-                            </div>
-            
-                            <!-- Container utama untuk anggota parer -->
-                            <div id="anggota-parer-container">
-                                <div class="anggota-block">
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="anggota-parer-1">Anggota Parer 1</label>
-                                            <input type="text" class="kotak" id="anggota-parer-1" name="anggota_parer[]">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="total-keranjang-1">Total Keranjang</label>
-                                            <input type="number" class="kotak" id="total-keranjang-1" name="total_keranjang[]" min="0">
-            
-                                            <label for="tipe-keranjang-1">Tipe Keranjang</label>
-                                            <select id="tipe-keranjang-1" class="custom-select" name="tipe_keranjang[]">
-                                                <option value="A">Keranjang Besar</option>
-                                                <option value="B">Keranjang Kecil</option>
-                                            </select>
-                                        </div>
+                        <form action="{{ route('laporan.dkp.store') }}" method="POST" enctype="multipart/form-data">
+
+                            @csrf
+                            <input type="hidden" name="id" id="id">
+                            <div class="form-container">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="nama-sheller-1">Nama Sheller</label>
+                                        <input type="text" class="form-control @error('nama_sheller') is-invalid @enderror" id="nama_sheller" name="nama_sheller" value="{{ old('nama_sheller') }}">
+                                        @error('nama_sheller')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-                                    <span class="label-timbangan">Hasil Timbangan DKP</span>
-                                    <div class="basket-container">
-                                        @for ($i = 0; $i < 12; $i++)
-                                            <input class="basket-input" type="text" name="hasil_kerja_parer[]" value="">
-                                        @endfor
+                                    <div class="form-group-total">
+                                        <label>Total: 250 kg</label>
                                     </div>
-                                    <hr class="hori-line">
+
+                                    <div class="form-group">
+                                        <label for="tanggal-picker">Pilih Tanggal</label>
+                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
+                                        @error('tanggal')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <!-- Container utama untuk anggota parer -->
+                                <div id="anggota-parer-container">
+                                    <div class="anggota-block">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="anggota-parer-1">Anggota Parer 1</label>
+                                                <input type="text" class="form-control @error('nama_parer') is-invalid @enderror" id="nama_parer" name="nama_parer" value="{{ old('nama_parer') }}">
+                                                @error('nama_parer')
+                                                    <div class="alert alert-danger mt-2">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="total-keranjang-1">Total Keranjang</label>
+                                                <input type="number" class="form-control @error('total_keranjang') is-invalid @enderror" id="total_keranjang" name="total_keranjang" value="{{ old('total_keranjang') }}" min="0">
+                                                @error('total_keranjang')
+                                                    <div class="alert alert-danger mt-2">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tipe-keranjang-1">Tipe Keranjang</label>
+                                                <select id="tipe_keranjang" class="form-control @error('tipe_keranjang') is-invalid @enderror" name="tipe_keranjang" value="{{ old('tipe_keranjang') }}" >
+                                                    <option value="Keranjang Besar">Keranjang Besar</option>
+                                                    <option value="Keranjang Kecil">Keranjang Kecil</option>
+                                                </select>
+                                                @error('tipe_keranjang')
+                                                    <div class="alert alert-danger mt-2">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <span class="label-timbangan">Hasil Timbangan DKP</span>
+                                        <div class="basket-container">
+                                            @for ($i = 0; $i < 12; $i++)
+                                                <input class="basket-input" type="text" name="hasil_kerja_parer" id="hasil_kerja_parer" value="{{ old('hasil_kerja_parer') }}">
+                                            @endfor
+                                            @error('hasil_kerja_parer')
+                                                    <div class="alert alert-danger mt-2">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                        </div>
+                                        <hr class="hori-line">
+                                    </div>
+                                </div>
+
+                                <div class="action-buttons">
+                                    <button type="button" class="add-member-btn" onclick="addAnggotaParer()">+ Anggota Parer</button>
+                                    <button type="submit" class="submit-btn">Kirim</button>
                                 </div>
                             </div>
-            
-                            <div class="action-buttons">
-                                <button type="button" class="add-member-btn" onclick="addAnggotaParer()">+ Anggota Parer</button>
-                                <button type="submit" class="submit-btn">Kirim</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
+
         <!-- Modal kedua -->
         <div class="modal2" id="modal2">
             <div class="modal-back2">

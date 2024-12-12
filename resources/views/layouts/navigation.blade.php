@@ -203,7 +203,7 @@
         </button>
         <div class="dropdown-container">
             <a href="{{ route('laporan.dkp.index') }}">DKP</a>
-            <a href="{{ route('laporan.dkp_reject') }}">DKP Reject</a>
+            <a href="{{ route('laporan.dkp_reject.index') }}">DKP Reject</a>
             <a href="{{ route('laporan.kulitari') }}">Kulit Ari </a>
             <a href="{{ route('laporan.airkelapa') }}">Air Kelapa</a>
             <a href="{{ route('laporan.tempurung') }}">Tempurung</a>

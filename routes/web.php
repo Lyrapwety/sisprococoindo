@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LaporandkpController;
+use App\Http\Controllers\LaporandkprejectController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\StockController;
@@ -29,12 +30,19 @@ Route::prefix('laporan')->name('laporan.')->group(function () {
     Route::get('dkp/create', [LaporandkpController::class, 'create'])->name('dkp.create');
     Route::post('dkp', [LaporandkpController::class, 'store'])->name('dkp.store');
     Route::delete('dkp/{id}', [LaporandkpController::class, 'destroy'])->name('dkp.destroy');
-
 });
+
 Route::get('/laporan/kulitari', [LaporanController::class, 'kulitari'])->name('laporan.kulitari');
 Route::get('/laporan/airkelapa', [LaporanController::class, 'airkelapa'])->name('laporan.airkelapa');
 Route::get('/laporan/tempurung', [LaporanController::class, 'tempurung'])->name('laporan.tempurung');
-Route::get('/laporan/dkp_reject', [LaporanController::class, 'dkp_reject'])->name('laporan.dkp_reject');
+
+//dkp reject
+Route::prefix('laporan')->name('laporan.')->group(function () {
+    Route::resource('dkp_reject', LaporandkprejectController::class);
+    Route::get('dkp/create', [LaporandkprejectController::class, 'create'])->name('dkp.create');
+    Route::post('dkp', [LaporandkprejectController::class, 'store'])->name('dkp.store');
+    Route::delete('dkp/{id}', [LaporandkprejectController::class, 'destroy'])->name('dkp.destroy');
+});
 
 
 
