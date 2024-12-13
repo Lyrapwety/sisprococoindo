@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LaporandkpController;
 use App\Http\Controllers\LaporandkprejectController;
+use App\Http\Controllers\LaporankulitariController;
 use App\Http\Controllers\RekapController;
 use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\LaporanairkelapaController;
 
 
 Route::get('/', function () {
@@ -25,24 +27,35 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//laporan view
 Route::prefix('laporan')->name('laporan.')->group(function () {
+    //laporan dkp
     Route::resource('dkp', LaporandkpController::class);
     Route::get('dkp/create', [LaporandkpController::class, 'create'])->name('dkp.create');
     Route::post('dkp', [LaporandkpController::class, 'store'])->name('dkp.store');
     Route::delete('dkp/{id}', [LaporandkpController::class, 'destroy'])->name('dkp.destroy');
-});
 
-Route::get('/laporan/kulitari', [LaporanController::class, 'kulitari'])->name('laporan.kulitari');
-Route::get('/laporan/airkelapa', [LaporanController::class, 'airkelapa'])->name('laporan.airkelapa');
-Route::get('/laporan/tempurung', [LaporanController::class, 'tempurung'])->name('laporan.tempurung');
-
-//dkp reject
-Route::prefix('laporan')->name('laporan.')->group(function () {
+    //dkp reject
     Route::resource('dkp_reject', LaporandkprejectController::class);
     Route::get('dkp_reject/create', [LaporandkprejectController::class, 'create'])->name('dkp.create');
     Route::post('dkp_reject', [LaporandkprejectController::class, 'store'])->name('dkp_reject.store');
     Route::delete('dkp_reject/{id}', [LaporandkprejectController::class, 'destroy'])->name('dkp_reject.destroy');
+
+    //kulit ari laporan
+    Route::resource('kulitari', LaporankulitariController::class);
+    Route::get('kulitari/create', [LaporankulitariController::class, 'create'])->name('kulitari.create');
+    Route::post('kulitari', [LaporankulitariController::class, 'store'])->name('kulitari.store');
+    Route::delete('kulitari/{id}', [LaporankulitariController::class, 'destroy'])->name('kulitari.destroy');
+
+    //air kelapa laporan
+    Route::resource('airkelapa', LaporanairkelapaController::class);
+    Route::get('airkelapa/create', [LaporanairkelapaController::class, 'create'])->name('airkelapa.create');
+    Route::post('airkelapa', [LaporanairkelapaController::class, 'store'])->name('airkelapa.store');
+    Route::delete('airkelapa/{id}', [LaporanairkelapaController::class, 'destroy'])->name('airkelapa.destroy');
 });
+
+Route::get('/laporan/tempurung', [LaporanController::class, 'tempurung'])->name('laporan.tempurung');
+
 
 
 
