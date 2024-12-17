@@ -114,9 +114,7 @@
     background-color: #71bc74;
     transform: translateX(-2px);
     
-   
 }
-
 .filters .actions .btn.export {
     background-color: #e0b063;
     transform: translateX(-2px);
@@ -256,7 +254,6 @@ table td button.delete {
         align-items: center; /* Mengatur ikon dan teks dalam satu baris */
         color: white; /* Mengatur warna teks menjadi putih */
         border: none; /* Menghapus border default */
-         /* Menambahkan padding */
         cursor: pointer; /* Menambahkan kursor pointer */
     }
 
@@ -272,7 +269,7 @@ table td button.delete {
 }
 
 .modal {
-            display: block;
+            display: none;
             position: fixed;
             z-index: 999;
             left: 0;
@@ -299,7 +296,7 @@ table td button.delete {
                 background-color: #D9D9D9;
                 margin: auto;
                 padding: 20px;
-                width: 75%;
+                width: 65%;
                 border-radius: 10px;
                 box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
                 max-width: 90%;
@@ -309,47 +306,48 @@ table td button.delete {
                 overflow-y: auto;
 }
     
-
-        .modal-header {
+.modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
            
         }
 
-        .modal-header h2 {
-            font-size: 14px;
+.modal-header h2 {
+            font-size: 16px;
             color: #636362;
             margin: 10px 0 15px;
             margin: 0 auto;       
         }
 
-        .modal-header .close {
+.modal-header .close {
             font-size: 18px;
             cursor: pointer;
             background: none;
             border: none;
         }
-        .input h3{    
+.input h3{    
             font-size: 14px;
             font-weight: bold;
             margin: 0 auto; 
 
         }
-        .form-container {
+.form-container {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            gap: 15px;
         }
-        .form-row {
-    display: flex;
-    justify-content: space-between; /* Jarak antar kolom */
-    align-items: center; /* Pastikan input sejajar secara vertikal */
-    gap: 20px; /* Jarak antar elemen */
-    flex-wrap: nowrap; /* Tidak membiarkan elemen turun ke baris berikutnya */
+.form-row {
+             display: flex;
+             justify-content: space-between; /* Jarak antar kolom */
+             align-items: center; /* Pastikan input sejajar secara vertikal */
+             gap: 20px; /* Jarak antar elemen */
+             flex-wrap: nowrap; /* Tidak membiarkan elemen turun ke baris berikutnya */
 }
 .column {
+   
     flex: 1; /* Membuat setiap kolom memiliki lebar yang sama */
     display: flex;
     flex-direction: column; /* Menumpuk label di atas input */
@@ -405,36 +403,49 @@ table td button.delete {
             cursor: pointer;
         }
 
-    .buttons button:last-child {
+.buttons button:last-child {
             margin-right: 0;
         }
 
-    .buttons button:hover {
+.buttons button:hover {
             background-color: #0056b3;
         }
 
- .timbangan-container {
+.timbangan-container {
         text-align: center;
-        margin-top: 40px;
+        margin: 15px 0;
 }
 
 .timbangan-container h3 {
         font-size: 14px;
         color: #636362;
-        margin: 10px 0 15px;
+       margin:30px 30px;
+
 
 }
-
 .timbangan-inputs {
     display: grid;
     justify-items: center;
     align-items: center;
-    grid-template-columns: repeat(10, 1fr);
-    margin: 0 auto; /* Pastikan elemen berada di tengah */
-    width: auto; /* Sesuaikan lebar grid dengan isinya */
-  
-   
+    grid-template-columns: repeat(10, 1fr); /* 10 kolom dengan distribusi merata */
+    gap: 10px 5px; /* Atur jarak antar input (atas-bawah dan kiri-kanan) */
+    margin: 10px auto; /* Margin atas dan bawah grid */
+    width: 85%; /* Lebar grid agar lebih rapat */
+    height: 50%;
 }
+
+.timbangan-inputs input {
+    text-align: center;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    width: 80%; /* Ukuran input agar lebih kecil */
+    margin: 0; /* Hilangkan margin default */
+    padding: 3px; /* Padding kecil agar lebih rapi */
+    text-align: center;
+}
+
 
 .timbangan-inputs div {
     display: flex;
@@ -443,31 +454,13 @@ table td button.delete {
   
 }
 
-.timbangan-inputs label {
-    font-size: 11px;
-    color: #636362;
-    margin: 0;
-    width: 20px; /* Lebar tetap untuk label */
-    text-align: right; 
-    margin-right: 5px;
-}
-
-.timbangan-inputs input {
-    text-align: center;
-    margin-bottom: 10px;
-    font-size: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-    width: 60%;
-    height: 30%;
-}
-
 .total-container {
     text-align: right;
-    margin-top: 20px;
+    margin-top: 25px;
     font-size: 14px;
     color: #636362;
+    margin-right: 70px;
+    
 }
 
 .submit-btn {
@@ -490,60 +483,64 @@ table td button.delete {
 }
 .input-field, .input-select {
     width: 100%; /* Mengisi seluruh lebar kolom */
-    padding: 5px;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
     box-sizing: border-box; /* Pastikan padding tidak memengaruhi lebar */
-    font-size: 12px;
+    font-size: 14px;
     height: 35px;
+
 }
 .input-select{
     margin-top: 5px;
     padding: 8px !important;
 }
 
-
 .form-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px; /* Jarak antar elemen */
+    margin-bottom: 15px;
 }
 
 .tanggal-container {
+    justify-items: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 15px;
     display: flex; /* Membuat label di sebelah input */
-    align-items: center; /* Menyelaraskan label dan input secara vertikal */
-    gap: 10px; /* Jarak antara label dan input */
-    margin-bottom: 20px;
-    flex: 2; /* Lebar lebih besar dibandingkan sisi kanan */
+    align-items: left; /* Menyelaraskan label dan input secara vertikal */
+    margin-left: 40px;
 }
 
 .tanggal-container label {
     font-size: 14px;
+    margin-top: 10px;
     color: #636362;
-    white-space: nowrap; /* Mencegah label terpotong */
+
 }
 
 .tanggal-container .input-field {
-    flex: 1; /* Input mengisi sisa ruang */
+    flex: 1; 
     width: auto;
-    height: 38px; /* Tinggi konsisten */
+    height: 38px; 
+    margin-top: 10px;
 }
 
-/* Tata letak sisi kanan */
+
 .right-container {
     display: flex;
-    justify-content: flex-end; /* Posisi ke sisi kanan */
-    gap: 20px; /* Jarak antar elemen */
-    flex: 3; /* Lebar sisi kanan */
+    justify-content: flex-end; 
+    flex: 3; 
+    margin-right: 10px;
 }
 
 .right-container .column {
     display: flex;
     flex-direction: column;
-    gap: 5px; /* Jarak antara label dan input */
-    min-width: 150px; /* Lebar minimum */
+    min-width: 150px;
 }
 
 .right-container label {
@@ -551,7 +548,17 @@ table td button.delete {
     color: #636362;
 }
 
-.right-container .input-field,
+.right-container .input-field{
+    width: 75%;
+    height: 38px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: center;
+
+}
+
 .right-container .input-select {
     width: 100%;
     height: 38px;
@@ -560,7 +567,6 @@ table td button.delete {
     border-radius: 4px;
     box-sizing: border-box;
 }
-
 </style>
 
 <div class="mainbar">
@@ -569,7 +575,6 @@ table td button.delete {
             <h2>Laporan Harian Hasil Tempurung Basah</h2>
         </div>
 
-        <!-- Filter Section -->
         <div class="filters">
             <select class="pilihtanggal">
                 <option>Pilih Tanggal</option>
@@ -584,13 +589,10 @@ table td button.delete {
                 <button class="btn export">
                    <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png" alt="export"/> Export
                 </button>
-                
                 <button id="openFormBtn" class="btn add">+ Tambah Data</button>
             </div>
         </div>
 
-        <!-- Table Section -->
-       
         <div class="table-container">
             <table>
                 <thead>
@@ -623,116 +625,8 @@ table td button.delete {
                 </tbody>
             </table>
         </div>
-        
 
-        <div class="modal">
-            <div class="modal-content">
-                <div id="modal-back" class="modal-back">
-            <div class="modal-header">
-                <h2>FORM INPUT HASIL TEMPURUNG BASAH</h2>
-                <button class="close">&times;</button>
-            </div>
-    
-            <div class="form-container">
-                <div class="form-row">
-                    <div class="tanggal-container">
-                    <label for="tanggal"> Hasil Kerja Tanggal</label>
-                    <input type="text" id="tanggal"  class="input-field">
-                </div>
-
-            <div class="right-container">
-                <div class="column">
-                    <label for="tipe-keranjang">Tipe Keranjang</label>
-                    <select id="tipe-keranjang" class="input-select">
-                        <option value="A">Keranjang Besar</option>
-                        <option value="B">Keranjang Kecil</option>
-                    </select>
-                </div>
-
-                <div class="column">
-                    <label for="total-keranjang">Total Keranjang</label>
-                    <input type="text" id="total-keranjang" class="input-field">
-                </div>
-            </div>
-           
-
-             </div>
-            </div>
-    
-       
-    <div class="timbangan-container">
-            <h3>Hasil Timbangan Tempurung Basah</h3>
-            <div class="timbangan-inputs">
-                <!-- Input grid -->
-                <div><label>1</label><input type="number"></div>
-                <div><label>2</label><input type="number"></div>
-                <div><label>3</label><input type="number"></div>
-                <div><label>4</label><input type="number"></div>
-                <div><label>5</label><input type="number"></div>
-                <div><label>6</label><input type="number"></div>
-                <div><label>7</label><input type="number"></div>
-
-                <div><label>8</label><input type="number"></div>
-                <div><label>9</label><input type="number"></div>
-                <div><label>10</label><input type="number"></div>
-                <div><label>11</label><input type="number"></div>
-                <div><label>12</label><input type="number"></div>
-                <div><label>13</label><input type="number"></div>
-                <div><label>14</label><input type="number"></div>
-
-                <div><label>15</label><input type="number"></div>
-                <div><label>16</label><input type="number"></div>
-                <div><label>17</label><input type="number"></div>
-                <div><label>18</label><input type="number"></div>
-                <div><label>19</label><input type="number"></div>
-                <div><label>20</label><input type="number"></div>
-                <div><label>21</label><input type="number"></div>
-
-                <div><label>22</label><input type="number"></div>
-                <div><label>23</label><input type="number"></div>
-                <div><label>24</label><input type="number"></div>
-                <div><label>25</label><input type="number"></div>
-                <div><label>26</label><input type="number"></div>
-                <div><label>27</label><input type="number"></div>
-                <div><label>28</label><input type="number"></div>
-
-                <div><label>29</label><input type="number"></div>
-                <div><label>30</label><input type="number"></div>
-                <div><label>31</label><input type="number"></div>
-                <div><label>32</label><input type="number"></div>
-                <div><label>33</label><input type="number"></div>
-                <div><label>34</label><input type="number"></div>
-                <div><label>35</label><input type="number"></div>
-
-                <div><label>36</label><input type="number"></div>
-                <div><label>37</label><input type="number"></div>
-                <div><label>38</label><input type="number"></div>
-                <div><label>39</label><input type="number"></div>
-                <div><label>40</label><input type="number"></div>
-                <div><label>41</label><input type="number"></div>
-                <div><label>42</label><input type="number"></div>
-
-                <div><label>43</label><input type="number"></div>
-                <div><label>44</label><input type="number"></div>
-                <div><label>45</label><input type="number"></div>
-                <div><label>46</label><input type="number"></div>
-                <div><label>47</label><input type="number"></div>
-                <div><label>48</label><input type="number"></div>
-                <div><label>49</label><input type="number"></div>
-                <div><label>50</label><input type="number"></div>
-            </div>
-        </div>
-    
-            <div class="total-container">
-                Total: 250 KG
-            </div>
-        
-            <button class="submit-btn">Kirim</button>
-        </div>
-            </div>
-        </div>
-
-        <!-- Pagination Section -->
+      
         <hr class="horizontalline1">
         <div class="pagination-container">
           
@@ -749,16 +643,111 @@ table td button.delete {
                 <li><button onclick="nextPage()">&#62;</button></li>
             </ul>
         </div>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <div id="modal-back" class="modal-back">
+            <div class="modal-header">
+                <h2>FORM INPUT HASIL TEMPURUNG BASAH</h2>
+                <button class="close">&times;</button>
+            </div>
 
+            <div class="form-container">
+                <div class="form-row">
+                    <div class="tanggal-container">
+                    <label for="tanggal"> Hasil Kerja Tanggal</label>
+                    <input type="date" id="tanggal"  class="input-field">
+                </div>
+                <div class="right-container">
+                <div class="column">
+                    <label for="tipe-keranjang">Tipe Keranjang</label>
+                    <select id="tipe-keranjang" class="input-select">
+                        <option value="A">Keranjang Besar</option>
+                        <option value="B">Keranjang Kecil</option>
+                    </select>
+                </div>
+             
+                <div class="column">
+                    <label for="total-keranjang">Total Keranjang</label>
+                    <input type="number" id="total-keranjang" class="input-field">
+                </div>
+                </div>
+             </div>
+            </div>
+   
+    <div class="timbangan-container">
+            <h3>Hasil Timbangan Tempurung Basah</h3>
+            <div class="timbangan-inputs">
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+                <div><input type="number"></div>
+            </div>
+        </div>
+    
+            <div class="total-container">
+                Total: 250 KG
+            </div>
+        
+            <button class="submit-btn">Kirim</button>
+        </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
 
     <script>
         document.querySelector('.close').addEventListener('click', function () {
             document.querySelector('.modal').style.display = 'none';
         });
     </script>
-    
-        </div>
-    </div>
 </div>
 </div>
 @endsection
@@ -766,7 +755,30 @@ table td button.delete {
 @section('scripts')
 <script>
 
-// Sample data
+document.addEventListener("DOMContentLoaded", function() {
+    // Ambil elemen yang diperlukan
+    const openFormBtn = document.getElementById('openFormBtn'); // Tombol Tambah Data
+    const modal = document.getElementById('modal'); // Modal utama
+    const closeModalBtn = document.querySelector('.close'); // Tombol close modal
+
+    // Fungsi untuk membuka modal
+    openFormBtn.addEventListener('click', function() {
+        modal.style.display = 'flex'; // Tampilkan modal
+    });
+
+    // Fungsi untuk menutup modal ketika tombol close diklik
+    closeModalBtn.addEventListener('click', function() {
+        modal.style.display = 'none'; // Sembunyikan modal
+    });
+
+    // Fungsi untuk menutup modal jika mengklik di luar konten modal
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
+
 const data = [
     { no: 1, tanggal: "12 Agustus 2024", nama: "Marcella", sp: "S", bruto: 50, potongan: 0, hasil: 150, detail: "Hasil Timbangan" },
     { no: 2, tanggal: "12 Agustus 2024", nama: "Zhuxin", sp: "P", bruto: 75, potongan: 0, hasil: null, detail: "Hasil Timbangan" },
@@ -774,7 +786,7 @@ const data = [
     { no: 4, tanggal: "12 Agustus 2024", nama: "Aurora", sp: "S", bruto: 240, potongan: 0, hasil: 240, detail: "Hasil Timbangan" },
     { no: 5, tanggal: "12 Agustus 2024", nama: "Layla", sp: "P", bruto: 125, potongan: 0, hasil: 250, detail: "Hasil Timbangan" },
     { no: 6, tanggal: "12 Agustus 2024", nama: "Sonya", sp: "S", bruto: 125, potongan: 0, hasil: null, detail: "Hasil Timbangan" },
-    // Tambahkan lebih banyak data sesuai kebutuhan
+    
 ];
 
 const rowsPerPage = 5;
@@ -831,9 +843,7 @@ function goToPage(page) {
     }
 }
 
-// Load initial data
+
 displayData();
-
-
 
 </script>

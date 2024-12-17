@@ -241,22 +241,20 @@ table td button.delete {
 
 /* Modal container */
         .horizontalline1 {
-        /* Warna teks, tidak berpengaruh pada <hr> */
-        border: none; /* Hapus border default */
+        border: none; 
         border-bottom: 0.5px solid #ccc;
-         width: 100%; /* Lebar penuh */
-         margin: 5px 0 15px 0; /* Margin atas, kanan, bawah, kiri */
-        opacity: 0.5; /* Nilai opasitas (1 = tidak transparan) */
+         width: 100%; 
+         margin: 5px 0 15px 0; /
+        opacity: 0.5; 
         padding-top: 20px;
 }
 
     .btn.export {
         display: flex;
-        align-items: center; /* Mengatur ikon dan teks dalam satu baris */
-        color: white; /* Mengatur warna teks menjadi putih */
-        border: none; /* Menghapus border default */
-         /* Menambahkan padding */
-        cursor: pointer; /* Menambahkan kursor pointer */
+        align-items: center; 
+        color: white; 
+        border: none; =
+        cursor: pointer;
     }
 
      .btn.export img {
@@ -266,8 +264,8 @@ table td button.delete {
    
     }
     .search-input::placeholder {
-    color: #636362; /* Ganti dengan warna yang diinginkan */
-    opacity: 1; /* Mengatur opasitas jika perlu */
+    color: #636362; 
+    opacity: 1; 
 }
 .supplier{
     text-align: start;
@@ -299,7 +297,8 @@ table td button.delete {
                    <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png" alt="export"/> Export
                 </button>
         
-             <button id="openFormBtn" class="btn add">+ Tambah Data</button>
+            <button id="openFormBtn" class="btn add" onclick="openModal()">+ Tambah Data</button>
+            
             </div>
         </div>
 

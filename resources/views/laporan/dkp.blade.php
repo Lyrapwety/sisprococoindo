@@ -7,12 +7,11 @@
             flex: 1%;
             background-color: #D9D9D9 !important;
             padding-top: 20px;
-            /* Jarak dari topbar */
             margin-left: 235px;
-            height: auto;
+            height: calc(100vh - 70px);
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-            !important;
+         
         }
 
         .container {
@@ -52,13 +51,11 @@
             font-size: 12px;
         }
 
-        /* Dropdown tanggal */
+  
         .filters select.pilihtanggal,
         .filters .input-icon input[type="text"] {
             padding: 8px 12px;
-            /* Padding yang sama */
             height: 36px;
-            /* Tinggi yang sama */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 12px;
@@ -119,7 +116,7 @@
         .filters .actions .btn.add {
             background-color: #71bc74;
             transform: translateX(-2px);
-            <<<<<<< HEAD=======>>>>>>>a45905146b02b3e69a32b09a1e678e32a5488adb
+           
         }
 
         .filters .actions .btn.export {
@@ -137,7 +134,6 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            /* Agar garis antar sel menyatu */
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(230, 238, 241, 0.1);
 
@@ -862,7 +858,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Container utama untuk anggota parer -->
+                              
                                 <div id="anggota-parer-container">
                                     <div class="anggota-block">
                                         <div class="form-row">

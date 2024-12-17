@@ -138,6 +138,21 @@
 .btn-update:hover {
     background-color: #063361;
 }
+.btn-update-foto {
+    padding: 8px;
+    width:100px;
+    background-color: #0e4375;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+}
+
+.btn-update-foto:hover {
+    background-color: #063361;
+}
 
 </style>
 
@@ -202,6 +217,8 @@
                     <!-- Bagian kanan (Foto Profil) -->
                     <div class="profile-picture">
                         <img src="{{asset('img/hi logo.png') }}" alt="Foto Profil" id="profile-image">
+                        <input type="file" id="profile-input" accept="image/*" style="display: none;">
+                        <button type="button" class="btn-update-foto" id="change-profile-btn">Ganti Profil</button>
                     </div>
                 </div>
             </form>

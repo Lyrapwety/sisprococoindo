@@ -57,9 +57,6 @@ Route::prefix('laporan')->name('laporan.')->group(function () {
 Route::get('/laporan/tempurung', [LaporanController::class, 'tempurung'])->name('laporan.tempurung');
 
 
-
-
-
 Route::get('/rekap_laporan/kulit_ari', [RekapController::class, 'kulitari'])->name('rekap_laporan.pembukaan_kulit_ari');
 
 

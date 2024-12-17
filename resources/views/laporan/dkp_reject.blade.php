@@ -7,13 +7,12 @@
             flex: 1%;
             background-color: #D9D9D9 !important;
             padding-top: 20px;
-            /* Jarak dari topbar */
             margin-left: 235px;
             overflow-y: auto;
             height: calc(100vh - 70px);
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-            !important;
+        
         }
 
         .container {
@@ -53,13 +52,11 @@
             font-size: 12px;
         }
 
-        /* Dropdown tanggal */
+
         .filters select.pilihtanggal,
         .filters .input-icon input[type="text"] {
             padding: 8px 12px;
-            /* Padding yang sama */
             height: 36px;
-            /* Tinggi yang sama */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 12px;
@@ -67,18 +64,17 @@
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        /* Input pencarian dan ikon */
+   
         .filters .input-icon {
             position: relative;
             width: 250px;
-            /* Lebar lebih pendek untuk input pencarian */
+       
         }
 
         .filters input[type="text"] {
             width: 100%;
             height: 36px;
             padding: 8px 35px 8px 12px;
-            /* Tambahkan padding untuk ikon */
             border: 1px solid #cc;
             border-radius: 5px;
             font-size: 12px;
@@ -100,7 +96,6 @@
             color: #636362;
         }
 
-        /* Tombol aksi */
         .filters .actions {
             display: flex;
             gap: 10px;
@@ -125,7 +120,6 @@
             background-color: #71bc74;
             transform: translateX(-2px);
 
-
         }
 
         .filters .actions .btn.export {
@@ -134,7 +128,6 @@
 
         }
 
-        /* Tabel */
         .table-container {
             overflow-x: auto;
             font-size: 11px;
@@ -143,7 +136,6 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            /* Agar garis antar sel menyatu */
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(230, 238, 241, 0.1);
 
@@ -154,14 +146,13 @@
             padding: 10px;
             text-align: center;
             border: 1px solid #636362;
-            /* Garis antar sel */
             color: #636362;
             font-size: 12px;
         }
 
         table th {
             border-bottom: 1px solid #636362;
-            /* Garis tebal untuk header */
+
         }
 
         table td button {
@@ -183,7 +174,6 @@
             background-color: #e74c3c;
         }
 
-        /* Pagination */
         .pagination-container {
             display: flex;
             justify-content: space-between;
@@ -317,10 +307,8 @@
             background-color: #F7F7F7;
             border-radius: 8px;
             padding: 25px;
-            /* Tambahan padding agar lebih rapi */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             max-width: 800px;
-            /* Batas maksimal lebar modal */
             width: 100%;
             overflow-y: auto;
         }
@@ -658,6 +646,27 @@
                             <input type="hidden" name="id" id="id">
                             <div class="form-group">
                                 <div>
+                                    <label for="nama-pegawai">Nama Pegawai</label>
+                                    <input type="text" class="form-control @error('nama_pegawai') is-invalid @enderror"
+                                        id="nama_pegawai" name="nama_pegawai" value="{{ old('nama_pegawai') }}">
+                                    @error('nama_pegawai')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            
+                                <div>
+                                    <label for="sp">S / P</label>
+                                    <input type="text" class="form-control @error('sp') is-invalid @enderror"
+                                        id="sp" name="sp" value="{{ old('sp') }}">
+                                    @error('sp')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div>
                                     <label for="nama-sheller">Nama Sheller / Parer</label>
                                     <input type="text" class="form-control @error('sheller_parer') is-invalid @enderror"
                                         id="sheller_parer" name="sheller_parer" value="{{ old('sheller_parer') }}">
@@ -678,6 +687,7 @@
                                         </div>
                                     @enderror
                                 </div>
+                                
 
                                 <div class="inline-group">
                                     <div class="form-item">
@@ -706,6 +716,7 @@
                                             </div>
                                         @enderror
                                     </div>
+                                    
                                 </div>
                             </div>
                             <div class="timbangan-container">

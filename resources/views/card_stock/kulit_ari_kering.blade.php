@@ -235,41 +235,160 @@ table td button.delete {
     border-color: #104367; /* Ubah warna border saat fokus */
 }
 
-/* Modal container */
         .horizontalline1 {
-        /* Warna teks, tidak berpengaruh pada <hr> */
-        border: none; /* Hapus border default */
+
+        border: none; 
         border-bottom: 0.5px solid #ccc;
-         width: 100%; /* Lebar penuh */
-         margin: 5px 0 15px 0; /* Margin atas, kanan, bawah, kiri */
-        opacity: 0.5; /* Nilai opasitas (1 = tidak transparan) */
+         width: 100%; 
+         margin: 5px 0 15px 0; 
+        opacity: 0.5;
         padding-top: 20px;
 }
 
     .btn.export {
         display: flex;
-        align-items: center; /* Mengatur ikon dan teks dalam satu baris */
-        color: white; /* Mengatur warna teks menjadi putih */
-        border: none; /* Menghapus border default */
-         /* Menambahkan padding */
-        cursor: pointer; /* Menambahkan kursor pointer */
+        align-items: center; 
+        color: white; 
+        border: none; 
+        cursor: pointer; 
     }
 
      .btn.export img {
-      /* Jarak antara ikon dan teks */  
+  
         filter: brightness(0) invert(1);
       
    
     }
     .search-input::placeholder {
-    color: #636362; /* Ganti dengan warna yang diinginkan */
-    opacity: 1; /* Mengatur opasitas jika perlu */
+    color: #636362;
+    opacity: 1; 
 }
 
 
+/* Modal Overlay */
+.modal {
+    display: none; /* Modal tidak tampil secara default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Transparan hitam */
+    justify-content: center;
+    align-items: center;
+}
 
+/* Modal Konten */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+.modal-content h2 {
+    font-size: 16px;
+    margin: 0 auto;
+}
+
+/* Animasi Modal */
+@keyframes fadeIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #555;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+    margin-top: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
     
+   
+}
 
+.form-control {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
+    appearance: none; /* Hilangkan gaya default browser */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23666" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+.form-control:focus {
+    border-color:#104367;
+    outline: none;
+    box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
+}
+
+
+.form-control option {
+    padding: 8px;
+}
+.form-control:focus {
+    border-color: #104367;
+    outline: none;
+    box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
+}
+
+
+.submit-btn {
+    background-color: #104367;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+.submit-btn:hover {
+    background-color: #104367;
+}
 
 </style>
 
@@ -294,8 +413,7 @@ table td button.delete {
                 <button class="btn export">
                    <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png" alt="export"/> Export
                 </button>
-                
-                <button id="openFormBtn" class="btn add">+ Tambah Data</button>
+                <button id="openFormBtn" class="btn add" onclick="openModal()">+ Tambah Data</button>
             </div>
         </div>
 
@@ -355,27 +473,71 @@ table td button.delete {
             </ul>
         </div>
 
+<!-- Modal -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2>Form Input Stok Kulit Ari Kering</h2>
 
-    <!-- Modal -->
-   
-    
-    <!-- Script to close the modal -->
-    <script>
-        document.querySelector('.close').addEventListener('click', function () {
-            document.querySelector('.modal').style.display = 'none';
-        });
-    </script>
-    
-        </div>
+        <form id="stokForm">
+            <!-- Tanggal -->
+            <div class="form-group">
+                <label for="tanggal">Tanggal</label>
+                <input type="date" id="tanggal" name="tanggal" class="form-control" required>
+            </div>
+
+            <!-- Tipe Aktivitas -->
+            <div class="form-group">
+                <label for="activity_type">Tipe Aktivitas</label>
+                <select id="activity_type" name="activity_type" class="form-control" required>
+                    <option value="" disabled selected>Pilih Jenis Aktivitas</option>
+                    <option value="produksi">Produksi</option> <!-- Ini artinya stok bertambah-->
+                    <option value="penjualan">Hasil Jemur</option> <!-- Ini artinya stok bertambah-->
+                    <option value="ekspor">Ekspor</option> <!-- Ini artinya stok out-->
+                    <option value="penjualan">Penjualan</option>
+                    <option value="penjualan">Penyusutan</option>
+                </select>
+            </div>
+
+            <!-- Jumlah Stok -->
+            <div class="form-group">
+                <label for="stok">Jumlah Stok</label>
+                <input type="number" id="stok" name="stok" class="form-control" required>
+            </div>
+
+            <!-- Keterangan -->
+            <div class="form-group">
+                <label for="keterangan">Keterangan (Remark)</label>
+                <textarea id="keterangan" name="keterangan" class="form-control" rows="3" placeholder="Masukkan keterangan stok..." required></textarea>
+            </div>
+
+            <!-- Tombol Submit -->
+            <button type="submit" class="submit-btn">Simpan</button>
+        </form>
     </div>
 </div>
-</div>
+
+   
 @endsection
 
 @section('scripts')
-<script>
+<script> 
 
-// Sample data
+
+function openModal() {
+    document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+window.onclick = function (event) {
+    const modal = document.getElementById("modal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
 const data = [
     { no: 1, tanggal: "12 Agustus 2024", nama: "Marcella", sp: "S", bruto: 50, potongan: 0, hasil: 150, detail: "Hasil Timbangan" },
     { no: 2, tanggal: "12 Agustus 2024", nama: "Zhuxin", sp: "P", bruto: 75, potongan: 0, hasil: null, detail: "Hasil Timbangan" },

@@ -243,7 +243,7 @@
                     <a href="{{ route('card_stock.santan') }}">Santan</a>
                     <a href="{{ route('card_stock.air_kelapa') }}">Air Kelapa</a>
                     <a href="{{ route('card_stock.kulit_ari_kering') }}">Kulit Ari Kering</a>
-                    <a href="{{ route('card_stock.kulit_ari_kering') }}">Kulit Ari Basah</a>
+                    <a href="{{ route('card_stock.kulit_ari_basah') }}">Kulit Ari Basah</a>
                     <a href="{{ route('card_stock.minyak_kelapa') }}">Minyak Kelapa</a>
                     <a href="{{ route('card_stock.dkp_reject_kering') }}">DKP Reject Kering</a>
                     <a href="{{ route('card_stock.dkp_reject_basah') }}">DKP Reject Basah</a>

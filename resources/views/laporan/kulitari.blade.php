@@ -1,4 +1,4 @@
-@extends('layouts.app')
+ @extends('layouts.app')
 
 @section('content')
     <style>
@@ -52,13 +52,10 @@
             font-size: 12px;
         }
 
-        /* Dropdown tanggal */
         .filters select.pilihtanggal,
         .filters .input-icon input[type="text"] {
             padding: 8px 12px;
-            /* Padding yang sama */
             height: 36px;
-            /* Tinggi yang sama */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 12px;
@@ -66,18 +63,15 @@
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        /* Input pencarian dan ikon */
         .filters .input-icon {
             position: relative;
             width: 250px;
-            /* Lebar lebih pendek untuk input pencarian */
         }
 
         .filters input[type="text"] {
             width: 100%;
             height: 36px;
             padding: 8px 35px 8px 12px;
-            /* Tambahkan padding untuk ikon */
             border: 1px solid #cc;
             border-radius: 5px;
             font-size: 12px;
@@ -99,7 +93,7 @@
             color: #636362;
         }
 
-        /* Tombol aksi */
+ 
         .filters .actions {
             display: flex;
             gap: 10px;
@@ -133,7 +127,6 @@
 
         }
 
-        /* Tabel */
         .table-container {
             overflow-x: auto;
             font-size: 11px;
@@ -142,7 +135,6 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            /* Agar garis antar sel menyatu */
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(230, 238, 241, 0.1);
 
@@ -153,14 +145,12 @@
             padding: 10px;
             text-align: center;
             border: 1px solid #636362;
-            /* Garis antar sel */
             color: #636362;
             font-size: 12px;
         }
 
         table th {
             border-bottom: 1px solid #636362;
-            /* Garis tebal untuk header */
         }
 
         table td button {
@@ -225,23 +215,21 @@
             position: relative;
             width: 100%;
             max-width: 100px;
-            /* Sesuaikan dengan kebutuhan */
+       
         }
 
         .input-icon i {
             position: absolute;
             right: 5px !important;
-            /* Pindahkan ikon ke sisi kanan */
             top: 50%;
             transform: translateY(-50%);
             color: #636362;
-            /* Warna ikon */
+      
         }
 
         .input-icon input {
             width: 100%;
             padding: 10px 40px 10px 10px;
-            /* Tambahkan padding kanan untuk ruang ikon */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
@@ -251,49 +239,33 @@
 
         .input-icon input:focus {
             border-color: #104367;
-            /* Ubah warna border saat fokus */
         }
 
 
         .horizontalline1 {
-            /* Warna teks, tidak berpengaruh pada <hr> */
             border: none;
-            /* Hapus border default */
             border-bottom: 0.5px solid #ccc;
             width: 100%;
-            /* Lebar penuh */
             margin: 5px 0 15px 0;
-            /* Margin atas, kanan, bawah, kiri */
             opacity: 0.5;
-            /* Nilai opasitas (1 = tidak transparan) */
             padding-top: 20px;
         }
 
         .btn.export {
             display: flex;
             align-items: center;
-            /* Mengatur ikon dan teks dalam satu baris */
             color: white;
-            /* Mengatur warna teks menjadi putih */
             border: none;
-            /* Menghapus border default */
-            /* Menambahkan padding */
             cursor: pointer;
-            /* Menambahkan kursor pointer */
         }
 
         .btn.export img {
-
             filter: brightness(0) invert(1);
-
-
         }
 
         .search-input::placeholder {
             color: #636362;
-            /* Ganti dengan warna yang diinginkan */
             opacity: 1;
-            /* Mengatur opasitas jika perlu */
         }
 
 
@@ -316,10 +288,8 @@
             background-color: #F7F7F7;
             border-radius: 8px;
             padding: 25px;
-            /* Tambahan padding agar lebih rapi */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             max-width: 800px;
-            /* Batas maksimal lebar modal */
             width: 100%;
             overflow-y: auto;
         }
@@ -345,7 +315,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            /* Untuk membuat tombol close tetap di pojok kanan */
+
         }
 
         .modal-header h2 {
@@ -362,42 +332,14 @@
             margin-top: 5px;
         }
 
-        .form-item {
-            display: flex;
-            flex-direction: column;
-            /* Susunan vertikal */
-            align-items: flex-start;
-            /* Label dan input sejajar ke kiri */
-            width: 100%;
-        }
-
-        .form-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            /* Elemen sejajar ke kiri */
-            align-items: flex-start;
-            gap: 20px;
-            margin-bottom: 20px;
-            margin-left: 10px;
-        }
-
         .inline-group {
             display: flex;
-            flex-direction: column;
             gap: 15px;
             justify-content: flex-end;
             align-items: center;
             margin-left: auto;
             margin-top: 5px;
-
-
-        }
-
-        .inline-group label {
-            font-size: 14px;
-            color: #636362;
-            margin-right: 5px;
+            flex-wrap: nowrap;
         }
 
         .inline-group select {
@@ -406,9 +348,8 @@
 
         .inline-group input[type="text"],
         .inline-group select {
-            width: 100%;
-            /* Input dan select mengisi penuh */
-            flex: none;
+            width: 50%;
+            flex: 1;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -416,8 +357,29 @@
             color: #636362;
             margin-top: 5px;
         }
+        .form-item {
+            display: flex;
+            align-items:  center;
+            gap: 10px; 
+            width: 100%;
 
-        /* To make the inline group take up full width */
+        }
+        .form-item .label {
+            font-size: 14px;
+            color: #636362;
+            margin-right: 5px;
+            min-width: 150px; 
+            font-weight: bold;
+}
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+            margin-left: 10px;
+        }
+
         .full-width {
             width: 100%;
         }
@@ -457,7 +419,7 @@
         input[type="date"] {
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
             color: #636362;
-            /* Warna teks pada input */
+         
         }
 
         .timbangan-container {
@@ -520,9 +482,7 @@
             color: white;
             margin-top: 20px;
             display: block;
-            /* Membuat tombol tetap dalam satu baris */
             margin-left: auto;
-            /* Agar berada di sebelah kanan */
             margin-right: auto;
         }
 
@@ -573,7 +533,6 @@
         }
 
         .modal-content2 {
-
             padding: 10px;
             background-color: #F7F7F7;
             border-radius: 10px;
@@ -597,20 +556,16 @@
         .row2 {
             display: flex;
             align-items: center;
-            /* Center align items vertically */
             justify-content: space-between;
-            /* Space between items */
             margin-bottom: 20px;
             margin-left: 20px;
         }
 
         .form-group2 {
             flex: 1;
-            /* Make it take available space */
             display: flex;
             flex-direction: column;
             margin-right: 10px;
-            /* Add space between inputs */
 
         }
 
@@ -622,7 +577,6 @@
 
         .form-item .label {
             width: 120px;
-            /* Adjust this width as necessary to align labels */
             font-weight: bold;
         }
 
@@ -648,7 +602,6 @@
 
         .input-group {
             flex: 1;
-            /* Make it take available space */
             background-color: #F7F7F7;
         }
 
@@ -680,10 +633,8 @@
         .potongan-keranjang2 {
             color: #636362;
             flex: 1;
-            /* Make it take available space */
             text-align: center;
             transform: translateY(0px);
-            /* Add space between inputs */
         }
 
         .tabel-potongan2 {
@@ -695,7 +646,6 @@
             width: 75%;
             transform: translateX(30px);
             margin-top: 15px;
-            /* Space above the table */
         }
 
         .tabel-potongan2 th,
@@ -713,9 +663,7 @@
             margin-left: 20px;
             gap: 24px;
             justify-content: flex-start;
-            /* Space between tables */
             margin-top: 20px;
-            /* Space above tables */
         }
 
         .weight-table {
@@ -891,6 +839,29 @@
                             @csrf
                             <input type="hidden" name="id" id="id">
                             <div class="form-group">
+                                <input type="hidden" name="id" id="id">
+                                <div class="form-group">
+                                    <div>
+                                        <label for="nama-pegawai">Nama Pegawai</label>
+                                        <input type="text" class="form-control @error('nama_pegawai') is-invalid @enderror"
+                                            id="nama_pegawai" name="nama_pegawai" value="{{ old('nama_pegawai') }}">
+                                        @error('nama_pegawai')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                
+                                    <div>
+                                        <label for="sp">S / P</label>
+                                        <input type="text" class="form-control @error('sp') is-invalid @enderror"
+                                            id="sp" name="sp" value="{{ old('sp') }}">
+                                        @error('sp')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                 <div>
                                     <label for="nama-sheller">Nama Sheller / Parer</label>
                                     <input type="text" class="form-control @error('sheller_parer') is-invalid @enderror"
