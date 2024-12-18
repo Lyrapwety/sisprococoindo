@@ -9,16 +9,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pegawais', function (Blueprint $table) {
-            $table->id('id_pegawai');
+            $table->id();
             $table->string('nama');
             $table->date('tgl_join');
             $table->date('tgl_out')->nullable();
             $table->string('posisi');
+            $table->string('id_pegawai');
             $table->string('departemen');
+            $table->string('kepagawaian');
             $table->string('status');
             $table->string('email')->unique();
             $table->timestamps();
-            $table->primary('id_pegawai');
         });
     }
 

@@ -253,7 +253,7 @@
 
                 </div>
 
-                <a class="no_underline" href="{{ route('data_pegawai') }}">
+                <a class="no_underline" href="{{ route('data_pegawai.index') }}">
                     <button class="dropdown-btn">
                         <img class="user-folder" src="https://img.icons8.com/material/24/user-folder.png"
                             alt="user-folder" />Data Pegawai
