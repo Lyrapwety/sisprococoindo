@@ -598,11 +598,11 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $laporanairkelapa->tanggal }}</td>
-                                <td>{{ $laporanairkelapa->sheller_parer }}</td>
+                                <td>{{ $laporanairkelapa->nama_pegawai }}</td>
                                 <td>{{ $laporanairkelapa->sheller_parer }}</td>
                                 <td>{{ $laporanairkelapa->bruto }}</td>
                                 <td>{{ $laporanairkelapa->total_potongan_keranjang }}</td>
-                                <td>{{ $laporanairkelapa->hasil_kerja }}</td>
+                                <td>{{ $laporanairkelapa->timbangan_hasil }}</td>
                                 <td><button id="openFormBtn2" data-id="{{ $laporanairkelapa->id }}">Hasil Timbangan</button></td>
                                 <td>
                                     <button class="edit" data-id="{{ $laporanairkelapa->id }}">Edit</button>
@@ -659,7 +659,18 @@
                             <input type="hidden" name="id" id="id">
                             <div class="form-group">
                                 <div>
-                                    <label for="nama-sheller">Nama Sheller / Parer</label>
+                                    <label for="nama-pegawai">Nama Pegawai</label>
+                                    <input type="text" class="form-control @error('nama_pegawai') is-invalid @enderror"
+                                        id="nama_pegawai" name="nama_pegawai" value="{{ old('nama_pegawai') }}">
+                                    @error('nama_pegawai')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="nama-sheller">Sheller / Parer</label>
                                     <input type="text" class="form-control @error('sheller_parer') is-invalid @enderror"
                                     id="sheller_parer" name="sheller_parer" value="{{ old('sheller_parer') }}">
                                     @error('sheller_parer')
@@ -712,61 +723,43 @@
 
                             <div class="timbangan-container">
                                 <h3>Hasil Timbangan Kulit Air Kelapa</h3>
-                                <div class="timbangan-inputs">
-                                    <!-- Each input wrapped with a label above -->
-                                    <div>
-                                        <label for="timbangan-1">1</label>
-                                        <input type="number" id="timbangan-1">
+                                <div class="basket-container">
+                                    <div class="row">
+                                        @for ($i = 0; $i < 12; $i++)
+                                            <div class="col-1 text-center">
+                                                <!-- Menempatkan nomor di atas input -->
+                                                <label for="hasil_kerja_{{ $i }}" style="display: block;">{{ $i + 1 }}</label>
+                                                <input
+                                                    class="basket-input"
+                                                    type="number"
+                                                    name="hasil_kerja[]"
+                                                    id="hasil_kerja_{{ $i }}"
+                                                    value="{{ old('hasil_kerja.' . $i, 0) }}"
+                                                    oninput="calculateTotal()"
+                                                >
+                                            </div>
+                                        @endfor
                                     </div>
-                                    <div>
-                                        <label for="timbangan-2">2</label>
-                                        <input type="number" id="timbangan-2">
+                                    <div class="total-container">
+                                        <label for="timbangan_hasil">Total:</label>
+                                        <input
+                                            type="number"
+                                            id="timbangan_hasil"
+                                            name="timbangan_hasil"
+                                            value="{{ old('timbangan_hasil', 0) }}"
+                                            readonly
+                                        >
                                     </div>
-                                    <div>
-                                        <label for="timbangan-3">3</label>
-                                        <input type="number" id="timbangan-3">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-4">4</label>
-                                        <input type="number" id="timbangan-4">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-5">5</label>
-                                        <input type="number" id="timbangan-5">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-6">6</label>
-                                        <input type="number" id="timbangan-6">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-7">7</label>
-                                        <input type="number" id="timbangan-7">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-8">8</label>
-                                        <input type="number" id="timbangan-8">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-9">9</label>
-                                        <input type="number" id="timbangan-9">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-10">10</label>
-                                        <input type="number" id="timbangan-10">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-11">11</label>
-                                        <input type="number" id="timbangan-11">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-12">12</label>
-                                        <input type="number" id="timbangan-12">
-                                    </div>
+                                    @error('hasil_kerja')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="total-container">
-                                <span>Total: 250 kg</span>
+                                <label id="total-label">Total: 0 kg</label>
                             </div>
 
                             <div class="action-buttons">
@@ -793,6 +786,18 @@
 
 @section('scripts')
     <script>
+        function calculateTotal() {
+                const inputs = document.querySelectorAll('.basket-input');
+                let total = 0;
+
+                inputs.forEach(input => {
+                    total += parseFloat(input.value) || 0; // Tambahkan angka atau 0 jika kosong
+                });
+
+                document.getElementById('timbangan_hasil').value = total;
+                document.getElementById('total-label').textContent = 'Total: ' + total + ' kg';
+            }
+
         //Modal 1
         const openFormBtn1 = document.getElementById("openFormBtn1");
         const modal1 = document.getElementById("modal");

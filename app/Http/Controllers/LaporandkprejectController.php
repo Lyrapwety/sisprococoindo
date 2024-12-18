@@ -26,7 +26,9 @@ class LaporandkprejectController extends Controller
             'tipe_keranjang' => 'nullable|string|max:255',
             'berat_keranjang' => 'nullable|string|max:255',
             'total_potongan_keranjang' => 'nullable|string|max:255',
-            'hasil_kerja_netto' => 'nullable|string|max:255',
+            'hasil_kerja_netto' => 'nullable|array',
+            'hasil_kerja_netto.*' => 'nullable|numeric',
+            'timbangan_netto' => 'nullable|numeric',
         ]);
 
         // Simpan data ke database
@@ -40,7 +42,9 @@ class LaporandkprejectController extends Controller
             'tipe_keranjang' => $request->tipe_keranjang,
             'berat_keranjang' => $request->berat_keranjang,
             'total_potongan_keranjang' => $request->total_potongan_keranjang,
-            'hasil_kerja_netto' => $request->hasil_kerja_netto,
+            'hasil_kerja_netto' => json_encode($request->hasil_kerja_netto),
+            'timbangan_netto' => $request->timbangan_netto,
+
         ]);
 
         // Redirect dengan pesan sukses

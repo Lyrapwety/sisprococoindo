@@ -11,7 +11,7 @@
             height: calc(100vh - 70px);
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-         
+
         }
 
         .container {
@@ -51,7 +51,7 @@
             font-size: 12px;
         }
 
-  
+
         .filters select.pilihtanggal,
         .filters .input-icon input[type="text"] {
             padding: 8px 12px;
@@ -116,7 +116,7 @@
         .filters .actions .btn.add {
             background-color: #71bc74;
             transform: translateX(-2px);
-           
+
         }
 
         .filters .actions .btn.export {
@@ -747,11 +747,11 @@
                     <i class="fas fa-search"></i> <!-- Ikon pencarian (search icon) -->
                 </div>
                 <div class="actions">
-                            @if (session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <button class="btn export">
                         <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png"
                             alt="export" /> Export</button>
@@ -777,24 +777,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($laporandkps as $laporandkp)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $laporandkp->tanggal }}</td>
-                            <td>{{ $laporandkp->nama_sheller }}</td>
-                            <td>{{ $laporandkp->nama_parer }}</td>
-                            <td>{{ $laporandkp->hasil_kerja_parer }}</td>
-                            <td>{{ $laporandkp->hasil_kerja_sheller }}</td>
-                            <td><button class="detail-btn" id="openModal2" data-id="{{ $laporandkp->id }}">Hasil Timbangan</button></td>
-                            <td>
-                                <button class="edit-btn" data-id="{{ $laporandkp->id }}">Edit</button>
-                                <form action="{{ route('laporan.dkp.destroy', $laporandkp->id) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="delete-btn" data-id="{{ $laporandkp->id }}">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
+                        @foreach ($laporandkps as $laporandkp)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $laporandkp->tanggal }}</td>
+                                <td>{{ $laporandkp->nama_sheller }}</td>
+                                <td>{{ $laporandkp->nama_parer }}</td>
+                                <td>{{ $laporandkp->timbangan_hasil_kerja_parer }}</td>
+                                <td>{{ $laporandkp->hasil_kerja_sheller }} {{ $laporandkp->sheller_count }}</td>
+                                <td><button class="detail-btn" id="openModal2" data-id="{{ $laporandkp->id }}">Hasil
+                                        Timbangan</button></td>
+                                <td>
+                                    <button class="edit-btn" data-id="{{ $laporandkp->id }}">Edit</button>
+                                    <form action="{{ route('laporan.dkp.destroy', $laporandkp->id) }}" method="POST"
+                                        style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="delete-btn"
+                                            data-id="{{ $laporandkp->id }}">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -836,7 +839,319 @@
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="nama-sheller-1">Nama Sheller</label>
-                                        <input type="text" class="form-control @error('nama_sheller') is-invalid @enderror" id="nama_sheller" name="nama_sheller" value="{{ old('nama_sheller') }}">
+                                        <input type="text"
+                                            class="form-control @error('nama_sheller') is-invalid @enderror"
+                                            id="nama_sheller" name="nama_sheller" value="{{ old('nama_sheller') }}">
+                                        @error('nama_sheller')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group-total">
+                                        <label id="total-label">Total: 0 kg</label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="tanggal-picker">Pilih Tanggal</label>
+                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
+                                            id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
+                                        @error('tanggal')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
+                                <div id="anggota-parer-container">
+                                    <div class="anggota-block">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="anggota-parer-1">Anggota Parer 1</label>
+                                                <input type="text"
+                                                    class="form-control @error('nama_parer') is-invalid @enderror"
+                                                    id="nama_parer" name="nama_parer" value="{{ old('nama_parer') }}">
+                                                @error('nama_parer')
+                                                    <div class="alert alert-danger mt-2">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="total-keranjang-1">Total Keranjang</label>
+                                                <input type="number"
+                                                    class="form-control @error('total_keranjang') is-invalid @enderror"
+                                                    id="total_keranjang" name="total_keranjang"
+                                                    value="{{ old('total_keranjang') }}" min="0">
+                                                @error('total_keranjang')
+                                                    <div class="alert alert-danger mt-2">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tipe-keranjang-1">Tipe Keranjang</label>
+                                                <select id="tipe_keranjang"
+                                                    class="form-control @error('tipe_keranjang') is-invalid @enderror"
+                                                    name="tipe_keranjang" value="{{ old('tipe_keranjang') }}">
+                                                    <option value="Keranjang Besar">Keranjang Besar</option>
+                                                    <option value="Keranjang Kecil">Keranjang Kecil</option>
+                                                </select>
+                                                @error('tipe_keranjang')
+                                                    <div class="alert alert-danger mt-2">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <span class="label-timbangan">Hasil Timbangan DKP</span>
+                                        <div class="basket-container">
+                                            <div class="row">
+                                                @for ($i = 0; $i < 12; $i++)
+                                                    <div class="col-1 text-center">
+                                                        <!-- Menempatkan nomor di atas input -->
+                                                        <label for="hasil_kerja_parer_{{ $i }}" style="display: block;">{{ $i + 1 }}</label>
+                                                        <input
+                                                            class="basket-input"
+                                                            type="number"
+                                                            name="hasil_kerja_parer[]"
+                                                            id="hasil_kerja_parer_{{ $i }}"
+                                                            value="{{ old('hasil_kerja_parer.' . $i, 0) }}"
+                                                            oninput="calculateTotal()"
+                                                        >
+                                                    </div>
+                                                @endfor
+                                            </div>
+                                            <div class="total-container">
+                                                <label for="timbangan_hasil_kerja_parer">Total:</label>
+                                                <input
+                                                    type="number"
+                                                    id="timbangan_hasil_kerja_parer"
+                                                    name="timbangan_hasil_kerja_parer"
+                                                    value="{{ old('timbangan_hasil_kerja_parer', 0) }}"
+                                                    readonly
+                                                >
+                                            </div>
+                                            @error('hasil_kerja_parer')
+                                                <div class="alert alert-danger mt-2">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+
+                                        <hr class="hori-line">
+                                    </div>
+                                </div>
+
+                                <div class="action-buttons">
+                                    <button type="button" class="add-member-btn" onclick="addAnggotaParer()">+ Anggota
+                                        Parer</button>
+                                    <button type="submit" class="submit-btn">Kirim</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal kedua -->
+            <div class="modal2" id="modal2">
+                <div class="modal-back2">
+                    <div class="modal-content2">
+                        <div class="header2">
+                            <h2>Detail Hasil Timbangan Daging Kelapa Putih</h2>
+                        </div>
+
+                        <div class="row2">
+                            <div class="form-group2">
+                                <label for="namaParer1" class="nama-parer2">Nama Parer</label>
+                                <input type="text" id="namaParer1" class="input-nama2">
+                            </div>
+                            <div class="potongan-keranjang2">
+                                <label>Potongan Keranjang</label>
+                                <table class="tabel-potongan2">
+                                    <thead>
+                                        <tr>
+                                            <th>Jumlah</th>
+                                            <th>Berat</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>3</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Tabel Hasil (Bagian Pertama) -->
+                        <table class="tabel-hasil2 centered-table2">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>7</th>
+                                    <th>8</th>
+                                    <th>9</th>
+                                    <th>10</th>
+                                    <th>11</th>
+                                    <th>12</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>10 Desember 2022</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>7</td>
+                                    <td>8</td>
+                                    <td>9</td>
+                                    <td>10</td>
+                                    <td>11</td>
+                                    <td>12</td>
+                                    <td>13</td>
+                                    <td>14</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        </tbody>
+                        </table>
+
+                        <button class="close-btn2" id="closeModal2">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endsection
+
+    @section('scripts')
+        <script>
+            function calculateTotal() {
+                const inputs = document.querySelectorAll('.basket-input');
+                let total = 0;
+
+                inputs.forEach(input => {
+                    total += parseFloat(input.value) || 0; // Tambahkan angka atau 0 jika kosong
+                });
+
+                document.getElementById('timbangan_hasil_kerja_parer').value = total;
+                document.getElementById('total-label').textContent = 'Total: ' + total + ' kg';
+            }
+
+
+            // Open modal for adding a new record
+            document.getElementById('openFormBtn').addEventListener('click', () => {
+                const modal = document.getElementById('modal');
+                modal.style.display = 'block';
+                document.getElementById('dkpForm').reset();
+                document.getElementById('record_id').value = ''; // Reset hidden input
+            });
+
+            // Handle edit button click
+            document.querySelectorAll('.edit-btn').forEach((button) => {
+                button.addEventListener('click', async (event) => {
+                    const id = event.target.dataset.id;
+                    const modal = document.getElementById('modal');
+
+                    // Fetch record data
+                    const response = await fetch(`/laporan/dkp/${id}/edit`);
+                    const data = await response.json();
+
+                    // Populate modal fields
+                    document.getElementById('record_id').value = data.id;
+                    document.getElementById('tanggal').value = data.tanggal;
+                    document.getElementById('nama_sheller').value = data.nama_sheller;
+                    document.getElementById('nama_parer').value = data.nama_parer;
+
+                    // Show modal
+                    modal.style.display = 'block';
+                });
+            });
+
+            // Close modal
+            document.querySelector('.close').addEventListener('click', () => {
+                document.getElementById('modal').style.display = 'none';
+            });
+
+            const modal = document.getElementById('modal');
+            const openFormBtn = document.getElementById('openFormBtn');
+            const closeBtn = document.querySelector('.close');
+
+            // Fungsi untuk membuka modal utama
+            openFormBtn.addEventListener('click', () => {
+                modal.style.display = 'block';
+            });
+
+            // Fungsi untuk menutup modal utama
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            // Fungsi untuk menutup modal jika pengguna klik di luar konten modal
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Fungsi untuk membuka modal kedua (modal2)
+            function openModal2() {
+                const modal2 = document.getElementById('modal2');
+                modal2.style.display = 'block';
+            }
+
+            // Fungsi untuk menutup modal kedua (modal2)
+            function closeModal2() {
+                const modal2 = document.getElementById('modal2');
+                modal2.style.display = 'none';
+            }
+
+            // Tambahkan event listener untuk tombol yang membuka modal kedua
+            const openModalButton = document.getElementById('openModal2');
+            if (openModalButton) {
+                openModalButton.addEventListener('click', openModal2);
+            }
+
+            // Tambahkan event listener untuk tombol yang menutup modal kedua
+            const closeModalButton = document.getElementById('closeModal2');
+            if (closeModalButton) {
+                closeModalButton.addEventListener('click', closeModal2);
+            }
+
+            // Variabel penghitung untuk anggota "Parer"
+            let anggotaCount = 2; // Mulai dari 2 karena elemen pertama sudah ada
+
+            function addAnggotaParer() {
+                const container = document.getElementById('anggota-parer-container');
+                const anggotaBlock = document.createElement('div');
+                anggotaBlock.classList.add('anggota-block');
+
+                // Template untuk baris anggota baru
+                const formRow = `
+                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="nama-sheller-1">Nama Sheller</label>
+                                        <input type="text"
+                                            class="form-control @error('nama_sheller') is-invalid @enderror"
+                                            id="nama_sheller" name="nama_sheller" value="{{ old('nama_sheller') }}">
                                         @error('nama_sheller')
                                             <div class="alert alert-danger mt-2">
                                                 {{ $message }}
@@ -849,7 +1164,8 @@
 
                                     <div class="form-group">
                                         <label for="tanggal-picker">Pilih Tanggal</label>
-                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
+                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
+                                            id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
                                         @error('tanggal')
                                             <div class="alert alert-danger mt-2">
                                                 {{ $message }}
@@ -858,13 +1174,15 @@
                                     </div>
                                 </div>
 
-                              
+
                                 <div id="anggota-parer-container">
                                     <div class="anggota-block">
                                         <div class="form-row">
                                             <div class="form-group">
                                                 <label for="anggota-parer-1">Anggota Parer 1</label>
-                                                <input type="text" class="form-control @error('nama_parer') is-invalid @enderror" id="nama_parer" name="nama_parer" value="{{ old('nama_parer') }}">
+                                                <input type="text"
+                                                    class="form-control @error('nama_parer') is-invalid @enderror"
+                                                    id="nama_parer" name="nama_parer" value="{{ old('nama_parer') }}">
                                                 @error('nama_parer')
                                                     <div class="alert alert-danger mt-2">
                                                         {{ $message }}
@@ -873,7 +1191,10 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="total-keranjang-1">Total Keranjang</label>
-                                                <input type="number" class="form-control @error('total_keranjang') is-invalid @enderror" id="total_keranjang" name="total_keranjang" value="{{ old('total_keranjang') }}" min="0">
+                                                <input type="number"
+                                                    class="form-control @error('total_keranjang') is-invalid @enderror"
+                                                    id="total_keranjang" name="total_keranjang"
+                                                    value="{{ old('total_keranjang') }}" min="0">
                                                 @error('total_keranjang')
                                                     <div class="alert alert-danger mt-2">
                                                         {{ $message }}
@@ -882,7 +1203,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="tipe-keranjang-1">Tipe Keranjang</label>
-                                                <select id="tipe_keranjang" class="form-control @error('tipe_keranjang') is-invalid @enderror" name="tipe_keranjang" value="{{ old('tipe_keranjang') }}" >
+                                                <select id="tipe_keranjang"
+                                                    class="form-control @error('tipe_keranjang') is-invalid @enderror"
+                                                    name="tipe_keranjang" value="{{ old('tipe_keranjang') }}">
                                                     <option value="Keranjang Besar">Keranjang Besar</option>
                                                     <option value="Keranjang Kecil">Keranjang Kecil</option>
                                                 </select>
@@ -896,281 +1219,83 @@
                                         <span class="label-timbangan">Hasil Timbangan DKP</span>
                                         <div class="basket-container">
                                             @for ($i = 0; $i < 12; $i++)
-                                                <input class="basket-input" type="text" name="hasil_kerja_parer" id="hasil_kerja_parer" value="{{ old('hasil_kerja_parer') }}">
+                                                <input
+                                                    class="basket-input"
+                                                    type="number"
+                                                    name="hasil_kerja_parer[]"
+                                                    id="hasil_kerja_parer_{{ $i }}"
+                                                    value="{{ old('hasil_kerja_parer.' . $i, 0) }}"
+                                                    oninput="calculateTotal()"
+                                                >
                                             @endfor
+                                            <div class="total-container">
+                                                <label for="timbangan_hasil_kerja_parer">Total:</label>
+                                                <input
+                                                    type="number"
+                                                    id="timbangan_hasil_kerja_parer"
+                                                    name="timbangan_hasil_kerja_parer"
+                                                    value="{{ old('timbangan_hasil_kerja_parer', 0) }}"
+                                                    readonly
+                                                >
+                                            </div>
                                             @error('hasil_kerja_parer')
-                                                    <div class="alert alert-danger mt-2">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
+                                                <div class="alert alert-danger mt-2">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
+
                                         <hr class="hori-line">
                                     </div>
                                 </div>
-
-                                <div class="action-buttons">
-                                    <button type="button" class="add-member-btn" onclick="addAnggotaParer()">+ Anggota Parer</button>
-                                    <button type="submit" class="submit-btn">Kirim</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-        <!-- Modal kedua -->
-        <div class="modal2" id="modal2">
-            <div class="modal-back2">
-                <div class="modal-content2">
-                    <div class="header2">
-                        <h2>Detail Hasil Timbangan Daging Kelapa Putih</h2>
-                    </div>
-
-                    <!-- Nama Parer dan Potongan Keranjang (Bagian Pertama) -->
-                    <div class="row2">
-                        <div class="form-group2">
-                            <label for="namaParer1" class="nama-parer2">Nama Parer</label>
-                            <input type="text" id="namaParer1" class="input-nama2">
-                        </div>
-                        <div class="potongan-keranjang2">
-                            <label>Potongan Keranjang</label>
-                            <table class="tabel-potongan2">
-                                <thead>
-                                    <tr>
-                                        <th>Jumlah</th>
-                                        <th>Berat</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>3</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Tabel Hasil (Bagian Pertama) -->
-                    <table class="tabel-hasil2 centered-table2">
-                        <thead>
-                            <tr>
-                                <th>Tanggal</th>
-                                <th>1</th>
-                                <th>2</th>
-                                <th>3</th>
-                                <th>4</th>
-                                <th>5</th>
-                                <th>6</th>
-                                <th>7</th>
-                                <th>8</th>
-                                <th>9</th>
-                                <th>10</th>
-                                <th>11</th>
-                                <th>12</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>10 Desember 2022</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>10</td>
-                                <td>11</td>
-                                <td>12</td>
-                                <td>13</td>
-                                <td>14</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-
-
-                        </tbody>
-                    </table>
-
-                    <button class="close-btn2" id="closeModal2">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
-
-@section('scripts')
-    <script>
-        // Open modal for adding a new record
-        document.getElementById('openFormBtn').addEventListener('click', () => {
-            const modal = document.getElementById('modal');
-            modal.style.display = 'block';
-            document.getElementById('dkpForm').reset();
-            document.getElementById('record_id').value = ''; // Reset hidden input
-        });
-
-        // Handle edit button click
-        document.querySelectorAll('.edit-btn').forEach((button) => {
-            button.addEventListener('click', async (event) => {
-                const id = event.target.dataset.id;
-                const modal = document.getElementById('modal');
-
-                // Fetch record data
-                const response = await fetch(`/laporan/dkp/${id}/edit`);
-                const data = await response.json();
-
-                // Populate modal fields
-                document.getElementById('record_id').value = data.id;
-                document.getElementById('tanggal').value = data.tanggal;
-                document.getElementById('nama_sheller').value = data.nama_sheller;
-                document.getElementById('nama_parer').value = data.nama_parer;
-
-                // Show modal
-                modal.style.display = 'block';
-            });
-        });
-
-        // Close modal
-        document.querySelector('.close').addEventListener('click', () => {
-            document.getElementById('modal').style.display = 'none';
-        });
-
-        const modal = document.getElementById('modal');
-        const openFormBtn = document.getElementById('openFormBtn');
-        const closeBtn = document.querySelector('.close');
-
-        // Fungsi untuk membuka modal utama
-        openFormBtn.addEventListener('click', () => {
-            modal.style.display = 'block';
-        });
-
-        // Fungsi untuk menutup modal utama
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-
-        // Fungsi untuk menutup modal jika pengguna klik di luar konten modal
-        window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Fungsi untuk membuka modal kedua (modal2)
-        function openModal2() {
-            const modal2 = document.getElementById('modal2');
-            modal2.style.display = 'block';
-        }
-
-        // Fungsi untuk menutup modal kedua (modal2)
-        function closeModal2() {
-            const modal2 = document.getElementById('modal2');
-            modal2.style.display = 'none';
-        }
-
-        // Tambahkan event listener untuk tombol yang membuka modal kedua
-        const openModalButton = document.getElementById('openModal2');
-        if (openModalButton) {
-            openModalButton.addEventListener('click', openModal2);
-        }
-
-        // Tambahkan event listener untuk tombol yang menutup modal kedua
-        const closeModalButton = document.getElementById('closeModal2');
-        if (closeModalButton) {
-            closeModalButton.addEventListener('click', closeModal2);
-        }
-
-        // Variabel penghitung untuk anggota "Parer"
-        let anggotaCount = 2; // Mulai dari 2 karena elemen pertama sudah ada
-
-        function addAnggotaParer() {
-            const container = document.getElementById('anggota-parer-container');
-            const anggotaBlock = document.createElement('div');
-            anggotaBlock.classList.add('anggota-block');
-
-            // Template untuk baris anggota baru
-            const formRow = `
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="nama-sheller-${anggotaCount}">Nama Sheller</label>
-                        <input type="text" class="kotak" id="nama-sheller-${anggotaCount}" name="nama_sheller[]" value="">
-                    </div>
-                    <div class="form-group-total">
-                        <label>Total: 250 kg</label>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="anggota-parer-${anggotaCount}">Anggota Parer ${anggotaCount}</label>
-                        <input type="text" class="kotak" id="anggota-parer-${anggotaCount}" name="anggota_parer[]">
-                    </div>
-                    <div class="form-group">
-                        <label for="total-keranjang-${anggotaCount}">Total Keranjang</label>
-                        <input type="number" class="kotak" id="total-keranjang-${anggotaCount}" name="total_keranjang[]" min="0">
-                        <label for="tipe-keranjang-${anggotaCount}">Tipe Keranjang</label>
-                        <select id="tipe-keranjang-${anggotaCount}" class="custom-select" name="tipe_keranjang[]">
-                            <option value="A">Keranjang Besar</option>
-                            <option value="B">Keranjang Kecil</option>
-                        </select>
-                    </div>
-                </div>
-                <span class="label-timbangan">Hasil Timbangan DKP</span>
-                <div class="basket-container">
-                    ${new Array(12).fill('<input class="basket-input" type="text" name="hasil_kerja_parer[]" value="">').join('')}
-                </div>
-                <hr class="hori-line">
             `;
 
-            // Tambahkan baris ke container
-            anggotaBlock.innerHTML = formRow;
-            container.appendChild(anggotaBlock);
+                // Tambahkan baris ke container
+                anggotaBlock.innerHTML = formRow;
+                container.appendChild(anggotaBlock);
 
-            // Tambah penghitung anggota
-            anggotaCount++;
-        }
+                // Tambah penghitung anggota
+                anggotaCount++;
+            }
 
-        document.querySelector('.submit-btn').addEventListener('click', () => {
-            const formData = new FormData();
+            document.querySelector('.submit-btn').addEventListener('click', () => {
+                const formData = new FormData();
 
-            formData.append('tanggal', document.getElementById('tanggal').value);
-            formData.append('nama_sheller', document.getElementById('nama_sheller').value);
+                formData.append('tanggal', document.getElementById('tanggal').value);
+                formData.append('nama_sheller', document.getElementById('nama_sheller').value);
 
-            // Loop untuk anggota parer
-            const anggotaParerBlocks = document.querySelectorAll('.anggota-block');
-            anggotaParerBlocks.forEach((block, index) => {
-                formData.append(`nama_parer[${index}]`, block.querySelector('[name="nama_parer[]"]').value);
-                formData.append(`total_keranjang[${index}]`, block.querySelector('[name="total_keranjang[]"]').value);
-                formData.append(`tipe_keranjang[${index}]`, block.querySelector('[name="tipe_keranjang[]"]').value);
+                // Loop untuk anggota parer
+                const anggotaParerBlocks = document.querySelectorAll('.anggota-block');
+                anggotaParerBlocks.forEach((block, index) => {
+                    formData.append(`nama_parer[${index}]`, block.querySelector('[name="nama_parer[]"]').value);
+                    formData.append(`total_keranjang[${index}]`, block.querySelector(
+                        '[name="total_keranjang[]"]').value);
+                    formData.append(`tipe_keranjang[${index}]`, block.querySelector('[name="tipe_keranjang[]"]')
+                        .value);
 
-                const hasilKerjaInputs = block.querySelectorAll('[name="hasil_kerja_parer[]"]');
-                hasilKerjaInputs.forEach((input, basketIndex) => {
-                    formData.append(`hasil_kerja_parer[${index}][${basketIndex}]`, input.value);
+                    const hasilKerjaInputs = block.querySelectorAll('[name="hasil_kerja_parer[]"]');
+                    hasilKerjaInputs.forEach((input, basketIndex) => {
+                        formData.append(`hasil_kerja_parer[${index}][${basketIndex}]`, input.value);
+                    });
                 });
-            });
 
-            fetch('/laporandkp/store', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                },
-                body: formData,
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Data berhasil ditambahkan!');
-                        location.reload();
-                    } else {
-                        alert('Terjadi kesalahan, coba lagi.');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        });
-    </script>
-@endsection
+                fetch('/laporandkp/store', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        },
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Data berhasil ditambahkan!');
+                            location.reload();
+                        } else {
+                            alert('Terjadi kesalahan, coba lagi.');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        </script>
+    @endsection

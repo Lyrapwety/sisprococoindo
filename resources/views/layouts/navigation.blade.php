@@ -215,7 +215,7 @@
                     <a href="{{ route('laporan.dkp_reject.index') }}">DKP Reject</a>
                     <a href="{{ route('laporan.kulitari.index') }}">Kulit Ari </a>
                     <a href="{{ route('laporan.airkelapa.index') }}">Air Kelapa</a>
-                    <a href="{{ route('laporan.tempurung') }}">Tempurung</a>
+                    <a href="{{ route('laporan.tempurung.index') }}">Tempurung</a>
                 </div>
 
                 <button class="dropdown-btn"><i class="fa-regular fa-folder-open"></i>Rekap Hasil Kerja
@@ -223,7 +223,7 @@
                 </button>
                 <div class="dropdown-container">
 
-                    <a href="{{ route('rekap_laporan.pembukaan_kulit_ari') }}">Kulit Ari - Parer</a>
+                    <a href="{{ route('rekap_laporan.pembukaan_kulit_ari.index') }}">Kulit Ari - Parer</a>
                 </div>
 
                 <button class="dropdown-btn"><i class="fa-solid fa-gears"></i>Produksi

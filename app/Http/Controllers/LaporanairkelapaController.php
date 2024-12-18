@@ -23,10 +23,12 @@ class LaporanairkelapaController extends Controller
         'sheller_parer' => 'nullable|string|max:255',
         'bruto' => 'nullable|string|max:255',
         'total_keranjang' => 'nullable|string|max:255',
-        'tipe_keranjnag' => 'nullable|string|max:255',
+        'tipe_keranjang' => 'nullable|string|max:255',
         'berat_keranjang' => 'nullable|string|max:255',
         'total_potongan_keranjang' => 'nullable|string|max:255',
-        'hasil_kerja' => 'nullable|string|max:255',
+        'hasil_kerja' => 'nullable|array',
+        'hasil_kerja.*' => 'nullable|numeric',
+        'timbangan_hasil' => 'nullable|numeric',
     ]);
 
     // Simpan data ke database
@@ -37,10 +39,11 @@ class LaporanairkelapaController extends Controller
         'sheller_parer' => $request->sheller_parer,
         'bruto' => $request->bruto,
         'total_keranjang' => $request->total_keranjang,
-        'tipe_keranjnag' => $request->tipe_keranjnag,
+        'tipe_keranjang' => $request->tipe_keranjnag,
         'berat_keranjang' => $request->berat_keranjang,
         'total_potongan_keranjang' => $request->total_potongan_keranjang,
-        'hasil_kerja' => $request->hasil_kerja,
+        'hasil_kerja' => json_encode($request->hasil_kerja),
+        'timbangan_hasil' => $request->timbangan_hasil,
     ]);
 
     // Redirect dengan pesan sukses

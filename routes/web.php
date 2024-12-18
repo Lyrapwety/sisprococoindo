@@ -7,7 +7,8 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LaporandkpController;
 use App\Http\Controllers\LaporandkprejectController;
 use App\Http\Controllers\LaporankulitariController;
-use App\Http\Controllers\RekapController;
+use App\Http\Controllers\LaporantempurungController;
+use App\Http\Controllers\RekapkulitariController;
 use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\LaporanairkelapaController;
@@ -34,6 +35,8 @@ Route::prefix('laporan')->name('laporan.')->group(function () {
     Route::get('dkp/create', [LaporandkpController::class, 'create'])->name('dkp.create');
     Route::post('dkp', [LaporandkpController::class, 'store'])->name('dkp.store');
     Route::delete('dkp/{id}', [LaporandkpController::class, 'destroy'])->name('dkp.destroy');
+    Route::get('dkp/{id}/edit', [LaporandkpController::class, 'edit'])->name('dkp.edit');
+    Route::put('dkp/{id}', [LaporandkpController::class, 'update'])->name('dkp.update');
 
     //dkp reject
     Route::resource('dkp_reject', LaporandkprejectController::class);
@@ -52,13 +55,22 @@ Route::prefix('laporan')->name('laporan.')->group(function () {
     Route::get('airkelapa/create', [LaporanairkelapaController::class, 'create'])->name('airkelapa.create');
     Route::post('airkelapa', [LaporanairkelapaController::class, 'store'])->name('airkelapa.store');
     Route::delete('airkelapa/{id}', [LaporanairkelapaController::class, 'destroy'])->name('airkelapa.destroy');
+
+    //tempurung laporan
+    Route::resource('tempurung', LaporantempurungController::class);
+    Route::get('tempurung/create', [LaporantempurungController::class, 'create'])->name('tempurung.create');
+    Route::post('tempurung', [LaporantempurungController::class, 'store'])->name('tempurung.store');
+    Route::delete('tempurung/{id}', [LaporantempurungController::class, 'destroy'])->name('tempurung.destroy');
 });
 
-Route::get('/laporan/tempurung', [LaporanController::class, 'tempurung'])->name('laporan.tempurung');
-
-
-Route::get('/rekap_laporan/kulit_ari', [RekapController::class, 'kulitari'])->name('rekap_laporan.pembukaan_kulit_ari');
-
+//rekap view
+Route::prefix('rekap_laporan')->name('rekap_laporan.')->group(function () {
+    //rekap kulit ari
+    Route::resource('pembukaan_kulit_ari', RekapkulitariController::class);
+    Route::get('pembukaan_kulit_ari/create', [RekapkulitariController::class, 'create'])->name('pembukaan_kulit_ari.create');
+    Route::post('pembukaan_kulit_ari', [RekapkulitariController::class, 'store'])->name('pembukaan_kulit_ari.store');
+    Route::delete('pembukaan_kulit_ari/{id}', [RekapkulitariController::class, 'destroy'])->name('pembukaan_kulit_ari.destroy');
+});
 
 
 Route::get('/card_stock/santan', [StockController::class, 'santan'])->name('card_stock.santan');

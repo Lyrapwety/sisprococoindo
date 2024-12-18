@@ -23,7 +23,8 @@ class LaporanAirKelapa extends Model
         'tipe_keranjnag',
         'berat_keranjang',
         'total_potongan_keranjang',
-        'hasil_kerja'
+        'hasil_kerja',
+        'timbangan_hasil'
     ];
 
     // Optionally, you can define the primary key if it's not 'id'

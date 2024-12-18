@@ -25,12 +25,14 @@ class LaporanKulitAriBasah extends Model
         'id_kelapa_bulat',
         'no',
         'tanggal',
+        'nama_pegawai',
         'sheller_parer',
         'bruto',
         'total_keranjang',
         'tipe_keranjang',
         'berat_keranjang',
         'total_potongan_keranjang',
+        'timbangan_hasil',
         'hasil_kerja',
     ];
 

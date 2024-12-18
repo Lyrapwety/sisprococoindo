@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('tipe_keranjang')->nullable();
             $table->string('total_keranjang')->nullable();
             $table->string('total_potongan_keranjang')->nullable();
-            $table->string('netto');
+            $table->json('netto')->nullable();
+            $table->decimal('timbangan_netto', 10, 2)->default(0);
             $table->timestamps();
         });
     }

@@ -20,13 +20,16 @@ class LaporankulitariController extends Controller
                 'id_kelapa_bulat' => 'nullable|string|max:255',
                 'no' => 'nullable|string|max:255',
                 'tanggal' => 'nullable|string|max:255',
+                'nama_pegawai' => 'nullable|string|max:255',
                 'sheller_parer' => 'nullable|string|max:255',
                 'bruto' => 'nullable|string|max:255',
                 'total_keranjang' => 'nullable|string|max:255',
                 'tipe_keranjang' => 'nullable|string|max:255',
                 'berat_keranjang' => 'nullable|string|max:255',
                 'total_potongan_keranjang' => 'nullable|string|max:255',
-                'hasil_kerja' => 'nullable|string|max:255',
+                'hasil_kerja' => 'nullable|array',
+                'hasil_kerja.*' => 'nullable|numeric',
+                'timbangan_hasil' => 'nullable|numeric',
             ]);
 
             // Simpan data ke database
@@ -34,13 +37,15 @@ class LaporankulitariController extends Controller
                 'id_kelapa_bulat' => $request->id_kelapa_bulat,
                 'no' => $request->no,
                 'tanggal' => $request->tanggal,
+                'nama_pegawai' => $request->nama_pegawai,
                 'sheller_parer' => $request->sheller_parer,
                 'bruto' => $request->bruto,
                 'total_keranjang' => $request->total_keranjang,
                 'tipe_keranjang' => $request->tipe_keranjang,
                 'berat_keranjang' => $request->berat_keranjang,
                 'total_potongan_keranjang' => $request->total_potongan_keranjang,
-                'hasil_kerja' => $request->hasil_kerja,
+                'hasil_kerja' => json_encode($request->hasil_kerja),
+                'timbangan_hasil' => $request->timbangan_hasil,
             ]);
 
             // Redirect dengan pesan sukses

@@ -23,6 +23,7 @@ class LaporanDkpRejectBasah extends Model
         'tipe_keranjang',
         'berat_keranjang',
         'total_potongan_keranjang',
+        'timbangan_netto',
         'hasil_kerja_netto'
     ];
 

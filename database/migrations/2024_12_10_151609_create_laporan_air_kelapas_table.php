@@ -19,10 +19,11 @@ return new class extends Migration
             $table->string('sheller_parer')->nullable();
             $table->string('bruto')->nullable();
             $table->string('total_keranjang')->nullable();
-            $table->string('tipe_keranjnag')->nullable();
+            $table->string('tipe_keranjang')->nullable();
             $table->string('berat_keranjang')->nullable();
             $table->string('total_potongan_keranjang')->nullable();
-            $table->string('hasil_kerja')->nullable();
+            $table->json('hasil_kerja')->nullable();
+            $table->decimal('timbangan_hasil', 10, 2)->default(0);
             $table->timestamps();
         });
     }

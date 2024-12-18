@@ -9,7 +9,10 @@ class LaporandkpController extends Controller
 {
     public function index()
     {
-        $laporandkps = Laporandkp::all();
+        $laporandkps = Laporandkp::all()->map(function ($item) {
+            $item->sheller_count = Laporandkp::where('nama_sheller', $item->nama_sheller)->count();
+            return $item;
+        });
         return view('laporan.dkp', compact('laporandkps'));
     }
 
@@ -22,7 +25,9 @@ class LaporandkpController extends Controller
             'tanggal' => 'nullable|string|max:255',
             'nama_sheller' => 'nullable|string|max:255',
             'nama_parer' => 'nullable|string|max:255',
-            'hasil_kerja_parer' => 'nullable|string|max:255',
+            'hasil_kerja_parer' => 'nullable|array',
+            'hasil_kerja_parer.*' => 'nullable|numeric',
+            'timbangan_hasil_kerja_parer' => 'nullable|numeric',
             'hasil_kerja_sheller' => 'nullable|string|max:255',
             'total_keranjang' => 'nullable|string|max:255',
             'tipe_keranjang' => 'nullable|string|max:255',
@@ -37,7 +42,8 @@ class LaporandkpController extends Controller
             'tanggal' => $request->tanggal,
             'nama_sheller' => $request->nama_sheller,
             'nama_parer' => $request->nama_parer,
-            'hasil_kerja_parer' => $request->hasil_kerja_parer,
+            'hasil_kerja_parer' => json_encode($request->hasil_kerja_parer),
+            'timbangan_hasil_kerja_parer' => $request->timbangan_hasil_kerja_parer,
             'hasil_kerja_sheller' => $request->hasil_kerja_sheller,
             'total_keranjang' => $request->total_keranjang,
             'tipe_keranjang' => $request->tipe_keranjang,
@@ -48,7 +54,6 @@ class LaporandkpController extends Controller
         // Redirect dengan pesan sukses
         return redirect()->route('laporan.dkp.index')->with('success', 'Data berhasil ditambahkan!');
     }
-
 
     public function destroy($id)
     {

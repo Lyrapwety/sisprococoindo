@@ -20,6 +20,7 @@ class LaporanDkp extends Model
         'nama_sheller',
         'nama_parer',
         'hasil_kerja_parer',
+        'timbangan_hasil_kerja_parer',
         'hasil_kerja_sheller',
         'total_keranjang',
         'tipe_keranjang',

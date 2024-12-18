@@ -12,7 +12,7 @@
             height: calc(100vh - 70px);
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-        
+
         }
 
         .container {
@@ -52,6 +52,23 @@
             font-size: 12px;
         }
 
+        .basket-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 13px;
+            margin-top: 15px;
+            color: #636362;
+            font-weight: bold;
+        }
+
+        .basket-container span {
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            display: flex;
+        }
 
         .filters select.pilihtanggal,
         .filters .input-icon input[type="text"] {
@@ -64,11 +81,11 @@
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-   
+
         .filters .input-icon {
             position: relative;
             width: 250px;
-       
+
         }
 
         .filters input[type="text"] {
@@ -291,7 +308,7 @@
         .modal {
             display: none;
             position: fixed;
-            z-index: 999;
+            z-index: 9999;
             left: 0;
             top: 0;
             width: 100%;
@@ -300,32 +317,25 @@
             background-color: rgba(0, 0, 0, 0.4);
             justify-content: center;
             align-items: center;
-            padding: 10px;
         }
 
         .modal-back {
             background-color: #F7F7F7;
             border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            width: 100%;
-            overflow-y: auto;
         }
 
         .modal-content {
-            position: relative;
             background-color: #D9D9D9;
             margin: auto;
             padding: 20px;
-            width: 60%;
+            width: 80%;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             max-width: 90%;
             display: flex;
             flex-direction: column;
-            height: auto;
             overflow-y: auto;
+            height: 95%;
         }
 
         .modal-header {
@@ -591,7 +601,7 @@
                                 <td>{{ $laporanreject->sheller_parer }}</td>
                                 <td>{{ $laporanreject->bruto }}</td>
                                 <td>{{ $laporanreject->total_potongan_keranjang }}</td>
-                                <td>{{ $laporanreject->hasil_kerja_netto }}</td>
+                                <td>{{ $laporanreject->timbangan_netto }}</td>
                                 <td><button class="detail-btn" id="openModal2" data-id="{{ $laporanreject->id }}">Hasil
                                         Timbangan</button></td>
                                 <td>
@@ -655,19 +665,9 @@
                                         </div>
                                     @enderror
                                 </div>
-                            
+
                                 <div>
                                     <label for="sp">S / P</label>
-                                    <input type="text" class="form-control @error('sp') is-invalid @enderror"
-                                        id="sp" name="sp" value="{{ old('sp') }}">
-                                    @error('sp')
-                                        <div class="alert alert-danger mt-2">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div>
-                                    <label for="nama-sheller">Nama Sheller / Parer</label>
                                     <input type="text" class="form-control @error('sheller_parer') is-invalid @enderror"
                                         id="sheller_parer" name="sheller_parer" value="{{ old('sheller_parer') }}">
                                     @error('sheller_parer')
@@ -687,7 +687,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                                
+
 
                                 <div class="inline-group">
                                     <div class="form-item">
@@ -716,66 +716,48 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <div class="timbangan-container">
                                 <h3>Hasil Timbangan Kulit DKP Reject</h3>
-                                <div class="timbangan-inputs">
-                                    <!-- Each input wrapped with a label above -->
-                                    <div>
-                                        <label for="timbangan-1">1</label>
-                                        <input type="number" id="timbangan-1">
+                                <div class="basket-container">
+                                    <div class="row">
+                                        @for ($i = 0; $i < 12; $i++)
+                                            <div class="col-1 text-center">
+                                                <!-- Menempatkan nomor di atas input -->
+                                                <label for="hasil_kerja_netto_{{ $i }}" style="display: block;">{{ $i + 1 }}</label>
+                                                <input
+                                                    class="basket-input"
+                                                    type="number"
+                                                    name="hasil_kerja_netto[]"
+                                                    id="hasil_kerja_netto_{{ $i }}"
+                                                    value="{{ old('hasil_kerja_netto.' . $i, 0) }}"
+                                                    oninput="calculateTotal()"
+                                                >
+                                            </div>
+                                        @endfor
                                     </div>
-                                    <div>
-                                        <label for="timbangan-2">2</label>
-                                        <input type="number" id="timbangan-2">
+                                    <div class="total-container">
+                                        <label for="timbangan_netto">Total:</label>
+                                        <input
+                                            type="number"
+                                            id="timbangan_netto"
+                                            name="timbangan_netto"
+                                            value="{{ old('timbangan_netto', 0) }}"
+                                            readonly
+                                        >
                                     </div>
-                                    <div>
-                                        <label for="timbangan-3">3</label>
-                                        <input type="number" id="timbangan-3">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-4">4</label>
-                                        <input type="number" id="timbangan-4">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-5">5</label>
-                                        <input type="number" id="timbangan-5">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-6">6</label>
-                                        <input type="number" id="timbangan-6">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-7">7</label>
-                                        <input type="number" id="timbangan-7">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-8">8</label>
-                                        <input type="number" id="timbangan-8">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-9">9</label>
-                                        <input type="number" id="timbangan-9">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-10">10</label>
-                                        <input type="number" id="timbangan-10">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-11">11</label>
-                                        <input type="number" id="timbangan-11">
-                                    </div>
-                                    <div>
-                                        <label for="timbangan-12">12</label>
-                                        <input type="number" id="timbangan-12">
-                                    </div>
+                                    @error('hasil_kerja_netto')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="total-container">
-                                <span>Total: 250 kg</span>
+                                <label id="total-label">Total: 0 kg</label>
                             </div>
 
                             <div class="action-buttons">
@@ -802,6 +784,18 @@
 
 @section('scripts')
     <script>
+        function calculateTotal() {
+                const inputs = document.querySelectorAll('.basket-input');
+                let total = 0;
+
+                inputs.forEach(input => {
+                    total += parseFloat(input.value) || 0; // Tambahkan angka atau 0 jika kosong
+                });
+
+                document.getElementById('timbangan_netto').value = total;
+                document.getElementById('total-label').textContent = 'Total: ' + total + ' kg';
+            }
+
         document.addEventListener("DOMContentLoaded", function() {
             // Ambil elemen yang diperlukan
             const openFormBtn = document.getElementById('openFormBtn');

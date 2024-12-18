@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('tipe_keranjang')->nullable();
             $table->string('berat_keranjang')->nullable();
             $table->string('total_potongan_keranjang')->nullable();
-            $table->string('hasil_kerja_netto')->nullable();
+            $table->decimal('timbangan_netto', 10, 2)->default(0);
+            $table->json('hasil_kerja_netto')->nullable();
             $table->timestamps();
         });
     }

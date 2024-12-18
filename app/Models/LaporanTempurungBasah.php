@@ -21,7 +21,8 @@ class LaporanTempurungBasah extends Model
         'tipe_keranjang',
         'total_keranjang',
         'total_potongan_keranjang',
-        'netto'
+        'netto',
+        'timbangan_netto'
     ];
 
     // Optionally, you can define the primary key if it's not 'id'
