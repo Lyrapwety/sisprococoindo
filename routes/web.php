@@ -87,9 +87,14 @@ Route::get('/card_stock/ampas_kering_putih', [StockController::class, 'ampas_ker
 Route::get('/card_stock/ampas_kering_yellow', [StockController::class, 'ampas_kering_yellow'])->name('card_stock.ampas_kering_yellow');
 
 
+Route::prefix('data_pegawai')->name('data_pegawai.')->group(function () {
+    Route::get('/', [DatapegawaiController::class, 'index'])->name('index');
+    Route::get('/tambah_data_pegawai', [DatapegawaiController::class, 'tambah_data_pegawai'])->name('tambah_data_pegawai');
+    Route::post('/store', [DatapegawaiController::class, 'store'])->name('store');
+    Route::delete('/{id}', [DatapegawaiController::class, 'destroy'])->name('destroy');
+});
 
 
-Route::get('/data_pegawai', [DatapegawaiController::class, 'data_pegawai'])->name('data_pegawai');
 Route::get('/edit_data_pegawai', [DatapegawaiController::class, 'edit_data_pegawai'])->name('edit_data_pegawai');
 Route::get('/tambah_data_pegawai', [DatapegawaiController::class, 'tambah_data_pegawai'])->name('tambah_data_pegawai');
 

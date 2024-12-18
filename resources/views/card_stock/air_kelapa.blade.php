@@ -242,11 +242,159 @@
         /* Warna teks, tidak berpengaruh pada <hr> */
         border: none; /* Hapus border default */
         border-bottom: 0.5px solid #ccc;
-         width: 100%; /* Lebar penuh */
-         margin: 5px 0 15px 0; /* Margin atas, kanan, bawah, kiri */
+        width: 100%; /* Lebar penuh */
+        margin: 5px 0 15px 0; /* Margin atas, kanan, bawah, kiri */
         opacity: 0.5; /* Nilai opasitas (1 = tidak transparan) */
         padding-top: 20px;
+} 
+
+/* Modal Overlay */
+.modal {
+    display: none; /* Modal tidak tampil secara default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Transparan hitam */
+    justify-content: center;
+    align-items: center;
 }
+
+/* Modal Konten */
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 450px;
+    max-width: 90%;
+    height: 95%;
+    overflow-y: auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+.modal-content h2 {
+    font-size: 16px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+
+}
+
+
+@keyframes fadeIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #555;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+
+.form-group {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+    
+   
+}
+
+.
+.form-control {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 12px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
+    appearance: none; /* Hilangkan gaya default browser */
+   
+    background-position: right 10px center;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+.form-control:focus {
+    border-color:#104367;
+    outline: none;
+    box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
+}
+
+/* Style untuk option */
+.form-control option {
+    padding: 8px;
+}
+.form-control:focus {
+    border-color: #104367;
+    outline: none;
+    box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
+}
+
+
+.submit-btn {
+    background-color: #104367;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #104367;
+}
+.inline-form,
+.inline-form2 {
+    display: flex;
+    flex-wrap: wrap; /* Agar tetap responsif */
+    gap: 15px; /* Jarak antar elemen */
+    justify-content: space-between;
+}
+.inline-form .form-group,
+.inline-form2 .form-group {
+    flex: 1; /* Membuat elemen sejajar dan proporsional */
+    min-width: 45%; /* Mencegah elemen terlalu kecil */
+}
+
+
+
 </style>
 
 <div class="mainbar">
@@ -271,7 +419,7 @@
                    <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png" alt="export"/> Export
                 </button>
                 
-                <button id="openFormBtn" class="btn add">+ Tambah Data</button>
+                <button id="openFormBtn" class="btn add" onclick="openModal()">+ Tambah Data</button>
             </div>
         </div>
 
@@ -283,12 +431,12 @@
                 <th rowspan="2">Date<br>日期</th>
                 <th rowspan="2">Remark<br>评论</th>
                 <th rowspan="2">Making Product<br>制作产品</th>
-                <th rowspan="2">Fat<br>胖的</th>
+                <th rowspan="2">Briz<br></th>
                 <th rowspan="2">PH<br>酸碱度</th>
                 <th rowspan="2">Begin<br>开始</th>
                 <th colspan="2">IN<br>入库</th>
                 <th rowspan="2">Out<br>出库</th>
-                <th colspan="5">Remain<br>库存</th>
+                <th colspan="6">Remain<br>库存</th>
                 <th rowspan="2">Remark<br>评论</th>
             </tr>
             <tr>
@@ -299,6 +447,7 @@
                 <th>3 kg</th>
                 <th>2 kg</th>
                 <th>1 kg</th>
+                <th>Box</th>
             </tr>
         </thead>
         <tbody>
@@ -318,6 +467,7 @@
                 <td></td>
                 <td>2.662</td>
                 <td></td>
+                <td></td>
                 <td>Sisa 2 bags, Reject 1 bag, bocor 12 bags, 118 bags blm ketemu</td>
             </tr>
             <!-- Second Row -->
@@ -335,6 +485,7 @@
                 <td></td>
                 <td></td>
                 <td>1.854</td>
+                <td></td>
                 <td></td>
                 <td>Reject 2 bags, Sample 3 bags, 31 bags tidak ketemu</td>
             </tr>
@@ -354,6 +505,7 @@
                 <td></td>
                 <td>1.989</td>
                 <td></td>
+                <td></td>
                 <td>Sisa 2.837 bags</td>
             </tr>
             <!-- Fourth Row -->
@@ -372,6 +524,7 @@
                 <td></td>
                 <td>2.530</td>
                 <td></td>
+                <td></td>
                 <td>Sisa 673 bags</td>
             </tr>
             <!-- Additional Rows (repeat the pattern based on provided data) -->
@@ -389,6 +542,7 @@
                 <td></td>
                 <td></td>
                 <td>2.768</td>
+                <td></td>
                 <td></td>
                 <td>Sisa 1.737 bags</td>
             </tr>
@@ -411,11 +565,109 @@
                 <li><button class="page-btn next-btn" onclick="nextPage()">&#62;</button></li>
             </ul>
         </div>
+        
     </div>
-    @endsection
+ 
+   <!-- Modal -->
+   <div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2>Form Input Stok Packing Air Kelapa</h2>
 
-    @section('scripts')
-    <script>
+        <form id="stokForm">
+            <div class="form-group">
+                <label for="tanggal">Tanggal</label>
+                <input type="date" id="tanggal" name="tanggal" class="form-control" required>
+            </div>
+            <div class="inline-form">
+           
+     
+                <div class="form-group">
+                    <label for="activity_type">Tipe Aktivitas</label>
+                    <select id="activity_type" name="activity_type" class="form-control" required>
+                        <option value="" disabled selected></option>
+                        <option value="produksi">Produksi</option>
+                        <option value="ekspor">Ekspor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="jenis_berat">Jenis Berat</label>
+                    <select id="jenis_berat" name="jenis_berat" class="form-control" required>
+                        <option value="" disabled selected></option>
+                        <option value="5KG">5KG</option>
+                        <option value="4KG">4KG</option>
+                        <option value="3KG">3KG</option>
+                        <option value="2KG">2KG</option>
+                        <option value="1KG">1KG</option>
+                    </select>
+                </div>
+            </div>
+          
+
+      <div class="inline-form">
+            <div class="form-group">
+                <label for="making_product">Making Product</label>
+               <input type="text" id="making_product" name="making_product" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="jumlah_box">Jumlah Box</label>
+                <input type="number" id="jumlah_box" name="jumlah_box" class="form-control" required>
+            </div>
+
+      </div>
+      <div class="inline-form2">
+        <div class="form-group">
+            <label for="Briz">Briz</label>
+            <input type="text" id="Briz" name="Briz" class="form-control" required>
+        </div>
+    
+        <div class="form-group">
+            <label for="ph">PH</label>
+            <input type="number" id="ph" name="ph" class="form-control" required>
+        </div>
+    
+       
+    </div>
+
+       
+            <div class="form-group">
+                <label for="keterangan">Keterangan (Remark)</label>
+                <textarea id="keterangan" name="keterangan" class="form-control" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="catatan">Catatan</label>
+                <textarea id="catatan" name="catatan" class="form-control" required></textarea>
+            </div>
+
+
+            <button type="submit" class="submit-btn">Simpan</button>
+        </form>
+    </div>
+</div>
+
+   
+@endsection
+
+@section('scripts')
+<script> 
+
+
+function openModal() {
+    document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+window.onclick = function (event) {
+    const modal = document.getElementById("modal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
+
    function goToPage(page) {
     if (page >= 1 && page <= totalPages) {
         currentPage = page;

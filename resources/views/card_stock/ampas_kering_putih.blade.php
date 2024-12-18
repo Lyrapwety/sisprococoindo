@@ -235,25 +235,21 @@ table td button.delete {
     border-color: #104367; /* Ubah warna border saat fokus */
 }
 
-/* Modal container */
         .horizontalline1 {
-        /* Warna teks, tidak berpengaruh pada <hr> */
-        border: none; /* Hapus border default */
+        border: none; 
         border-bottom: 0.5px solid #ccc;
-         width: 100%; /* Lebar penuh */
-         margin: 5px 0 15px 0; /* Margin atas, kanan, bawah, kiri */
-        opacity: 0.5; /* Nilai opasitas (1 = tidak transparan) */
+        width: 100%; 
+        margin: 5px 0 15px 0; 
+        opacity: 0.5; 
         padding-top: 20px;
 }
 
     .btn.export {
         display: flex;
-        align-items: center; /* Mengatur ikon dan teks dalam satu baris */
-        color: white; /* Mengatur warna teks menjadi putih */
-        border: none; /* Menghapus border default */
-         /* Menambahkan padding */
-        cursor: pointer; /* Menambahkan kursor pointer */
-    }
+        align-items: center; 
+        color: white; 
+        border: none; 
+        cursor: pointer; }
 
      .btn.export img {
       /* Jarak antara ikon dan teks */  
@@ -265,7 +261,6 @@ table td button.delete {
     color: #636362; /* Ganti dengan warna yang diinginkan */
     opacity: 1; /* Mengatur opasitas jika perlu */
 }
-
 
 /* Modal Overlay */
 .modal {
@@ -308,7 +303,6 @@ table td button.delete {
     }
 }
 
-
 .close-btn {
     position: absolute;
     top: 10px;
@@ -321,7 +315,6 @@ table td button.delete {
 .close-btn:hover {
     color: red;
 }
-
 
 .form-group {
     margin-bottom: 15px;
@@ -376,7 +369,6 @@ table td button.delete {
     box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
 }
 
-/* Tombol Submit */
 .submit-btn {
     background-color: #104367;
     color: white;
@@ -419,8 +411,6 @@ table td button.delete {
                 <button id="openFormBtn" class="btn add" onclick="openModal()">+ Tambah Data</button>
             </div>
         </div>
-
-        <!-- Table Section -->
        
         <div class="table-container">
             <table>
@@ -458,7 +448,7 @@ table td button.delete {
                             <button class="delete">Delete</button>
                         </td>
                     </tr>
-                    <!-- Tambah data lainnya -->
+          
                 </tbody>
             </table>
         </div>
@@ -480,7 +470,6 @@ table td button.delete {
                 <li><button onclick="nextPage()">&#62;</button></li>
             </ul>
         </div>
-
 
    <!-- Modal -->
 <div id="modal" class="modal">
@@ -636,5 +625,5 @@ function goToPage(page) {
 displayData();
 
 
-
 </script>
+
