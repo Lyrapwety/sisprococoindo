@@ -605,12 +605,12 @@
                                 <td><button class="detail-btn" id="openModal2" data-id="{{ $laporanreject->id }}">Hasil
                                         Timbangan</button></td>
                                 <td>
-                                    <button class="edit-btn" data-id="{{ $laporanreject->id }}">Edit</button>
+                                    <button class="edit" data-id="{{ $laporanreject->id }}">Edit</button>
                                     <form action="{{ route('laporan.dkp_reject.destroy', $laporanreject->id) }}"
                                         method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="delete-btn"
+                                        <button type="submit" class="delete"
                                             data-id="{{ $laporanreject->id }}">Delete</button>
                                     </form>
                                 </td>
@@ -796,29 +796,76 @@
                 document.getElementById('total-label').textContent = 'Total: ' + total + ' kg';
             }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            // Ambil elemen yang diperlukan
-            const openFormBtn = document.getElementById('openFormBtn');
-            const modal = document.getElementById('modal');
-            const closeModalBtn = document.querySelector('.close');
+            document.addEventListener("DOMContentLoaded", function() {
+                // Ambil elemen yang diperlukan
+                const openFormBtn = document.getElementById('openFormBtn');
+                const modal = document.getElementById('modal');
+                const closeModalBtn = document.querySelector('.close');
+                const form = document.querySelector('form');
 
-            // Fungsi untuk membuka modal
-            openFormBtn.addEventListener('click', function() {
-                modal.style.display = 'flex'; // Menampilkan modal
-            });
+                // Fungsi untuk membuka modal
+                openFormBtn.addEventListener('click', function() {
+                    modal.style.display = 'flex'; // Menampilkan modal
+                });
 
-            // Fungsi untuk menutup modal ketika tombol close diklik
-            closeModalBtn.addEventListener('click', function() {
-                modal.style.display = 'none'; // Menyembunyikan modal
-            });
+                // Fungsi untuk menutup modal ketika tombol close diklik
+                closeModalBtn.addEventListener('click', function() {
+                    modal.style.display = 'none'; // Menyembunyikan modal
+                });
 
-            // Tutup modal jika pengguna mengklik di luar konten modal
-            window.addEventListener('click', function(event) {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
+                // Tutup modal jika pengguna mengklik di luar konten modal
+                window.addEventListener('click', function(event) {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+
+                // Fungsi untuk menangani event tombol edit
+                document.querySelectorAll('.edit').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+
+                        // Ambil data menggunakan fetch atau sesuai dengan cara yang Anda inginkan
+                        fetch(`/laporan/dkp_reject/${id}/edit`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Isi nilai form dengan data yang diambil
+                                document.getElementById("id").value = data.id;
+                                document.getElementById("nama_pegawai").value = data.nama_pegawai;
+                                document.getElementById("sheller_parer").value = data.sheller_parer;
+                                document.getElementById("tanggal").value = data.tanggal;
+                                document.getElementById("total_keranjang").value = data.total_keranjang;
+                                document.getElementById("tipe_keranjang").value = data.tipe_keranjang;
+
+                                // Isi nilai untuk hasil kerja netto
+                                const hasilKerjaNettoInputs = document.querySelectorAll("[name='hasil_kerja_netto[]']");
+                                hasilKerjaNettoInputs.forEach((input, index) => {
+                                    input.value = data.hasil_kerja_netto[index] || 0;
+                                });
+
+                                // Hitung total netto
+                                calculateTotal();
+
+                                // Tampilkan modal untuk edit
+                                modal.style.display = 'flex';
+                            })
+                            .catch(error => {
+                                console.error("Error fetching data:", error);
+                            });
+                    });
+                });
+
+                // Fungsi untuk menghitung total netto
+                function calculateTotal() {
+                    const inputs = document.querySelectorAll("[name='hasil_kerja_netto[]']");
+                    let total = 0;
+                    inputs.forEach(input => {
+                        total += parseFloat(input.value) || 0;
+                    });
+                    document.getElementById("timbangan_netto").value = total;
                 }
             });
-        });
+
 
         // Sample data
         const data = [{

@@ -788,12 +788,12 @@
                                 <td><button class="detail-btn" id="openModal2" data-id="{{ $laporandkp->id }}">Hasil
                                         Timbangan</button></td>
                                 <td>
-                                    <button class="edit-btn" data-id="{{ $laporandkp->id }}">Edit</button>
+                                    <button class="edit" data-id="{{ $laporandkp->id }}">Edit</button>
                                     <form action="{{ route('laporan.dkp.destroy', $laporandkp->id) }}" method="POST"
                                         style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="delete-btn"
+                                        <button type="submit" class="delete"
                                             data-id="{{ $laporandkp->id }}">Delete</button>
                                     </form>
                                 </td>
@@ -1057,33 +1057,74 @@
             }
 
 
-            // Open modal for adding a new record
-            document.getElementById('openFormBtn').addEventListener('click', () => {
+            document.addEventListener("DOMContentLoaded", function() {
+                // Ambil elemen yang diperlukan
+                const openFormBtn = document.getElementById('openFormBtn');
                 const modal = document.getElementById('modal');
-                modal.style.display = 'block';
-                document.getElementById('dkpForm').reset();
-                document.getElementById('record_id').value = ''; // Reset hidden input
-            });
+                const closeModalBtn = document.querySelector('.close');
+                const form = document.querySelector('form');
 
-            // Handle edit button click
-            document.querySelectorAll('.edit-btn').forEach((button) => {
-                button.addEventListener('click', async (event) => {
-                    const id = event.target.dataset.id;
-                    const modal = document.getElementById('modal');
-
-                    // Fetch record data
-                    const response = await fetch(`/laporan/dkp/${id}/edit`);
-                    const data = await response.json();
-
-                    // Populate modal fields
-                    document.getElementById('record_id').value = data.id;
-                    document.getElementById('tanggal').value = data.tanggal;
-                    document.getElementById('nama_sheller').value = data.nama_sheller;
-                    document.getElementById('nama_parer').value = data.nama_parer;
-
-                    // Show modal
-                    modal.style.display = 'block';
+                // Fungsi untuk membuka modal
+                openFormBtn.addEventListener('click', function() {
+                    modal.style.display = 'flex'; // Menampilkan modal
                 });
+
+                // Fungsi untuk menutup modal ketika tombol close diklik
+                closeModalBtn.addEventListener('click', function() {
+                    modal.style.display = 'none'; // Menyembunyikan modal
+                });
+
+                // Tutup modal jika pengguna mengklik di luar konten modal
+                window.addEventListener('click', function(event) {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+
+                // Fungsi untuk menangani event tombol edit
+                document.querySelectorAll('.edit').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+
+                        // Ambil data menggunakan fetch atau sesuai dengan cara yang Anda inginkan
+                        fetch(`/laporan/dkp/${id}/edit`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Isi nilai form dengan data yang diambil
+                                document.getElementById("id").value = data.id;
+                                document.getElementById("nama_sheller").value = data.nama_sheller;
+                                document.getElementById("tanggal").value = data.tanggal;
+                                document.getElementById("nama_parer").value = data.nama_parer;
+                                document.getElementById("total_keranjang").value = data.total_keranjang;
+                                document.getElementById("tipe_keranjang").value = data.tipe_keranjang;
+
+                                // Isi nilai untuk hasil kerja netto
+                                const hasilKerjaParerInputs = document.querySelectorAll("[name='hasil_kerja_parer[]']");
+                                hasilKerjaParerInputs.forEach((input, index) => {
+                                    input.value = data.hasil_kerja_parer[index] || 0;
+                                });
+
+                                // Hitung total netto
+                                calculateTotal();
+
+                                // Tampilkan modal untuk edit
+                                modal.style.display = 'flex';
+                            })
+                            .catch(error => {
+                                console.error("Error fetching data:", error);
+                            });
+                    });
+                });
+
+                // Fungsi untuk menghitung total netto
+                function calculateTotal() {
+                    const inputs = document.querySelectorAll("[name='hasil_kerja_parer[]']");
+                    let total = 0;
+                    inputs.forEach(input => {
+                        total += parseFloat(input.value) || 0;
+                    });
+                    document.getElementById("timbangan_hasil_kerja_parer").value = total;
+                }
             });
 
             // Close modal

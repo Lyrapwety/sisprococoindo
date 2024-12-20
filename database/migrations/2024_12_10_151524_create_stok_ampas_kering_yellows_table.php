@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('activity_type')->nullable();
             $table->string('stok')->nullable();
             $table->string('begin')->nullable();
+            $table->string('kategori')->nullable();
             $table->string('in_fine')->nullable();
             $table->string('in_medium')->nullable();
             $table->string('out')->nullable();

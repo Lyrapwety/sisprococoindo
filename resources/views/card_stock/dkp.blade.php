@@ -442,6 +442,11 @@
                     <i class="fas fa-search"></i> <!-- Ikon pencarian (search icon) -->
                 </div>
                 <div class="actions">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <button class="btn export">
                         <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png"
                             alt="export" /> Export
@@ -468,20 +473,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>12 Agustus 2024</td>
-                            <td> Hasil Pengeringan </td>
-                            <td>190</td>
-                            <td>50</td>
-                            <td>10</td>
-                            <td>230</td>
-                            <td>
-                                <button class="edit">Edit</button>
-                                <button class="delete">Delete</button>
-                            </td>
-                        </tr>
-                        <!-- Tambah data lainnya -->
+                        @foreach ($stokdkps as $stokdkp)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $stokdkp->tanggal }}</td>
+                                <td>{{ $stokdkp->keterangan }}</td>
+                                <td>{{ $stokdkp->begin }}</td>
+                                <td>{{ $stokdkp->in }}</td>
+                                <td>{{ $stokdkp->out }}</td>
+                                <td>{{ $stokdkp->remain }}</td>
+                                <td>
+                                    <button class="edit" data-id="{{ $stokdkp->id }}">Edit</button>
+                                    <form action="{{ route('card_stock.dkp.destroy', $stokdkp->id) }}" method="POST"
+                                        style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="delete"
+                                            data-id="{{ $stokdkp->id }}">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -516,17 +528,27 @@
                     <span class="close-btn" onclick="closeModal()">&times;</span>
                     <h2>Form Input Stok Daging Kelapa Putih</h2>
 
-                    <form id="stokForm">
+                    <form id="stokForm" action="{{ route('card_stock.dkp.store') }}" method="POST" enctype="multipart/form-data">
+
+                        @csrf
+                        <input type="hidden" name="id" id="id">
                         <!-- Tanggal -->
                         <div class="form-group">
                             <label for="tanggal">Tanggal</label>
-                            <input type="date" id="tanggal" name="tanggal" class="form-control" required>
+                            <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
+                                id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
+                            @error('tanggal')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <!-- Tipe Aktivitas -->
                         <div class="form-group">
                             <label for="activity_type">Tipe Aktivitas</label>
-                            <select id="activity_type" name="activity_type" class="form-control" required>
+                            <select class="form-control @error('activity_type') is-invalid @enderror"
+                            id="activity_type" name="activity_type" value="{{ old('activity_type') }}">
                                 <option value="" disabled selected>Pilih Jenis Aktivitas</option>
                                 <option value="hasil_produksi">Hasil Produksi</option> <!-- stok tambah-->
                                 <option value="pengambilan">Pengambilan PT lain</option> <!-- stok tambah-->
@@ -534,19 +556,35 @@
                                 <!-- stok berkurang atau out-->
                                 <option value="reject">Reject</option> <!-- stok berkurang atau out-->
                             </select>
+                            @error('activity_type')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                         </div>
 
                         <!-- Jumlah Stok -->
                         <div class="form-group">
                             <label for="stok">Jumlah Stok</label>
-                            <input type="number" id="stok" name="stok" class="form-control" required>
+                            <input type="number" class="form-control @error('stok') is-invalid @enderror"
+                            id="stok" name="stok" value="{{ old('stok') }}">
+                            @error('stok')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <!-- Keterangan -->
                         <div class="form-group">
                             <label for="keterangan">Keterangan (Remark)</label>
-                            <textarea id="keterangan" name="keterangan" class="form-control" rows="3"
-                                placeholder="Masukkan keterangan stok..." required></textarea>
+                            <textarea class="form-control @error('keterangan') is-invalid @enderror"
+                            id="keterangan" name="keterangan" value="{{ old('keterangan') }}">
+                            @error('keterangan')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror</textarea>
                         </div>
 
                         <!-- Tombol Submit -->

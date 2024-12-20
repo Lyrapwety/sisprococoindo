@@ -243,14 +243,14 @@
                     <a href="{{ route('card_stock.KB_Kelapa_Bulat') }}">KB Kelapa Bulat</a>
                     <a href="{{ route('card_stock.santan') }}">Santan</a>
                     <a href="{{ route('card_stock.air_kelapa') }}">Air Kelapa</a>
-                    <a href="{{ route('card_stock.kulit_ari_kering') }}">Kulit Ari Kering</a>
-                    <a href="{{ route('card_stock.kulit_ari_basah') }}">Kulit Ari Basah</a>
-                    <a href="{{ route('card_stock.minyak_kelapa') }}">Minyak Kelapa</a>
-                    <a href="{{ route('card_stock.dkp_reject_kering') }}">DKP Reject Kering</a>
-                    <a href="{{ route('card_stock.dkp_reject_basah') }}">DKP Reject Basah</a>
-                    <a href="{{ route('card_stock.tempurung_basah') }}">Tempurung Basah</a>
-                    <a href="{{ route('card_stock.ampas_kering_putih') }}">Ampas Kering Putih</a>
-                    <a href="{{ route('card_stock.ampas_kering_yellow') }}">Ampas Kering Yellow</a>
+                    <a href="{{ route('card_stock.kulit_ari_kering.index') }}">Kulit Ari Kering</a>
+                    <a href="{{ route('card_stock.kulit_ari_basah.index') }}">Kulit Ari Basah</a>
+                    <a href="{{ route('card_stock.minyak_kelapa.index') }}">Minyak Kelapa</a>
+                    <a href="{{ route('card_stock.dkp_reject_kering.index') }}">DKP Reject Kering</a>
+                    <a href="{{ route('card_stock.dkp_reject_basah.index') }}">DKP Reject Basah</a>
+                    <a href="{{ route('card_stock.tempurung_basah.index') }}">Tempurung Basah</a>
+                    <a href="{{ route('card_stock.ampas_kering_putih.index') }}">Ampas Kering Putih</a>
+                    <a href="{{ route('card_stock.ampas_kering_yellow.index') }}">Ampas Kering Yellow</a>
 
                 </div>
 

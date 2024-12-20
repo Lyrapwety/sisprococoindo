@@ -51,6 +51,22 @@ class LaporandkprejectController extends Controller
         return redirect()->route('laporan.dkp_reject.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
+    public function edit($id)
+    {
+        $laporan = LaporanDkpRejectBasah::findOrFail($id);
+
+        return response()->json([
+            'id' => $laporan->id,
+            'nama_pegawai' => $laporan->nama_pegawai,
+            'sheller_parer' => $laporan->sheller_parer,
+            'tanggal' => $laporan->tanggal,
+            'total_keranjang' => $laporan->total_keranjang,
+            'tipe_keranjang' => $laporan->tipe_keranjang,
+            'hasil_kerja_netto' => json_decode($laporan->hasil_kerja_netto, true), // Pastikan tipe data sesuai
+        ]);
+    }
+
+
     public function destroy($id)
     {
         $laporandkpreject = LaporanDkpRejectBasah::findOrFail($id);

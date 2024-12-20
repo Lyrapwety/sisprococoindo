@@ -55,6 +55,21 @@ class LaporandkpController extends Controller
         return redirect()->route('laporan.dkp.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
+    public function edit($id)
+    {
+        $laporan = Laporandkp::findOrFail($id);
+
+        return response()->json([
+            'id' => $laporan->id,
+            'nama_sheller' => $laporan->nama_sheller,
+            'tanggal' => $laporan->tanggal,
+            'nama_parer' => $laporan->nama_parer,
+            'total_keranjang' => $laporan->total_keranjang,
+            'tipe_keranjang' => $laporan->tipe_keranjang,
+            'hasil_kerja_parer' => json_decode($laporan->hasil_kerja_parer, true), // Pastikan tipe data sesuai
+        ]);
+    }
+
     public function destroy($id)
     {
         $laporandkp = Laporandkp::findOrFail($id);
