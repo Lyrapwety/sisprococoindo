@@ -477,7 +477,7 @@
                                 <td>{{ $stokampaskeringputih->remain }}</td>
                                 <td>
                                     <button class="edit" data-id="{{ $stokampaskeringputih->id }}">Edit</button>
-                                    <form action="{{ route('card_stock.ampar_kering_putih.destroy', $stokampaskeringputih->id) }}" method="POST"
+                                    <form action="{{ route('card_stock.ampas_kering_putih.destroy', $stokampaskeringputih->id) }}" method="POST"
                                         style="display: inline;">
                                         @csrf
                                         @method('DELETE')
@@ -517,7 +517,7 @@
                     <span class="close-btn" onclick="closeModal()">&times;</span>
                     <h2>Form Input Stok Ampas Kering Putih</h2>
 
-                    <form id="stokForm" action="{{ route('card_stock.ampar_kering_putih.store') }}" method="POST" enctype="multipart/form-data">
+                    <form id="stokForm" action="{{ route('card_stock.ampas_kering_putih.store') }}" method="POST" enctype="multipart/form-data">
 
                         @csrf
                         <input type="hidden" name="id" id="id">

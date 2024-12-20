@@ -453,7 +453,7 @@
                         <tr>
                             <th style="width: 15px;">No</th>
                             <th style="width: 50px;">Tanggal</th>
-                            <th style="width: 100px;">Keterangan</th>
+                            <th style="width: 100px;">remark</th>
                             <th style="width: 40px;">Begin</th>
                             <th style="width: 40px;">In</th>
                             <th style="width: 40px;">Out</th>
@@ -466,7 +466,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $stokarikering->tanggal }}</td>
-                                <td>{{ $stokarikering->keterangan }}</td>
+                                <td>{{ $stokarikering->remark }}</td>
                                 <td>{{ $stokarikering->begin }}</td>
                                 <td>{{ $stokarikering->in }}</td>
                                 <td>{{ $stokarikering->out }}</td>
@@ -562,12 +562,12 @@
                             @enderror
                         </div>
 
-                        <!-- Keterangan -->
+                        <!-- remark -->
                         <div class="form-group">
-                            <label for="keterangan">Keterangan (Remark)</label>
-                            <textarea class="form-control @error('keterangan') is-invalid @enderror"
-                            id="keterangan" name="keterangan" value="{{ old('keterangan') }}">
-                            @error('keterangan')
+                            <label for="remark">remark (Remark)</label>
+                            <textarea class="form-control @error('remark') is-invalid @enderror"
+                            id="remark" name="remark" value="{{ old('remark') }}">
+                            @error('remark')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
                                 </div>

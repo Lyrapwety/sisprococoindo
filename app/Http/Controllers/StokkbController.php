@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StokKbKelapaBulat;
 use Illuminate\Http\Request;
-use App\Models\StokMinyakKelapa;
 
-class StokminyakkelapaController extends Controller
+class StokkbController extends Controller
 {
     public function index()
     {
-        $stokminyakkelapas = StokMinyakKelapa::all();
-        return view('card_stock.minyak_kelapa', compact('stokminyakkelapas'));
+        $stokkbs = StokKbKelapaBulat::all();
+        return view('card_stock.KB_Kelapa_Bulat', compact('stokkbs'));
     }
 
     public function store(Request $request)
@@ -28,7 +28,7 @@ class StokminyakkelapaController extends Controller
         ]);
 
         // Simpan data ke database
-        StokMinyakKelapa::create([
+        StokKbKelapaBulat::create([
             'tanggal' => $request->tanggal,
             'remark' => $request->remark,
             'activity_type' => $request->activity_type,
@@ -40,15 +40,16 @@ class StokminyakkelapaController extends Controller
         ]);
 
         // Redirect dengan pesan sukses
-        return redirect()->route('card_stock.minyak_kelapa.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('card_stock.KB_Kelapa_Bulat.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
 
     public function destroy($id)
     {
-        $stokminyakkelapas = StokMinyakKelapa::findOrFail($id);
-        $stokminyakkelapas->delete();
+        $stokkb = StokKbKelapaBulat::findOrFail($id);
+        $stokkb->delete();
 
-        return redirect()->route('card_stock.minyak_kelapa.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('card_stock.KB_Kelapa_Bulat.index')->with('success', 'Data berhasil dihapus!');
     }
+
 }

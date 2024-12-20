@@ -50,6 +50,27 @@ class LaporanairkelapaController extends Controller
     return redirect()->route('laporan.airkelapa.index')->with('success', 'Data berhasil ditambahkan!');
 }
 
+public function edit($id)
+        {
+            $laporan = LaporanAirKelapa::findOrFail($id);
+
+            return response()->json([
+                'id' => $laporan->id,
+                'id_kelapa_bulat' => $laporan->id_kelapa_bulat,
+                'no' => $laporan->no,
+                'tanggal' => $laporan->tanggal,
+                'nama_pegawai' => $laporan->nama_pegawai,
+                'sheller_parer' => $laporan->sheller_parer,
+                'bruto' => $laporan->bruto,
+                'total_keranjang' => $laporan->total_keranjang,
+                'tipe_keranjang' => $laporan->tipe_keranjang,
+                'berat_keranjang' => $laporan->berat_keranjang,
+                'total_potongan_keranjang' => $laporan->total_potongan_keranjang,
+                'hasil_kerja' => json_decode($laporan->hasil_kerja, true), // Decode JSON field
+                'timbangan_hasil' => $laporan->timbangan_hasil,
+            ]);
+        }
+
 public function destroy($id)
         {
             $laporandkp = LaporanAirKelapa::findOrFail($id);

@@ -281,10 +281,10 @@
                     <div class="inline-group">
                         <div class="data-pegawai">
                             <h2>Data Pegawai</h2>
-                            <p>Produksi <span>: 30</span> <span>AKTIF</span></p>
-                            <p>Kupas <span>: 25</span> <span>AKTIF</span></p>
-                            <p>Gudang <span>: 14</span> <span>AKTIF</span></p>
-                            <p>Limbah <span>: 25</span> <span>AKTIF</span></p>
+                            <p>Produksi <span>: {{ $data['Produksi'] }}</span> <span>AKTIF</span></p>
+                            <p>Kupas <span>: {{ $data['Kupas'] }}</span> <span>AKTIF</span></p>
+                            <p>Gudang <span>: {{ $data['Gudang'] }}</span> <span>AKTIF</span></p>
+                            <p>Limbah <span>: {{ $data['Limbah'] }}</span> <span>AKTIF</span></p>
                         </div>
 
                         <!-- Kalender -->

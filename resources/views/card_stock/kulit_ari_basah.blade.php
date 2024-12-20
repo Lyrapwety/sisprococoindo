@@ -452,7 +452,7 @@
                         <tr>
                             <th style="width: 15px;">No</th>
                             <th style="width: 50px;">Tanggal</th>
-                            <th style="width: 100px;">Keterangan</th>
+                            <th style="width: 100px;">remark</th>
                             <th style="width: 40px;">Begin</th>
                             <th style="width: 40px;">In</th>
                             <th style="width: 40px;">Out</th>
@@ -465,7 +465,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $stokaribasah->tanggal }}</td>
-                                <td>{{ $stokaribasah->keterangan }}</td>
+                                <td>{{ $stokaribasah->remark }}</td>
                                 <td>{{ $stokaribasah->begin }}</td>
                                 <td>{{ $stokaribasah->in }}</td>
                                 <td>{{ $stokaribasah->out }}</td>
@@ -522,7 +522,7 @@
                         <div class="form-group">
                             <label for="tanggal">Tanggal</label>
                             <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
+                                id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
                             @error('tanggal')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
@@ -561,12 +561,12 @@
                             @enderror
                         </div>
 
-                        <!-- Keterangan -->
+                        <!-- remark -->
                         <div class="form-group">
-                            <label for="keterangan">Keterangan (Remark)</label>
-                            <textarea class="form-control @error('keterangan') is-invalid @enderror"
-                            id="keterangan" name="keterangan" value="{{ old('keterangan') }}">
-                            @error('keterangan')
+                            <label for="remark">remark (Remark)</label>
+                            <textarea class="form-control @error('remark') is-invalid @enderror"
+                            id="remark" name="remark" value="{{ old('remark') }}">
+                            @error('remark')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
                                 </div>

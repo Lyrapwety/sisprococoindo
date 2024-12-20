@@ -661,7 +661,7 @@
                                 <div>
                                     <label for="nama-pegawai">Nama Pegawai</label>
                                     <input type="text" class="form-control @error('nama_pegawai') is-invalid @enderror"
-                                        id="nama_pegawai" name="nama_pegawai" value="{{ old('nama_pegawai') }}">
+                                        id="nama_pegawai" name="nama_pegawai" value="{{ old('nama_pegawai') }}" required>
                                     @error('nama_pegawai')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -672,7 +672,7 @@
                                 <div>
                                     <label for="nama-sheller">Sheller / Parer</label>
                                     <input type="text" class="form-control @error('sheller_parer') is-invalid @enderror"
-                                    id="sheller_parer" name="sheller_parer" value="{{ old('sheller_parer') }}">
+                                    id="sheller_parer" name="sheller_parer" value="{{ old('sheller_parer') }}" required>
                                     @error('sheller_parer')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -683,7 +683,7 @@
                                 <div>
                                     <label for="tanggal-picker">Tanggal</label>
                                     <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                    id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
+                                    id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
                                     @error('tanggal')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -798,10 +798,79 @@
                 document.getElementById('total-label').textContent = 'Total: ' + total + ' kg';
             }
 
-        //Modal 1
-        const openFormBtn1 = document.getElementById("openFormBtn1");
-        const modal1 = document.getElementById("modal");
-        const closeModal1 = modal1.querySelector(".close");
+            document.addEventListener("DOMContentLoaded", function() {
+             // Ambil elemen yang diperlukan
+             const openFormBtn1 = document.getElementById("openFormBtn1");
+             const modal1 = document.getElementById("modal");
+             const closeModal1 = modal1.querySelector(".close");
+             const form = document.querySelector('form');
+
+             // Fungsi untuk membuka modal
+             openFormBtn1.addEventListener("click", function() {
+                 console.log("Modal 1 dibuka");
+                 modal1.style.display = "block"; // Menampilkan modal
+             });
+
+             // Fungsi untuk menutup modal ketika tombol close diklik
+             closeModal1.addEventListener("click", function() {
+                 modal1.style.display = "none"; // Menyembunyikan modal
+             });
+
+             // Tutup modal jika pengguna mengklik di luar konten modal
+             window.addEventListener("click", function(event) {
+                 if (event.target === modal1) {
+                     modal1.style.display = "none";
+                 }
+             });
+
+             // Fungsi untuk menangani event tombol edit
+             document.querySelectorAll('.edit').forEach(button => {
+                 button.addEventListener('click', function() {
+                     const id = this.getAttribute('data-id');
+
+                     // Ambil data menggunakan fetch atau sesuai dengan cara yang Anda inginkan
+                     fetch(`/laporan/airkelapa/${id}/edit`)
+                         .then(response => response.json())
+                         .then(data => {
+                             // Isi nilai form dengan data yang diambil
+                             document.getElementById("id").value = data.id;
+                             document.getElementById("nama_pegawai").value = data.nama_pegawai;
+                             document.getElementById("sheller_parer").value = data.sheller_parer;
+                             document.getElementById("tanggal").value = data.tanggal;
+                             document.getElementById("total_keranjang").value = data
+                                 .total_keranjang;
+                             document.getElementById("tipe_keranjang").value = data
+                                 .tipe_keranjang;
+
+                             // Isi nilai untuk hasil kerja netto
+                             const hasilKerjaInputs = document.querySelectorAll(
+                                 "[name='hasil_kerja[]']");
+                             hasilKerjaInputs.forEach((input, index) => {
+                                 input.value = data.hasil_kerja[index] || 0;
+                             });
+
+                             // Hitung total netto
+                             calculateTotal();
+
+                             // Tampilkan modal untuk edit
+                             modal1.style.display = 'flex';
+                         })
+                         .catch(error => {
+                             console.error("Error fetching data:", error);
+                         });
+                 });
+             });
+
+             // Fungsi untuk menghitung total netto
+             function calculateTotal() {
+                 const inputs = document.querySelectorAll("[name='hasil_kerja[]']");
+                 let total = 0;
+                 inputs.forEach(input => {
+                     total += parseFloat(input.value) || 0;
+                 });
+                 document.getElementById("timbangan_hasil").value = total;
+             }
+         });
 
         openFormBtn1.addEventListener("click", function() {
             modal1.style.display = "block";

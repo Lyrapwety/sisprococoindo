@@ -795,7 +795,7 @@
                                     <div class="tanggal-container">
                                         <label for="tanggal"> Hasil Kerja Tanggal</label>
                                         <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                            id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
+                                            id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
                                         @error('tanggal')
                                             <div class="alert alert-danger mt-2">
                                                 {{ $message }}
@@ -806,7 +806,7 @@
                                         <div class="column">
                                             <label for="tipe_keranjang">Tipe Keranjang</label>
                                             <select id="tipe_keranjang" name="tipe_keranjang"
-                                                value="{{ old('tipe_keranjang') }}" class="input-select">
+                                                value="{{ old('tipe_keranjang') }}" class="input-select" required>
                                                 <option value="Keranjang Besar">Keranjang Besar</option>
                                                 <option value="Keranjang Kecil">Keranjang Kecil</option>
                                             </select>
@@ -822,7 +822,7 @@
                                             <input type="number"
                                                 class="form-control @error('total_keranjang') is-invalid @enderror"
                                                 id="total_keranjang" name="total_keranjang"
-                                                value="{{ old('total_keranjang') }}">
+                                                value="{{ old('total_keranjang') }}" required>
                                             @error('total_keranjang')
                                                 <div class="alert alert-danger mt-2">
                                                     {{ $message }}
@@ -840,11 +840,9 @@
                                         @for ($i = 0; $i < 50; $i++)
                                             <div class="basket-item">
                                                 <!-- Nomor di atas input -->
-                                                <label
-                                                    for="netto_{{ $i }}">{{ $i + 1 }}</label>
+                                                <label for="netto_{{ $i }}">{{ $i + 1 }}</label>
                                                 <input class="basket-input" type="number" name="netto[]"
-                                                    id="netto_{{ $i }}"
-                                                    value="{{ old('netto.' . $i, 0) }}"
+                                                    id="netto_{{ $i }}" value="{{ old('netto.' . $i, 0) }}"
                                                     oninput="calculateTotal()">
                                             </div>
                                         @endfor
@@ -890,39 +888,86 @@
 @section('scripts')
     <script>
         function calculateTotal() {
-                const inputs = document.querySelectorAll('.basket-input');
-                let total = 0;
+            const inputs = document.querySelectorAll('.basket-input');
+            let total = 0;
 
-                inputs.forEach(input => {
-                    total += parseFloat(input.value) || 0; // Tambahkan angka atau 0 jika kosong
-                });
+            inputs.forEach(input => {
+                total += parseFloat(input.value) || 0; // Tambahkan angka atau 0 jika kosong
+            });
 
-                document.getElementById('timbangan_netto').value = total;
-                document.getElementById('total-label').textContent = 'Total: ' + total + ' kg';
-            }
+            document.getElementById('timbangan_netto').value = total;
+            document.getElementById('total-label').textContent = 'Total: ' + total + ' kg';
+        }
 
         document.addEventListener("DOMContentLoaded", function() {
-            // Ambil elemen yang diperlukan
             const openFormBtn = document.getElementById('openFormBtn'); // Tombol Tambah Data
             const modal = document.getElementById('modal'); // Modal utama
-            const closeModalBtn = document.querySelector('.close'); // Tombol close modal
+            const closeModalBtn = document.querySelector('.close');
+            const form = document.querySelector('form');
 
             // Fungsi untuk membuka modal
-            openFormBtn.addEventListener('click', function() {
-                modal.style.display = 'flex'; // Tampilkan modal
+            openFormBtn.addEventListener("click", function() {
+                console.log("Modal dibuka");
+                modal.style.display = "block"; // Menampilkan modal
             });
 
             // Fungsi untuk menutup modal ketika tombol close diklik
-            closeModalBtn.addEventListener('click', function() {
-                modal.style.display = 'none'; // Sembunyikan modal
+            closeModalBtn.addEventListener("click", function() {
+                modal.style.display = "none"; // Menyembunyikan modal
             });
 
-            // Fungsi untuk menutup modal jika mengklik di luar konten modal
-            window.addEventListener('click', function(event) {
+            // Tutup modal jika pengguna mengklik di luar konten modal
+            window.addEventListener("click", function(event) {
                 if (event.target === modal) {
-                    modal.style.display = 'none';
+                    modal.style.display = "none";
                 }
             });
+
+            // Fungsi untuk menangani event tombol edit
+            document.querySelectorAll('.edit').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+
+                    // Ambil data menggunakan fetch atau sesuai dengan cara yang Anda inginkan
+                    fetch(`/laporan/tempurung/${id}/edit`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Isi nilai form dengan data yang diambil
+                            document.getElementById("id").value = data.id;
+                            document.getElementById("tanggal").value = data.tanggal;
+                            document.getElementById("total_keranjang").value = data
+                                .total_keranjang;
+                            document.getElementById("tipe_keranjang").value = data
+                                .tipe_keranjang;
+
+                            // Isi nilai untuk hasil kerja netto
+                            const netto = document.querySelectorAll(
+                                "[name='netto[]']");
+                                netto.forEach((input, index) => {
+                                input.value = data.netto[index] || 0;
+                            });
+
+                            // Hitung total netto
+                            calculateTotal();
+
+                            // Tampilkan modal untuk edit
+                            modal.style.display = 'flex';
+                        })
+                        .catch(error => {
+                            console.error("Error fetching data:", error);
+                        });
+                });
+            });
+
+            // Fungsi untuk menghitung total netto
+            function calculateTotal() {
+                const inputs = document.querySelectorAll("[name='netto[]']");
+                let total = 0;
+                inputs.forEach(input => {
+                    total += parseFloat(input.value) || 0;
+                });
+                document.getElementById("timbangan_netto").value = total;
+            }
         });
 
         const data = [{

@@ -202,9 +202,14 @@
                 </div>
                 <hr class="horizontal-line">
 
-                <div> <a class="dash" href="{{ route('dashboard') }}"><button class="dropdown-btn"><i
-                                class="fa-solid fa-house" style="margin-right: 21px;"></i>Dashboard
-                    </a></div>
+                <div>
+                    <a href="{{ route('dashboard') }}" style="text-decoration: none; color: inherit;">
+                        <button class="dropdown-btn">
+                            <i class="fa-solid fa-house"></i>Dashboard
+                        </button>
+                    </a>
+                </div>
+
 
                 </button>
                 <button class="dropdown-btn"><i class="fa-solid fa-file-lines"></i>Laporan Harian Hasil Kerja
@@ -240,7 +245,7 @@
                 <div class="dropdown-container">
                     <a href="{{ route('card_stock.dkp.index') }}">DKP</a>
                     <a href="{{ route('card_stock.kelapa_bulat') }}">Kelapa Bulat</a>
-                    <a href="{{ route('card_stock.KB_Kelapa_Bulat') }}">KB Kelapa Bulat</a>
+                    <a href="{{ route('card_stock.KB_Kelapa_Bulat.index') }}">KB Kelapa Bulat</a>
                     <a href="{{ route('card_stock.santan') }}">Santan</a>
                     <a href="{{ route('card_stock.air_kelapa') }}">Air Kelapa</a>
                     <a href="{{ route('card_stock.kulit_ari_kering.index') }}">Kulit Ari Kering</a>

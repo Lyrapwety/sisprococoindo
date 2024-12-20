@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('produksi_air_kelapas', function (Blueprint $table) {
             $table->id();
             $table->string('id_air_kelapa')->nullable();
-            $$table->string('tanggal')->nullable();
+            $table->string('tanggal')->nullable();
             $table->string('keterangan')->nullable();
             $table->string('activity_type')->nullable();
             $table->string('fat')->nullable();

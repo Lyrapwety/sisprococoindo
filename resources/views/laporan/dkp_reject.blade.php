@@ -658,7 +658,7 @@
                                 <div>
                                     <label for="nama-pegawai">Nama Pegawai</label>
                                     <input type="text" class="form-control @error('nama_pegawai') is-invalid @enderror"
-                                        id="nama_pegawai" name="nama_pegawai" value="{{ old('nama_pegawai') }}">
+                                        id="nama_pegawai" name="nama_pegawai" value="{{ old('nama_pegawai') }}" required>
                                     @error('nama_pegawai')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -669,7 +669,7 @@
                                 <div>
                                     <label for="sp">S / P</label>
                                     <input type="text" class="form-control @error('sheller_parer') is-invalid @enderror"
-                                        id="sheller_parer" name="sheller_parer" value="{{ old('sheller_parer') }}">
+                                        id="sheller_parer" name="sheller_parer" value="{{ old('sheller_parer') }}" required>
                                     @error('sheller_parer')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -680,7 +680,7 @@
                                 <div>
                                     <label for="tanggal-picker">Tanggal</label>
                                     <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                        id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
+                                        id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
                                     @error('tanggal')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}

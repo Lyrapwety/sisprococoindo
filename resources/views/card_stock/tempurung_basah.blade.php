@@ -465,7 +465,7 @@
                                 <td>{{ $stoktempurung->keterangan }}</td>
                                 <td>{{ $stoktempurung->begin }}</td>
                                 <td>{{ $stoktempurung->in }}</td>
-                                <td>{{ $stokdstoktempurungkp->out }}</td>
+                                <td>{{ $stoktempurung->out }}</td>
                                 <td>{{ $stoktempurung->remain }}</td>
                                 <td>
                                     <button class="edit" data-id="{{ $stoktempurung->id }}">Edit</button>

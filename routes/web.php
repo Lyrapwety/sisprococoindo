@@ -17,19 +17,23 @@ use App\Http\Controllers\StokminyakkelapaController;
 use App\Http\Controllers\StokrejectkeringController;
 use App\Http\Controllers\StokrejectbasahController;
 use App\Http\Controllers\StoktempurungbasahController;
+use App\Http\Controllers\StokKbController;
 use App\Http\Controllers\StokampasputihController;
 use App\Http\Controllers\StokampasyellowController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\LaporanairkelapaController;
+use App\Http\Controllers\DashboardController;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -65,12 +69,14 @@ Route::prefix('laporan')->name('laporan.')->group(function () {
     Route::get('airkelapa/create', [LaporanairkelapaController::class, 'create'])->name('airkelapa.create');
     Route::post('airkelapa', [LaporanairkelapaController::class, 'store'])->name('airkelapa.store');
     Route::delete('airkelapa/{id}', [LaporanairkelapaController::class, 'destroy'])->name('airkelapa.destroy');
+    Route::get('airkelapa/{id}/edit', [LaporanairkelapaController::class, 'edit'])->name('airkelapa.edit');
 
     //tempurung laporan
     Route::resource('tempurung', LaporantempurungController::class);
     Route::get('tempurung/create', [LaporantempurungController::class, 'create'])->name('tempurung.create');
     Route::post('tempurung', [LaporantempurungController::class, 'store'])->name('tempurung.store');
     Route::delete('tempurung/{id}', [LaporantempurungController::class, 'destroy'])->name('tempurung.destroy');
+    Route::get('tempurung/{id}/edit', [LaporantempurungController::class, 'edit'])->name('tempurung.edit');
 });
 
 //rekap view
@@ -104,6 +110,12 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::get('dkp/create', [StokdkpController::class, 'create'])->name('dkp.create');
     Route::post('dkp', [StokdkpController::class, 'store'])->name('dkp.store');
     Route::delete('dkp/{id}', [StokdkpController::class, 'destroy'])->name('dkp.destroy');
+
+    //stok kb
+    Route::resource('KB_Kelapa_Bulat', StokKbController::class);
+    Route::get('KB_Kelapa_Bulat/create', [StokKbController::class, 'create'])->name('KB_Kelapa_Bulat.create');
+    Route::post('KB_Kelapa_Bulat', [StokKbController::class, 'store'])->name('KB_Kelapa_Bulat.store');
+    Route::delete('KB_Kelapa_Bulat/{id}', [StokKbController::class, 'destroy'])->name('KB_Kelapa_Bulat.destroy');
 
     //stok ari kering
     Route::resource('kulit_ari_kering', StokarikeringController::class);
@@ -158,7 +170,6 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
 Route::get('/card_stock/santan', [StockController::class, 'santan'])->name('card_stock.santan');
 Route::get('/card_stock/air_kelapa', [StockController::class, 'air_kelapa'])->name('card_stock.air_kelapa');
 Route::get('/card_stock/kelapa_bulat', [StockController::class, 'kelapa_bulat'])->name('card_stock.kelapa_bulat');
-Route::get('/card_stock/KB_Kelapa_Bulat', [StockController::class, 'kb_kelapa_bulat'])->name('card_stock.KB_Kelapa_Bulat');
 
 
 Route::prefix('data_pegawai')->name('data_pegawai.')->group(function () {

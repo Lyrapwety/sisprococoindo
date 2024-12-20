@@ -575,10 +575,6 @@
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
                             <label for="tanggal">Tanggal</label>
-                            <input type="date" id="tanggal" name="tanggal" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="tanggal">Tanggal</label>
                             <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
                                 id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
                             @error('tanggal')

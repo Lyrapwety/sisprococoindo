@@ -19,7 +19,7 @@ class StokaribasahController extends Controller
         $request->validate([
             'id_laporan_kulit_ari_basah' => 'nullable|string|max:255',
             'tanggal' => 'nullable|string|max:255',
-            'keterangan' => 'nullable|string|max:255',
+            'remark' => 'nullable|string|max:255',
             'activity_type' => 'nullable|string|max:255',
             'stok' => 'nullable|string|max:255',
             'begin' => 'nullable|string|max:255',
@@ -32,7 +32,7 @@ class StokaribasahController extends Controller
         StokKulitAriBasah::create([
             'id_laporan_kulit_ari_basah' => $request->id_laporan_kulit_ari_basah,
             'tanggal' => $request->tanggal,
-            'keterangan' => $request->keterangan,
+            'remark' => $request->remark,
             'activity_type' => $request->activity_type,
             'stok' => $request->stok,
             'begin' => $request->begin,

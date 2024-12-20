@@ -46,6 +46,25 @@ class LaporantempurungController extends Controller
     return redirect()->route('laporan.tempurung.index')->with('success', 'Data berhasil ditambahkan!');
 }
 
+    public function edit($id)
+    {
+        $laporan = LaporanTempurungBasah::findOrFail($id);
+
+        return response()->json([
+            'id' => $laporan->id,
+            'id_kelapa_bulat' => $laporan->id_kelapa_bulat,
+            'no' => $laporan->no,
+            'tanggal' => $laporan->tanggal,
+            'bruto' => $laporan->bruto,
+            'tipe_keranjang' => $laporan->tipe_keranjang,
+            'total_keranjang' => $laporan->total_keranjang,
+            'total_potongan_keranjang' => $laporan->total_potongan_keranjang,
+            'netto' => json_decode($laporan->netto, true), // Decode JSON field
+            'timbangan_netto' => $laporan->timbangan_netto,
+        ]);
+    }
+
+
 
     public function destroy($id)
         {

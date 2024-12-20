@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StokMinyakKelapa extends Model
+class StokKbKelapaBulat extends Model
 {
     use HasFactory;
 
     // Define the table name
-    protected $table = 'stok_minyak_kelapas';
+    protected $table = 'stok_kb_kelapa_bulats';
 
     // Define the fillable attributes
     protected $fillable = [
@@ -23,13 +23,4 @@ class StokMinyakKelapa extends Model
         'out',
         'remain'
     ];
-
-    // Optionally, you can define the primary key if it's not 'id'
-    // protected $primaryKey = 'id';
-
-    // Disable auto-incrementing if necessary
-    // public $incrementing = false;
-
-    // If you don't want Laravel to handle timestamps
-    // public $timestamps = false;
 }
