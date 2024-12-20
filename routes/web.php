@@ -8,6 +8,7 @@ use App\Http\Controllers\LaporandkpController;
 use App\Http\Controllers\LaporandkprejectController;
 use App\Http\Controllers\LaporankulitariController;
 use App\Http\Controllers\LaporantempurungController;
+use App\Http\Controllers\ProduksisantanController;
 use App\Http\Controllers\RekapkulitariController;
 use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\StockController;
@@ -72,6 +73,15 @@ Route::prefix('rekap_laporan')->name('rekap_laporan.')->group(function () {
     Route::delete('pembukaan_kulit_ari/{id}', [RekapkulitariController::class, 'destroy'])->name('pembukaan_kulit_ari.destroy');
 });
 
+//produksi view
+Route::prefix('produksi')->name('produksi.')->group(function () {
+    //produksi santan
+    Route::resource('santan', ProduksisantanController::class);
+    Route::get('santan/create', [ProduksisantanController::class, 'create'])->name('santan.create');
+    Route::post('santan', [ProduksisantanController::class, 'store'])->name('santan.store');
+    Route::delete('santan/{id}', [ProduksisantanController::class, 'destroy'])->name('santan.destroy');
+});
+
 
 Route::get('/card_stock/santan', [StockController::class, 'santan'])->name('card_stock.santan');
 Route::get('/card_stock/dkp', [StockController::class, 'dkp'])->name('card_stock.dkp');
@@ -96,9 +106,7 @@ Route::prefix('data_pegawai')->name('data_pegawai.')->group(function () {
 
 
 Route::get('/edit_data_pegawai', [DatapegawaiController::class, 'edit_data_pegawai'])->name('edit_data_pegawai');
-Route::get('/tambah_data_pegawai', [DatapegawaiController::class, 'tambah_data_pegawai'])->name('tambah_data_pegawai');
 
 
-Route::get('/produksi/santan', [ProduksiController::class, 'santan'])->name('produksi.santan');
 Route::get('/produksi/air_kelapa', [ProduksiController::class, 'air_kelapa'])->name('produksi.air_kelapa');
 require __DIR__.'/auth.php';

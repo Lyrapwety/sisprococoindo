@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('departemen');
             $table->string('kepagawaian');
             $table->string('status');
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

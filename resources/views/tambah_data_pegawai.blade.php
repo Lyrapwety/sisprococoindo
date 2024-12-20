@@ -375,10 +375,10 @@
                         <div class="form-inputs">
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="tgl-join">Tgl Join</label>
-                                    <input type="date" class="form-control @error('tgl-join') is-invalid @enderror"
-                                        id="tgl-join" name="tgl-join" value="{{ old('tgl-join') }}">
-                                    @error('tgl-join')
+                                    <label for="tgl_join">Tgl Join</label>
+                                    <input type="date" class="form-control @error('tgl_join') is-invalid @enderror"
+                                        id="tgl_join" name="tgl_join" value="{{ old('tgl_join') }}">
+                                    @error('tgl_join')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
                                         </div>
@@ -386,9 +386,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="tgl-out">Tgl Out</label>
-                                    <input type="date" class="form-control @error('tgl-out') is-invalid @enderror"
-                                    id="tgl-out" name="tgl-out" value="{{ old('tgl-out') }}">
-                                @error('tgl-out')
+                                    <input type="date" class="form-control @error('tgl_out') is-invalid @enderror"
+                                    id="tgl_out" name="tgl_out" value="{{ old('tgl_out') }}">
+                                @error('tgl_out')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>

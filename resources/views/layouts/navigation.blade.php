@@ -230,7 +230,7 @@
                     <span class="dropdown-arrow">&#9662;</span>
                 </button>
                 <div class="dropdown-container">
-                    <a href="{{ route('produksi.santan') }}">Santan</a>
+                    <a href="{{ route('produksi.santan.index') }}">Santan</a>
                     <a href="{{ route('produksi.air_kelapa') }}">Air Kelapa</a>
                 </div>
 

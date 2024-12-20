@@ -335,6 +335,11 @@
                     <i class="fas fa-search"></i> <!-- Ikon pencarian (search icon) -->
                 </div>
                 <div class="actions">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <button class="btn export">
                         <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png"
                             alt="export" /> Export
@@ -369,13 +374,13 @@
                              <tr>
                                  <td>{{ $loop->iteration }}</td>
                                  <td>{{ $pegawai->tgl_join }}</td>
-                                 <td>{{ $pegawai->tgl_join }}</td>
+                                 <td>{{ $pegawai->tgl_out }}</td>
                                  <td>{{ $pegawai->id_pegawai }}</td>
                                  <td>{{ $pegawai->nama }}</td>
                                  <td>{{ $pegawai->posisi }}</td>
+                                 <td>{{ $pegawai->departemen }}</td>
                                  <td>{{ $pegawai->kepagawaian }}</td>
-                                 <td>{{ $pegawai->status }}</td>
-                                 <td><button id="openFormBtn2" data-id="{{ $pegawai->id }}">Hasil Timbangan</button>
+                                 <td><button>{{ $pegawai->status }}</button>
                                  </td>
                                  <td>
                                     <a href="{{ route ('edit_data_pegawai') }}"><button class="edit">Edit</button></a>
@@ -384,7 +389,7 @@
                                          @csrf
                                          @method('DELETE')
                                          <button type="submit" class="delete"
-                                             data-id="{{ $laporankulitari->id }}">Delete</button>
+                                             data-id="{{ $pegawai->id }}">Delete</button>
                                      </form>
                                  </td>
                              </tr>
