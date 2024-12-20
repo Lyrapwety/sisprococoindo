@@ -508,7 +508,6 @@
                 <th>Eksport</th>
                 <th>Adjust</th>
             
- 
             </tr>
         </thead>
         <tbody>
@@ -518,7 +517,7 @@
                 <td class="remark-column">Reject 2 bags, Sample 3 bags, 31 bags tidak ketemu</td>
                 <td>26.0%</td>
                 <td>26.0%</td>
-                <td>6.05</td>
+                <td></td>
                 <td>2.662</td>
                 <td>1.698</td>
                 <td>500</td>
@@ -535,7 +534,7 @@
                 <td class="remark-column">Reject 2 bags, Sample 3 bags, 31 bags tidak ketemu</td>
                 <td>28.0%</td>
                 <td>28.0%</td>
-                <td>6.08</td>
+                <td></td>
                 <td>1.698</td>
                 <td>1.698</td>
                 <td>624</td>
@@ -628,7 +627,6 @@
                     <input type="number" id="ph" name="ph" class="form-control" required>
                 </div>
             
-               
             </div>
         
 
@@ -643,7 +641,6 @@
             </div>
 
       </div>
-   
        
             <div class="form-group">
                 <label for="keterangan">Keterangan (Remark)</label>

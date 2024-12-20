@@ -55,6 +55,11 @@ class StockController extends Controller
     {
         return view('card_stock.kelapa_bulat');
     }
+    public function kb_kelapa_bulat()
+    {
+        return view('card_stock.KB_Kelapa_Bulat');
+    }
+
     public function ampas_kering_putih()
     {
         return view('card_stock.ampas_kering_putih');

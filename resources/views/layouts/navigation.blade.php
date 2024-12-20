@@ -240,6 +240,7 @@
                 <div class="dropdown-container">
                     <a href="{{ route('card_stock.dkp') }}">DKP</a>
                     <a href="{{ route('card_stock.kelapa_bulat') }}">Kelapa Bulat</a>
+                    <a href="{{ route('card_stock.KB_Kelapa_Bulat') }}">KB Kelapa Bulat</a>
                     <a href="{{ route('card_stock.santan') }}">Santan</a>
                     <a href="{{ route('card_stock.air_kelapa') }}">Air Kelapa</a>
                     <a href="{{ route('card_stock.kulit_ari_kering') }}">Kulit Ari Kering</a>
