@@ -90,6 +90,7 @@ Route::get('/card_stock/dkp_reject_basah', [StockController::class, 'dkp_reject_
 Route::get('/card_stock/minyak_kelapa', [StockController::class, 'minyak_kelapa'])->name('card_stock.minyak_kelapa');
 Route::get('/card_stock/air_kelapa', [StockController::class, 'air_kelapa'])->name('card_stock.air_kelapa');
 Route::get('/card_stock/kelapa_bulat', [StockController::class, 'kelapa_bulat'])->name('card_stock.kelapa_bulat');
+Route::get('/card_stock/KB_Kelapa_Bulat', [StockController::class, 'kb_kelapa_bulat'])->name('card_stock.KB_Kelapa_Bulat');
 Route::get('/card_stock/tempurung_basah', [StockController::class, 'tempurung_basah'])->name('card_stock.tempurung_basah');
 Route::get('/card_stock/kulit_ari_basah', [StockController::class, 'kulit_ari_basah'])->name('card_stock.kulit_ari_basah');
 Route::get('/card_stock/kulit_ari_kering', [StockController::class, 'kulit_ari_kering'])->name('card_stock.kulit_ari_kering');

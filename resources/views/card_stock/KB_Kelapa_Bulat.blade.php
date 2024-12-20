@@ -8,8 +8,8 @@
     background-color: #D9D9D9 !important;
     padding-top: 20px; /* Jarak dari topbar */
     margin-left: 235px;
-   overflow -y: auto;
-   height: calc(100vh - 70px);
+    overflow-y: auto;
+    height: calc(100vh - 70px);
     width: calc(100% - 235px);
     font-family: 'Inter', sans-serif; !important;
 }
@@ -50,9 +50,6 @@
     margin: 20px 0;
     font-size: 12px;
 }
-.filters select.pilihtanggal{
-    width: 140px !important;
-}
 
 /* Dropdown tanggal */
 .filters select.pilihtanggal,
@@ -85,7 +82,6 @@
 .caridata{
     color: #636362 !important;
 }
-
 
 .filters .input-icon i {
     position: absolute;
@@ -142,11 +138,11 @@ table {
 }
 
 table th, table td {
-    padding: 8px;
+    padding: 10px;
     text-align: center;
     border: 1px solid #636362; /* Garis antar sel */
     color: #636362;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 table th {
@@ -154,13 +150,13 @@ table th {
 }
 
 table td button {
-    padding: 8px 10px;
+    padding: 8px 12px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
     background-color: #104367;
     color: white;
-    font-size: 11px;
+    font-size: 12px;
     
 }
 
@@ -241,20 +237,22 @@ table td button.delete {
 
 /* Modal container */
         .horizontalline1 {
-        border: none; 
+        /* Warna teks, tidak berpengaruh pada <hr> */
+        border: none; /* Hapus border default */
         border-bottom: 0.5px solid #ccc;
-         width: 100%; 
-         margin: 5px 0 15px 0; /
-        opacity: 0.5; 
+         width: 100%; /* Lebar penuh */
+         margin: 5px 0 15px 0; /* Margin atas, kanan, bawah, kiri */
+        opacity: 0.5; /* Nilai opasitas (1 = tidak transparan) */
         padding-top: 20px;
 }
 
     .btn.export {
         display: flex;
-        align-items: center; 
-        color: white; 
-        border: none; =
-        cursor: pointer;
+        align-items: center; /* Mengatur ikon dan teks dalam satu baris */
+        color: white; /* Mengatur warna teks menjadi putih */
+        border: none; /* Menghapus border default */
+         /* Menambahkan padding */
+        cursor: pointer; /* Menambahkan kursor pointer */
     }
 
      .btn.export img {
@@ -264,29 +262,150 @@ table td button.delete {
    
     }
     .search-input::placeholder {
-    color: #636362; 
-    opacity: 1; 
+    color: #636362; /* Ganti dengan warna yang diinginkan */
+    opacity: 1; /* Mengatur opasitas jika perlu */
 }
-.supplier{
-    text-align: start;
+
+.modal {
+    display: none; /* Modal tidak tampil secara default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Transparan hitam */
+    justify-content: center;
+    align-items: center;
 }
+
+/* Modal Konten */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+.modal-content h2 {
+    font-size: 16px;
+    margin: 0 auto;
+}
+
+/* Animasi Modal */
+@keyframes fadeIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #555;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+    margin-top: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    
+   
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
+    appearance: none; /* Hilangkan gaya default browser */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23666" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+.form-control:focus {
+    border-color:#104367;
+    outline: none;
+    box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
+}
+
+/* Style untuk option */
+.form-control option {
+    padding: 8px;
+}
+.form-control:focus {
+    border-color: #104367;
+    outline: none;
+    box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
+}
+
+/* Tombol Submit */
+.submit-btn {
+    background-color: #104367;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+.submit-btn:hover {
+    background-color: #104367;
+}
+
+
 
 </style>
 
 <div class="mainbar">
     <div class="container">
         <div class="header">
-            <h2>Laporan Pemakaian Kelapa Bulat</h2>
+            <h2>Card Stock KB Kelapa Bulat</h2>
         </div>
 
         <!-- Filter Section -->
         <div class="filters">
             <select class="pilihtanggal">
-                <option>Pilih Periode</option>
-                <option>Januari</option>
-                <option>Februari</option>
-         
-
+                <option>Pilih Tanggal</option>
+                <option>12 Agustus 2024</option>
+                <option>13 Agustus 2024</option>
             </select>
             <div class="input-icon">
                 <input type="text" placeholder="Cari Data" class="search-input">
@@ -296,63 +415,43 @@ table td button.delete {
                 <button class="btn export">
                    <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png" alt="export"/> Export
                 </button>
-        
-            <button id="openFormBtn" class="btn add" onclick="openModal()">+ Tambah Data</button>
-            
+                <button id="openFormBtn" class="btn add" onclick="openModal()">+ Tambah Data</button>
             </div>
         </div>
 
         <!-- Table Section -->
-       
-        <table>
-            <thead>
-                <tr>
-                    <th rowspan="2">NO KRJ</th>
-                    <th rowspan="2">KB Tanggal & Supplier</th>
-                    <th colspan="2">1</th>
-                    <th colspan="2">2</th>
-                    <th colspan="2">3</th>
-                    <th colspan="2">4</th>
-                    <th colspan="2">5</th>
-                    <th colspan="2">6</th>
-                </tr>
-                <tr>
-                    <th>Jam</th>
-                    <th>Qty</th>
-                    <th>Jam</th>
-                    <th>Qty</th>
-                    <th>Jam</th>
-                    <th>Qty</th>
-                    <th>Jam</th>
-                    <th>Qty</th>
-                    <th>Jam</th>
-                    <th>Qty</th>
-                    <th>Jam</th>
-                    <th>Qty</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Km Nusa Persada / G.461</td>
-                    <td>21:29</td>
-                    <td>727</td>
-                    <td>22:45</td>
-                    <td>325</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <!-- Repeat similar rows for the rest of the data -->
-            </tbody>
-        </table>
-  
-
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15px;">No</th>
+                        <th style="width: 50px;">Tanggal</th>
+                        <th style="width: 100px;">Keterangan</th>
+                        <th style="width: 40px;">Begin</th>
+                        <th style="width: 40px;">In</th>
+                        <th style="width: 40px;">Out</th>
+                        <th style="width: 40px;">Remain</th>
+                        <th style="width: 70px;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>12 Agustus 2024</td>
+                        <td>Pembelian KB dari Bpk Yandi Tungkal - KM Nusa Persada (Trip 1)</td>
+                        <td>190</td>
+                        <td>50</td>
+                        <td>10</td>
+                        <td>230</td>
+                        <td>
+                            <button class="edit">Edit</button>
+                            <button class="delete">Delete</button>
+                        </td>
+                    </tr>
+                    <!-- Tambah data lainnya -->
+                </tbody>
+            </table>
+        </div>
 
 
         <!-- Pagination Section -->
@@ -374,25 +473,69 @@ table td button.delete {
         </div>
 
 
-   
-    
-    <!-- Script to close the modal -->
-    <script>
-        document.querySelector('.close').addEventListener('click', function () {
-            document.querySelector('.modal').style.display = 'none';
-        });
-    </script>
-    
-        </div>
+   <!-- Modal -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2>Form Input Stok DKP Reject Kering (Kopra)</h2>
+
+        <form id="stokForm">
+            <!-- Tanggal -->
+            <div class="form-group">
+                <label for="tanggal">Tanggal</label>
+                <input type="date" id="tanggal" name="tanggal" class="form-control" required>
+            </div>
+
+            <!-- Tipe Aktivitas -->
+            <div class="form-group">
+                <label for="activity_type">Tipe Aktivitas</label>
+                <select id="activity_type" name="activity_type" class="form-control" required>
+                    <option value="" disabled selected>Pilih Jenis Aktivitas</option>
+                    <option value="pengeringan">Hasil Pengeringan</option> <!-- hasil pengeringan artinya stok bertambah -->
+                    <option value="ekspor">Ekspor</option>
+                    <option value="penjualan">Penjualan</option>
+                </select>
+            </div>
+
+            <!-- Jumlah Stok -->
+            <div class="form-group">
+                <label for="stok">Jumlah Stok</label>
+                <input type="number" id="stok" name="stok" class="form-control" required>
+            </div>
+
+            <!-- Keterangan -->
+            <div class="form-group">
+                <label for="keterangan">Keterangan (Remark)</label>
+                <textarea id="keterangan" name="keterangan" class="form-control" rows="3" placeholder="Masukkan keterangan stok..." required></textarea>
+            </div>
+
+            <!-- Tombol Submit -->
+            <button type="submit" class="submit-btn">Simpan</button>
+        </form>
     </div>
 </div>
-</div>
+
+   
 @endsection
 
 @section('scripts')
-<script>
+<script> 
 
-// Sample data
+
+function openModal() {
+    document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+window.onclick = function (event) {
+    const modal = document.getElementById("modal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
 const data = [
     { no: 1, tanggal: "12 Agustus 2024", nama: "Marcella", sp: "S", bruto: 50, potongan: 0, hasil: 150, detail: "Hasil Timbangan" },
     { no: 2, tanggal: "12 Agustus 2024", nama: "Zhuxin", sp: "P", bruto: 75, potongan: 0, hasil: null, detail: "Hasil Timbangan" },
@@ -459,6 +602,7 @@ function goToPage(page) {
 
 // Load initial data
 displayData();
+
 
 
 </script>
