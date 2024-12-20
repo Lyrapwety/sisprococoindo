@@ -16,8 +16,9 @@ class StokKulitAriBasah extends Model
     protected $fillable = [
         'id_laporan_kulit_ari_basah',
         'tanggal',
-        'remark',
+        'keterangan',
         'activity_type',
+        'stok',
         'begin',
         'in',
         'out',

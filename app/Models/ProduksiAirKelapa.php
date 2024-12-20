@@ -17,13 +17,18 @@ class ProduksiAirKelapa extends Model
         'id_air_kelapa',
         'tanggal',
         'keterangan',
-        'briz',
+        'activity_type',
+        'fat',
         'ph',
         'sn',
+        'briz',
         'bags',
         'begin',
-        'in',
-        'out',
-        'remain',
+        'in_steril',
+        'in_nonstreil',
+        'out_rep',
+        'out_eks',
+        'out_adj',
+        'remain'
     ];
 }

@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stok_ampas_kering_yellows', function (Blueprint $table) {
+        Schema::create('stok_minyak_kelapas', function (Blueprint $table) {
             $table->id();
-            $table->string('id_stok_ampas_kering_putih')->nullable();
             $table->string('tanggal')->nullable();
-            $table->string('keterangan')->nullable();
+            $table->string('remark')->nullable();
             $table->string('activity_type')->nullable();
             $table->string('stok')->nullable();
             $table->string('begin')->nullable();
-            $table->string('in_fine')->nullable();
-            $table->string('in_medium')->nullable();
+            $table->string('in')->nullable();
             $table->string('out')->nullable();
             $table->string('remain')->nullable();
             $table->timestamps();
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stok_ampas_kering_yellows');
+        Schema::dropIfExists('stok_minyak_kelapas');
     }
 };

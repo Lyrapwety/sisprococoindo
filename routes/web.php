@@ -9,6 +9,8 @@ use App\Http\Controllers\LaporandkprejectController;
 use App\Http\Controllers\LaporankulitariController;
 use App\Http\Controllers\LaporantempurungController;
 use App\Http\Controllers\ProduksisantanController;
+use App\Http\Controllers\ProduksiairkelapaController;
+use App\Http\Controllers\StokdkpController;
 use App\Http\Controllers\RekapkulitariController;
 use App\Http\Controllers\ProduksiController;
 use App\Http\Controllers\StockController;
@@ -80,11 +82,31 @@ Route::prefix('produksi')->name('produksi.')->group(function () {
     Route::get('santan/create', [ProduksisantanController::class, 'create'])->name('santan.create');
     Route::post('santan', [ProduksisantanController::class, 'store'])->name('santan.store');
     Route::delete('santan/{id}', [ProduksisantanController::class, 'destroy'])->name('santan.destroy');
+
+    //produksi airkelapa
+    Route::resource('air_kelapa', ProduksiairkelapaController::class);
+    Route::get('air_kelapa/create', [ProduksiairkelapaController::class, 'create'])->name('air_kelapa.create');
+    Route::post('air_kelapa', [ProduksiairkelapaController::class, 'store'])->name('air_kelapa.store');
+    Route::delete('air_kelapa/{id}', [ProduksiairkelapaController::class, 'destroy'])->name('air_kelapa.destroy');
+});
+
+//produksi stok
+Route::prefix('card_stock')->name('card_stock.')->group(function () {
+    //stok dkp
+    Route::resource('dkp', StokdkpController::class);
+    Route::get('dkp/create', [StokdkpController::class, 'create'])->name('dkp.create');
+    Route::post('dkp', [StokdkpController::class, 'store'])->name('dkp.store');
+    Route::delete('dkp/{id}', [StokdkpController::class, 'destroy'])->name('dkp.destroy');
+
+    //produksi airkelapa
+    Route::resource('air_kelapa', ProduksiairkelapaController::class);
+    Route::get('air_kelapa/create', [ProduksiairkelapaController::class, 'create'])->name('air_kelapa.create');
+    Route::post('air_kelapa', [ProduksiairkelapaController::class, 'store'])->name('air_kelapa.store');
+    Route::delete('air_kelapa/{id}', [ProduksiairkelapaController::class, 'destroy'])->name('air_kelapa.destroy');
 });
 
 
 Route::get('/card_stock/santan', [StockController::class, 'santan'])->name('card_stock.santan');
-Route::get('/card_stock/dkp', [StockController::class, 'dkp'])->name('card_stock.dkp');
 Route::get('/card_stock/dkp_reject_kering', [StockController::class, 'dkp_reject_kering'])->name('card_stock.dkp_reject_kering');
 Route::get('/card_stock/dkp_reject_basah', [StockController::class, 'dkp_reject_basah'])->name('card_stock.dkp_reject_basah');
 Route::get('/card_stock/minyak_kelapa', [StockController::class, 'minyak_kelapa'])->name('card_stock.minyak_kelapa');
@@ -108,6 +130,4 @@ Route::prefix('data_pegawai')->name('data_pegawai.')->group(function () {
 
 Route::get('/edit_data_pegawai', [DatapegawaiController::class, 'edit_data_pegawai'])->name('edit_data_pegawai');
 
-
-Route::get('/produksi/air_kelapa', [ProduksiController::class, 'air_kelapa'])->name('produksi.air_kelapa');
 require __DIR__.'/auth.php';

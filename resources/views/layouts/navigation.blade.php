@@ -231,14 +231,14 @@
                 </button>
                 <div class="dropdown-container">
                     <a href="{{ route('produksi.santan.index') }}">Santan</a>
-                    <a href="{{ route('produksi.air_kelapa') }}">Air Kelapa</a>
+                    <a href="{{ route('produksi.air_kelapa.index') }}">Air Kelapa</a>
                 </div>
 
                 <button class="dropdown-btn"><i class="fa-solid fa-box-archive"></i>Stok Barang
                     <span class="dropdown-arrow">&#9662;</span>
                 </button>
                 <div class="dropdown-container">
-                    <a href="{{ route('card_stock.dkp') }}">DKP</a>
+                    <a href="{{ route('card_stock.dkp.index') }}">DKP</a>
                     <a href="{{ route('card_stock.kelapa_bulat') }}">Kelapa Bulat</a>
                     <a href="{{ route('card_stock.KB_Kelapa_Bulat') }}">KB Kelapa Bulat</a>
                     <a href="{{ route('card_stock.santan') }}">Santan</a>

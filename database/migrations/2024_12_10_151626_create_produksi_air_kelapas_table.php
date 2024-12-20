@@ -14,15 +14,20 @@ return new class extends Migration
         Schema::create('produksi_air_kelapas', function (Blueprint $table) {
             $table->id();
             $table->string('id_air_kelapa')->nullable();
-            $table->string('tanggal')->nullable();
+            $$table->string('tanggal')->nullable();
             $table->string('keterangan')->nullable();
-            $table->string('briz')->nullable();
+            $table->string('activity_type')->nullable();
+            $table->string('fat')->nullable();
             $table->string('ph')->nullable();
             $table->string('sn')->nullable();
+            $table->string('briz')->nullable();
             $table->string('bags')->nullable();
             $table->string('begin')->nullable();
-            $table->string('in')->nullable();
-            $table->string('out')->nullable();
+            $table->string('in_steril')->nullable();
+            $table->string('in_nonsteril')->nullable();
+            $table->string('out_rep')->nullable();
+            $table->string('out_eks')->nullable();
+            $table->string('out_adj')->nullable();
             $table->string('remain')->nullable();
             $table->timestamps();
         });

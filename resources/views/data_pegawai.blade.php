@@ -346,7 +346,7 @@
                     </button>
 
 
-                    <a href="{{ route('tambah_data_pegawai') }}"><button id="openFormBtn" class="btn add">+ Tambah
+                    <a href="{{ route('data_pegawai.tambah_data_pegawai') }}"><button id="openFormBtn" class="btn add">+ Tambah
                             Data</button></a>
                 </div>
             </div>

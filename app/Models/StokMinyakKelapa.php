@@ -5,30 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProduksiSantan extends Model
+class StokMinyakKelapa extends Model
 {
     use HasFactory;
 
     // Define the table name
-    protected $table = 'produksi_santans';
+    protected $table = 'stok_minyak_kelapas';
 
     // Define the fillable attributes
     protected $fillable = [
-        'id_santan',
         'tanggal',
         'keterangan',
         'activity_type',
-        'fat',
-        'ph',
-        'sn',
-        'briz',
-        'bags',
+        'stok',
         'begin',
-        'in_steril',
-        'in_nonstreil',
-        'out_rep',
-        'out_eks',
-        'out_adj',
+        'in',
+        'out',
         'remain'
     ];
 

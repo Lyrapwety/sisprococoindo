@@ -18,6 +18,7 @@ class StokAmpasKeringPutih extends Model
         'tanggal',
         'keterangan',
         'activity_type',
+        'stok',
         'begin',
         'in',
         'out',

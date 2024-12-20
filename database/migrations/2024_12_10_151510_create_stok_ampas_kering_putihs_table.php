@@ -17,8 +17,10 @@ return new class extends Migration
             $table->string('tanggal')->nullable();
             $table->string('keterangan')->nullable();
             $table->string('activity_type')->nullable();
+            $table->string('stok')->nullable();
             $table->string('begin')->nullable();
-            $table->string('in')->nullable();
+            $table->string('in_fine')->nullable();
+            $table->string('in_medium')->nullable();
             $table->string('out')->nullable();
             $table->string('remain')->nullable();
             $table->timestamps();

@@ -18,6 +18,7 @@ class StokAmpasKeringYellow extends Model
         'tanggal',
         'keterangan',
         'activity_type',
+        'stok',
         'begin',
         'in_fine',
         'in_medium',

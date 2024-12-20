@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ProduksiSantan;
+use App\Models\ProduksiAirKelapa;
 
-class ProduksisantanController extends Controller
+class ProduksiairkelapaController extends Controller
 {
     public function index()
     {
-        $produksisantans = ProduksiSantan::all();
-        return view('produksi.santan', compact('produksisantans'));
+        $produksiairkelapas = ProduksiAirKelapa::all();
+        return view('produksi.air_kelapa', compact('produksiairkelapas'));
     }
 
     public function store(Request $request)
     {
         // Validasi data
         $request->validate([
-            'id_santan' => 'nullable|string|max:255',
+            'id_air_kelapa' => 'nullable|string|max:255',
             'tanggal' => 'nullable|string|max:255',
             'keterangan' => 'nullable|string|max:255',
             'activity_type' => 'nullable|string|max:255',
@@ -36,8 +36,8 @@ class ProduksisantanController extends Controller
         ]);
 
         // Simpan data ke database
-        ProduksiSantan::create([
-            'id_santan' => $request->id_santan,
+        ProduksiAirKelapa::create([
+            'id_air_kelapa' => $request->id_santan,
             'tanggal' => $request->tanggal,
             'keterangan' => $request->keterangan,
             'activity_type' => $request->activity_type,
@@ -56,15 +56,14 @@ class ProduksisantanController extends Controller
         ]);
 
         // Redirect dengan pesan sukses
-        return redirect()->route('produksi.santan.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('produksi.air_kelapa.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function destroy($id)
     {
-        $produksisantan = ProduksiSantan::findOrFail($id);
-        $produksisantan->delete();
+        $produksiairkelapa = ProduksiAirKelapa::findOrFail($id);
+        $produksiairkelapa->delete();
 
-        return redirect()->route('produksi.santan.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('laporan.dkp_reject.index')->with('success', 'Data berhasil dihapus!');
     }
-
 }

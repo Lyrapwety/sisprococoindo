@@ -47,6 +47,14 @@ class DatapegawaiController extends Controller
         return redirect()->route('data_pegawai.index')->with('success', 'Data pegawai berhasil ditambahkan!');
     }
 
+    public function destroy($id)
+    {
+        $pegawai = Pegawai::findOrFail($id);
+        $pegawai->delete();
+
+        return redirect()->route('data_pegawai.index')->with('success', 'Data berhasil dihapus!');
+    }
+
 
     public function edit_data_pegawai()
     {

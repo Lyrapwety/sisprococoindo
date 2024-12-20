@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('tanggal')->nullable();
             $table->string('remark')->nullable();
             $table->string('activity_type')->nullable();
+            $table->string('stok')->nullable();
             $table->string('begin')->nullable();
             $table->string('in')->nullable();
             $table->string('out')->nullable();
