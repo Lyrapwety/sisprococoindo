@@ -439,7 +439,7 @@
                             alt="export" /> Export
                     </button>
 
-                    <button id="openFormBtn" class="btn add" onclick="openModal()">+ Tambah Data</button>
+                    <button id="openFormBtn" class="btn add" >+ Tambah Data</button>
                 </div>
             </div>
 
@@ -514,7 +514,7 @@
             <!-- Modal -->
             <div id="modal" class="modal">
                 <div class="modal-content">
-                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                    <span class="close">&times;</span>
                     <h2>Form Input Stok Ampas Kering Putih</h2>
 
                     <form id="stokForm" action="{{ route('card_stock.ampas_kering_putih.store') }}" method="POST" enctype="multipart/form-data">
@@ -525,7 +525,7 @@
                         <div class="form-group">
                             <label for="tanggal">Tanggal</label>
                             <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                            id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
+                            id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
                         @error('tanggal')
                             <div class="alert alert-danger mt-2">
                                 {{ $message }}
@@ -537,7 +537,7 @@
                         <div class="form-group">
                             <label for="activity_type">Tipe Aktivitas</label>
                             <select class="form-control @error('activity_type') is-invalid @enderror"
-                            id="activity_type" name="activity_type" value="{{ old('activity_type') }}">
+                            id="activity_type" name="activity_type" value="{{ old('activity_type') }}" required>
                                 <option value="" disabled selected>Pilih Jenis Aktivitas</option>
                                 <option value="produksi">Produksi</option>
                                 <option value="ekspor">Ekspor</option>
@@ -570,7 +570,7 @@
                         <div class="form-group">
                             <label for="stok">Jumlah Stok</label>
                             <input type="number" class="form-control @error('stok') is-invalid @enderror"
-                            id="stok" name="stok" value="{{ old('stok') }}">
+                            id="stok" name="stok" value="{{ old('stok') }}" required>
                             @error('stok')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
@@ -582,7 +582,7 @@
                         <div class="form-group">
                             <label for="keterangan">Keterangan (Remark)</label>
                             <textarea class="form-control @error('keterangan') is-invalid @enderror"
-                            id="keterangan" name="keterangan" value="{{ old('keterangan') }}">
+                            id="keterangan" name="keterangan" value="{{ old('keterangan') }}" required>
                             @error('keterangan')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
@@ -615,20 +615,56 @@
                     });
                 });
 
-                function openModal() {
-                    document.getElementById("modal").style.display = "flex";
-                }
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Ambil elemen yang diperlukan
+                    const openFormBtn = document.getElementById('openFormBtn');
+                    const modal = document.getElementById('modal');
+                    const closeModalBtn = document.querySelector('.close');
+                    const form = document.querySelector('form');
 
-                function closeModal() {
-                    document.getElementById("modal").style.display = "none";
-                }
+                    // Fungsi untuk membuka modal
+                    openFormBtn.addEventListener('click', function() {
+                        modal.style.display = 'flex'; // Menampilkan modal
+                    });
 
-                window.onclick = function(event) {
-                    const modal = document.getElementById("modal");
-                    if (event.target === modal) {
-                        modal.style.display = "none";
-                    }
-                };
+                    // Fungsi untuk menutup modal ketika tombol close diklik
+                    closeModalBtn.addEventListener('click', function() {
+                        modal.style.display = 'none'; // Menyembunyikan modal
+                    });
+
+                    // Tutup modal jika pengguna mengklik di luar konten modal
+                    window.addEventListener('click', function(event) {
+                        if (event.target === modal) {
+                            modal.style.display = 'none';
+                        }
+                    });
+
+                    // Fungsi untuk menangani event tombol edit
+                    document.querySelectorAll('.edit').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+
+                            // Ambil data menggunakan fetch atau sesuai dengan cara yang Anda inginkan
+                            fetch(`/card_stock/ampas_kering_putih/${id}/edit`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    // Isi nilai form dengan data yang diambil
+                                    document.getElementById("id").value = data.id;
+                                    document.getElementById("activity_type").value = data.activity_type;
+                                    document.getElementById("kategori").value = data.kategori;
+                                    document.getElementById("tanggal").value = data.tanggal;
+                                    document.getElementById("stok").value = data.stok;
+                                    document.getElementById("keterangan").value = data.keterangan;
+
+                                    // Tampilkan modal untuk edit
+                                    modal.style.display = 'flex';
+                                })
+                                .catch(error => {
+                                    console.error("Error fetching data:", error);
+                                });
+                        });
+                    });
+                });
                 // Sample data
                 const data = [{
                         no: 1,

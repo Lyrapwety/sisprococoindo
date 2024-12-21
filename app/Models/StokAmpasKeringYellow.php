@@ -20,6 +20,7 @@ class StokAmpasKeringYellow extends Model
         'activity_type',
         'stok',
         'begin',
+        'kategori',
         'in_fine',
         'in_medium',
         'out',

@@ -110,6 +110,8 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::get('dkp/create', [StokdkpController::class, 'create'])->name('dkp.create');
     Route::post('dkp', [StokdkpController::class, 'store'])->name('dkp.store');
     Route::delete('dkp/{id}', [StokdkpController::class, 'destroy'])->name('dkp.destroy');
+    Route::get('dkp/{id}/edit', [StokdkpController::class, 'edit'])->name('dkp.edit');
+
 
     //stok kb
     Route::resource('KB_Kelapa_Bulat', StokKbController::class);
@@ -122,48 +124,64 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::get('kulit_ari_kering/create', [StokarikeringController::class, 'create'])->name('kulit_ari_kering.create');
     Route::post('kulit_ari_kering', [StokarikeringController::class, 'store'])->name('kulit_ari_kering.store');
     Route::delete('kulit_ari_kering/{id}', [StokarikeringController::class, 'destroy'])->name('kulit_ari_kering.destroy');
+    Route::get('kulit_ari_kering/{id}/edit', [StokdkpController::class, 'edit'])->name('kulit_ari_kering.edit');
+
 
     //stok ari basah
     Route::resource('kulit_ari_basah', StokaribasahController::class);
     Route::get('kulit_ari_basah/create', [StokaribasahController::class, 'create'])->name('kulit_ari_basah.create');
     Route::post('kulit_ari_basah', [StokaribasahController::class, 'store'])->name('kulit_ari_basah.store');
     Route::delete('kulit_ari_basah/{id}', [StokaribasahController::class, 'destroy'])->name('kulit_ari_basah.destroy');
+    Route::get('kulit_ari_basah/{id}/edit', [StokaribasahController::class, 'edit'])->name('kulit_ari_basah.edit');
+
 
     //stok minyak kelapa
     Route::resource('minyak_kelapa', StokminyakkelapaController::class);
     Route::get('minyak_kelapa/create', [StokminyakkelapaController::class, 'create'])->name('minyak_kelapa.create');
     Route::post('minyak_kelapa', [StokminyakkelapaController::class, 'store'])->name('minyak_kelapa.store');
     Route::delete('minyak_kelapa/{id}', [StokminyakkelapaController::class, 'destroy'])->name('minyak_kelapa.destroy');
+    Route::get('minyak_kelapa/{id}/edit', [StokminyakkelapaController::class, 'edit'])->name('minyak_kelapa.edit');
+
 
     //stok reject kering
     Route::resource('dkp_reject_kering', StokrejectkeringController::class);
     Route::get('dkp_reject_kering/create', [StokrejectkeringController::class, 'create'])->name('dkp_reject_kering.create');
     Route::post('dkp_reject_kering', [StokrejectkeringController::class, 'store'])->name('dkp_reject_kering.store');
     Route::delete('dkp_reject_kering/{id}', [StokrejectkeringController::class, 'destroy'])->name('dkp_reject_kering.destroy');
+    Route::get('dkp_reject_kering/{id}/edit', [StokrejectkeringController::class, 'edit'])->name('dkp_reject_kering.edit');
+
 
     //stok reject basah
     Route::resource('dkp_reject_basah', StokrejectbasahController::class);
     Route::get('dkp_reject_basah/create', [StokrejectbasahController::class, 'create'])->name('dkp_reject_basah.create');
     Route::post('dkp_reject_basah', [StokrejectbasahController::class, 'store'])->name('dkp_reject_basah.store');
     Route::delete('dkp_reject_basah/{id}', [StokrejectbasahController::class, 'destroy'])->name('dkp_reject_basah.destroy');
+    Route::get('dkp_reject_basah/{id}/edit', [StokrejectbasahController::class, 'edit'])->name('dkp_reject_basah.edit');
+
 
     //stok tempurung
     Route::resource('tempurung_basah', StoktempurungbasahController::class);
     Route::get('tempurung_basah/create', [StoktempurungbasahController::class, 'create'])->name('tempurung_basah.create');
     Route::post('tempurung_basah', [StoktempurungbasahController::class, 'store'])->name('tempurung_basah.store');
     Route::delete('tempurung_basah/{id}', [StoktempurungbasahController::class, 'destroy'])->name('tempurung_basah.destroy');
+    Route::get('tempurung_basah/{id}/edit', [StoktempurungbasahController::class, 'edit'])->name('tempurung_basah.edit');
+
 
     //stok ampas kering putih
     Route::resource('ampas_kering_putih', StokampasputihController::class);
     Route::get('ampas_kering_putih/create', [StokampasputihController::class, 'create'])->name('ampas_kering_putih.create');
     Route::post('ampas_kering_putih', [StokampasputihController::class, 'store'])->name('ampas_kering_putih.store');
     Route::delete('ampas_kering_putih/{id}', [StokampasputihController::class, 'destroy'])->name('ampas_kering_putih.destroy');
+    Route::get('ampas_kering_putih/{id}/edit', [StokampasputihController::class, 'edit'])->name('ampas_kering_putih.edit');
+
 
     //stok ampas kering putih
     Route::resource('ampas_kering_yellow', StokampasyellowController::class);
     Route::get('ampas_kering_yellow/create', [StokampasyellowController::class, 'create'])->name('ampas_kering_yellow.create');
     Route::post('ampas_kering_yellow', [StokampasyellowController::class, 'store'])->name('ampas_kering_yellow.store');
     Route::delete('ampas_kering_yellow/{id}', [StokampasyellowController::class, 'destroy'])->name('ampas_kering_yellow.destroy');
+    Route::get('ampas_kering_yellow/{id}/edit', [StokampasyellowController::class, 'edit'])->name('ampas_kering_yellow.edit');
+
 });
 
 

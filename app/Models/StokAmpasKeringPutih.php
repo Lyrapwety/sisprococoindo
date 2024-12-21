@@ -20,7 +20,9 @@ class StokAmpasKeringPutih extends Model
         'activity_type',
         'stok',
         'begin',
-        'in',
+        'kategori',
+        'in_fine',
+        'in_medium',
         'out',
         'remain'
     ];
