@@ -29,15 +29,19 @@ class LaporantempurungController extends Controller
         'timbangan_netto' => 'nullable|numeric',
     ]);
 
+    $bruto = $request->total_keranjang * 1.1;
+
+            $potonganKeranjang = $request->total_keranjang - $request->timbangan_netto;
+
     // Simpan data ke database
     LaporanTempurungBasah::create([
         'id_kelapa_bulat' => $request->id_kelapa_bulat,
         'no' => $request->no,
         'tanggal' => $request->tanggal,
-        'bruto' => $request->bruto,
+        'bruto' => $bruto,
         'tipe_keranjang' => $request->tipe_keranjang,
         'total_keranjang' => $request->total_keranjang,
-        'total_potongan_keranjang' => $request->total_potongan_keranjang,
+        'total_potongan_keranjang' => $potonganKeranjang,
         'netto' => json_encode($request->netto),
         'timbangan_netto' => $request->timbangan_netto,
     ]);

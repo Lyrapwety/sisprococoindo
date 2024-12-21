@@ -31,17 +31,21 @@ class LaporanairkelapaController extends Controller
         'timbangan_hasil' => 'nullable|numeric',
     ]);
 
+    $bruto = $request->total_keranjang * 1.1;
+
+            $potonganKeranjang = $request->total_keranjang - $request->timbangan_netto;
+
     // Simpan data ke database
     LaporanAirKelapa::create([
         'id_kelapa_bulat' => $request->id_kelapa_bulat,
         'tanggal' => $request->tanggal,
         'nama_pegawai' => $request->nama_pegawai,
         'sheller_parer' => $request->sheller_parer,
-        'bruto' => $request->bruto,
+        'bruto' => $bruto,
         'total_keranjang' => $request->total_keranjang,
         'tipe_keranjang' => $request->tipe_keranjnag,
         'berat_keranjang' => $request->berat_keranjang,
-        'total_potongan_keranjang' => $request->total_potongan_keranjang,
+        'total_potongan_keranjang' => $potonganKeranjang,
         'hasil_kerja' => json_encode($request->hasil_kerja),
         'timbangan_hasil' => $request->timbangan_hasil,
     ]);
