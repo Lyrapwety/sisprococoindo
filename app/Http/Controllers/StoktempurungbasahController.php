@@ -24,47 +24,42 @@ class StoktempurungbasahController extends Controller
             'stok' => 'required|numeric', // Stok wajib dan harus numerik
         ]);
 
-        // Ambil jumlah stok dan tipe aktivitas
+        // Ambil data stok dan tipe aktivitas
         $stok = $request->stok;
         $activity_type = $request->activity_type;
 
-        // Inisialisasi nilai begin, in, out, dan remain
-        $begin = 0;
+        // Ambil stok terakhir dari database (remain), default 0 jika tidak ada data
+        $last_remain = StokTempurungBasah::latest()->value('remain') ?? 0;
+
+        // Inisialisasi nilai awal
+        $begin = $last_remain; // Nilai awal adalah stok terakhir
         $in = 0;
         $out = 0;
-        $remain = 0;
+        $remain = $begin; // Default remain sama dengan begin
 
         // Logika berdasarkan tipe aktivitas
         switch ($activity_type) {
             case 'hasil_produksi':
-                // Stok bertambah, hanya mengisi 'in', 'out' kosong
-                $in = $stok;
-                $begin = $in;
-                $remain = $begin; // Sisa adalah stok awal
-                break;
-
             case 'pengambilan':
-                // Stok bertambah dari PT lain, hanya mengisi 'in', 'out' kosong
+                // Aktivitas menambah stok
                 $in = $stok;
-                $begin = $in;
-                $remain = $begin; // Sama seperti hasil produksi
+                $remain = $begin + $in; // Tambah stok ke remain
                 break;
 
             case 'pemakaian_produksi':
-                // Stok berkurang, hanya mengisi 'out', 'in' kosong
-                $out = $stok;
-                $begin = StokTempurungBasah::latest()->value('remain') ?? 0; // Ambil sisa stok terakhir
-                $remain = $begin - $out; // Sisa stok setelah dikurangi pemakaian
-                break;
-
             case 'reject':
-                // Stok berkurang karena reject, hanya mengisi 'out', 'in' kosong
+                // Aktivitas mengurangi stok
                 $out = $stok;
-                $begin = StokTempurungBasah::latest()->value('remain') ?? 0; // Ambil sisa stok terakhir
-                $remain = $begin - $out; // Sisa stok setelah dikurangi reject
+                $remain = $begin - $out; // Kurangi stok dari remain
+
+                // Validasi jika remain negatif
+                if ($remain < 0) {
+                    return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
+                }
                 break;
 
             default:
+                // Aktivitas tidak valid
                 return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
         }
 
@@ -84,6 +79,7 @@ class StoktempurungbasahController extends Controller
         // Redirect dengan pesan sukses
         return redirect()->route('card_stock.tempurung_basah.index')->with('success', 'Data berhasil ditambahkan!');
     }
+
 
     public function edit($id)
     {

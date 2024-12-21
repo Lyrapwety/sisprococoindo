@@ -18,12 +18,16 @@ return new class extends Migration
             $table->string('keterangan')->nullable();
             $table->string('making_product')->nullable();
             $table->string('activity_type')->nullable();
+            $table->string('jenis_berat')->nullable();
+            $table->string('jumlah')->nullable();
             $table->string('fat')->nullable();
             $table->string('ph')->nullable();
             $table->string('begin')->nullable();
-            $table->string('in')->nullable();
+            $table->string('in_bags')->nullable();
+            $table->string('in_box')->nullable();
             $table->string('out')->nullable();
             $table->string('remain')->nullable();
+            $table->string('catatan')->nullable();
             $table->timestamps();
         });
     }

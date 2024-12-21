@@ -14,76 +14,71 @@ class StokarikeringController extends Controller
     }
 
     public function store(Request $request)
-    {
-        // Validasi data
-        $request->validate([
-            'id_laporan_kulit_ari_basah' => 'nullable|string|max:255',
-            'tanggal' => 'nullable|string|max:255',
-            'remark' => 'nullable|string|max:255',
-            'activity_type' => 'required|string|max:255',
-            'stok' => 'required|string|max:255',
-        ]);
+{
+    // Validasi data
+    $request->validate([
+        'id_laporan_kulit_ari_basah' => 'nullable|string|max:255',
+        'tanggal' => 'nullable|string|max:255',
+        'remark' => 'nullable|string|max:255',
+        'activity_type' => 'required|string|max:255',
+        'stok' => 'required|numeric', // Stok wajib dan harus numerik
+    ]);
 
-        // Ambil jumlah stok dan tipe aktivitas
-        $stok = $request->stok;
-        $activity_type = $request->activity_type;
+    // Ambil jumlah stok dan tipe aktivitas
+    $stok = $request->stok;
+    $activity_type = $request->activity_type;
 
-        // Inisialisasi nilai begin, in, out, dan remain
-        $begin = 0;
-        $in = 0;
-        $out = 0;
-        $remain = 0;
+    // Ambil sisa stok terakhir (remain) atau default ke 0 jika tidak ada data sebelumnya
+    $last_remain = StokKulitAriKering::latest()->value('remain') ?? 0;
 
-        // Logika berdasarkan tipe aktivitas
-        switch ($activity_type) {
-            case 'hasil_produksi':
-                // Stok bertambah, hanya mengisi 'in', 'out' kosong
-                $in = $stok;
-                $begin = $in;
-                $remain = $begin; // Sisa adalah stok awal
-                break;
+    // Inisialisasi nilai begin, in, out, dan remain
+    $begin = $last_remain; // Begin adalah stok terakhir sebelumnya
+    $in = 0;
+    $out = 0;
+    $remain = $begin; // Default remain sama dengan begin
 
-            case 'pengambilan':
-                // Stok bertambah dari PT lain, hanya mengisi 'in', 'out' kosong
-                $in = $stok;
-                $begin = $in;
-                $remain = $begin; // Sama seperti hasil produksi
-                break;
+    // Logika berdasarkan tipe aktivitas
+    switch ($activity_type) {
+        case 'hasil_produksi':
+        case 'pengambilan':
+            // Aktivitas menambah stok
+            $in = $stok;
+            $remain = $begin + $in; // Tambah stok ke remain
+            break;
 
-            case 'pemakaian_produksi':
-                // Stok berkurang, hanya mengisi 'out', 'in' kosong
-                $out = $stok;
-                $begin = StokKulitAriKering::latest()->value('remain') ?? 0; // Ambil sisa stok terakhir
-                $remain = $begin - $out; // Sisa stok setelah dikurangi pemakaian
-                break;
+        case 'pemakaian_produksi':
+        case 'reject':
+            // Aktivitas mengurangi stok
+            $out = $stok;
+            $remain = $begin - $out; // Kurangi stok dari remain
 
-            case 'reject':
-                // Stok berkurang karena reject, hanya mengisi 'out', 'in' kosong
-                $out = $stok;
-                $begin = StokKulitAriKering::latest()->value('remain') ?? 0; // Ambil sisa stok terakhir
-                $remain = $begin - $out; // Sisa stok setelah dikurangi reject
-                break;
+            // Validasi jika remain negatif
+            if ($remain < 0) {
+                return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
+            }
+            break;
 
-            default:
-                return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
-        }
-
-        // Simpan data ke database
-        StokKulitAriKering::create([
-            'id_laporan_kulit_ari_basah' => $request->id_laporan_kulit_ari_basah,
-            'tanggal' => $request->tanggal,
-            'remark' => $request->remark,
-            'activity_type' => $activity_type,
-            'stok' => $stok,
-            'begin' => $begin,
-            'in' => $in,
-            'out' => $out,
-            'remain' => $remain,
-        ]);
-
-        // Redirect dengan pesan sukses
-        return redirect()->route('card_stock.kulit_ari_kering.index')->with('success', 'Data berhasil ditambahkan!');
+        default:
+            return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
     }
+
+    // Simpan data ke database
+    StokKulitAriKering::create([
+        'id_laporan_kulit_ari_basah' => $request->id_laporan_kulit_ari_basah,
+        'tanggal' => $request->tanggal,
+        'remark' => $request->remark,
+        'activity_type' => $activity_type,
+        'stok' => $stok,
+        'begin' => $begin,
+        'in' => $in,
+        'out' => $out,
+        'remain' => $remain,
+    ]);
+
+    // Redirect dengan pesan sukses
+    return redirect()->route('card_stock.kulit_ari_kering.index')->with('success', 'Data berhasil ditambahkan!');
+}
+
 
     public function edit($id)
     {

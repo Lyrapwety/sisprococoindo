@@ -23,6 +23,8 @@ use App\Http\Controllers\StokampasyellowController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\LaporanairkelapaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StoksantanController;
+use App\Http\Controllers\StokairkelapaController;
 
 
 Route::get('/', function () {
@@ -119,6 +121,18 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::post('KB_Kelapa_Bulat', [StokKbController::class, 'store'])->name('KB_Kelapa_Bulat.store');
     Route::delete('KB_Kelapa_Bulat/{id}', [StokKbController::class, 'destroy'])->name('KB_Kelapa_Bulat.destroy');
 
+    //stok santan
+    Route::resource('santan', StoksantanController::class);
+    Route::get('santan/create', [StoksantanController::class, 'create'])->name('santan.create');
+    Route::post('santan', [StoksantanController::class, 'store'])->name('santan.store');
+    Route::delete('santan/{id}', [StoksantanController  ::class, 'destroy'])->name('santan.destroy');
+
+    //stok air kelapa
+    Route::resource('air_kelapa', StokairkelapaController::class);
+    Route::get('air_kelapa/create', [StokairkelapaController::class, 'create'])->name('air_kelapa.create');
+    Route::post('air_kelapa', [StokairkelapaController::class, 'store'])->name('air_kelapa.store');
+    Route::delete('air_kelapa/{id}', [StokairkelapaController  ::class, 'destroy'])->name('air_kelapa.destroy');
+
     //stok ari kering
     Route::resource('kulit_ari_kering', StokarikeringController::class);
     Route::get('kulit_ari_kering/create', [StokarikeringController::class, 'create'])->name('kulit_ari_kering.create');
@@ -184,9 +198,6 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
 
 });
 
-
-Route::get('/card_stock/santan', [StockController::class, 'santan'])->name('card_stock.santan');
-Route::get('/card_stock/air_kelapa', [StockController::class, 'air_kelapa'])->name('card_stock.air_kelapa');
 Route::get('/card_stock/kelapa_bulat', [StockController::class, 'kelapa_bulat'])->name('card_stock.kelapa_bulat');
 
 

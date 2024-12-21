@@ -246,8 +246,8 @@
                     <a href="{{ route('card_stock.dkp.index') }}">DKP</a>
                     <a href="{{ route('card_stock.kelapa_bulat') }}">Kelapa Bulat</a>
                     <a href="{{ route('card_stock.KB_Kelapa_Bulat.index') }}">KB Kelapa Bulat</a>
-                    <a href="{{ route('card_stock.santan') }}">Santan</a>
-                    <a href="{{ route('card_stock.air_kelapa') }}">Air Kelapa</a>
+                    <a href="{{ route('card_stock.santan.index') }}">Santan</a>
+                    <a href="{{ route('card_stock.air_kelapa.index') }}">Air Kelapa</a>
                     <a href="{{ route('card_stock.kulit_ari_kering.index') }}">Kulit Ari Kering</a>
                     <a href="{{ route('card_stock.kulit_ari_basah.index') }}">Kulit Ari Basah</a>
                     <a href="{{ route('card_stock.minyak_kelapa.index') }}">Minyak Kelapa</a>

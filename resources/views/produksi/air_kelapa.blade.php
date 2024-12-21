@@ -589,11 +589,12 @@
                             <div class="form-group">
                                 <label for="activity_type">Tipe Aktivitas</label>
                                 <select class="form-control @error('activity_type') is-invalid @enderror"
-                                    id="activity_type" name="activity_type" value="{{ old('activity_type') }}">
+                                    id="activity_type" name="activity_type" value="{{ old('activity_type') }}" required>
                                     <option value="" disabled selected></option>
                                     <option value="produksi">Produksi</option>
-                                    <option value="ekspor">Adjust</option>
-                                    <option value="reproses">Resproses</option>
+                                    <option value="adjust">Adjust</option>
+                                    <option value="ekspor">Ekspor</option>
+                                    <option value="reproses">Reproses</option>
                                 </select>
                                 @error('activity_type')
                                     <div class="alert alert-danger mt-2">
@@ -601,10 +602,11 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="form-group">
+
+                            <div class="form-group d-none" id="sn">
                                 <label for="sn">S/N</label>
                                 <select class="form-control @error('sn') is-invalid @enderror"
-                                id="sn" name="sn" value="{{ old('sn') }}">
+                                    name="sn" value="{{ old('sn') }}">
                                     <option value="" disabled selected></option>
                                     <option value="steril">Steril</option>
                                     <option value="nonsteril">Nonsteril</option>
@@ -686,6 +688,19 @@
 
         @section('scripts')
             <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                        const activityType = document.getElementById('activity_type');
+                        const snDiv = document.getElementById('sn');
+
+                        activityType.addEventListener('change', function () {
+                            if (this.value === 'produksi') {
+                                snDiv.classList.remove('d-none');
+                            } else {
+                                snDiv.classList.add('d-none');
+                            }
+                        });
+                    });
+                    
                 function openModal() {
                     document.getElementById("modal").style.display = "flex";
                 }

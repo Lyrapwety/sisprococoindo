@@ -14,76 +14,64 @@ class StokrejectkeringController extends Controller
     }
 
     public function store(Request $request)
-    {
-        // Validasi data
-        $request->validate([
-            'id_laporan_dkp_reject_basah' => 'nullable|string|max:255',
-            'tanggal' => 'nullable|string|max:255',
-            'keterangan' => 'nullable|string|max:255',
-            'activity_type' => 'required|string|max:255', // Aktivitas wajib dipilih
-            'stok' => 'required|numeric', // Stok wajib dan harus numerik
-        ]);
+{
+    // Validasi data
+    $request->validate([
+        'id_laporan_dkp_reject_basah' => 'nullable|string|max:255',
+        'tanggal' => 'nullable|string|max:255',
+        'keterangan' => 'nullable|string|max:255',
+        'activity_type' => 'required|string|max:255', 
+        'stok' => 'required|numeric',
+    ]);
 
-        // Ambil jumlah stok dan tipe aktivitas
-        $stok = $request->stok;
-        $activity_type = $request->activity_type;
+    // Ambil data stok dan tipe aktivitas
+    $stok = $request->stok;
+    $activity_type = $request->activity_type;
 
-        // Inisialisasi nilai begin, in, out, dan remain
-        $begin = 0;
-        $in = 0;
-        $out = 0;
-        $remain = 0;
+    $last_remain = StokDkpRejectKering::latest()->value('remain') ?? 0;
 
-        // Logika berdasarkan tipe aktivitas
-        switch ($activity_type) {
-            case 'hasil_produksi':
-                // Stok bertambah, hanya mengisi 'in', 'out' kosong
-                $in = $stok;
-                $begin = $in;
-                $remain = $begin; // Sisa adalah stok awal
-                break;
+    $begin = $last_remain;
+    $in = 0;
+    $out = 0;
+    $remain = $begin;
 
-            case 'pengambilan':
-                // Stok bertambah dari PT lain, hanya mengisi 'in', 'out' kosong
-                $in = $stok;
-                $begin = $in;
-                $remain = $begin; // Sama seperti hasil produksi
-                break;
+    switch ($activity_type) {
+        case 'hasil_produksi':
+        case 'pengambilan':
+            $in = $stok;
+            $remain = $begin + $in;
+            break;
 
-            case 'pemakaian_produksi':
-                // Stok berkurang, hanya mengisi 'out', 'in' kosong
-                $out = $stok;
-                $begin = StokDkpRejectKering::latest()->value('remain') ?? 0; // Ambil sisa stok terakhir
-                $remain = $begin - $out; // Sisa stok setelah dikurangi pemakaian
-                break;
+        case 'pemakaian_produksi':
+        case 'reject':
+            $out = $stok;
+            $remain = $begin - $out;
 
-            case 'reject':
-                // Stok berkurang karena reject, hanya mengisi 'out', 'in' kosong
-                $out = $stok;
-                $begin = StokDkpRejectKering::latest()->value('remain') ?? 0; // Ambil sisa stok terakhir
-                $remain = $begin - $out; // Sisa stok setelah dikurangi reject
-                break;
+            if ($remain < 0) {
+                return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
+            }
+            break;
 
-            default:
-                return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
-        }
-
-        // Simpan data ke database
-        StokDkpRejectKering::create([
-            'id_laporan_dkp_reject_basah' => $request->id_laporan_dkp_reject_basah,
-            'tanggal' => $request->tanggal,
-            'keterangan' => $request->keterangan,
-            'activity_type' => $activity_type,
-            'stok' => $stok,
-            'begin' => $begin,
-            'in' => $in,
-            'out' => $out,
-            'remain' => $remain,
-        ]);
-
-        // Redirect dengan pesan sukses
-        return redirect()->route('card_stock.dkp_reject_kering.index')->with('success', 'Data berhasil ditambahkan!');
+        default:
+            return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
     }
+
+    StokDkpRejectKering::create([
+        'id_laporan_dkp_reject_basah' => $request->id_laporan_dkp_reject_basah,
+        'tanggal' => $request->tanggal,
+        'keterangan' => $request->keterangan,
+        'activity_type' => $activity_type,
+        'stok' => $stok,
+        'begin' => $begin,
+        'in' => $in,
+        'out' => $out,
+        'remain' => $remain,
+    ]);
+
+    // Redirect dengan pesan sukses
+    return redirect()->route('card_stock.dkp_reject_kering.index')->with('success', 'Data berhasil ditambahkan!');
+}
+
 
     public function edit($id)
     {

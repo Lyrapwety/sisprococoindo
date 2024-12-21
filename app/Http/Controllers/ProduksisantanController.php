@@ -14,50 +14,85 @@ class ProduksisantanController extends Controller
     }
 
     public function store(Request $request)
-    {
-        // Validasi data
-        $request->validate([
-            'id_santan' => 'nullable|string|max:255',
-            'tanggal' => 'nullable|string|max:255',
-            'keterangan' => 'nullable|string|max:255',
-            'activity_type' => 'nullable|string|max:255',
-            'fat' => 'nullable|string|max:255',
-            'ph' => 'nullable|string|max:255',
-            'sn' => 'nullable|string|max:255',
-            'briz' => 'nullable|string|max:255',
-            'bags' => 'nullable|string|max:255',
-            'begin' => 'nullable|string|max:255',
-            'in_steril' => 'nullable|string|max:255',
-            'in_nonsteril' => 'nullable|string|max:255',
-            'out_rep' => 'nullable|string|max:255',
-            'out_eks' => 'nullable|string|max:255',
-            'out_adj' => 'nullable|string|max:255',
-            'remain' => 'nullable|string|max:255',
-        ]);
+{
+    // Validasi data
+    $request->validate([
+        'id_santan' => 'nullable|string|max:255',
+        'tanggal' => 'required|string|max:255',
+        'keterangan' => 'nullable|string|max:255',
+        'activity_type' => 'required|string|max:255',
+        'sn' => 'nullable|string|max:255',
+        'bags' => 'required|numeric', // Wajib input angka
+    ]);
 
-        // Simpan data ke database
-        ProduksiSantan::create([
-            'id_santan' => $request->id_santan,
-            'tanggal' => $request->tanggal,
-            'keterangan' => $request->keterangan,
-            'activity_type' => $request->activity_type,
-            'fat' => $request->fat,
-            'ph' => $request->ph,
-            'sn' => $request->sn,
-            'briz' => $request->briz,
-            'bags' => $request->bags,
-            'begin' => $request->begin,
-            'in_steril' => $request->in_steril,
-            'in_nonsteril' => $request->in_nonsteril,
-            'out_rep' => $request->out_rep,
-            'out_eks' => $request->out_eks,
-            'out_adj' => $request->out_adj,
-            'remain' => $request->remain,
-        ]);
+    // Ambil nilai dari request
+    $activity_type = $request->activity_type;
+    $sn = $request->sn;
+    $bags = $request->bags * 5; // Kalikan dengan 5
 
-        // Redirect dengan pesan sukses
-        return redirect()->route('produksi.santan.index')->with('success', 'Data berhasil ditambahkan!');
+    // Inisialisasi variabel
+    $begin = ProduksiSantan::latest()->value('remain') ?? 0; // Sisa stok terakhir
+    $in_steril = 0;
+    $in_nonsteril = 0;
+    $out_rep = 0;
+    $out_eks = 0;
+    $out_adj = 0;
+    $remain = $begin;
+
+    // Logika berdasarkan tipe aktivitas
+    switch ($activity_type) {
+        case 'produksi':
+            if ($sn === 'steril') {
+                $in_steril = $bags;
+            } elseif ($sn === 'nonsteril') {
+                $in_nonsteril = $bags;
+            }
+            $remain += $bags; // Tambahkan ke remain
+            break;
+
+        case 'adjust':
+            $out_adj = $bags;
+            $remain -= $bags; // Kurangi dari remain
+            break;
+
+        case 'ekspor':
+            $out_eks = $bags;
+            $remain -= $bags; // Kurangi dari remain
+            break;
+
+        case 'reproses':
+            $out_rep = $bags;
+            $remain -= $bags; // Kurangi dari remain
+            break;
+
+        default:
+            return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
     }
+
+    // Simpan data ke database
+    ProduksiSantan::create([
+        'id_santan' => $request->id_santan,
+        'tanggal' => $request->tanggal,
+        'keterangan' => $request->keterangan,
+        'activity_type' => $activity_type,
+        'fat' => $request->fat,
+        'ph' => $request->ph,
+        'sn' => $sn,
+        'briz' => $request->briz,
+        'bags' => $bags,
+        'begin' => $begin,
+        'in_steril' => $in_steril,
+        'in_nonsteril' => $in_nonsteril,
+        'out_rep' => $out_rep,
+        'out_eks' => $out_eks,
+        'out_adj' => $out_adj,
+        'remain' => $remain,
+    ]);
+
+    // Redirect dengan pesan sukses
+    return redirect()->route('produksi.santan.index')->with('success', 'Data berhasil ditambahkan!');
+}
+
 
     public function destroy($id)
     {

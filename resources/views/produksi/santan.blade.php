@@ -492,51 +492,51 @@
             <div class="table-container">
                 <div class="table-container">
                     <table>
-                        <thead>
-                            <tr>
-                                <th rowspan="2">Date</th>
-                                <th rowspan="2">Remark</th>
-                                <th rowspan="2">Fat</th>
-                                <th rowspan="2">PH</th>
-                                <th rowspan="2">S/N</th>
-                                <th colspan="2">Packaging</th>
-                                <th rowspan="2">Begin</th>
-                                <th colspan="2">In</th>
-                                <th colspan="3">Out</th>
-                                <th rowspan="2">Remain</th>
-                            </tr>
-                            <tr>
-                                <th>Bags@1kgs</th>
-                                <th>Bags@5kgs</th>
-
-                                <th>Steril</th>
-                                <th>Nonsteril</th>
-                                <th>Reproses</th>
-                                <th>Eksport</th>
-                                <th>Adjust</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($produksisantans as $produksisantan)
+                            <thead>
                                 <tr>
-                                    <td class="remark-column">{{ $produksisantan->tanggal }}</td>
-                                    <td>{{ $produksisantan->keterangan }}</td>
-                                    <td>{{ $produksisantan->fat }}</td>
-                                    <td>{{ $produksisantan->ph }}</td>
-                                    <td>{{ $produksisantan->sn }}</td>
-                                    <td>{{ $produksisantan->briz }}</td>
-                                    <td>{{ $produksisantan->bags }}</td>
-                                    <td>{{ $produksisantan->begin }}</td>
-                                    <td>{{ $produksisantan->in_steril }}</td>
-                                    <td>{{ $produksisantan->in_nonstreil }}</td>
-                                    <td>{{ $produksisantan->out_rep }}</td>
-                                    <td>{{ $produksisantan->out_eks }}</td>
-                                    <td>{{ $produksisantan->out_adj }}</td>
-                                    <td>{{ $produksisantan->remain }}</td>
-
+                                    <th rowspan="2">Date</th>
+                                    <th rowspan="2">Remark</th>
+                                    <th rowspan="2">Fat</th>
+                                    <th rowspan="2">PH</th>
+                                    <th rowspan="2">S/N</th>
+                                    <th colspan="2">Packaging</th>
+                                    <th rowspan="2">Begin</th>
+                                    <th colspan="2">In</th>
+                                    <th colspan="3">Out</th>
+                                    <th rowspan="2">Remain</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
+                                <tr>
+                                    <th>Bags@1kgs</th>
+                                    <th>Bags@5kgs</th>
+
+                                    <th>Steril</th>
+                                    <th>Nonsteril</th>
+                                    <th>Reproses</th>
+                                    <th>Eksport</th>
+                                    <th>Adjust</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($produksisantans as $produksisantan)
+                                    <tr>
+                                        <td class="remark-column">{{ $produksisantan->tanggal }}</td>
+                                        <td>{{ $produksisantan->keterangan }}</td>
+                                        <td>{{ $produksisantan->fat }}</td>
+                                        <td>{{ $produksisantan->ph }}</td>
+                                        <td>{{ $produksisantan->sn }}</td>
+                                        <td>{{ $produksisantan->briz }}</td>
+                                        <td>{{ $produksisantan->bags }}</td>
+                                        <td>{{ $produksisantan->begin }}</td>
+                                        <td>{{ $produksisantan->in_steril }}</td>
+                                        <td>{{ $produksisantan->in_nonsteril }}</td>
+                                        <td>{{ $produksisantan->out_rep }}</td>
+                                        <td>{{ $produksisantan->out_eks }}</td>
+                                        <td>{{ $produksisantan->out_adj }}</td>
+                                        <td>{{ $produksisantan->remain }}</td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
                     </table>
                 </div>
             </div>
@@ -571,7 +571,7 @@
                         <div class="form-group">
                             <label for="tanggal">Tanggal</label>
                             <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
+                                id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
                             @error('tanggal')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}
@@ -584,11 +584,12 @@
                             <div class="form-group">
                                 <label for="activity_type">Tipe Aktivitas</label>
                                 <select class="form-control @error('activity_type') is-invalid @enderror"
-                                    id="activity_type" name="activity_type" value="{{ old('activity_type') }}">
+                                    id="activity_type" name="activity_type" value="{{ old('activity_type') }}" required>
                                     <option value="" disabled selected></option>
                                     <option value="produksi">Produksi</option>
-                                    <option value="ekspor">Adjust</option>
-                                    <option value="reproses">Resproses</option>
+                                    <option value="adjust">Adjust</option>
+                                    <option value="ekspor">Ekspor</option>
+                                    <option value="reproses">Reproses</option>
                                 </select>
                                 @error('activity_type')
                                     <div class="alert alert-danger mt-2">
@@ -596,10 +597,11 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="form-group">
+
+                            <div class="form-group d-none" id="sn">
                                 <label for="sn">S/N</label>
                                 <select class="form-control @error('sn') is-invalid @enderror"
-                                id="sn" name="sn" value="{{ old('sn') }}">
+                                    name="sn" value="{{ old('sn') }}">
                                     <option value="" disabled selected></option>
                                     <option value="steril">Steril</option>
                                     <option value="nonsteril">Nonsteril</option>
@@ -610,6 +612,7 @@
                                     </div>
                                 @enderror
                             </div>
+
                         </div>
                         <div class="inline-form2">
                             <div class="form-group">
@@ -681,6 +684,18 @@
 
         @section('scripts')
             <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const activityType = document.getElementById('activity_type');
+                        const snDiv = document.getElementById('sn');
+
+                        activityType.addEventListener('change', function () {
+                            if (this.value === 'produksi') {
+                                snDiv.classList.remove('d-none');
+                            } else {
+                                snDiv.classList.add('d-none');
+                            }
+                        });
+                    });
                 function openModal() {
                     document.getElementById("modal").style.display = "flex";
                 }

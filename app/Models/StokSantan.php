@@ -19,12 +19,16 @@ class StokSantan extends Model
         'keterangan',
         'making_product',
         'activity_type',
+        'jenis_berat',
+        'jumlah',
         'fat',
         'ph',
         'begin',
-        'in',
+        'in_bags',
+        'in_box',
         'out',
-        'remain'
+        'remain',
+        'catatan'
     ];
 
     // Optionally, you can define the primary key if it's not 'id'
