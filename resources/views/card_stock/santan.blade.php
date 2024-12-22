@@ -508,15 +508,16 @@
                                 <td>{{ $stoksantan->in_bags }}</td>
                                 <td>{{ $stoksantan->in_box }}</td>
                                 <td>{{ $stoksantan->out }}</td>
-                                <td>{{ $stoksantan->limakg }}</td>
-                                <td>{{ $stoksantan->empatkg }}</td>
-                                <td>{{ $stoksantan->tigakg }}</td>
-                                <td>{{ $stoksantan->duakg }}</td>
-                                <td>{{ $stoksantan->satukg }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '5KG' ? $stoksantan->in_box * 20 : 0 }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '4KG' ? $stoksantan->in_box * 20 : 0 }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '3KG' ? $stoksantan->in_box * 20 : 0 }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '2KG' ? $stoksantan->in_box * 20 : 0 }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '1KG' ? $stoksantan->in_box * 20 : 0 }}</td>
                                 <td>{{ $stoksantan->remain }}</td>
                                 <td>{{ $stoksantan->catatan }}</td>
                             </tr>
                         @endforeach
+
                     </tbody>
 
                 </table>

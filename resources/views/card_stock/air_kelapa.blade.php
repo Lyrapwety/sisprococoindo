@@ -507,11 +507,11 @@
                                 <td>{{ $stokairkelapa->in_bags }}</td>
                                 <td>{{ $stokairkelapa->in_box }}</td>
                                 <td>{{ $stokairkelapa->out }}</td>
-                                <td>{{ $stokairkelapa->limakg }}</td>
-                                <td>{{ $stokairkelapa->empatkg }}</td>
-                                <td>{{ $stokairkelapa->tigakg }}</td>
-                                <td>{{ $stokairkelapa->duakg }}</td>
-                                <td>{{ $stokairkelapa->satukg }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '5KG' ? $stoksantan->in_box * 20 : 0 }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '4KG' ? $stoksantan->in_box * 20 : 0 }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '3KG' ? $stoksantan->in_box * 20 : 0 }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '2KG' ? $stoksantan->in_box * 20 : 0 }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '1KG' ? $stoksantan->in_box * 20 : 0 }}</td>
                                 <td>{{ $stokairkelapa->remain }}</td>
                                 <td>{{ $stokairkelapa->catatan }}</td>
                             </tr>
