@@ -507,11 +507,11 @@
                                 <td>{{ $stokairkelapa->in_bags }}</td>
                                 <td>{{ $stokairkelapa->in_box }}</td>
                                 <td>{{ $stokairkelapa->out }}</td>
-                                <td>{{ $stoksantan->jenis_berat === '5KG' ? $stoksantan->in_box * 20 : 0 }}</td>
-                                <td>{{ $stoksantan->jenis_berat === '4KG' ? $stoksantan->in_box * 20 : 0 }}</td>
-                                <td>{{ $stoksantan->jenis_berat === '3KG' ? $stoksantan->in_box * 20 : 0 }}</td>
-                                <td>{{ $stoksantan->jenis_berat === '2KG' ? $stoksantan->in_box * 20 : 0 }}</td>
-                                <td>{{ $stoksantan->jenis_berat === '1KG' ? $stoksantan->in_box * 20 : 0 }}</td>
+                                <td>{{ $stokairkelapa->jenis_berat === '5KG' ? $stokairkelapa->in_box * 20 : '-' }}</td>
+                                <td>{{ $stokairkelapa->jenis_berat === '4KG' ? $stokairkelapa->in_box * 20 : '-' }}</td>
+                                <td>{{ $stokairkelapa->jenis_berat === '3KG' ? $stokairkelapa->in_box * 20 : '-' }}</td>
+                                <td>{{ $stokairkelapa->jenis_berat === '2KG' ? $stokairkelapa->in_box * 20 : '-' }}</td>
+                                <td>{{ $stokairkelapa->jenis_berat === '1KG' ? $stokairkelapa->in_box * 20 : '-' }}</td>
                                 <td>{{ $stokairkelapa->remain }}</td>
                                 <td>{{ $stokairkelapa->catatan }}</td>
                             </tr>

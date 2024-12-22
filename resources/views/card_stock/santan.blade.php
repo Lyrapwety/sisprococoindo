@@ -508,11 +508,11 @@
                                 <td>{{ $stoksantan->in_bags }}</td>
                                 <td>{{ $stoksantan->in_box }}</td>
                                 <td>{{ $stoksantan->out }}</td>
-                                <td>{{ $stoksantan->jenis_berat === '5KG' ? $stoksantan->in_box * 20 : 0 }}</td>
-                                <td>{{ $stoksantan->jenis_berat === '4KG' ? $stoksantan->in_box * 20 : 0 }}</td>
-                                <td>{{ $stoksantan->jenis_berat === '3KG' ? $stoksantan->in_box * 20 : 0 }}</td>
-                                <td>{{ $stoksantan->jenis_berat === '2KG' ? $stoksantan->in_box * 20 : 0 }}</td>
-                                <td>{{ $stoksantan->jenis_berat === '1KG' ? $stoksantan->in_box * 20 : 0 }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '5KG' ? $stoksantan->in_box * 20 : '-' }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '4KG' ? $stoksantan->in_box * 20 : '-' }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '3KG' ? $stoksantan->in_box * 20 : '-' }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '2KG' ? $stoksantan->in_box * 20 : '-' }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '1KG' ? $stoksantan->in_box * 20 : '-' }}</td>
                                 <td>{{ $stoksantan->remain }}</td>
                                 <td>{{ $stoksantan->catatan }}</td>
                             </tr>
