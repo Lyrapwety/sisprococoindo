@@ -130,7 +130,7 @@
 
         }
 
-        /* Tabel */
+
         .table-container {
             overflow-x: auto;
             font-size: 11px;
@@ -139,7 +139,6 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            /* Agar garis antar sel menyatu */
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(230, 238, 241, 0.1);
 
@@ -150,14 +149,12 @@
             padding: 10px;
             text-align: center;
             border: 1px solid #636362;
-            /* Garis antar sel */
             color: #636362;
             font-size: 12px;
         }
 
         table th {
             border-bottom: 1px solid #636362;
-            /* Garis tebal untuk header */
         }
 
         table td button {
@@ -179,7 +176,7 @@
             background-color: #e74c3c;
         }
 
-        /* Pagination */
+
         .pagination-container {
             display: flex;
             justify-content: space-between;
@@ -222,17 +219,16 @@
             position: relative;
             width: 100%;
             max-width: 100px;
-            /* Sesuaikan dengan kebutuhan */
+
         }
 
         .input-icon i {
             position: absolute;
             right: 5px !important;
-            /* Pindahkan ikon ke sisi kanan */
             top: 50%;
             transform: translateY(-50%);
             color: #636362;
-            /* Warna ikon */
+       
         }
 
         .input-icon input {

@@ -2,7 +2,7 @@
 
 @section('content')
     <style>
-        /* Mainbar */
+
         .mainbar {
             flex: 1%;
             background-color: #D9D9D9 !important;
@@ -11,9 +11,7 @@
             height: calc(100vh - 70px);
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-
         }
-
         .container {
             padding: 20px;
             background-color: #F7F7F7;

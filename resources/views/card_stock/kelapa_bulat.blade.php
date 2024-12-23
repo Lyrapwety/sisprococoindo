@@ -2,18 +2,17 @@
 
 @section('content')
     <style>
-        /* Mainbar */
+
         .mainbar {
             flex: 1%;
             background-color: #D9D9D9 !important;
             padding-top: 20px;
-            /* Jarak dari topbar */
             margin-left: 235px;
-            overflow -y: auto;
-            height: calc(100vh - 70px);
+            overflow-y: auto;
+            height: auto;
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-            !important;
+          
         }
 
         .container {
@@ -24,6 +23,7 @@
             width: 95%;
             margin-left: 35px;
             font-family: 'Inter', sans-serif;
+            height: auto;
         }
 
         .header {
@@ -184,45 +184,7 @@
             background-color: #e74c3c;
         }
 
-        /* Pagination */
-        .pagination-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-        }
-
-        .showing-entries {
-            font-size: 12px;
-            color: #636362;
-        }
-
-        .pagination {
-            list-style: none;
-            display: flex;
-            gap: 7px;
-        }
-
-        .pagination li {
-            display: inline-block;
-        }
-
-        .pagination button {
-            background-color: #E6E3E3;
-            border: 1px solid #ddd;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 7px;
-            color: #636362;
-            font-size: 12px;
-        }
-
-        .pagination button:hover {
-            background-color: #104367;
-            color: white;
-            opacity: 85%;
-        }
-
+   
         .input-icon {
             position: relative;
             width: 100%;
@@ -233,17 +195,15 @@
         .input-icon i {
             position: absolute;
             right: 5px !important;
-            /* Pindahkan ikon ke sisi kanan */
             top: 50%;
             transform: translateY(-50%);
             color: #636362;
-            /* Warna ikon */
+ 
         }
 
         .input-icon input {
             width: 100%;
             padding: 10px 40px 10px 10px;
-            /* Tambahkan padding kanan untuk ruang ikon */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
@@ -253,10 +213,9 @@
 
         .input-icon input:focus {
             border-color: #104367;
-            /* Ubah warna border saat fokus */
         }
 
-        /* Modal container */
+     
         .horizontalline1 {
             border: none;
             border-bottom: 0.5px solid #ccc;
@@ -274,10 +233,8 @@
         }
 
         .btn.export img {
-            /* Jarak antara ikon dan teks */
+      
             filter: brightness(0) invert(1);
-
-
         }
 
         .search-input::placeholder {
@@ -287,6 +244,20 @@
 
         .supplier {
             text-align: start;
+        }
+
+        .modal-header h5{
+            justify-content: center;
+            align-items: center;
+            
+        }
+        .hori-line {
+            color: #565655;
+            width: auto;
+            opacity: 0.2;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 1);
         }
     </style>
 
@@ -303,7 +274,6 @@
                     <option>Januari</option>
                     <option>Februari</option>
 
-
                 </select>
                 <div class="input-icon">
                     <input type="text" placeholder="Cari Data" class="search-input">
@@ -315,13 +285,13 @@
                             alt="export" /> Export
                     </button>
 
-                    <button id="openFormBtn" class="btn add" onclick="openModal()">+ Tambah Data</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pemakaianModal">
+                        Tambah data
+                      </button>
 
                 </div>
             </div>
-
             <!-- Table Section -->
-
             <table>
                 <thead>
                     <tr>
@@ -351,7 +321,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1</td>
+                        <td style="font-weight: bold; ">1</td>
                         <td>Km Nusa Persada / G.461</td>
                         <td>21:29</td>
                         <td>727</td>
@@ -367,41 +337,314 @@
                         <td></td>
                     </tr>
                     <!-- Repeat similar rows for the rest of the data -->
+                    <tr>
+                        <td style="font-weight: bold; ">2</td>
+                        <td>Km Nusa Persada / G.461</td>
+                        <td>21:29</td>
+                        <td>727</td>
+                        <td>22:45</td>
+                        <td>325</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; ">3</td>
+                        <td>Km Nusa Persada / G.461</td>
+                        <td>21:29</td>
+                        <td>727</td>
+                        <td>22:45</td>
+                        <td>325</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; ">4</td>
+                        <td>Km Nusa Persada / G.461</td>
+                        <td>21:29</td>
+                        <td>727</td>
+                        <td>22:45</td>
+                        <td>325</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; ">5</td>
+                        <td>Km Nusa Persada / G.461</td>
+                        <td>21:29</td>
+                        <td>727</td>
+                        <td>22:45</td>
+                        <td>325</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-weight: bold; ">6</td>
+                        <td>Km Nusa Persada / G.461</td>
+                        <td>21:29</td>
+                        <td>727</td>
+                        <td>22:45</td>
+                        <td>325</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; ">7</td>
+                        <td>Km Nusa Persada / G.461</td>
+                        <td>21:29</td>
+                        <td>727</td>
+                        <td>22:45</td>
+                        <td>325</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; ">8</td>
+                        <td>Km Nusa Persada / G.461</td>
+                        <td>21:29</td>
+                        <td>727</td>
+                        <td>22:45</td>
+                        <td>325</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; ">9</td>
+                        <td>Km Nusa Persada / G.461</td>
+                        <td>21:29</td>
+                        <td>727</td>
+                        <td>22:45</td>
+                        <td>325</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; ">10</td>
+                        <td>Km Nusa Persada / G.461</td>
+                        <td>21:29</td>
+                        <td>727</td>
+                        <td>22:45</td>
+                        <td>325</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; ">11</td>
+                        <td>Km Nusa Persada / G.461</td>
+                        <td>21:29</td>
+                        <td>727</td>
+                        <td>22:45</td>
+                        <td>325</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; ">12</td>
+                        <td>Km Nusa Persada / G.461</td>
+                        <td>21:29</td>
+                        <td>727</td>
+                        <td>22:45</td>
+                        <td>325</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; ">13</td>
+                        <td>Km Nusa Persada / G.461</td>
+                        <td>21:29</td>
+                        <td>727</td>
+                        <td>22:45</td>
+                        <td>325</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" style="text-align: center; font-weight: bold; border-right: 1px solid black;">Awal / Sisa Tanggal</td>
+                        <td colspan="3" style="text-align: center; border-right: 1px solid black;">3,650</td>
+                        <td colspan="5" style="text-align: center;  font-weight: bold; border-right: 1px solid black;">Pengisian Hari Ini</td>
+                        <td colspan="4" style="text-align: center; border-right: 1px solid black;">22,081</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center; font-weight: bold; border-right: 1px solid black;">Pemakaian Hari Ini</td>
+                        <td colspan="3" style="text-align: center; border-right: 1px solid black;">19,080</td>
+                        <td colspan="5" style="text-align: center;  font-weight: bold; border-right: 1px solid black;">Sisa Hari Ini</td>
+                        <td colspan="4" style="text-align: center; border-right: 1px solid black;">5,751</td>
+                    </tr>
+                </tfoot>
             </table>
-
-
-
 
             <!-- Pagination Section -->
             <hr class="horizontalline1">
             <div class="pagination-container">
 
                 <div class="showing-entries">
-                    Showing <span id="start"></span> to <span id="end"></span> from <span id="total"></span>
-                    entries
+                    
                 </div>
-
-                <ul class="pagination">
-                    <li><button onclick="prevPage()">&#60;</button></li>
-                    <li><button onclick="goToPage(1)">1</button></li>
-                    <li><button onclick="goToPage(2)">2</button></li>
-                    <li><button onclick="goToPage(3)">3</button></li>
-                    <li><button onclick="goToPage(4)">4</button></li>
-                    <li><button onclick="nextPage()">&#62;</button></li>
-                </ul>
+              
             </div>
+            
+              <!-- Modal -->
+              <div class="modal fade" id="pemakaianModal" tabindex="-1" aria-labelledby="pemakaianModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="pemakaianModalLabel">Laporan Pemakaian Kelapa</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="mainForm">
+                        <div class="row mb-3">
+                          <div class="col-md-4">
+                            <label for="tanggal" class="form-label">Tanggal</label>
+                            <input type="date" id="tanggal" class="form-control">
+                          </div>
 
+                          <div class="col-md-4">
+                            <label for="shift" class="form-label">Shift</label>
+                            <select id="shift" class="form-select">
+                              <option value="">Pilih Shift</option>
+                              <option value="1">Shift 1</option>
+                              <option value="2">Shift 2</option>
+                              <option value="3">Shift 3</option>
+                            </select>
+                          </div>
 
+                          <div class="col-md-4">
+                            <label for="stopSheller" class="form-label">Stop Sheller</label>
+                            <input type="text" id="stopSheller" class="form-control">
+                          </div>
+                        </div>
+            
+                         <!-- Dropdown untuk No Keranjang -->
+                         <h5>Detail Pengisian Keranjang</h5>
+                         <div id="keranjangContainer">
+                         <div class="mb-3">
+                            <label for="noKeranjang" class="form-label">No Keranjang</label>
+                            <select id="noKeranjang" class="form-select">
+                            <option value="">Pilih No Keranjang</option>
+                            <option value="K001">K1</option>
+                            <option value="K002">K2</option>
+                            <option value="K003">K3</option>
+                            <option value="K004">K4</option>
+                            <option value="K005">K5</option>
+                            <!-- Tambahkan lebih banyak opsi sesuai kebutuhan -->
+                            </select>
+                        </div>
+            
+                        <div class="mb-3">
+                          <label for="kbTanggalSupplier" class="form-label">KB Tanggal & Supplier</label>
+                          <input type="text" id="kbTanggalSupplier" class="form-control">
+                        </div>
 
-
-            <!-- Script to close the modal -->
-            <script>
-                document.querySelector('.close').addEventListener('click', function() {
-                    document.querySelector('.modal').style.display = 'none';
-                });
-            </script>
-
+                        <!-- Bagian pengisian dinamis -->
+                        <div id="dynamicRows">
+                            <div class="pengisian">
+                            <h6>Pengisian </h6>
+                            <div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-6">
+                                <label class="form-label">Jam</label>
+                                <input type="time" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                <label class="form-label">Qty</label>
+                                <input type="number" class="form-control">
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <hr class="hori-line">
+                        </div>
+                        
+                        <div class="mb-3 d-flex justify-content-end gap-2">
+                            <button type="button" id="addKeranjang" class="btn btn-primary">+ Tambah Keranjang</button>
+                            <button type="button" id="removeKeranjang" class="btn btn-danger">- Hapus Keranjang</button>  
+                        </div>
+                   
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Simpan</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
         </div>
     </div>
     </div>
@@ -409,7 +652,64 @@
 @endsection
 
 @section('scripts')
-    <script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const keranjangContainer = document.getElementById('keranjangContainer');
+    const addKeranjangButton = document.getElementById('addKeranjang');
+    const removeKeranjangButton = document.getElementById('removeKeranjang');
+
+    addKeranjangButton.addEventListener('click', () => {
+        const keranjangCount = keranjangContainer.children.length;
+
+        const newKeranjang = document.createElement('div');
+        newKeranjang.classList.add('keranjang', 'mb-4');
+        newKeranjang.innerHTML = `
+            <h5>Detail Pengisian Keranjang</h5>
+            <div class="mb-3">
+                <label for="noKeranjang" class="form-label">No Keranjang</label>
+                <select id="noKeranjang" class="form-select">
+                    <option value="">Pilih No Keranjang</option>
+                    <option value="K001">K1</option>
+                    <option value="K002">K2</option>
+                    <option value="K003">K3</option>
+                    <option value="K004">K4</option>
+                    <option value="K005">K5</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="kbTanggalSupplier" class="form-label">KB Tanggal & Supplier</label>
+                <input type="text" id="kbTanggalSupplier" class="form-control">
+            </div>
+            <div id="dynamicRows">
+                <div class="pengisian">
+                    <h6>Pengisian</h6>
+                    <div class="row g-3 align-items-center mb-2">
+                        <div class="col-md-6">
+                            <label class="form-label">Jam</label>
+                            <input type="time" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Qty</label>
+                            <input type="number" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <hr class="hori-line">
+            </div>
+        `;
+
+        keranjangContainer.appendChild(newKeranjang);
+    });
+
+    removeKeranjangButton.addEventListener('click', () => {
+        if (keranjangContainer.children.length > 0) {
+            keranjangContainer.removeChild(keranjangContainer.lastElementChild);
+        } else {
+            alert("Tidak ada keranjang yang bisa dihapus!");
+        }
+    });
+});
         // Sample data
         const data = [{
                 no: 1,
@@ -527,6 +827,7 @@
                 displayData();
             }
         }
+       
 
         // Load initial data
         displayData();
