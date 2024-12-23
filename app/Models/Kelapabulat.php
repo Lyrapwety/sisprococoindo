@@ -24,10 +24,16 @@ class Kelapabulat extends Model
     protected $fillable = [
         'tanggal',
         'keterangan',
-        'activity_type',
+        'shift',
+        'stop',
+        'keranjang',
+        'kbtanggalsupplier',
+        'jam',
+        'qty',
         'begin',
         'in',
         'out',
+        'remain',
     ];
 
     /**

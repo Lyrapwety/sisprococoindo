@@ -2,7 +2,6 @@
 
 @section('content')
     <style>
-
         .mainbar {
             flex: 1%;
             background-color: #D9D9D9 !important;
@@ -12,7 +11,7 @@
             height: auto;
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-          
+
         }
 
         .container {
@@ -184,7 +183,7 @@
             background-color: #e74c3c;
         }
 
-   
+
         .input-icon {
             position: relative;
             width: 100%;
@@ -198,7 +197,7 @@
             top: 50%;
             transform: translateY(-50%);
             color: #636362;
- 
+
         }
 
         .input-icon input {
@@ -215,7 +214,7 @@
             border-color: #104367;
         }
 
-     
+
         .horizontalline1 {
             border: none;
             border-bottom: 0.5px solid #ccc;
@@ -233,7 +232,7 @@
         }
 
         .btn.export img {
-      
+
             filter: brightness(0) invert(1);
         }
 
@@ -246,11 +245,12 @@
             text-align: start;
         }
 
-        .modal-header h5{
+        .modal-header h5 {
             justify-content: center;
             align-items: center;
-            
+
         }
+
         .hori-line {
             color: #565655;
             width: auto;
@@ -287,7 +287,7 @@
 
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pemakaianModal">
                         Tambah data
-                      </button>
+                    </button>
 
                 </div>
             </div>
@@ -320,230 +320,48 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td style="font-weight: bold; ">1</td>
-                        <td>Km Nusa Persada / G.461</td>
-                        <td>21:29</td>
-                        <td>727</td>
-                        <td>22:45</td>
-                        <td>325</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <!-- Repeat similar rows for the rest of the data -->
-                    <tr>
-                        <td style="font-weight: bold; ">2</td>
-                        <td>Km Nusa Persada / G.461</td>
-                        <td>21:29</td>
-                        <td>727</td>
-                        <td>22:45</td>
-                        <td>325</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; ">3</td>
-                        <td>Km Nusa Persada / G.461</td>
-                        <td>21:29</td>
-                        <td>727</td>
-                        <td>22:45</td>
-                        <td>325</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; ">4</td>
-                        <td>Km Nusa Persada / G.461</td>
-                        <td>21:29</td>
-                        <td>727</td>
-                        <td>22:45</td>
-                        <td>325</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; ">5</td>
-                        <td>Km Nusa Persada / G.461</td>
-                        <td>21:29</td>
-                        <td>727</td>
-                        <td>22:45</td>
-                        <td>325</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    @foreach ($stokkelapabulats as $stok)
+                        <tr>
+                            <td>{{ $stok->keranjang }}</td>
+                            <td>{{ $stok->kbtanggalsupplier }}</td>
 
-                    <tr>
-                        <td style="font-weight: bold; ">6</td>
-                        <td>Km Nusa Persada / G.461</td>
-                        <td>21:29</td>
-                        <td>727</td>
-                        <td>22:45</td>
-                        <td>325</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; ">7</td>
-                        <td>Km Nusa Persada / G.461</td>
-                        <td>21:29</td>
-                        <td>727</td>
-                        <td>22:45</td>
-                        <td>325</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; ">8</td>
-                        <td>Km Nusa Persada / G.461</td>
-                        <td>21:29</td>
-                        <td>727</td>
-                        <td>22:45</td>
-                        <td>325</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; ">9</td>
-                        <td>Km Nusa Persada / G.461</td>
-                        <td>21:29</td>
-                        <td>727</td>
-                        <td>22:45</td>
-                        <td>325</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; ">10</td>
-                        <td>Km Nusa Persada / G.461</td>
-                        <td>21:29</td>
-                        <td>727</td>
-                        <td>22:45</td>
-                        <td>325</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; ">11</td>
-                        <td>Km Nusa Persada / G.461</td>
-                        <td>21:29</td>
-                        <td>727</td>
-                        <td>22:45</td>
-                        <td>325</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; ">12</td>
-                        <td>Km Nusa Persada / G.461</td>
-                        <td>21:29</td>
-                        <td>727</td>
-                        <td>22:45</td>
-                        <td>325</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; ">13</td>
-                        <td>Km Nusa Persada / G.461</td>
-                        <td>21:29</td>
-                        <td>727</td>
-                        <td>22:45</td>
-                        <td>325</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                            <td>{{ $stok->shift == 1 ? $stok->jam : '' }}</td>
+                            <td>{{ $stok->shift == 1 ? $stok->qty : '' }}</td>
 
-                    
+                            <td>{{ $stok->shift == 2 ? $stok->jam : '' }}</td>
+                            <td>{{ $stok->shift == 2 ? $stok->qty : '' }}</td>
+
+                            <td>{{ $stok->shift == 3 ? $stok->jam : '' }}</td>
+                            <td>{{ $stok->shift == 3 ? $stok->qty : '' }}</td>
+
+                            <td>{{ $stok->shift == 4 ? $stok->jam : '' }}</td>
+                            <td>{{ $stok->shift == 4 ? $stok->qty : '' }}</td>
+
+                            <td>{{ $stok->shift == 5 ? $stok->jam : '' }}</td>
+                            <td>{{ $stok->shift == 5 ? $stok->qty : '' }}</td>
+
+                            <td>{{ $stok->shift == 6 ? $stok->jam : '' }}</td>
+                            <td>{{ $stok->shift == 6 ? $stok->qty : '' }}</td>
+
+                        </tr>
+                    @endforeach
                 </tbody>
+
                 <tfoot>
                     <tr>
-                        <td colspan="2" style="text-align: center; font-weight: bold; border-right: 1px solid black;">Awal / Sisa Tanggal</td>
+                        <td colspan="2" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
+                            Awal / Sisa Tanggal</td>
                         <td colspan="3" style="text-align: center; border-right: 1px solid black;">3,650</td>
-                        <td colspan="5" style="text-align: center;  font-weight: bold; border-right: 1px solid black;">Pengisian Hari Ini</td>
-                        <td colspan="4" style="text-align: center; border-right: 1px solid black;">22,081</td>
+                        <td colspan="5" style="text-align: center;  font-weight: bold; border-right: 1px solid black;">
+                            Pengisian Hari Ini</td>
+                        <td colspan="4" style="text-align: center; border-right: 1px solid black;">{{ $totalQtyToday }}</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: center; font-weight: bold; border-right: 1px solid black;">Pemakaian Hari Ini</td>
+                        <td colspan="2" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
+                            Pemakaian Hari Ini</td>
                         <td colspan="3" style="text-align: center; border-right: 1px solid black;">19,080</td>
-                        <td colspan="5" style="text-align: center;  font-weight: bold; border-right: 1px solid black;">Sisa Hari Ini</td>
+                        <td colspan="5" style="text-align: center;  font-weight: bold; border-right: 1px solid black;">
+                            Sisa Hari Ini</td>
                         <td colspan="4" style="text-align: center; border-right: 1px solid black;">5,751</td>
                     </tr>
                 </tfoot>
@@ -554,97 +372,150 @@
             <div class="pagination-container">
 
                 <div class="showing-entries">
-                    
+
                 </div>
-              
+
             </div>
-            
-              <!-- Modal -->
-              <div class="modal fade" id="pemakaianModal" tabindex="-1" aria-labelledby="pemakaianModalLabel" aria-hidden="true">
+
+            <!-- Modal -->
+            <div class="modal fade" id="pemakaianModal" tabindex="-1" aria-labelledby="pemakaianModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="pemakaianModalLabel">Laporan Pemakaian Kelapa</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="mainForm">
-                        <div class="row mb-3">
-                          <div class="col-md-4">
-                            <label for="tanggal" class="form-label">Tanggal</label>
-                            <input type="date" id="tanggal" class="form-control">
-                          </div>
-
-                          <div class="col-md-4">
-                            <label for="shift" class="form-label">Shift</label>
-                            <select id="shift" class="form-select">
-                              <option value="">Pilih Shift</option>
-                              <option value="1">Shift 1</option>
-                              <option value="2">Shift 2</option>
-                              <option value="3">Shift 3</option>
-                            </select>
-                          </div>
-
-                          <div class="col-md-4">
-                            <label for="stopSheller" class="form-label">Stop Sheller</label>
-                            <input type="text" id="stopSheller" class="form-control">
-                          </div>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="pemakaianModalLabel">Laporan Pemakaian Kelapa</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-            
-                         <!-- Dropdown untuk No Keranjang -->
-                         <h5>Detail Pengisian Keranjang</h5>
-                         <div id="keranjangContainer">
-                         <div class="mb-3">
-                            <label for="noKeranjang" class="form-label">No Keranjang</label>
-                            <select id="noKeranjang" class="form-select">
-                            <option value="">Pilih No Keranjang</option>
-                            <option value="K001">K1</option>
-                            <option value="K002">K2</option>
-                            <option value="K003">K3</option>
-                            <option value="K004">K4</option>
-                            <option value="K005">K5</option>
-                            <!-- Tambahkan lebih banyak opsi sesuai kebutuhan -->
-                            </select>
-                        </div>
-            
-                        <div class="mb-3">
-                          <label for="kbTanggalSupplier" class="form-label">KB Tanggal & Supplier</label>
-                          <input type="text" id="kbTanggalSupplier" class="form-control">
-                        </div>
+                        <div class="modal-body">
+                            <form id="mainForm" action="{{ route('card_stock.kelapa_bulat.store') }}" method="POST"
+                                enctype="multipart/form-data">
 
-                        <!-- Bagian pengisian dinamis -->
-                        <div id="dynamicRows">
-                            <div class="pengisian">
-                            <h6>Pengisian </h6>
-                            <div class="row g-3 align-items-center mb-2">
-                                <div class="col-md-6">
-                                <label class="form-label">Jam</label>
-                                <input type="time" class="form-control">
+                                @csrf
+                                <input type="hidden" name="id" id="id">
+                                <input type="hidden" name="remark" id="remark" value="{{ request()->query('remark') }}">
+                                <input type="hidden" name="trip" id="trip" value="{{ request()->query('trip') }}">
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <label for="tanggal" class="form-label">Tanggal</label>
+                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
+                                            id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
+                                        @error('tanggal')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="shift" class="form-label">Shift</label>
+                                        <select class="form-control @error('shift') is-invalid @enderror" id="shift"
+                                            name="shift" value="{{ old('shift') }}" required>
+                                            <option value="">Pilih Shift</option>
+                                            <option value="1">Shift 1</option>
+                                            <option value="2">Shift 2</option>
+                                            <option value="3">Shift 3</option>
+                                        </select>
+                                        @error('shift')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="stop" class="form-label">Stop Sheller</label>
+                                        <input type="text" class="form-control @error('stop') is-invalid @enderror"
+                                            id="stop" name="stop" value="{{ old('stop') }}" required>
+                                        @error('stop')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                <label class="form-label">Qty</label>
-                                <input type="number" class="form-control">
+
+                                <!-- Dropdown untuk No Keranjang -->
+                                <h5>Detail Pengisian Keranjang</h5>
+                                <div id="keranjangContainer">
+                                    <div class="mb-3">
+                                        <label for="keranjang" class="form-label">No Keranjang</label>
+                                        <select class="form-control @error('keranjang') is-invalid @enderror"
+                                            id="keranjang" name="keranjang" value="{{ old('keranjang') }}" required>
+                                            <option value="">Pilih No Keranjang</option>
+                                            <option value="K001">K1</option>
+                                            <option value="K002">K2</option>
+                                            <option value="K003">K3</option>
+                                            <option value="K004">K4</option>
+                                            <option value="K005">K5</option>
+                                        </select>
+                                        @error('keranjang')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="kbtanggalsupplier" class="form-label">KB Tanggal & Supplier</label>
+                                        <input type="text" class="form-control @error('kbtanggalsupplier') is-invalid @enderror"
+                                        id="kbtanggalsupplier" name="kbtanggalsupplier" value="{{ request()->query('remark') }}, Trip {{ request()->query('trip') }}" required>
+                                 @error('kbtanggalsupplier')
+                                 <div class="alert alert-danger mt-2">
+                                     {{ $message }}
+                                 </div>
+                                 @enderror
+                                    </div>
+
+                                    <!-- Bagian pengisian dinamis -->
+                                    <div id="dynamicRows">
+                                        <div class="pengisian">
+                                            <h6>Pengisian </h6>
+                                            <div class="row g-3 align-items-center mb-2">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Jam</label>
+                                                    <input type="time"
+                                                        class="form-control @error('jam') is-invalid @enderror"
+                                                        id="jam" name="jam" value="{{ old('jam') }}"
+                                                        required>
+                                                    @error('jam')
+                                                        <div class="alert alert-danger mt-2">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Qty</label>
+                                                    <input type="number"
+                                                        class="form-control @error('qty') is-invalid @enderror"
+                                                        id="qty" name="qty" value="{{ old('qty') }}"
+                                                        required>
+                                                    @error('qty')
+                                                        <div class="alert alert-danger mt-2">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="hori-line">
                                 </div>
-                            </div>
-                            </div>
+
+                                <div class="mb-3 d-flex justify-content-end gap-2">
+                                    <button type="button" id="addKeranjang" class="btn btn-primary">+ Tambah
+                                        Keranjang</button>
+                                    <button type="button" id="removeKeranjang" class="btn btn-danger">- Hapus
+                                        Keranjang</button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </div>
+                            </form>
                         </div>
-                        <hr class="hori-line">
-                        </div>
-                        
-                        <div class="mb-3 d-flex justify-content-end gap-2">
-                            <button type="button" id="addKeranjang" class="btn btn-primary">+ Tambah Keranjang</button>
-                            <button type="button" id="removeKeranjang" class="btn btn-danger">- Hapus Keranjang</button>  
-                        </div>
-                   
-                      </form>
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Simpan</button>
-                    </div>
-                  </div>
                 </div>
-              </div>
+            </div>
         </div>
     </div>
     </div>
@@ -652,19 +523,19 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
-    const keranjangContainer = document.getElementById('keranjangContainer');
-    const addKeranjangButton = document.getElementById('addKeranjang');
-    const removeKeranjangButton = document.getElementById('removeKeranjang');
+            const keranjangContainer = document.getElementById('keranjangContainer');
+            const addKeranjangButton = document.getElementById('addKeranjang');
+            const removeKeranjangButton = document.getElementById('removeKeranjang');
 
-    addKeranjangButton.addEventListener('click', () => {
-        const keranjangCount = keranjangContainer.children.length;
+            addKeranjangButton.addEventListener('click', () => {
+                const keranjangCount = keranjangContainer.children.length;
 
-        const newKeranjang = document.createElement('div');
-        newKeranjang.classList.add('keranjang', 'mb-4');
-        newKeranjang.innerHTML = `
+                const newKeranjang = document.createElement('div');
+                newKeranjang.classList.add('keranjang', 'mb-4');
+                newKeranjang.innerHTML = `
             <h5>Detail Pengisian Keranjang</h5>
             <div class="mb-3">
                 <label for="noKeranjang" class="form-label">No Keranjang</label>
@@ -699,17 +570,17 @@
             </div>
         `;
 
-        keranjangContainer.appendChild(newKeranjang);
-    });
+                keranjangContainer.appendChild(newKeranjang);
+            });
 
-    removeKeranjangButton.addEventListener('click', () => {
-        if (keranjangContainer.children.length > 0) {
-            keranjangContainer.removeChild(keranjangContainer.lastElementChild);
-        } else {
-            alert("Tidak ada keranjang yang bisa dihapus!");
-        }
-    });
-});
+            removeKeranjangButton.addEventListener('click', () => {
+                if (keranjangContainer.children.length > 0) {
+                    keranjangContainer.removeChild(keranjangContainer.lastElementChild);
+                } else {
+                    alert("Tidak ada keranjang yang bisa dihapus!");
+                }
+            });
+        });
         // Sample data
         const data = [{
                 no: 1,
@@ -827,7 +698,7 @@
                 displayData();
             }
         }
-       
+
 
         // Load initial data
         displayData();

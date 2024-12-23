@@ -18,6 +18,7 @@ class StokKbKelapaBulat extends Model
         'remark',
         'activity_type',
         'stok',
+        'trip',
         'begin',
         'in',
         'out',

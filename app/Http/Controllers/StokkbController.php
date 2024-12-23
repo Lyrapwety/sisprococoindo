@@ -15,33 +15,58 @@ class StokkbController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data
         $request->validate([
             'tanggal' => 'nullable|string|max:255',
             'remark' => 'nullable|string|max:255',
             'activity_type' => 'nullable|string|max:255',
-            'stok' => 'nullable|string|max:255',
-            'begin' => 'nullable|string|max:255',
-            'in' => 'nullable|string|max:255',
-            'out' => 'nullable|string|max:255',
-            'remain' => 'nullable|string|max:255',
-        ]);
+            'trip' => 'nullable|string|max:255',
+            'stok' => 'required|numeric',
+    ]);
 
-        // Simpan data ke database
+    $stok = $request->stok;
+    $activity_type = $request->activity_type;
+
+    $last_remain = StokKbKelapaBulat::latest()->value('remain') ?? 0;
+
+    $begin = $last_remain;
+    $in = 0;
+    $out = 0;
+    $remain = $begin;
+
+    switch ($activity_type) {
+        case 'pembelian':
+            $in = $stok;
+            $remain = $begin + $in;
+            break;
+
+        case 'pemakaian_produksi':
+            $out = $stok;
+            $remain = $begin - $out;
+
+            if ($remain < 0) {
+                return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
+            }
+            break;
+
+        default:
+            return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
+    }
+
         StokKbKelapaBulat::create([
             'tanggal' => $request->tanggal,
             'remark' => $request->remark,
             'activity_type' => $request->activity_type,
-            'stok' => $request->stok,
-            'begin' => $request->begin,
-            'in' => $request->in,
-            'out' => $request->out,
-            'remain' => $request->remain,
+            'trip' => $request->trip,
+            'stok' => $stok,
+            'begin' => $begin,
+            'in' => $in,
+            'out' => $out,
+            'remain' => $remain,
         ]);
 
-        // Redirect dengan pesan sukses
         return redirect()->route('card_stock.KB_Kelapa_Bulat.index')->with('success', 'Data berhasil ditambahkan!');
     }
+
 
 
     public function destroy($id)

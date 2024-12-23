@@ -244,7 +244,7 @@
                 </button>
                 <div class="dropdown-container">
                     <a href="{{ route('card_stock.dkp.index') }}">DKP</a>
-                    <a href="{{ route('card_stock.kelapa_bulat') }}">Kelapa Bulat</a>
+                    <a href="{{ route('card_stock.kelapa_bulat.index') }}">Kelapa Bulat</a>
                     <a href="{{ route('card_stock.KB_Kelapa_Bulat.index') }}">KB Kelapa Bulat</a>
                     <a href="{{ route('card_stock.santan.index') }}">Santan</a>
                     <a href="{{ route('card_stock.air_kelapa.index') }}">Air Kelapa</a>

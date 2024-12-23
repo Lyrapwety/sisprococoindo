@@ -12,7 +12,7 @@
             height: calc(100vh - 70px);
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-  
+
         }
 
         .container {
@@ -217,7 +217,7 @@
             top: 50%;
             transform: translateY(-50%);
             color: #636362;
-       
+
         }
 
         .input-icon input {
@@ -249,7 +249,7 @@
             color: white;
             border: none;
             cursor: pointer;
-          
+
         }
 
         .btn.export img {
@@ -438,18 +438,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            @foreach ($stokkbs as $stokkbs)
+                        @foreach ($stokkbs as $stokkbs)
                              <tr>
                                  <td>{{ $loop->iteration }}</td>
                                  <td>{{ $stokkbs->tanggal }}</td>
-                                 <td>{{ $stokkbs->remark }}</td>
+                                 <td>{{ $stokkbs->remark }}, Trip {{ $stokkbs->trip }} </td>
                                  <td>{{ $stokkbs->begin }}</td>
                                  <td>{{ $stokkbs->in }}</td>
                                  <td>{{ $stokkbs->out }}</td>
                                  <td>{{ $stokkbs->remain }}</td>
                                  </td>
-                                 <td><button class="detail">Pemakaian Kelapa Bulat</td>
+                                 <td>
+                                    @if ($stokkbs->activity_type == 'pemakaian_produksi')
+                                        <button class="detail" data-tanggal="{{ $stokkbs->tanggal }}">Pemakaian Kelapa Bulat</button>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                  <td>
                                      <button class="edit" data-id="{{ $stokkbs->id }}">Edit</button>
                                      <form action="{{ route('card_stock.KB_Kelapa_Bulat.destroy', $stokkbs->id) }}"
@@ -517,7 +522,7 @@
                                 <option value="" disabled selected>Pilih Jenis Aktivitas</option>
                                 <option value="pembelian">Pembelian</option> <!-- stok tambah-->
                                 <option value="pemakaian_produksi">Pemakaian Produksi</option> <!--stok kurang-->
-                            
+
                             </select>
                             @error('activity_type')
                                     <div class="alert alert-danger mt-2">
@@ -538,11 +543,11 @@
                             @enderror
                         </div>
                          <div class="form-group">
-                            <label for="activity_type">Trip</label>
-                            <select class="form-control"
-                            id="activity_type" name="activity_type" value="">
+                            <label for="trip">Trip</label>
+                            <select class="form-control @error('trip') is-invalid @enderror"
+                            id="trip" name="trip" value="{{ old('trip') }}">
                                 <option value="" disabled selected>Pilih Trip</option>
-                                <option value="1">1</option> 
+                                <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
@@ -554,6 +559,11 @@
                                 <option value="10">10</option>
 
                             </select>
+                            @error('trip')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
 
 
                         <!-- remark -->
@@ -579,6 +589,18 @@
 
         @section('scripts')
             <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    document.querySelectorAll('.detail').forEach(button => {
+                        button.addEventListener('click', function () {
+                            const tanggal = this.dataset.tanggal;
+                            const remark = this.dataset.remark;  // Assuming 'remark' is passed in dataset
+                            const trip = this.dataset.trip;      // Assuming 'trip' is passed in dataset
+                            const url = `{{ route('card_stock.kelapa_bulat.index') }}?tanggal=${encodeURIComponent(tanggal)}&remark=${encodeURIComponent(remark)}&trip=${encodeURIComponent(trip)}`;
+                            window.location.href = url;
+                        });
+                    });
+                });
+
                 function openModal() {
                     document.getElementById("modal").style.display = "flex";
                 }

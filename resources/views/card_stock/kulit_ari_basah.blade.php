@@ -435,6 +435,11 @@
                     <i class="fas fa-search"></i> <!-- Ikon pencarian (search icon) -->
                 </div>
                 <div class="actions">
+                    @if (session('success'))
+                         <div class="alert alert-success">
+                             {{ session('success') }}
+                         </div>
+                     @endif
                     <button class="btn export">
                         <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png"
                             alt="export" /> Export

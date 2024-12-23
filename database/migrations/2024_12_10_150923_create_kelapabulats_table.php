@@ -15,10 +15,16 @@ return new class extends Migration
             $table->id();
             $table->date('tanggal')->nullable();
             $table->string('keterangan')->nullable();
-            $table->string( 'activity_type')->nullable();
+            $table->string('shift')->nullable();
+            $table->string('stop')->nullable();
+            $table->string('keranjang')->nullable();
+            $table->string( 'kbtanggalsupplier')->nullable();
+            $table->string( 'jam')->nullable();
+            $table->string( 'qty')->nullable();
             $table->string('begin')->nullable();
             $table->string('in')->nullable();
             $table->string('out')->nullable();
+            $table->string('remain')->nullable();
             $table->timestamps();
         });
     }

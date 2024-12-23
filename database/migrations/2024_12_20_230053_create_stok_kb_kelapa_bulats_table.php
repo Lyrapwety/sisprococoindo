@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('stok_kb_kelapa_bulats', function (Blueprint $table) {
             $table->id();
-            $table->string('tanggal')->nullable();
+            $table->date('tanggal')->nullable();
             $table->string('remark')->nullable();
             $table->string('activity_type')->nullable();
             $table->string('stok')->nullable();
+            $table->string('trip')->nullable();
             $table->string('begin')->nullable();
             $table->string('in')->nullable();
             $table->string('out')->nullable();
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

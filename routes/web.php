@@ -25,7 +25,7 @@ use App\Http\Controllers\LaporanairkelapaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StoksantanController;
 use App\Http\Controllers\StokairkelapaController;
-
+use App\Http\Controllers\KelapabulatController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -114,6 +114,12 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::delete('dkp/{id}', [StokdkpController::class, 'destroy'])->name('dkp.destroy');
     Route::get('dkp/{id}/edit', [StokdkpController::class, 'edit'])->name('dkp.edit');
 
+    //stok kelapa bulat
+    Route::resource('kelapa_bulat', KelapabulatController::class);
+    Route::get('kelapa_bulat/create', [KelapabulatController::class, 'create'])->name('kelapa_bulat.create');
+    Route::post('kelapa_bulat', [KelapabulatController::class, 'store'])->name('kelapa_bulat.store');
+    Route::delete('kelapa_bulat/{id}', [KelapabulatController::class, 'destroy'])->name('kelapa_bulat.destroy');
+    Route::get('/kelapa_bulat/{id}', [KelapabulatController::class, 'getPreviousData'])->name('kelapa_bulat.previous');
 
     //stok kb
     Route::resource('KB_Kelapa_Bulat', StokKbController::class);
@@ -198,7 +204,6 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
 
 });
 
-Route::get('/card_stock/kelapa_bulat', [StockController::class, 'kelapa_bulat'])->name('card_stock.kelapa_bulat');
 
 
 Route::prefix('data_pegawai')->name('data_pegawai.')->group(function () {
