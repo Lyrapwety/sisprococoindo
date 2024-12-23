@@ -2,18 +2,17 @@
 
 @section('content')
     <style>
-        /* Mainbar */
+
         .mainbar {
             flex: 1%;
             background-color: #D9D9D9 !important;
             padding-top: 20px;
-            /* Jarak dari topbar */
             margin-left: 235px;
             overflow-y: auto;
             height: calc(100vh - 70px);
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-            !important;
+  
         }
 
         .container {
@@ -53,13 +52,10 @@
             font-size: 12px;
         }
 
-        /* Dropdown tanggal */
         .filters select.pilihtanggal,
         .filters .input-icon input[type="text"] {
             padding: 8px 12px;
-            /* Padding yang sama */
             height: 36px;
-            /* Tinggi yang sama */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 12px;
@@ -67,18 +63,16 @@
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        /* Input pencarian dan ikon */
+
         .filters .input-icon {
             position: relative;
             width: 250px;
-            /* Lebar lebih pendek untuk input pencarian */
         }
 
         .filters input[type="text"] {
             width: 100%;
             height: 36px;
             padding: 8px 35px 8px 12px;
-            /* Tambahkan padding untuk ikon */
             border: 1px solid #cc;
             border-radius: 5px;
             font-size: 12px;
@@ -96,7 +90,6 @@
             color: #636362;
         }
 
-        /* Tombol aksi */
         .filters .actions {
             display: flex;
             gap: 10px;
@@ -120,16 +113,12 @@
         .filters .actions .btn.add {
             background-color: #71bc74;
             transform: translateX(-2px);
-
-
         }
 
         .filters .actions .btn.export {
             background-color: #e0b063;
             transform: translateX(-2px);
-
         }
-
 
         .table-container {
             overflow-x: auto;
@@ -234,7 +223,6 @@
         .input-icon input {
             width: 100%;
             padding: 10px 40px 10px 10px;
-            /* Tambahkan padding kanan untuk ruang ikon */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
@@ -244,54 +232,38 @@
 
         .input-icon input:focus {
             border-color: #104367;
-            /* Ubah warna border saat fokus */
         }
 
-        /* Modal container */
         .horizontalline1 {
-            /* Warna teks, tidak berpengaruh pada <hr> */
             border: none;
-            /* Hapus border default */
             border-bottom: 0.5px solid #ccc;
             width: 100%;
-            /* Lebar penuh */
             margin: 5px 0 15px 0;
-            /* Margin atas, kanan, bawah, kiri */
             opacity: 0.5;
-            /* Nilai opasitas (1 = tidak transparan) */
             padding-top: 20px;
         }
 
         .btn.export {
             display: flex;
             align-items: center;
-            /* Mengatur ikon dan teks dalam satu baris */
             color: white;
-            /* Mengatur warna teks menjadi putih */
             border: none;
-            /* Menghapus border default */
-            /* Menambahkan padding */
             cursor: pointer;
-            /* Menambahkan kursor pointer */
+          
         }
 
         .btn.export img {
-            /* Jarak antara ikon dan teks */
             filter: brightness(0) invert(1);
-
-
         }
 
         .search-input::placeholder {
             color: #636362;
-            /* Ganti dengan warna yang diinginkan */
             opacity: 1;
-            /* Mengatur opasitas jika perlu */
+
         }
 
         .modal {
             display: none;
-            /* Modal tidak tampil secara default */
             position: fixed;
             z-index: 1000;
             left: 0;
@@ -299,12 +271,10 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.6);
-            /* Transparan hitam */
             justify-content: center;
             align-items: center;
         }
 
-        /* Modal Konten */
         .modal-content {
             background-color: #fff;
             padding: 20px;
@@ -463,6 +433,7 @@
                             <th style="width: 40px;">In</th>
                             <th style="width: 40px;">Out</th>
                             <th style="width: 40px;">Remain</th>
+                            <th style="width: 40px;">Detail</th>
                             <th style="width: 70px;">Aksi</th>
                         </tr>
                     </thead>
@@ -478,6 +449,7 @@
                                  <td>{{ $stokkbs->out }}</td>
                                  <td>{{ $stokkbs->remain }}</td>
                                  </td>
+                                 <td><button class="detail">Pemakaian Kelapa Bulat</td>
                                  <td>
                                      <button class="edit" data-id="{{ $stokkbs->id }}">Edit</button>
                                      <form action="{{ route('card_stock.KB_Kelapa_Bulat.destroy', $stokkbs->id) }}"
@@ -519,7 +491,7 @@
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <span class="close-btn" onclick="closeModal()">&times;</span>
-                    <h2>Form Input Stok DKP Reject Kering (Kopra)</h2>
+                    <h2>Form Input Stok Kelapa Bulat</h2>
 
                     <form id="stokForm" action="{{ route('card_stock.KB_Kelapa_Bulat.store') }}" method="POST" enctype="multipart/form-data">
 
@@ -543,11 +515,9 @@
                             <select class="form-control @error('activity_type') is-invalid @enderror"
                             id="activity_type" name="activity_type" value="{{ old('activity_type') }}">
                                 <option value="" disabled selected>Pilih Jenis Aktivitas</option>
-                                <option value="hasil_produksi">Hasil Produksi</option> <!-- stok tambah-->
-                                <option value="pengambilan">Pengambilan PT lain</option> <!-- stok tambah-->
-                                <option value="pemakaian_produksi">Pemakaian Produksi</option>
-                                <!-- stok berkurang atau out-->
-                                <option value="reject">Reject</option> <!-- stok berkurang atau out-->
+                                <option value="pembelian">Pembelian</option> <!-- stok tambah-->
+                                <option value="pemakaian_produksi">Pemakaian Produksi</option> <!--stok kurang-->
+                            
                             </select>
                             @error('activity_type')
                                     <div class="alert alert-danger mt-2">
@@ -558,7 +528,7 @@
 
                         <!-- Jumlah Stok -->
                         <div class="form-group">
-                            <label for="stok">Jumlah Stok</label>
+                            <label for="stok">Jumlah Barang</label>
                             <input type="number" class="form-control @error('stok') is-invalid @enderror"
                             id="stok" name="stok" value="{{ old('stok') }}">
                             @error('stok')
@@ -567,10 +537,28 @@
                                 </div>
                             @enderror
                         </div>
+                         <div class="form-group">
+                            <label for="activity_type">Trip</label>
+                            <select class="form-control"
+                            id="activity_type" name="activity_type" value="">
+                                <option value="" disabled selected>Pilih Trip</option>
+                                <option value="1">1</option> 
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+
+                            </select>
+
 
                         <!-- remark -->
                         <div class="form-group">
-                            <label for="remark">remark (Remark)</label>
+                            <label for="remark">Remark</label>
                             <textarea class="form-control @error('remark') is-invalid @enderror"
                             id="remark" name="remark" value="{{ old('remark') }}">
                             @error('remark')
