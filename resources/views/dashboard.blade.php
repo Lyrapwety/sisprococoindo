@@ -258,7 +258,7 @@
     <div class="mainbar">
         <div class="containera">
             <div class="header">
-                <h2>Selamat Datang</h2>
+                <h2>Selamat Datang, {{ Auth::user()->name }}</h2>
             </div>
             <div class="content-container">
 
@@ -432,17 +432,20 @@
                 // Fungsi untuk menambah/menghapus jadwal produksi
                 function toggleProductionDay(date, cell) {
                     if (productionDays.includes(date)) {
-                        // Jika sudah ada, hapus dari array
                         productionDays = productionDays.filter(d => d !== date);
                         cell.classList.remove("production-day");
                     } else {
-                        // Jika belum ada, tambahkan ke array
                         productionDays.push(date);
                         cell.classList.add("production-day");
                     }
                     saveProductionDays(); // Simpan ke localStorage
                     console.log("Jadwal Produksi Saat Ini:", productionDays);
                 }
+
+                // Array tanggal yang memiliki data produksi
+                const productionDataDays = [
+                    "2024-08-05", "2024-08-10", "2024-08-15" // Ganti dengan tanggal sebenarnya yang ada datanya
+                ];
 
                 // Isi awal kosong jika hari pertama bukan Minggu
                 for (let i = 0; i < firstDayOfMonth; i++) {
@@ -470,12 +473,18 @@
                         cell.classList.add("production-day");
                     }
 
+                    // Tandai tanggal dengan data produksi (berwarna biru)
+                    if (productionDataDays.includes(formattedDate)) {
+                        cell.classList.add("production-data");
+                    }
+
                     // Tambahkan event listener untuk klik
                     cell.addEventListener("click", () => toggleProductionDay(formattedDate, cell));
 
                     calendar.appendChild(cell);
                 }
             }
+
 
             window.onload = generateCalendar;
         </script>
