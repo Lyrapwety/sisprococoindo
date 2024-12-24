@@ -596,7 +596,7 @@
                         @foreach ($laporandkprejects as $laporanreject)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $laporanreject->tanggal }}</td>
+                                <td>{{ \Carbon\Carbon::parse($laporanreject->tanggal)->translatedFormat('d F Y') }}</td>
                                 <td>{{ $laporanreject->nama_pegawai }}</td>
                                 <td>{{ $laporanreject->sheller_parer }}</td>
                                 <td>{{ $laporanreject->bruto }}</td>

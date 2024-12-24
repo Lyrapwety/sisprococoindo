@@ -485,7 +485,7 @@
                         @foreach ($stokampaskeringyellows as $stokampaskeringyellow)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $stokampaskeringyellow->tanggal }}</td>
+                                <td>{{ \Carbon\Carbon::parse($stokampaskeringyellow->tanggal)->translatedFormat('d F Y') }}</td>
                                 <td>{{ $stokampaskeringyellow->keterangan }}</td>
                                 <td>{{ $stokampaskeringyellow->begin }}</td>
                                 <td>{{ $stokampaskeringyellow->in_fine }}</td>

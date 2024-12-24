@@ -461,7 +461,7 @@
                         @foreach ($stoktempurungs as $stoktempurung)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $stoktempurung->tanggal }}</td>
+                                <td>{{ \Carbon\Carbon::parse($stoktempurung->tanggal)->translatedFormat('d F Y') }}</td>
                                 <td>{{ $stoktempurung->keterangan }}</td>
                                 <td>{{ $stoktempurung->begin }}</td>
                                 <td>{{ $stoktempurung->in }}</td>

@@ -465,7 +465,7 @@
                         @foreach ($stokminyakkelapas as $stokminyakkelapa)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $stokminyakkelapa->tanggal }}</td>
+                                <td>{{ \Carbon\Carbon::parse($stokminyakkelapa->tanggal)->translatedFormat('d F Y') }}</td>
                                 <td>{{ $stokminyakkelapa->remark }}</td>
                                 <td>{{ $stokminyakkelapa->begin }}</td>
                                 <td>{{ $stokminyakkelapa->in }}</td>

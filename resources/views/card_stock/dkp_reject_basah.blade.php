@@ -457,7 +457,7 @@
                         @foreach ($stokrejectbasahs as $stokrejectbasah)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $stokrejectbasah->tanggal }}</td>
+                                <td>{{ \Carbon\Carbon::parse($stokrejectbasah->tanggal)->translatedFormat('d F Y') }}</td>
                                 <td>{{ $stokrejectbasah->keterangan }}</td>
                                 <td>{{ $stokrejectbasah->begin }}</td>
                                 <td>{{ $stokrejectbasah->in }}</td>

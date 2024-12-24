@@ -736,7 +736,7 @@
                         @foreach ($laporantempurungs as $laporantempurung)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $laporantempurung->tanggal }}</td>
+                                <td>{{ \Carbon\Carbon::parse($laporantempurung->tanggal)->translatedFormat('d F Y') }}</td>
                                 <td>{{ $laporantempurung->bruto }}</td>
                                 <td>{{ $laporantempurung->tipe_keranjang }}</td>
                                 <td>{{ $laporantempurung->total_keranjang }}</td>

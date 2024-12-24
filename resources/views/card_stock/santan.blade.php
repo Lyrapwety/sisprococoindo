@@ -499,7 +499,7 @@
                     <tbody>
                         @foreach ($stoksantans as $stoksantan)
                             <tr>
-                                <td class="remark-column">{{ $stoksantan->tanggal }}</td>
+                                <td class="remark-column">{{ \Carbon\Carbon::parse($stoksantan->tanggal)->translatedFormat('d F Y') }}</td>
                                 <td>{{ $stoksantan->keterangan }}</td>
                                 <td>{{ $stoksantan->making_product }}</td>
                                 <td>{{ $stoksantan->fat }}</td>

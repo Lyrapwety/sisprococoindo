@@ -778,7 +778,7 @@
                         @foreach ($laporandkps as $laporandkp)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $laporandkp->tanggal }}</td>
+                                <td>{{ \Carbon\Carbon::parse($laporandkp->tanggal)->translatedFormat('d F Y') }}</td>
                                 <td>{{ $laporandkp->nama_sheller }}</td>
                                 <td>{{ $laporandkp->nama_parer }}</td>
                                 <td>{{ $laporandkp->timbangan_hasil_kerja_parer }}</td>
@@ -1212,22 +1212,22 @@
                 }
             }
 
-// Fungsi untuk menutup modal kedua (modal2)
-function closeModal2() {
-    const modal2 = document.getElementById('modal2');
-    modal2.style.display = 'none';
-}
+        // Fungsi untuk menutup modal kedua (modal2)
+        function closeModal2() {
+            const modal2 = document.getElementById('modal2');
+            modal2.style.display = 'none';
+        }
 
-// Tambahkan event listener untuk tombol yang membuka modal kedua
-document.querySelectorAll('.detail-btn').forEach(button => {
-    button.addEventListener('click', openModal2);
-});
+        // Tambahkan event listener untuk tombol yang membuka modal kedua
+        document.querySelectorAll('.detail-btn').forEach(button => {
+            button.addEventListener('click', openModal2);
+        });
 
-// Tambahkan event listener untuk tombol yang menutup modal kedua
-const closeModalButton = document.getElementById('closeModal2');
-if (closeModalButton) {
-    closeModalButton.addEventListener('click', closeModal2);
-}
+        // Tambahkan event listener untuk tombol yang menutup modal kedua
+        const closeModalButton = document.getElementById('closeModal2');
+        if (closeModalButton) {
+            closeModalButton.addEventListener('click', closeModal2);
+        }
 
 
             // Variabel penghitung untuk anggota "Parer"

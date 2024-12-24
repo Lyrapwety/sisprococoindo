@@ -597,7 +597,7 @@
                         @foreach ($laporanairkelapas as $laporanairkelapa)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $laporanairkelapa->tanggal }}</td>
+                                <td>{{ \Carbon\Carbon::parse($laporanairkelapa->tanggal)->translatedFormat('d F Y') }}</td>
                                 <td>{{ $laporanairkelapa->nama_pegawai }}</td>
                                 <td>{{ $laporanairkelapa->sheller_parer }}</td>
                                 <td>{{ $laporanairkelapa->bruto }}</td>

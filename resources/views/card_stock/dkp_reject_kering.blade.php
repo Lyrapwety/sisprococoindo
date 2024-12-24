@@ -475,7 +475,7 @@
                         @foreach ($stokrejectkerings as $stokrejectkering)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $stokrejectkering->tanggal }}</td>
+                                <td>{{ \Carbon\Carbon::parse($stokrejectkering->tanggal)->translatedFormat('d F Y') }}</td>
                                 <td>{{ $stokrejectkering->keterangan }}</td>
                                 <td>{{ $stokrejectkering->begin }}</td>
                                 <td>{{ $stokrejectkering->in }}</td>

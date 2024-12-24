@@ -524,7 +524,7 @@
                         <tbody>
                             @foreach ($produksiairkelapas as $produksiairkelapa)
                                 <tr>
-                                    <td class="remark-column">{{ $produksiairkelapa->tanggal }}</td>
+                                    <td class="remark-column">{{ \Carbon\Carbon::parse($produksiairkelapa->tanggal)->translatedFormat('d F Y') }}</td>
                                     <td>{{ $produksiairkelapa->keterangan }}</td>
                                     <td>{{ $produksiairkelapa->fat }}</td>
                                     <td>{{ $produksiairkelapa->ph }}</td>
@@ -700,7 +700,7 @@
                             }
                         });
                     });
-                    
+
                 function openModal() {
                     document.getElementById("modal").style.display = "flex";
                 }

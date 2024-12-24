@@ -498,7 +498,7 @@
                         <tbody>
                             @foreach ($stokairkelapas as $stokairkelapa)
                             <tr>
-                                <td class="remark-column">{{ $stokairkelapa->tanggal }}</td>
+                                <td class="remark-column">{{ \Carbon\Carbon::parse($stokairkelapa->tanggal)->translatedFormat('d F Y') }}</td>
                                 <td>{{ $stokairkelapa->keterangan }}</td>
                                 <td>{{ $stokairkelapa->making_product }}</td>
                                 <td>{{ $stokairkelapa->briz }}</td>

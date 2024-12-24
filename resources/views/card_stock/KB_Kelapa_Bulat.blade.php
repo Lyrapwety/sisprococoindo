@@ -441,7 +441,7 @@
                         @foreach ($stokkbs as $stokkbs)
                              <tr>
                                  <td>{{ $loop->iteration }}</td>
-                                 <td>{{ $stokkbs->tanggal }}</td>
+                                 <td>{{ \Carbon\Carbon::parse($stokkbs->tanggal)->translatedFormat('d F Y') }}</td>
                                  <td>{{ $stokkbs->remark }}, Trip {{ $stokkbs->trip }} </td>
                                  <td>{{ $stokkbs->begin }}</td>
                                  <td>{{ $stokkbs->in }}</td>

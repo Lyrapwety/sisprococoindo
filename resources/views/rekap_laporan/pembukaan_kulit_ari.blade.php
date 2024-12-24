@@ -347,7 +347,7 @@
                         @foreach ($rekapkulitaris as $index => $rekap)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $rekap['tanggal'] }}</td>
+                                <td>{{ \Carbon\Carbon::parse($rekap['tanggal'])->translatedFormat('d F Y') }}</td>
                                 <td>{{ $rekap['nama_pegawai'] }}</td>
                                 <td>{{ $rekap['sheller_parer'] }}</td>
                                 <td>{{ $rekap['timbangan_hasil'] }}</td>
