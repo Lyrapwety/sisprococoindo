@@ -13,7 +13,7 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        $today = Carbon::today()->toDateString();
+        $today = Carbon::today('Asia/Jakarta')->toDateString();
 
         $dagingKelapaPutih = StokDkp::where('activity_type', 'hasil_produksi')
             ->where('created_at', $today)
