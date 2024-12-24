@@ -8,23 +8,25 @@ use Carbon\Carbon;
 
 class KelapabulatController extends Controller
 {
-    public function index(Request $request)
-{
-    $tanggal = $request->query('tanggal'); // Ambil parameter tanggal
-    $stokkelapabulats = Kelapabulat::query();
 
-    if ($tanggal) {
-        $stokkelapabulats->where('tanggal', $tanggal); // Filter berdasarkan tanggal
+    public function index(Request $request)
+    {
+        $now = Carbon::now('Asia/Jakarta');
+
+        $tanggal = $request->query('tanggal');
+        $stokkelapabulats = Kelapabulat::query();
+
+        if ($tanggal) {
+            $stokkelapabulats->where('tanggal', $tanggal);
+        }
+
+        $stokkelapabulats = $stokkelapabulats->get();
+
+        $totalQtyToday = Kelapabulat::where('tanggal', $now->toDateString())->sum('qty');
+
+        return view('card_stock.kelapa_bulat', compact('stokkelapabulats', 'totalQtyToday'));
     }
 
-    // Ambil data stok
-    $stokkelapabulats = $stokkelapabulats->get();
-
-    // Hitung jumlah qty untuk tanggal hari ini menggunakan string
-    $totalQtyToday = Kelapabulat::where('tanggal', Carbon::today()->toDateString())->sum('qty');
-
-    return view('card_stock.kelapa_bulat', compact('stokkelapabulats', 'totalQtyToday'));
-}
 
 
 

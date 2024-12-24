@@ -126,6 +126,7 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::get('KB_Kelapa_Bulat/create', [StokKbController::class, 'create'])->name('KB_Kelapa_Bulat.create');
     Route::post('KB_Kelapa_Bulat', [StokKbController::class, 'store'])->name('KB_Kelapa_Bulat.store');
     Route::delete('KB_Kelapa_Bulat/{id}', [StokKbController::class, 'destroy'])->name('KB_Kelapa_Bulat.destroy');
+    Route::get('KB_Kelapa_Bulat/{id}/edit', [StokKbController::class, 'edit'])->name('KB_Kelapa_Bulat.edit');
 
     //stok santan
     Route::resource('santan', StoksantanController::class);

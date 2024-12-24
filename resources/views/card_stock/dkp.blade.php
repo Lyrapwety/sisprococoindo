@@ -526,8 +526,9 @@
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <span class="close">&times;</span>
                         <h2>Form Input Stok Daging Kelapa Putih</h2>
-                         
+
                     </div>
 
                     <form id="stokForm" action="{{ route('card_stock.dkp.store') }}" method="POST" enctype="multipart/form-data">

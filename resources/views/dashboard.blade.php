@@ -1,470 +1,482 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        .mainbar {
+            display: flex;
+            flex-direction: column;
+            background-color: #D9D9D9;
+            padding: 15px;
+            font-family: 'Inter', sans-serif;
+            width: calc(100% - 235px);
+            height: calc(100vh - 75px);
+            margin-left: 235px;
 
-<style>
+        }
 
-.mainbar {
-    display: flex;
-    flex-direction: column;
-    background-color: #D9D9D9;
-    padding: 15px ;
-    font-family: 'Inter', sans-serif;
-    width: calc(100% - 235px);
-    height: calc(100vh - 75px);
-    margin-left: 235px;
-   
-}
-
-.containera {
-    margin: auto;
-    background-color: #F7F7F7;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    width: 95%;
-    padding: 20px;
-   
-    
-}
-
-.header {
-    margin-bottom: 20px;
-    padding: 10px;
-    padding-bottom: 0;
-
-}
-
-.header h2 {
-    font-size: 14px;
-
-}
-
-.content-container {
-    display: flex;
-    gap: 20px;
-}
-
-.left-container,
-.right-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.left-container {
-    flex: 35%;
-}
-
-.right-container {
-    flex: 45%;
-}
+        .containera {
+            margin: auto;
+            background-color: #F7F7F7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            width: 95%;
+            padding: 20px;
 
 
-.pemakaian2,
-.pemakaian {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+        }
+
+        .header {
+            margin-bottom: 20px;
+            padding: 10px;
+            padding-bottom: 0;
+
+        }
+
+        .header h2 {
+            font-size: 14px;
+
+        }
+
+        .content-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .left-container,
+        .right-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .left-container {
+            flex: 35%;
+        }
+
+        .right-container {
+            flex: 45%;
+        }
 
 
-.pemakaian2 h2,
-.pemakaian h2 {
-    font-size: 14px;
-    color: #636362;
-    text-align: center;
-    margin-bottom: 20px;
+        .pemakaian2,
+        .pemakaian {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
 
-}
 
-.inline-group{
-    display: flex;
-    flex-direction: row;
+        .pemakaian2 h2,
+        .pemakaian h2 {
+            font-size: 14px;
+            color: #636362;
+            text-align: center;
+            margin-bottom: 20px;
 
-}
-.calendar-container {
-      width: 100%;
-      max-width: 600px;
-      border-radius: 10px;
-      font-size: 14px;
-      background-color: white;
- 
-    }
-    .calendar-header {
-      text-align: center;
-      font-size: 14px;
-      margin-bottom: 10px;
+        }
 
-    }
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 7px;
-    }
+        .inline-group {
+            display: flex;
+            flex-direction: row;
 
-    .calendar-cell {
-      width: 100%;
-      padding: 5px;
-      text-align: center;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 12px;
-      background-color: #fff;
-      position: relative;
-      margin-top: 5px;
-    }
-    .calendar-cell.today {
-      background-color: #ffeb99;
-   
-    }
-    .calendar-cell.production-day {
-      background-color: #dbe8f4;
-   
-    }
-    .calendar-day-header {
-      text-align: center;
-      padding: 10px 0;
-    }
-    .note {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 12px;
-      color: #555;
-    }
-.bar-chart {
-    display: flex;
-    align-items: flex-end;
-    height: 150px;
-    border-left: 2px solid #ddd;
-    border-bottom: 2px solid #ddd;
-    padding: 10px 5px 0 5px;
-}
+        }
 
-.bar-chart .bar {
-    flex: 0.1; 
-    margin: 0 2px; 
-    background-color: #3f51b5;
-    border-radius: 4px 4px 0 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    color: white;
-    font-size: 8px; 
-}
+        .calendar-container {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            font-size: 14px;
+            background-color: white;
 
-.bar-chart .bar:nth-child(even) {
-    background-color: #7986cb;
-}
+        }
 
-.x-axis {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    font-size: 10px;
-    color: #666;
-}
+        .calendar-header {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 10px;
 
-.pemakaian {
-    display: flex;
-    position: relative;
-    padding-top: 20px;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-}
+        }
 
-.pemakaian canvas {
-    max-width: 220px; 
-    height: auto;
-    margin: 0 auto;
-}
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 7px;
+        }
 
-.pemakaian h2{
-    font-size: 14px;
-    color: #636362;
-    margin-bottom: 10px;
-    text-align: center;
+        .calendar-cell {
+            width: 100%;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 12px;
+            background-color: #fff;
+            position: relative;
+            margin-top: 5px;
+        }
 
-}
-.pemakaian2 {
-    margin:0;
- 
-}
- #chartLabels div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Menjaga label dan angka di sisi berlawanan */
-    margin-bottom:7px;
-    margin-left: 15px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-}
+        .calendar-cell.today {
+            background-color: #ffeb99;
 
-#chartLabels div div {
-    margin-top: 5px;
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px; /* Jarak antara kotak warna dan teks */
-    border-radius: 3px;
-    border: 1px solid #ccc;
-}
+        }
 
-#chartLabels span.label-text {
-    flex: 1;
-    text-align: left;
-    font-size: 12px;
-}
+        .calendar-cell.production-day {
+            background-color: #dbe8f4;
 
-#chartLabels span.label-value {
-    text-align: right;
-    margin-left: 10px;
-    font-size: 12px;
-}
+        }
 
-.pemakaian select {
-    position: absolute;
-    align-self: flex-start;
-    top: 55px; 
-    left: 20px;
-    z-index: 10; 
-    padding: 5px;
-    width: 20%;
-    font-size: 12px;
-    color: #636362;
-    padding: 8px 12px; 
-    height: 36px; 
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 12px;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-}
-</style>
+        .calendar-day-header {
+            text-align: center;
+            padding: 10px 0;
+        }
 
-<div class="mainbar">
-    <div class="containera">
-        <div class="header">
-            <h2>Selamat Datang, Caca</h2>
-        </div>
-        <div class="content-container">
-  
-            <div class="left-container">
-                <div class="pemakaian2">
-                    <div class="calendar-container">
-                        <div class="calendar-header" id="calendar-month">August 2024</div>
-                        <div class="calendar-grid" id="calendar">
-                          <!-- Hari akan di-generate secara dinamis -->
-                        </div>
-                        <div class="note">* Biru: Jadwal Produksi | Kuning: Hari Ini</div>
-                      </div>
+        .note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #555;
+        }
 
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            height: 150px;
+            border-left: 2px solid #ddd;
+            border-bottom: 2px solid #ddd;
+            padding: 10px 5px 0 5px;
+        }
+
+        .bar-chart .bar {
+            flex: 0.1;
+            margin: 0 2px;
+            background-color: #3f51b5;
+            border-radius: 4px 4px 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            color: white;
+            font-size: 8px;
+        }
+
+        .bar-chart .bar:nth-child(even) {
+            background-color: #7986cb;
+        }
+
+        .x-axis {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 10px;
+            color: #666;
+        }
+
+        .pemakaian {
+            display: flex;
+            position: relative;
+            padding-top: 20px;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+
+        .pemakaian canvas {
+            max-width: 220px;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .pemakaian h2 {
+            font-size: 14px;
+            color: #636362;
+            margin-bottom: 10px;
+            text-align: center;
+
+        }
+
+        .pemakaian2 {
+            margin: 0;
+
+        }
+
+        #chartLabels div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* Menjaga label dan angka di sisi berlawanan */
+            margin-bottom: 7px;
+            margin-left: 15px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        #chartLabels div div {
+            margin-top: 5px;
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            /* Jarak antara kotak warna dan teks */
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        #chartLabels span.label-text {
+            flex: 1;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        #chartLabels span.label-value {
+            text-align: right;
+            margin-left: 10px;
+            font-size: 12px;
+        }
+
+        .pemakaian select {
+            position: absolute;
+            align-self: flex-start;
+            top: 55px;
+            left: 20px;
+            z-index: 10;
+            padding: 5px;
+            width: 20%;
+            font-size: 12px;
+            color: #636362;
+            padding: 8px 12px;
+            height: 36px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 12px;
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+
+    <div class="mainbar">
+        <div class="containera">
+            <div class="header">
+                <h2>Selamat Datang</h2>
             </div>
-            </div>
-                
-            <div class="right-container">
-                <div class="right-container">
-                    <div class="pemakaian">
-                <div style="text-align: center;">
-                    <h2>Laporan Pemakaian Kelapa Bulat</h2>
-                        <select style="margin-bottom: 20px; width:25%;">
-                            <option>Pilih Tanggal</option>
-                   
-                        </select>
-                      
-                        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
-                            <!-- Chart Container -->
-                            <div style="max-width: 200px; margin-right: 20px;">
-                                <canvas id="myChart"  style="max-width: 200px; margin: 0 auto; margin-top:70px; margin-bottom:10px;"></canvas>
+            <div class="content-container">
+
+                <div class="left-container">
+                    <div class="pemakaian2">
+                        <div class="calendar-container">
+                            <div class="calendar-header" id="calendar-month">August 2024</div>
+                            <div class="calendar-grid" id="calendar">
                             </div>
-                        
-                            <div id="chartLabels" style="font-size: 12px; max-width: 250px;"></div>
+                            <div class="note">* Biru: Jadwal Produksi | Kuning: Hari Ini</div>
                         </div>
 
-                 <!--  <canvas id="myChart" style="max-width: 200px; margin: 0 auto; margin-top:70px; margin-bottom:10px;"></canvas>
-                    <div id="chartLabels" style="margin-top: 20px; max-width: 200px; font-size:12px;"></div> -->
+                    </div>
+                </div>
+
+                <div class="right-container">
+                    <div class="right-container">
+                        <div class="pemakaian">
+                            <div style="text-align: center;">
+                                <h2>Laporan Pemakaian Kelapa Bulat</h2>
+                                <select style="margin-bottom: 20px; width:25%;">
+                                    <option>Pilih Tanggal</option>
+
+                                </select>
+
+                                <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+                                    <!-- Chart Container -->
+                                    <div style="max-width: 200px; margin-right: 20px;">
+                                        <canvas id="myChart"
+                                            style="max-width: 200px; margin: 0 auto; margin-top:70px; margin-bottom:10px;"></canvas>
+                                    </div>
+
+                                    <div id="chartLabels" style="font-size: 12px; max-width: 250px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
-    </div>
-</div>
-@endsection
+    @endsection
 
-@section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const pieData = {
-            labels: ["Daging Kelapa Putih", "Air Kelapa", "Kulit Ari Basah", "Tempurung Kelapa", "Missing"],
-            datasets: [
-                {
-                    data: [35, 20, 15, 20, 10], // Data nilai
-                    backgroundColor: ["#c6e2ff", "#779ecb", "#bcbcbc", "#b3cde3", "#d3d3d3"], // Warna
-                    borderWidth: 0, // Hilangkan border antar data
-                },
-            ],
-        };
+    @section('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const pieData = {
+                    labels: ["Daging Kelapa Putih", "Air Kelapa", "Kulit Ari Basah", "Tempurung Kelapa", "Missing"],
+                    datasets: [{
+                        data: [
+                            {{ $dagingKelapaPutihPercentage }},
+                            {{ $airKelapaPercentage }},
+                            {{ $kulitAriBasahPercentage }},
+                            {{ $tempurungKelapaPercentage }},
+                            {{ $missingPercentage }}
+                        ], // Data persentase dari controller
+                        backgroundColor: ["#c6e2ff", "#779ecb", "#bcbcbc", "#b3cde3", "#d3d3d3"], // Warna
+                        borderWidth: 0, // Hilangkan border antar data
+                    }],
+                };
 
-        // Plugin untuk menampilkan total di tengah
-        const centerTextPlugin = {
-            id: "centerText",
-            beforeDraw(chart) {
-                const { width } = chart;
-                const { height } = chart;
-                const ctx = chart.ctx;
-                ctx.restore();
+                const centerTextPlugin = {
+                    id: "centerText",
+                    beforeDraw(chart) {
+                        const { width, height } = chart;
+                        const ctx = chart.ctx;
+                        ctx.restore();
 
-                const total = chart.data.datasets[0].data.reduce((a, b) => a + b, 0); // Total nilai
-                const fontSize = (height / 100).toFixed(2); // Ukuran font
-                ctx.font = `${fontSize}em sans-serif`;
-                ctx.fillStyle = "#636362"; // Warna teks tengah
-                ctx.textBaseline = "middle";
+                        const total = chart.data.datasets[0].data.reduce((a, b) => a + b, 0); // Total nilai
+                        const fontSize = (height / 100).toFixed(2); // Ukuran font
+                        ctx.font = `${fontSize}em sans-serif`;
+                        ctx.fillStyle = "#636362"; // Warna teks tengah
+                        ctx.textBaseline = "middle";
 
-                const textX = Math.round((width - ctx.measureText(total).width) / 2);
-                const textY = height / 2;
-                ctx.fillText(total, textX, textY);
-                ctx.save();
-            },
-        };
-
-        // Konfigurasi chart
-        const pieConfig = {
-            type: "doughnut",
-            data: pieData,
-            options: {
-                responsive: true,
-                cutout: "40%", // Ukuran lubang tengah
-                plugins: {
-                    legend: {
-                        display: false, // Hilangkan legend default
+                        const textX = Math.round((width - ctx.measureText(total).width) / 2);
+                        const textY = height / 2;
+                        ctx.fillText(total.toFixed(0), textX, textY); // Total dalam bentuk integer
+                        ctx.save();
                     },
-                },
-            },
-            plugins: [centerTextPlugin],
-        };
+                };
 
-        // Render Chart
-        const ctx = document.getElementById("myChart").getContext("2d");
-        new Chart(ctx, pieConfig);
+                // Konfigurasi chart
+                const pieConfig = {
+                    type: "doughnut",
+                    data: pieData,
+                    options: {
+                        responsive: true,
+                        cutout: "40%", // Ukuran lubang tengah
+                        plugins: {
+                            legend: {
+                                display: false, // Hilangkan legend default
+                            },
+                        },
+                    },
+                    plugins: [centerTextPlugin],
+                };
 
-        // Tambahkan label di bawah chart
-        const labels = [
-            { color: "#c6e2ff", text: "Daging Kelapa Putih", value: 35 },
-            { color: "#779ecb", text: "Air Kelapa", value: 20 },
-            { color: "#bcbcbc", text: "Kulit Ari Basah", value: 15 },
-            { color: "#b3cde3", text: "Tempurung Kelapa", value: 20 },
-            { color: "#d3d3d3", text: "Missing", value: 10 },
-        ];
+                // Render Chart
+                const ctx = document.getElementById("myChart").getContext("2d");
+                new Chart(ctx, pieConfig);
 
-        const labelContainer = document.getElementById("chartLabels");
-        labels.forEach((label) => {
-    const div = document.createElement("div");
+                // Tambahkan label di bawah chart
+                const labels = [
+                    { color: "#c6e2ff", text: "Daging Kelapa Putih", value: "{{ $dagingKelapaPutihPercentage }}%" },
+                    { color: "#779ecb", text: "Air Kelapa", value: "{{ $airKelapaPercentage }}%" },
+                    { color: "#bcbcbc", text: "Kulit Ari Basah", value: "{{ $kulitAriBasahPercentage }}%" },
+                    { color: "#b3cde3", text: "Tempurung Kelapa", value: "{{ $tempurungKelapaPercentage }}%" },
+                    { color: "#d3d3d3", text: "Missing", value: "{{ $missingPercentage }}%" },
+                ];
 
-    const colorBox = document.createElement("div");
-    colorBox.style.backgroundColor = label.color;
+                const labelContainer = document.getElementById("chartLabels");
+                labels.forEach((label) => {
+                    const div = document.createElement("div");
 
-    const labelText = document.createElement("span");
-    labelText.className = "label-text";
-    labelText.textContent = label.text;
+                    const colorBox = document.createElement("div");
+                    colorBox.style.backgroundColor = label.color;
 
-    const labelValue = document.createElement("span");
-    labelValue.className = "label-value";
-    labelValue.textContent = label.value;
+                    const labelText = document.createElement("span");
+                    labelText.className = "label-text";
+                    labelText.textContent = label.text;
 
-    div.appendChild(colorBox);
-    div.appendChild(labelText);
-    div.appendChild(labelValue);
-    labelContainer.appendChild(div);
-});
-    });
-// Data jadwal produksi (format: YYYY-MM-DD)
-let productionDays = JSON.parse(localStorage.getItem("productionDays")) || ["2024-08-10", "2024-08-15", "2024-08-20", "2024-08-25"];
+                    const labelValue = document.createElement("span");
+                    labelValue.className = "label-value";
+                    labelValue.textContent = label.value;
 
-// Fungsi untuk menyimpan jadwal produksi ke localStorage
-function saveProductionDays() {
-  localStorage.setItem("productionDays", JSON.stringify(productionDays));
-}
+                    div.appendChild(colorBox);
+                    div.appendChild(labelText);
+                    div.appendChild(labelValue);
+                    labelContainer.appendChild(div);
+                });
+            });
 
-// Fungsi untuk generate kalender
-function generateCalendar() {
-  const calendar = document.getElementById("calendar");
-  const today = new Date();
-  const currentYear = today.getFullYear();
-  const currentMonth = today.getMonth(); // 0-based index
-  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay(); // Hari pertama bulan
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate(); // Jumlah hari dalam bulan
-  const calendarMonth = document.getElementById("calendar-month");
+            let productionDays = JSON.parse(localStorage.getItem("productionDays")) || ["2024-08-10", "2024-08-15",
+                "2024-08-20", "2024-08-25"
+            ];
 
-  // Set header bulan
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June", "July",
-    "August", "September", "October", "November", "December"
-  ];
-  calendarMonth.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            // Fungsi untuk menyimpan jadwal produksi ke localStorage
+            function saveProductionDays() {
+                localStorage.setItem("productionDays", JSON.stringify(productionDays));
+            }
 
-  // Kosongkan kalender
-  calendar.innerHTML = "";
+            // Fungsi untuk generate kalender
+            function generateCalendar() {
+                const calendar = document.getElementById("calendar");
+                const today = new Date();
+                const currentYear = today.getFullYear();
+                const currentMonth = today.getMonth(); // 0-based index
+                const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay(); // Hari pertama bulan
+                const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate(); // Jumlah hari dalam bulan
+                const calendarMonth = document.getElementById("calendar-month");
 
-  // Tambahkan header hari
-  const dayHeaders = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  dayHeaders.forEach(day => {
-    const headerCell = document.createElement("div");
-    headerCell.textContent = day;
-    headerCell.classList.add("calendar-day-header");
-    calendar.appendChild(headerCell);
-  });
+                // Set header bulan
+                const monthNames = [
+                    "January", "February", "March", "April", "May", "June", "July",
+                    "August", "September", "October", "November", "December"
+                ];
+                calendarMonth.textContent = `${monthNames[currentMonth]} ${currentYear}`;
 
-  // Fungsi untuk menambah/menghapus jadwal produksi
-  function toggleProductionDay(date, cell) {
-    if (productionDays.includes(date)) {
-      // Jika sudah ada, hapus dari array
-      productionDays = productionDays.filter(d => d !== date);
-      cell.classList.remove("production-day");
-    } else {
-      // Jika belum ada, tambahkan ke array
-      productionDays.push(date);
-      cell.classList.add("production-day");
-    }
-    saveProductionDays(); // Simpan ke localStorage
-    console.log("Jadwal Produksi Saat Ini:", productionDays);
-  }
+                // Kosongkan kalender
+                calendar.innerHTML = "";
 
-  // Isi awal kosong jika hari pertama bukan Minggu
-  for (let i = 0; i < firstDayOfMonth; i++) {
-    const emptyCell = document.createElement("div");
-    calendar.appendChild(emptyCell);
-  }
+                // Tambahkan header hari
+                const dayHeaders = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+                dayHeaders.forEach(day => {
+                    const headerCell = document.createElement("div");
+                    headerCell.textContent = day;
+                    headerCell.classList.add("calendar-day-header");
+                    calendar.appendChild(headerCell);
+                });
 
-  // Isi hari dalam bulan
-  for (let day = 1; day <= daysInMonth; day++) {
-    const cell = document.createElement("div");
-    cell.textContent = day;
-    cell.classList.add("calendar-cell");
+                // Fungsi untuk menambah/menghapus jadwal produksi
+                function toggleProductionDay(date, cell) {
+                    if (productionDays.includes(date)) {
+                        // Jika sudah ada, hapus dari array
+                        productionDays = productionDays.filter(d => d !== date);
+                        cell.classList.remove("production-day");
+                    } else {
+                        // Jika belum ada, tambahkan ke array
+                        productionDays.push(date);
+                        cell.classList.add("production-day");
+                    }
+                    saveProductionDays(); // Simpan ke localStorage
+                    console.log("Jadwal Produksi Saat Ini:", productionDays);
+                }
 
-    // Format tanggal untuk perbandingan
-    const formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+                // Isi awal kosong jika hari pertama bukan Minggu
+                for (let i = 0; i < firstDayOfMonth; i++) {
+                    const emptyCell = document.createElement("div");
+                    calendar.appendChild(emptyCell);
+                }
 
-    // Tandai hari ini
-    if (formattedDate === today.toISOString().split("T")[0]) {
-      cell.classList.add("today");
-    }
+                // Isi hari dalam bulan
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const cell = document.createElement("div");
+                    cell.textContent = day;
+                    cell.classList.add("calendar-cell");
 
-    // Tandai jadwal produksi
-    if (productionDays.includes(formattedDate)) {
-      cell.classList.add("production-day");
-    }
+                    // Format tanggal untuk perbandingan
+                    const formattedDate =
+                        `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 
-    // Tambahkan event listener untuk klik
-    cell.addEventListener("click", () => toggleProductionDay(formattedDate, cell));
+                    // Tandai hari ini
+                    if (formattedDate === today.toISOString().split("T")[0]) {
+                        cell.classList.add("today");
+                    }
 
-    calendar.appendChild(cell);
-  }
-}
+                    // Tandai jadwal produksi
+                    if (productionDays.includes(formattedDate)) {
+                        cell.classList.add("production-day");
+                    }
 
-window.onload = generateCalendar;
-</script>
-@endsection
+                    // Tambahkan event listener untuk klik
+                    cell.addEventListener("click", () => toggleProductionDay(formattedDate, cell));
+
+                    calendar.appendChild(cell);
+                }
+            }
+
+            window.onload = generateCalendar;
+        </script>
+    @endsection

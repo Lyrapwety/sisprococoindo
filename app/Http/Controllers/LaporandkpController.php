@@ -7,14 +7,32 @@ use App\Models\Laporandkp;
 
 class LaporandkpController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $laporandkps = Laporandkp::all()->map(function ($item) {
+        $search = $request->input('search');
+        $laporandkps = Laporandkp::query();
+
+        if ($search) {
+            $laporandkps->where(function ($query) use ($search) {
+                $query->where('tanggal', 'like', '%' . $search . '%')
+                    ->orWhere('nama_sheller', 'like', '%' . $search . '%')
+                    ->orWhere('nama_parer', 'like', '%' . $search . '%');
+            });
+        }
+
+        $laporandkps = $laporandkps->get()->map(function ($item) {
             $item->sheller_count = Laporandkp::where('nama_sheller', $item->nama_sheller)->count();
             return $item;
         });
+
+        if ($request->ajax()) {
+            return response()->json(['data' => $laporandkps]);
+        }
+
         return view('laporan.dkp', compact('laporandkps'));
     }
+
+
 
     public function store(Request $request)
     {

@@ -417,7 +417,7 @@
                         <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png"
                             alt="export" /> Export
                     </button>
-                    <button id="openFormBtn" class="btn add" onclick="openModal()">+ Tambah Data</button>
+                    <button id="openFormBtn" class="btn add">+ Tambah Data</button>
                 </div>
             </div>
 
@@ -495,7 +495,7 @@
             <!-- Modal -->
             <div id="modal" class="modal">
                 <div class="modal-content">
-                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                    <span class="close">&times;</span>
                     <h2>Form Input Stok Kelapa Bulat</h2>
 
                     <form id="stokForm" action="{{ route('card_stock.KB_Kelapa_Bulat.store') }}" method="POST" enctype="multipart/form-data">
@@ -601,20 +601,49 @@
                     });
                 });
 
-                function openModal() {
-                    document.getElementById("modal").style.display = "flex";
-                }
+                document.addEventListener("DOMContentLoaded", function() {
+                    const openFormBtn = document.getElementById('openFormBtn');
+                    const modal = document.getElementById('modal');
+                    const closeModalBtn = document.querySelector('.close');
+                    const form = document.querySelector('form');
 
-                function closeModal() {
-                    document.getElementById("modal").style.display = "none";
-                }
+                    openFormBtn.addEventListener('click', function() {
+                        modal.style.display = 'flex';
+                    });
 
-                window.onclick = function(event) {
-                    const modal = document.getElementById("modal");
-                    if (event.target === modal) {
-                        modal.style.display = "none";
-                    }
-                };
+                    closeModalBtn.addEventListener('click', function() {
+                        modal.style.display = 'none';
+                    });
+
+                    window.addEventListener('click', function(event) {
+                        if (event.target === modal) {
+                            modal.style.display = 'none';
+                        }
+                    });
+
+                    document.querySelectorAll('.edit').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+
+                            fetch(`/card_stock/KB_Kelapa_Bulat/${id}/edit`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    document.getElementById("id").value = data.id;
+                                    document.getElementById("activity_type").value = data.activity_type;
+                                    document.getElementById("tanggal").value = data.tanggal;
+                                    document.getElementById("trip").value = data.trip;
+                                    document.getElementById("stok").value = data.stok;
+                                    document.getElementById("remark").value = data.remark;
+
+                                    // Tampilkan modal untuk edit
+                                    modal.style.display = 'flex';
+                                })
+                                .catch(error => {
+                                    console.error("Error fetching data:", error);
+                                });
+                        });
+                    });
+                });
                 const data = [{
                         no: 1,
                         tanggal: "12 Agustus 2024",

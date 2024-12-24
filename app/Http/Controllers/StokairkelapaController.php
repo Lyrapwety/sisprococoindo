@@ -24,6 +24,7 @@ class StokairkelapaController extends Controller
         'making_product' => 'nullable|numeric',
         'jumlah' => 'nullable|numeric',
         'jenis_berat' => 'nullable|string|max:255',
+        'briz' => 'nullable|string|max:255',
         'fat' => 'nullable|numeric',
         'ph' => 'nullable|numeric',
     ]);
@@ -73,6 +74,7 @@ class StokairkelapaController extends Controller
         'id_laporan_air_kelapa' => $request->id_laporan_air_kelapa,
         'tanggal' => $request->tanggal,
         'keterangan' => $request->keterangan,
+        'briz' => $request->briz,
         'activity_type' => $activity_type,
         'making_product' => $making_product,
         'jenis_berat' => $jenisBerat,

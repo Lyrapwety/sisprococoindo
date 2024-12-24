@@ -67,6 +67,24 @@ class StokkbController extends Controller
         return redirect()->route('card_stock.KB_Kelapa_Bulat.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
+    public function edit($id)
+    {
+        // Find the record by its ID
+        $laporan = StokKbKelapaBulat::findOrFail($id);
+
+        // Return the data in JSON format
+        return response()->json([
+            'tanggal' => $laporan->tanggal,
+            'remark' => $laporan->remark,
+            'activity_type' => $laporan->activity_type,
+            'trip' => $laporan->trip,
+            'stok' => $laporan->stok,
+            'begin' => $laporan->begin,
+            'in' => $laporan->in,
+            'out' => $laporan->out,
+            'remain' => $laporan->remain,
+        ]);
+    }
 
 
     public function destroy($id)

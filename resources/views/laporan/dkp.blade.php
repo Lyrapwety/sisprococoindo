@@ -741,8 +741,8 @@
                     <option>13 Agustus 2024</option>
                 </select>
                 <div class="input-icon">
-                    <input type="text" placeholder="Cari Data" class="search-input">
-                    <i class="fas fa-search"></i> <!-- Ikon pencarian (search icon) -->
+                    <input type="text" id="searchInput" placeholder="Cari Data" class="search-input">
+                    <i class="fas fa-search"></i>
                 </div>
                 <div class="actions">
                     @if (session('success'))
@@ -774,7 +774,7 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="laporanTableBody">
                         @foreach ($laporandkps as $laporandkp)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -1053,6 +1053,51 @@
                 document.getElementById('timbangan_hasil_kerja_parer').value = total;
                 document.getElementById('total-label').textContent = 'Total: ' + total + ' kg';
             }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                const searchInput = document.getElementById('searchInput');
+                const tableBody = document.getElementById('laporanTableBody');
+
+                // Listen for input event on the search field
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = searchInput.value;
+
+                    // Perform AJAX request
+                    fetch('{{ route('laporan.dkp.index') }}?search=' + searchTerm)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Clear the table body
+                            tableBody.innerHTML = '';
+
+                            // Loop through the returned data and populate the table
+                            data.data.forEach((item, index) => {
+                                const row = document.createElement('tr');
+
+                                row.innerHTML = `
+                                    <td>${index + 1}</td>
+                                    <td>${item.tanggal}</td>
+                                    <td>${item.nama_sheller}</td>
+                                    <td>${item.nama_parer}</td>
+                                    <td>${item.timbangan_hasil_kerja_parer}</td>
+                                    <td>${item.hasil_kerja_sheller} ${item.sheller_count}</td>
+                                    <td><button class="detail-btn" id="openModal2" data-id="${item.id}">Hasil Timbangan</button></td>
+                                    <td>
+                                        <button class="edit" data-id="${item.id}">Edit</button>
+                                        <form action="/laporan/dkp/${item.id}" method="POST" style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="delete" data-id="${item.id}">Delete</button>
+                                        </form>
+                                    </td>
+                                `;
+
+                                // Append the row to the table body
+                                tableBody.appendChild(row);
+                            });
+                        })
+                        .catch(error => console.error('Error fetching data:', error));
+                });
+            });
 
 
             document.addEventListener("DOMContentLoaded", function() {

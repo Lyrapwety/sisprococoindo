@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Cocoindo') }}</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@
         background-color: #104367; /* Warna latar belakang tombol */
         color: white; /* Warna teks tombol */
         cursor: pointer; /* Menunjukkan bahwa tombol dapat diklik */
-        font-size: 14px;  
+        font-size: 14px;
     }
     .custom-button:hover{
         background-color: #3c79c9;
@@ -50,7 +50,7 @@
             <div class="w-full max-w-md p-6">
                 <img src="img/logonobackground.png" alt="Cocoindo Logo" class="mx-auto mb-4 w-20 h-15">
                 <h1 class="text-center mb-4 text-l font-semibold text-gray-700">SISTEM DATA PRODUKSI<br>PT. COCOINDO ABADI SUKSES</h1>
-                
+
                 <!-- Slot untuk konten tambahan (Login/Register Form) -->
                 <div>
                     {{ $slot }}

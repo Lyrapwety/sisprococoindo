@@ -2,30 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StokDkp;
+use App\Models\StokKulitAriBasah;
+use App\Models\StokAirKelapa;
+use App\Models\StokTempurungBasah;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\Pegawai;
-use Illuminate\Support\Facades\DB;
-
 
 class DashboardController extends Controller
 {
+    public function dashboard()
+    {
+        $today = Carbon::today()->toDateString();
 
-public function dashboard()
-{
-    $departemenCounts = Pegawai::select('departemen', DB::raw('COUNT(*) as count'))
-        ->whereIn('departemen', ['Produksi', 'Kupas', 'Gudang', 'Limbah'])
-        ->groupBy('departemen')
-        ->get();
+        $dagingKelapaPutih = StokDkp::where('activity_type', 'hasil_produksi')
+            ->where('created_at', $today)
+            ->sum('in');
 
-    $data = [
-        'Produksi' => $departemenCounts->firstWhere('departemen', 'Produksi')->count ?? 0,
-        'Kupas' => $departemenCounts->firstWhere('departemen', 'Kupas')->count ?? 0,
-        'Gudang' => $departemenCounts->firstWhere('departemen', 'Gudang')->count ?? 0,
-        'Limbah' => $departemenCounts->firstWhere('departemen', 'Limbah')->count ?? 0,
-    ];
+        $airKelapa = StokAirKelapa::where('activity_type', 'produksi')
+            ->where('created_at', $today)
+            ->sum('in_box');
 
-    return view('dashboard', compact('data'));
-}
+        $kulitAriBasah = StokKulitAriBasah::where('activity_type', 'hasil_produksi')
+            ->where('created_at', $today)
+            ->sum('in');
 
+        $tempurungKelapa = StokTempurungBasah::where('activity_type', 'hasil_produksi')
+            ->where('created_at', $today)
+            ->sum('in');
 
+        $total = $dagingKelapaPutih + $airKelapa + $kulitAriBasah + $tempurungKelapa;
+
+        $dagingKelapaPutihPercentage = ($total > 0) ? number_format(($dagingKelapaPutih / $total) * 100, 2) : 0;
+        $airKelapaPercentage = ($total > 0) ? number_format(($airKelapa / $total) * 100, 2) : 0;
+        $kulitAriBasahPercentage = ($total > 0) ? number_format(($kulitAriBasah / $total) * 100, 2) : 0;
+        $tempurungKelapaPercentage = ($total > 0) ? number_format(($tempurungKelapa / $total) * 100, 2) : 0;
+
+        $missingPercentage = 100 - ($dagingKelapaPutihPercentage + $airKelapaPercentage + $kulitAriBasahPercentage + $tempurungKelapaPercentage);
+
+        return view('dashboard', compact(
+            'dagingKelapaPutihPercentage',
+            'airKelapaPercentage',
+            'kulitAriBasahPercentage',
+            'tempurungKelapaPercentage',
+            'missingPercentage'
+        ));
+    }
 }
