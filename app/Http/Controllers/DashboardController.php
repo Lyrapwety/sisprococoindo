@@ -13,22 +13,16 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        $today = Carbon::today('Asia/Jakarta')->toDateString();
-
         $dagingKelapaPutih = StokDkp::where('activity_type', 'hasil_produksi')
-            ->where('created_at', $today)
             ->sum('in');
 
         $airKelapa = StokAirKelapa::where('activity_type', 'produksi')
-            ->where('created_at', $today)
             ->sum('in_box');
 
         $kulitAriBasah = StokKulitAriBasah::where('activity_type', 'hasil_produksi')
-            ->where('created_at', $today)
             ->sum('in');
 
         $tempurungKelapa = StokTempurungBasah::where('activity_type', 'hasil_produksi')
-            ->where('created_at', $today)
             ->sum('in');
 
         $total = $dagingKelapaPutih + $airKelapa + $kulitAriBasah + $tempurungKelapa;

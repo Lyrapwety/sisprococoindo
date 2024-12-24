@@ -258,7 +258,7 @@
     <div class="mainbar">
         <div class="containera">
             <div class="header">
-                <h2>Selamat Datang, {{ Auth::user()->name }}</h2>
+                <h2>Selamat Datang,<b> {{ Auth::user()->name }}</b></h2>
             </div>
             <div class="content-container">
 
