@@ -12,7 +12,6 @@ class KelapabulatController extends Controller
     public function index(Request $request)
     {
         $now = Carbon::now('Asia/Jakarta');
-
         $tanggal = $request->query('tanggal');
         $stokkelapabulats = Kelapabulat::query();
 
@@ -24,8 +23,13 @@ class KelapabulatController extends Controller
 
         $totalQtyToday = Kelapabulat::where('tanggal', $now->toDateString())->sum('qty');
 
-        return view('card_stock.kelapa_bulat', compact('stokkelapabulats', 'totalQtyToday'));
+        $awalSisaTanggal = Kelapabulat::where('tanggal', '<', $now->toDateString())->sum('qty');
+
+        $sisaHariIni = $awalSisaTanggal - $totalQtyToday;
+
+        return view('card_stock.kelapa_bulat', compact('stokkelapabulats', 'totalQtyToday', 'awalSisaTanggal', 'sisaHariIni'));
     }
+
 
 
 

@@ -53,6 +53,12 @@ class LaporandkpController extends Controller
             'total_potongan_keranjang' => 'nullable|string|max:255',
         ]);
 
+        $berat_per_keranjang = 5;
+        $persentase_potongan = 10;
+
+        $berat_keranjang = $request->total_keranjang * $berat_per_keranjang;
+        $total_potongan_keranjang = $berat_keranjang * $persentase_potongan / 100;
+
         // Simpan data ke database
         Laporandkp::create([
             'id_kelapa_bulat' => $request->id_kelapa_bulat,
@@ -65,13 +71,31 @@ class LaporandkpController extends Controller
             'hasil_kerja_sheller' => $request->hasil_kerja_sheller,
             'total_keranjang' => $request->total_keranjang,
             'tipe_keranjang' => $request->tipe_keranjang,
-            'berat_keranjang' => $request->berat_keranjang,
-            'total_potongan_keranjang' => $request->total_potongan_keranjang,
+            'berat_keranjang' => $berat_keranjang,
+            'total_potongan_keranjang' => $total_potongan_keranjang,
         ]);
 
         // Redirect dengan pesan sukses
         return redirect()->route('laporan.dkp.index')->with('success', 'Data berhasil ditambahkan!');
     }
+
+    public function show($id)
+    {
+        $laporan = Laporandkp::findOrFail($id);
+
+        return response()->json([
+            'id' => $laporan->id,
+            'nama_parer' => $laporan->nama_parer,
+            'potongan_keranjang' => [
+                [
+                    'jumlah' => 1,
+                    'berat' => 2,
+                    'total' => 3,
+                ],
+            ],
+        ]);
+    }
+
 
     public function edit($id)
     {
@@ -80,13 +104,17 @@ class LaporandkpController extends Controller
         return response()->json([
             'id' => $laporan->id,
             'nama_sheller' => $laporan->nama_sheller,
-            'tanggal' => $laporan->tanggal,
             'nama_parer' => $laporan->nama_parer,
+            'tanggal' => $laporan->tanggal,
             'total_keranjang' => $laporan->total_keranjang,
+            'berat_keranjang' => $laporan->berat_keranjang,
+            'total_potongan_keranjang' => $laporan->total_potongan_keranjang,
             'tipe_keranjang' => $laporan->tipe_keranjang,
-            'hasil_kerja_parer' => json_decode($laporan->hasil_kerja_parer, true), // Pastikan tipe data sesuai
+            'hasil_kerja_parer' => json_decode($laporan->hasil_kerja_parer, true),
+            'timbangan_hasil_kerja_parer' => $laporan->timbangan_hasil_kerja_parer,
         ]);
     }
+
 
     public function destroy($id)
     {

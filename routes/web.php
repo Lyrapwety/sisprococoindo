@@ -51,6 +51,8 @@ Route::prefix('laporan')->name('laporan.')->group(function () {
     Route::post('dkp', [LaporandkpController::class, 'store'])->name('dkp.store');
     Route::delete('dkp/{id}', [LaporandkpController::class, 'destroy'])->name('dkp.destroy');
     Route::get('dkp/{id}/edit', [LaporandkpController::class, 'edit'])->name('dkp.edit');
+    Route::get('/laporan/dkp/{id}', [LaporandkpController::class, 'show'])->name('laporan.dkp.show');
+
 
     //dkp reject
     Route::resource('dkp_reject', LaporandkprejectController::class);

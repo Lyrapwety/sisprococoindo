@@ -17,7 +17,7 @@ class RekapkulitariController extends Controller
             return [
                 'id_kelapa_bulat' => $item->id_kelapa_bulat,
                 'no' => $item->no,
-                'tanggal' => $item->tanggal,
+                'tanggal' => \Carbon\Carbon::parse($item->tanggal)->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
                 'nama_pegawai' => $item->nama_pegawai,
                 'sheller_parer' => $item->sheller_parer,
                 'bruto' => $item->bruto,

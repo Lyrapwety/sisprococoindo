@@ -708,7 +708,7 @@
                                     <div class="form-item">
                                         <label for="tipe-keranjang">Tipe Keranjang</label>
                                         <select id="tipe_keranjang" name="tipe_keranjang"
-                                            value="{{ old('tipe_keranjang') }}" class="custom-select">
+                                            value="{{ old('tipe_keranjang') }}" class="form-control" @error('tipe_keranjang') is-invalid @enderror">
                                             <option value="Keranjang Besar">Keranjang Besar</option>
                                             <option value="Keranjang Kecil">Keranjang Kecil</option>
                                         </select>

@@ -1170,55 +1170,65 @@
                 }
             });
 
-            // Close modal
-            document.querySelector('.close').addEventListener('click', () => {
-                document.getElementById('modal').style.display = 'none';
-            });
+            // Fungsi untuk membuka modal kedua (modal2) dengan data dari database
+            function openModal2(event) {
+                const modal2 = document.getElementById('modal2');
+                const dataId = event.target.getAttribute('data-id');
 
-            const modal = document.getElementById('modal');
-            const openFormBtn = document.getElementById('openFormBtn');
-            const closeBtn = document.querySelector('.close');
+                if (dataId) {
+                    fetch(`/laporan/dkp/${dataId}/edit`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Isi modal dengan data dari respons
+                            document.getElementById('namaParer1').value = data.nama_parer;
 
-            // Fungsi untuk membuka modal utama
-            openFormBtn.addEventListener('click', () => {
-                modal.style.display = 'block';
-            });
+                            // Contoh mengisi tabel potongan keranjang
+                            const tableBody = document.querySelector('.tabel-potongan2 tbody');
+                            tableBody.innerHTML = `
+                                <tr>
+                                    <td>${data.total_keranjang}</td>
+                                    <td>${data.berat_keranjang}</td>
+                                    <td>${data.total_potongan_keranjang}</td>
+                                </tr>
+                            `;
 
-            // Fungsi untuk menutup modal utama
-            closeBtn.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
+                            // Contoh mengisi tabel hasil kerja
+                            const hasilTableBody = document.querySelector('.tabel-hasil2 tbody');
+                            hasilTableBody.innerHTML = `
+                                <tr>
+                                    <td>${data.tanggal}</td>
+                                    ${(data.hasil_kerja_parer || []).map(hk => `<td>${hk}</td>`).join('')}
+                                    <td>${data.timbangan_hasil_kerja_parer}</td></td>
+                                </tr>
+                            `;
 
-            // Fungsi untuk menutup modal jika pengguna klik di luar konten modal
-            window.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
+                            // Tampilkan modal
+                            modal2.style.display = 'block';
+                        })
+                        .catch(error => {
+                            console.error('Terjadi kesalahan:', error);
+                            alert('Gagal memuat data. Silakan coba lagi.');
+                        });
                 }
-            });
-
-            // Fungsi untuk membuka modal kedua (modal2)
-            function openModal2() {
-                const modal2 = document.getElementById('modal2');
-                modal2.style.display = 'block';
             }
 
-            // Fungsi untuk menutup modal kedua (modal2)
-            function closeModal2() {
-                const modal2 = document.getElementById('modal2');
-                modal2.style.display = 'none';
-            }
+// Fungsi untuk menutup modal kedua (modal2)
+function closeModal2() {
+    const modal2 = document.getElementById('modal2');
+    modal2.style.display = 'none';
+}
 
-            // Tambahkan event listener untuk tombol yang membuka modal kedua
-            const openModalButton = document.getElementById('openModal2');
-            if (openModalButton) {
-                openModalButton.addEventListener('click', openModal2);
-            }
+// Tambahkan event listener untuk tombol yang membuka modal kedua
+document.querySelectorAll('.detail-btn').forEach(button => {
+    button.addEventListener('click', openModal2);
+});
 
-            // Tambahkan event listener untuk tombol yang menutup modal kedua
-            const closeModalButton = document.getElementById('closeModal2');
-            if (closeModalButton) {
-                closeModalButton.addEventListener('click', closeModal2);
-            }
+// Tambahkan event listener untuk tombol yang menutup modal kedua
+const closeModalButton = document.getElementById('closeModal2');
+if (closeModalButton) {
+    closeModalButton.addEventListener('click', closeModal2);
+}
+
 
             // Variabel penghitung untuk anggota "Parer"
             let anggotaCount = 2; // Mulai dari 2 karena elemen pertama sudah ada

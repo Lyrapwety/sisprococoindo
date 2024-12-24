@@ -351,19 +351,24 @@
                     <tr>
                         <td colspan="2" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
                             Awal / Sisa Tanggal</td>
-                        <td colspan="3" style="text-align: center; border-right: 1px solid black;">3,650</td>
-                        <td colspan="5" style="text-align: center;  font-weight: bold; border-right: 1px solid black;">
+                        <td colspan="3" style="text-align: center; border-right: 1px solid black;">
+                            {{ number_format($awalSisaTanggal, 0, ',', '.') }}</td> <!-- Menampilkan Awal / Sisa Tanggal -->
+                        <td colspan="5" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
                             Pengisian Hari Ini</td>
-                        <td colspan="4" style="text-align: center; border-right: 1px solid black;">{{ $totalQtyToday }}</td>
+                        <td colspan="4" style="text-align: center; border-right: 1px solid black;">
+                            {{ number_format($totalQtyToday, 0, ',', '.') }}</td> <!-- Menampilkan Pemakaian Hari Ini -->
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
                             Pemakaian Hari Ini</td>
-                        <td colspan="3" style="text-align: center; border-right: 1px solid black;">19,080</td>
-                        <td colspan="5" style="text-align: center;  font-weight: bold; border-right: 1px solid black;">
+                        <td colspan="3" style="text-align: center; border-right: 1px solid black;">
+                            {{ number_format($totalQtyToday, 0, ',', '.') }}</td> <!-- Pemakaian Hari Ini (sudah ada) -->
+                        <td colspan="5" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
                             Sisa Hari Ini</td>
-                        <td colspan="4" style="text-align: center; border-right: 1px solid black;">5,751</td>
+                        <td colspan="4" style="text-align: center; border-right: 1px solid black;">
+                            {{ number_format($sisaHariIni, 0, ',', '.') }}</td> <!-- Menampilkan Sisa Hari Ini -->
                     </tr>
+
                 </tfoot>
             </table>
 
