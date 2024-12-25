@@ -101,14 +101,20 @@ class LaporandkpController extends Controller
     {
         $laporan = Laporandkp::findOrFail($id);
 
+        $berat_per_keranjang = 5;
+        $persentase_potongan = 10;
+
+        $berat_keranjang = $laporan->total_keranjang * $berat_per_keranjang;
+        $total_potongan_keranjang = $berat_keranjang * $persentase_potongan / 100;
+
         return response()->json([
             'id' => $laporan->id,
             'nama_sheller' => $laporan->nama_sheller,
             'nama_parer' => $laporan->nama_parer,
             'tanggal' => $laporan->tanggal,
             'total_keranjang' => $laporan->total_keranjang,
-            'berat_keranjang' => $laporan->berat_keranjang,
-            'total_potongan_keranjang' => $laporan->total_potongan_keranjang,
+            'berat_keranjang' => $berat_keranjang,
+            'total_potongan_keranjang' => $total_potongan_keranjang,
             'tipe_keranjang' => $laporan->tipe_keranjang,
             'hasil_kerja_parer' => json_decode($laporan->hasil_kerja_parer, true),
             'timbangan_hasil_kerja_parer' => $laporan->timbangan_hasil_kerja_parer,

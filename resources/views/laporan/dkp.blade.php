@@ -2,7 +2,6 @@
 
 @section('content')
     <style>
-
         .mainbar {
             flex: 1%;
             background-color: #D9D9D9 !important;
@@ -12,6 +11,7 @@
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
         }
+
         .container {
             padding: 20px;
             background-color: #F7F7F7;
@@ -839,7 +839,8 @@
                                         <label for="nama-sheller-1">Nama Sheller</label>
                                         <input type="text"
                                             class="form-control @error('nama_sheller') is-invalid @enderror"
-                                            id="nama_sheller" name="nama_sheller" value="{{ old('nama_sheller') }}" required>
+                                            id="nama_sheller" name="nama_sheller" value="{{ old('nama_sheller') }}"
+                                            required>
                                         @error('nama_sheller')
                                             <div class="alert alert-danger mt-2">
                                                 {{ $message }}
@@ -864,13 +865,14 @@
 
 
                                 <div id="anggota-parer-container">
-                                    <div class="anggota-block">
+                                    <div class="anggota-block template">
                                         <div class="form-row">
                                             <div class="form-group">
                                                 <label for="anggota-parer-1">Anggota Parer 1</label>
                                                 <input type="text"
                                                     class="form-control @error('nama_parer') is-invalid @enderror"
-                                                    id="nama_parer" name="nama_parer" value="{{ old('nama_parer') }}" required>
+                                                    id="nama_parer" name="nama_parer" value="{{ old('nama_parer') }}"
+                                                    required>
                                                 @error('nama_parer')
                                                     <div class="alert alert-danger mt-2">
                                                         {{ $message }}
@@ -910,27 +912,21 @@
                                                 @for ($i = 0; $i < 12; $i++)
                                                     <div class="col-1 text-center">
                                                         <!-- Menempatkan nomor di atas input -->
-                                                        <label for="hasil_kerja_parer_{{ $i }}" style="display: block;">{{ $i + 1 }}</label>
-                                                        <input
-                                                            class="basket-input"
-                                                            type="number"
+                                                        <label for="hasil_kerja_parer_{{ $i }}"
+                                                            style="display: block;">{{ $i + 1 }}</label>
+                                                        <input class="basket-input" type="number"
                                                             name="hasil_kerja_parer[]"
                                                             id="hasil_kerja_parer_{{ $i }}"
                                                             value="{{ old('hasil_kerja_parer.' . $i, 0) }}"
-                                                            oninput="calculateTotal()"
-                                                        >
+                                                            oninput="calculateTotal()">
                                                     </div>
                                                 @endfor
                                             </div>
                                             <div class="total-container">
                                                 <label for="timbangan_hasil_kerja_parer">Total:</label>
-                                                <input
-                                                    type="number"
-                                                    id="timbangan_hasil_kerja_parer"
+                                                <input type="number" id="timbangan_hasil_kerja_parer"
                                                     name="timbangan_hasil_kerja_parer"
-                                                    value="{{ old('timbangan_hasil_kerja_parer', 0) }}"
-                                                    readonly
-                                                >
+                                                    value="{{ old('timbangan_hasil_kerja_parer', 0) }}" readonly>
                                             </div>
                                             @error('hasil_kerja_parer')
                                                 <div class="alert alert-danger mt-2">
@@ -944,7 +940,7 @@
                                 </div>
 
                                 <div class="action-buttons">
-                                    <button type="button" class="add-member-btn" onclick="addAnggotaParer()">+ Anggota
+                                    <button type="button" class="add-member-btn">+ Anggota
                                         Parer</button>
                                     <button type="submit" class="submit-btn">Kirim</button>
                                 </div>
@@ -1042,17 +1038,61 @@
 
     @section('scripts')
         <script>
-            function calculateTotal() {
-                const inputs = document.querySelectorAll('.basket-input');
-                let total = 0;
+            document.querySelector('.add-member-btn').addEventListener('click', function() {
+                const container = document.getElementById('anggota-parer-container');
+                const template = container.querySelector('.anggota-block.template');
 
+                // Clone the template
+                const newMemberBlock = template.cloneNode(true);
+                newMemberBlock.classList.remove('template'); // Remove the template class
+
+                const inputs = newMemberBlock.querySelectorAll('input, select, label');
+                const blockIndex = container.querySelectorAll('.anggota-block').length;
                 inputs.forEach(input => {
-                    total += parseFloat(input.value) || 0; // Tambahkan angka atau 0 jika kosong
+                    if (input.id) input.id = input.id.replace(/\d+$/, blockIndex);
+                    if (input.name) input.name = input.name.replace(/\[\d*\]/,
+                    `[${blockIndex}]`);
+                    if (input.tagName === 'LABEL') input.textContent = input.textContent.replace(/\d+$/,
+                        blockIndex + 1);
+                    if (input.type === 'number') input.value = 0;
+                    if (input.type === 'text') input.value = '';
                 });
 
-                document.getElementById('timbangan_hasil_kerja_parer').value = total;
-                document.getElementById('total-label').textContent = 'Total: ' + total + ' kg';
+                // Add the new block to the container
+                container.appendChild(newMemberBlock);
+            });
+
+            function calculateTotal() {
+                const container = document.getElementById('anggota-parer-container');
+                const allBlocks = container.querySelectorAll('.anggota-block');
+                let grandTotal = 0;
+
+                allBlocks.forEach(block => {
+                    const inputs = block.querySelectorAll('.basket-input');
+                    let blockTotal = 0;
+
+                    inputs.forEach(input => {
+                        blockTotal += parseFloat(input.value) || 0;
+                    });
+
+                    const blockTotalField = block.querySelector('#timbangan_hasil_kerja_parer');
+                    blockTotalField.value = blockTotal;
+
+                    grandTotal += blockTotal;
+                });
+
+                // Update the global total label
+                const totalLabel = document.getElementById('total-label');
+                totalLabel.textContent = `Total: ${grandTotal} kg`;
             }
+
+            // Attach event listener to all basket inputs
+            document.addEventListener('input', function(event) {
+                if (event.target.classList.contains('basket-input')) {
+                    calculateTotal();
+                }
+            });
+
 
             document.addEventListener("DOMContentLoaded", function() {
                 const searchInput = document.getElementById('searchInput');
@@ -1138,11 +1178,14 @@
                                 document.getElementById("nama_sheller").value = data.nama_sheller;
                                 document.getElementById("tanggal").value = data.tanggal;
                                 document.getElementById("nama_parer").value = data.nama_parer;
-                                document.getElementById("total_keranjang").value = data.total_keranjang;
-                                document.getElementById("tipe_keranjang").value = data.tipe_keranjang;
+                                document.getElementById("total_keranjang").value = data
+                                    .total_keranjang;
+                                document.getElementById("tipe_keranjang").value = data
+                                    .tipe_keranjang;
 
                                 // Isi nilai untuk hasil kerja netto
-                                const hasilKerjaParerInputs = document.querySelectorAll("[name='hasil_kerja_parer[]']");
+                                const hasilKerjaParerInputs = document.querySelectorAll(
+                                    "[name='hasil_kerja_parer[]']");
                                 hasilKerjaParerInputs.forEach((input, index) => {
                                     input.value = data.hasil_kerja_parer[index] || 0;
                                 });
@@ -1212,22 +1255,22 @@
                 }
             }
 
-        // Fungsi untuk menutup modal kedua (modal2)
-        function closeModal2() {
-            const modal2 = document.getElementById('modal2');
-            modal2.style.display = 'none';
-        }
+            // Fungsi untuk menutup modal kedua (modal2)
+            function closeModal2() {
+                const modal2 = document.getElementById('modal2');
+                modal2.style.display = 'none';
+            }
 
-        // Tambahkan event listener untuk tombol yang membuka modal kedua
-        document.querySelectorAll('.detail-btn').forEach(button => {
-            button.addEventListener('click', openModal2);
-        });
+            // Tambahkan event listener untuk tombol yang membuka modal kedua
+            document.querySelectorAll('.detail-btn').forEach(button => {
+                button.addEventListener('click', openModal2);
+            });
 
-        // Tambahkan event listener untuk tombol yang menutup modal kedua
-        const closeModalButton = document.getElementById('closeModal2');
-        if (closeModalButton) {
-            closeModalButton.addEventListener('click', closeModal2);
-        }
+            // Tambahkan event listener untuk tombol yang menutup modal kedua
+            const closeModalButton = document.getElementById('closeModal2');
+            if (closeModalButton) {
+                closeModalButton.addEventListener('click', closeModal2);
+            }
 
 
             // Variabel penghitung untuk anggota "Parer"
