@@ -383,7 +383,7 @@
                                  <td><button>{{ $pegawai->status }}</button>
                                  </td>
                                  <td>
-                                    <a href="{{ route ('edit_data_pegawai') }}"><button class="edit">Edit</button></a>
+                                    <a href="{{ route('data_pegawai.edit', $pegawai->id) }}"><button class="edit">Edit</button></a>
                                      <form action="{{ route('data_pegawai.destroy', $pegawai->id) }}"
                                          method="POST" style="display: inline;">
                                          @csrf

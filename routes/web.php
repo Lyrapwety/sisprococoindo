@@ -214,9 +214,9 @@ Route::prefix('data_pegawai')->name('data_pegawai.')->group(function () {
     Route::get('/tambah_data_pegawai', [DatapegawaiController::class, 'tambah_data_pegawai'])->name('tambah_data_pegawai');
     Route::post('/store', [DatapegawaiController::class, 'store'])->name('store');
     Route::delete('/{id}', [DatapegawaiController::class, 'destroy'])->name('destroy');
+    Route::get('/edit/{id}', [DatapegawaiController::class, 'edit'])->name('edit'); 
+    Route::put('/update/{id}', [DatapegawaiController::class, 'update'])->name('update');
 });
 
-
-Route::get('/edit_data_pegawai', [DatapegawaiController::class, 'edit_data_pegawai'])->name('edit_data_pegawai');
 
 require __DIR__.'/auth.php';
