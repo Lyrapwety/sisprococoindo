@@ -53,13 +53,23 @@ class LaporandkpController extends Controller
             'total_potongan_keranjang' => 'nullable|string|max:255',
         ]);
 
-        $berat_per_keranjang = 5;
-        $persentase_potongan = 10;
+        $berat_per_keranjang = 0;
+        if ($request->tipe_keranjang == 'Keranjang Besar') {
+            $berat_per_keranjang = 3.8;
+        } elseif ($request->tipe_keranjang == 'Keranjang Kecil') {
+            $berat_per_keranjang = 1.3;
+        }
 
-        $berat_keranjang = $request->total_keranjang * $berat_per_keranjang;
-        $total_potongan_keranjang = $berat_keranjang * $persentase_potongan / 100;
+        $total_potongan_keranjang = $request->total_keranjang * $berat_per_keranjang;
 
-        // Simpan data ke database
+        // Here is where you might need to loop through a certain array (for example, if you're processing `hasil_kerja_parer`)
+        $i = 0; // Initialize $i before the loop
+        foreach ($request->hasil_kerja_parer as $value) {
+            // Perform any necessary logic using $i as the index
+            // For example, you could store something or do further calculations
+            $i++;
+        }
+
         Laporandkp::create([
             'id_kelapa_bulat' => $request->id_kelapa_bulat,
             'no' => $request->no,
@@ -71,13 +81,17 @@ class LaporandkpController extends Controller
             'hasil_kerja_sheller' => $request->hasil_kerja_sheller,
             'total_keranjang' => $request->total_keranjang,
             'tipe_keranjang' => $request->tipe_keranjang,
-            'berat_keranjang' => $berat_keranjang,
+            'berat_keranjang' => $berat_per_keranjang,
             'total_potongan_keranjang' => $total_potongan_keranjang,
         ]);
 
         // Redirect dengan pesan sukses
         return redirect()->route('laporan.dkp.index')->with('success', 'Data berhasil ditambahkan!');
     }
+    
+
+
+
 
     public function show($id)
     {
@@ -101,11 +115,12 @@ class LaporandkpController extends Controller
     {
         $laporan = Laporandkp::findOrFail($id);
 
-        $berat_per_keranjang = 5;
-        $persentase_potongan = 10;
-
-        $berat_keranjang = $laporan->total_keranjang * $berat_per_keranjang;
-        $total_potongan_keranjang = $berat_keranjang * $persentase_potongan / 100;
+        $berat_per_keranjang = 0;
+        if ($laporan->tipe_keranjang == 'Keranjang Besar') {
+            $berat_per_keranjang = 3.8;
+        } elseif ($laporan->tipe_keranjang == 'Keranjang Kecil') {
+            $berat_per_keranjang = 1.3;
+        }
 
         return response()->json([
             'id' => $laporan->id,
@@ -113,13 +128,15 @@ class LaporandkpController extends Controller
             'nama_parer' => $laporan->nama_parer,
             'tanggal' => $laporan->tanggal,
             'total_keranjang' => $laporan->total_keranjang,
-            'berat_keranjang' => $berat_keranjang,
-            'total_potongan_keranjang' => $total_potongan_keranjang,
+            'berat_keranjang' => $berat_per_keranjang,
+            'total_potongan_keranjang' => $laporan->total_potongan_keranjang,
             'tipe_keranjang' => $laporan->tipe_keranjang,
             'hasil_kerja_parer' => json_decode($laporan->hasil_kerja_parer, true),
             'timbangan_hasil_kerja_parer' => $laporan->timbangan_hasil_kerja_parer,
         ]);
     }
+
+
 
 
     public function destroy($id)

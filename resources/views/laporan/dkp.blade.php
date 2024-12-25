@@ -911,7 +911,6 @@
                                             <div class="row">
                                                 @for ($i = 0; $i < 12; $i++)
                                                     <div class="col-1 text-center">
-                                                        <!-- Menempatkan nomor di atas input -->
                                                         <label for="hasil_kerja_parer_{{ $i }}"
                                                             style="display: block;">{{ $i + 1 }}</label>
                                                         <input class="basket-input" type="number"
@@ -1051,7 +1050,7 @@
                 inputs.forEach(input => {
                     if (input.id) input.id = input.id.replace(/\d+$/, blockIndex);
                     if (input.name) input.name = input.name.replace(/\[\d*\]/,
-                    `[${blockIndex}]`);
+                        `[${blockIndex}]`);
                     if (input.tagName === 'LABEL') input.textContent = input.textContent.replace(/\d+$/,
                         blockIndex + 1);
                     if (input.type === 'number') input.value = 0;
@@ -1070,21 +1069,118 @@
                 allBlocks.forEach(block => {
                     const inputs = block.querySelectorAll('.basket-input');
                     let blockTotal = 0;
+                    let filledColumns = 0;
 
+                    // Hitung nilai berdasarkan kolom yang terisi
                     inputs.forEach(input => {
-                        blockTotal += parseFloat(input.value) || 0;
+                        if (input.value) {
+                            filledColumns += 1; // Increment jika kolom terisi
+                            blockTotal += parseFloat(input.value) || 0;
+                        }
                     });
 
+                    // Update nilai pada input total_keranjang
+                    const totalKeranjangField = block.querySelector('[name="total_keranjang"]');
+                    if (totalKeranjangField) {
+                        totalKeranjangField.value = filledColumns; // Menyimpan jumlah kolom yang terisi
+                    }
+
+                    // Update nilai pada timbangan_hasil_kerja_parer untuk setiap anggota
                     const blockTotalField = block.querySelector('#timbangan_hasil_kerja_parer');
                     blockTotalField.value = blockTotal;
 
                     grandTotal += blockTotal;
                 });
 
-                // Update the global total label
+                // Update total keseluruhan
                 const totalLabel = document.getElementById('total-label');
                 totalLabel.textContent = `Total: ${grandTotal} kg`;
             }
+
+
+            document.addEventListener("DOMContentLoaded", function() {
+                // Ambil elemen yang diperlukan
+                const openFormBtn = document.getElementById('openFormBtn');
+                const modal = document.getElementById('modal');
+                const closeModalBtn = document.querySelector('.close');
+                const form = document.querySelector('form');
+
+                // Fungsi untuk membuka modal
+                openFormBtn.addEventListener('click', function() {
+                    modal.style.display = 'flex'; // Menampilkan modal
+                });
+
+                // Fungsi untuk menutup modal ketika tombol close diklik
+                closeModalBtn.addEventListener('click', function() {
+                    modal.style.display = 'none'; // Menyembunyikan modal
+                });
+
+                // Tutup modal jika pengguna mengklik di luar konten modal
+                window.addEventListener('click', function(event) {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+
+                // Fungsi untuk menangani event tombol edit
+                document.querySelectorAll('.edit').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+
+                        fetch(`/laporan/dkp/${id}/edit`)
+                            .then(response => response.json())
+                            .then(data => {
+                                document.getElementById("id").value = data.id;
+                                document.getElementById("nama_sheller").value = data.nama_sheller;
+                                document.getElementById("tanggal").value = data.tanggal;
+                                document.getElementById("nama_parer").value = data.nama_parer;
+                                document.getElementById("total_keranjang").value = data
+                                    .total_keranjang;
+                                document.getElementById("tipe_keranjang").value = data
+                                    .tipe_keranjang;
+
+                                const hasilKerjaParerInputs = document.querySelectorAll(
+                                    "[name='hasil_kerja_parer[]']");
+                                hasilKerjaParerInputs.forEach((input, index) => {
+                                    input.value = data.hasil_kerja_parer[index] || 0;
+                                });
+
+                                calculateTotal(); // Update total setelah data dimasukkan
+
+                                modal.style.display = 'flex';
+                            })
+                            .catch(error => {
+                                console.error("Error fetching data:", error);
+                            });
+                    });
+                });
+
+                // Fungsi untuk menghitung total berdasarkan input hasil kerja
+                function calculateTotal() {
+                    const inputs = document.querySelectorAll("[name='hasil_kerja_parer[]']");
+                    let total = 0;
+                    let filledCount = 0;
+
+                    inputs.forEach(input => {
+                        // Menghitung jumlah kolom yang terisi
+                        if (input.value !== "" && !isNaN(input.value) && parseFloat(input.value) > 0) {
+                            filledCount++;
+                        }
+                    });
+
+                    // Sesuaikan nilai total keranjang berdasarkan jumlah kolom yang terisi
+                    document.getElementById("total_keranjang").value = filledCount;
+
+                    // Menghitung total berdasarkan hasil input
+                    inputs.forEach(input => {
+                        total += parseFloat(input.value) || 0;
+                    });
+
+                    // Menampilkan hasil perhitungan total
+                    document.getElementById("timbangan_hasil_kerja_parer").value = total;
+                }
+            });
+
 
             // Attach event listener to all basket inputs
             document.addEventListener('input', function(event) {
@@ -1139,79 +1235,6 @@
                 });
             });
 
-
-            document.addEventListener("DOMContentLoaded", function() {
-                // Ambil elemen yang diperlukan
-                const openFormBtn = document.getElementById('openFormBtn');
-                const modal = document.getElementById('modal');
-                const closeModalBtn = document.querySelector('.close');
-                const form = document.querySelector('form');
-
-                // Fungsi untuk membuka modal
-                openFormBtn.addEventListener('click', function() {
-                    modal.style.display = 'flex'; // Menampilkan modal
-                });
-
-                // Fungsi untuk menutup modal ketika tombol close diklik
-                closeModalBtn.addEventListener('click', function() {
-                    modal.style.display = 'none'; // Menyembunyikan modal
-                });
-
-                // Tutup modal jika pengguna mengklik di luar konten modal
-                window.addEventListener('click', function(event) {
-                    if (event.target === modal) {
-                        modal.style.display = 'none';
-                    }
-                });
-
-                // Fungsi untuk menangani event tombol edit
-                document.querySelectorAll('.edit').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const id = this.getAttribute('data-id');
-
-                        // Ambil data menggunakan fetch atau sesuai dengan cara yang Anda inginkan
-                        fetch(`/laporan/dkp/${id}/edit`)
-                            .then(response => response.json())
-                            .then(data => {
-                                // Isi nilai form dengan data yang diambil
-                                document.getElementById("id").value = data.id;
-                                document.getElementById("nama_sheller").value = data.nama_sheller;
-                                document.getElementById("tanggal").value = data.tanggal;
-                                document.getElementById("nama_parer").value = data.nama_parer;
-                                document.getElementById("total_keranjang").value = data
-                                    .total_keranjang;
-                                document.getElementById("tipe_keranjang").value = data
-                                    .tipe_keranjang;
-
-                                // Isi nilai untuk hasil kerja netto
-                                const hasilKerjaParerInputs = document.querySelectorAll(
-                                    "[name='hasil_kerja_parer[]']");
-                                hasilKerjaParerInputs.forEach((input, index) => {
-                                    input.value = data.hasil_kerja_parer[index] || 0;
-                                });
-
-                                // Hitung total netto
-                                calculateTotal();
-
-                                // Tampilkan modal untuk edit
-                                modal.style.display = 'flex';
-                            })
-                            .catch(error => {
-                                console.error("Error fetching data:", error);
-                            });
-                    });
-                });
-
-                // Fungsi untuk menghitung total netto
-                function calculateTotal() {
-                    const inputs = document.querySelectorAll("[name='hasil_kerja_parer[]']");
-                    let total = 0;
-                    inputs.forEach(input => {
-                        total += parseFloat(input.value) || 0;
-                    });
-                    document.getElementById("timbangan_hasil_kerja_parer").value = total;
-                }
-            });
 
             // Fungsi untuk membuka modal kedua (modal2) dengan data dari database
             function openModal2(event) {
