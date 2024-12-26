@@ -270,6 +270,15 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+        .status-aktif {
+    background-color: #104367;
+    color: white;
+}
+
+.status-tidak-aktif {
+    background-color: rgba(209, 38, 38, 0.904);
+    color: white;
+}
     </style>
 
     <div class="mainbar">
@@ -335,8 +344,12 @@
                                  <td>{{ $pegawai->posisi }}</td>
                                  <td>{{ $pegawai->departemen }}</td>
                                  <td>{{ $pegawai->kepagawaian }}</td>
-                                 <td><button>{{ $pegawai->status }}</button>
-                                 </td>
+                                 <td>
+                                    <button class="{{ $pegawai->status == 'Aktif' ? 'status-Aktif' : 'status-Tidak-aktif' }}">
+                                        {{ $pegawai->status }}
+                                    </button>
+                                </td>
+                               
                                  <td>
                                     <a href="{{ route('data_pegawai.edit', $pegawai->id) }}"><button class="edit">Edit</button></a>
                                      <form action="{{ route('data_pegawai.destroy', $pegawai->id) }}"
