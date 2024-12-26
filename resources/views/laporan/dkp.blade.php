@@ -1041,9 +1041,9 @@
                 const container = document.getElementById('anggota-parer-container');
                 const template = container.querySelector('.anggota-block.template');
 
-                // Clone the template
+             
                 const newMemberBlock = template.cloneNode(true);
-                newMemberBlock.classList.remove('template'); // Remove the template class
+                newMemberBlock.classList.remove('template');
 
                 const inputs = newMemberBlock.querySelectorAll('input, select, label');
                 const blockIndex = container.querySelectorAll('.anggota-block').length;
@@ -1057,7 +1057,7 @@
                     if (input.type === 'text') input.value = '';
                 });
 
-                // Add the new block to the container
+             
                 container.appendChild(newMemberBlock);
             });
 
@@ -1071,58 +1071,55 @@
                     let blockTotal = 0;
                     let filledColumns = 0;
 
-                    // Hitung nilai berdasarkan kolom yang terisi
+                 
                     inputs.forEach(input => {
                         if (input.value) {
-                            filledColumns += 1; // Increment jika kolom terisi
+                            filledColumns += 1; 
                             blockTotal += parseFloat(input.value) || 0;
                         }
                     });
 
-                    // Update nilai pada input total_keranjang
+               
                     const totalKeranjangField = block.querySelector('[name="total_keranjang"]');
                     if (totalKeranjangField) {
-                        totalKeranjangField.value = filledColumns; // Menyimpan jumlah kolom yang terisi
+                        totalKeranjangField.value = filledColumns; 
                     }
 
-                    // Update nilai pada timbangan_hasil_kerja_parer untuk setiap anggota
                     const blockTotalField = block.querySelector('#timbangan_hasil_kerja_parer');
                     blockTotalField.value = blockTotal;
 
                     grandTotal += blockTotal;
                 });
 
-                // Update total keseluruhan
+       
                 const totalLabel = document.getElementById('total-label');
                 totalLabel.textContent = `Total: ${grandTotal} kg`;
             }
 
 
             document.addEventListener("DOMContentLoaded", function() {
-                // Ambil elemen yang diperlukan
+           
                 const openFormBtn = document.getElementById('openFormBtn');
                 const modal = document.getElementById('modal');
                 const closeModalBtn = document.querySelector('.close');
                 const form = document.querySelector('form');
 
-                // Fungsi untuk membuka modal
                 openFormBtn.addEventListener('click', function() {
-                    modal.style.display = 'flex'; // Menampilkan modal
+                    modal.style.display = 'flex';
                 });
 
-                // Fungsi untuk menutup modal ketika tombol close diklik
+     
                 closeModalBtn.addEventListener('click', function() {
-                    modal.style.display = 'none'; // Menyembunyikan modal
+                    modal.style.display = 'none'; 
                 });
 
-                // Tutup modal jika pengguna mengklik di luar konten modal
                 window.addEventListener('click', function(event) {
                     if (event.target === modal) {
                         modal.style.display = 'none';
                     }
                 });
 
-                // Fungsi untuk menangani event tombol edit
+     
                 document.querySelectorAll('.edit').forEach(button => {
                     button.addEventListener('click', function() {
                         const id = this.getAttribute('data-id');
@@ -1145,7 +1142,7 @@
                                     input.value = data.hasil_kerja_parer[index] || 0;
                                 });
 
-                                calculateTotal(); // Update total setelah data dimasukkan
+                                calculateTotal(); 
 
                                 modal.style.display = 'flex';
                             })
@@ -1155,34 +1152,29 @@
                     });
                 });
 
-                // Fungsi untuk menghitung total berdasarkan input hasil kerja
+        
                 function calculateTotal() {
                     const inputs = document.querySelectorAll("[name='hasil_kerja_parer[]']");
                     let total = 0;
                     let filledCount = 0;
 
                     inputs.forEach(input => {
-                        // Menghitung jumlah kolom yang terisi
+                    
                         if (input.value !== "" && !isNaN(input.value) && parseFloat(input.value) > 0) {
                             filledCount++;
                         }
                     });
 
-                    // Sesuaikan nilai total keranjang berdasarkan jumlah kolom yang terisi
                     document.getElementById("total_keranjang").value = filledCount;
 
-                    // Menghitung total berdasarkan hasil input
                     inputs.forEach(input => {
                         total += parseFloat(input.value) || 0;
                     });
 
-                    // Menampilkan hasil perhitungan total
                     document.getElementById("timbangan_hasil_kerja_parer").value = total;
                 }
             });
 
-
-            // Attach event listener to all basket inputs
             document.addEventListener('input', function(event) {
                 if (event.target.classList.contains('basket-input')) {
                     calculateTotal();
@@ -1194,18 +1186,13 @@
                 const searchInput = document.getElementById('searchInput');
                 const tableBody = document.getElementById('laporanTableBody');
 
-                // Listen for input event on the search field
                 searchInput.addEventListener('input', function() {
                     const searchTerm = searchInput.value;
 
-                    // Perform AJAX request
                     fetch('{{ route('laporan.dkp.index') }}?search=' + searchTerm)
                         .then(response => response.json())
                         .then(data => {
-                            // Clear the table body
                             tableBody.innerHTML = '';
-
-                            // Loop through the returned data and populate the table
                             data.data.forEach((item, index) => {
                                 const row = document.createElement('tr');
 
@@ -1227,7 +1214,6 @@
                                     </td>
                                 `;
 
-                                // Append the row to the table body
                                 tableBody.appendChild(row);
                             });
                         })
@@ -1235,8 +1221,6 @@
                 });
             });
 
-
-            // Fungsi untuk membuka modal kedua (modal2) dengan data dari database
             function openModal2(event) {
                 const modal2 = document.getElementById('modal2');
                 const dataId = event.target.getAttribute('data-id');
@@ -1245,10 +1229,8 @@
                     fetch(`/laporan/dkp/${dataId}/edit`)
                         .then(response => response.json())
                         .then(data => {
-                            // Isi modal dengan data dari respons
                             document.getElementById('namaParer1').value = data.nama_parer;
 
-                            // Contoh mengisi tabel potongan keranjang
                             const tableBody = document.querySelector('.tabel-potongan2 tbody');
                             tableBody.innerHTML = `
                                 <tr>
@@ -1258,7 +1240,6 @@
                                 </tr>
                             `;
 
-                            // Contoh mengisi tabel hasil kerja
                             const hasilTableBody = document.querySelector('.tabel-hasil2 tbody');
                             hasilTableBody.innerHTML = `
                                 <tr>
@@ -1268,7 +1249,6 @@
                                 </tr>
                             `;
 
-                            // Tampilkan modal
                             modal2.style.display = 'block';
                         })
                         .catch(error => {
@@ -1278,33 +1258,27 @@
                 }
             }
 
-            // Fungsi untuk menutup modal kedua (modal2)
             function closeModal2() {
                 const modal2 = document.getElementById('modal2');
                 modal2.style.display = 'none';
             }
 
-            // Tambahkan event listener untuk tombol yang membuka modal kedua
             document.querySelectorAll('.detail-btn').forEach(button => {
                 button.addEventListener('click', openModal2);
             });
 
-            // Tambahkan event listener untuk tombol yang menutup modal kedua
             const closeModalButton = document.getElementById('closeModal2');
             if (closeModalButton) {
                 closeModalButton.addEventListener('click', closeModal2);
             }
-
-
-            // Variabel penghitung untuk anggota "Parer"
-            let anggotaCount = 2; // Mulai dari 2 karena elemen pertama sudah ada
+            let anggotaCount = 2;
 
             function addAnggotaParer() {
                 const container = document.getElementById('anggota-parer-container');
                 const anggotaBlock = document.createElement('div');
                 anggotaBlock.classList.add('anggota-block');
 
-                // Template untuk baris anggota baru
+            
                 const formRow = `
                 <div class="form-row">
                                     <div class="form-group">
@@ -1410,11 +1384,9 @@
                                 </div>
             `;
 
-                // Tambahkan baris ke container
                 anggotaBlock.innerHTML = formRow;
                 container.appendChild(anggotaBlock);
 
-                // Tambah penghitung anggota
                 anggotaCount++;
             }
 
@@ -1424,7 +1396,6 @@
                 formData.append('tanggal', document.getElementById('tanggal').value);
                 formData.append('nama_sheller', document.getElementById('nama_sheller').value);
 
-                // Loop untuk anggota parer
                 const anggotaParerBlocks = document.querySelectorAll('.anggota-block');
                 anggotaParerBlocks.forEach((block, index) => {
                     formData.append(`nama_parer[${index}]`, block.querySelector('[name="nama_parer[]"]').value);

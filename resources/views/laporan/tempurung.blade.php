@@ -6,13 +6,12 @@
             flex: 1%;
             background-color: #D9D9D9 !important;
             padding-top: 20px;
-            /* Jarak dari topbar */
             margin-left: 235px;
             overflow-y: auto;
             height: calc(100vh - 70px);
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-            !important;
+      
         }
 
         .container {
@@ -52,13 +51,10 @@
             font-size: 12px;
         }
 
-        /* Dropdown tanggal */
         .filters select.pilihtanggal,
         .filters .input-icon input[type="text"] {
             padding: 8px 12px;
-            /* Padding yang sama */
             height: 36px;
-            /* Tinggi yang sama */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 12px;
@@ -66,18 +62,15 @@
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        /* Input pencarian dan ikon */
         .filters .input-icon {
             position: relative;
             width: 250px;
-            /* Lebar lebih pendek untuk input pencarian */
         }
 
         .filters input[type="text"] {
             width: 100%;
             height: 36px;
             padding: 8px 35px 8px 12px;
-            /* Tambahkan padding untuk ikon */
             border: 1px solid #cc;
             border-radius: 5px;
             font-size: 12px;
@@ -95,7 +88,6 @@
             color: #636362;
         }
 
-        /* Tombol aksi */
         .filters .actions {
             display: flex;
             gap: 10px;
@@ -127,8 +119,6 @@
             transform: translateX(-2px);
 
         }
-
-        /* Tabel */
         .table-container {
             overflow-x: auto;
             font-size: 11px;
@@ -137,7 +127,6 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            /* Agar garis antar sel menyatu */
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(230, 238, 241, 0.1);
 
@@ -148,14 +137,12 @@
             padding: 10px;
             text-align: center;
             border: 1px solid #636362;
-            /* Garis antar sel */
             color: #636362;
             font-size: 12px;
         }
 
         table th {
             border-bottom: 1px solid #636362;
-            /* Garis tebal untuk header */
         }
 
         table td button {
@@ -177,7 +164,6 @@
             background-color: #e74c3c;
         }
 
-        /* Pagination */
         .pagination-container {
             display: flex;
             justify-content: space-between;
@@ -220,31 +206,25 @@
             position: relative;
             width: 100%;
             max-width: 100px;
-            /* Sesuaikan dengan kebutuhan */
             color: #636362;
         }
 
         .search-input::placeholder {
             color: #636362;
-            /* Ganti dengan warna yang diinginkan */
             opacity: 1;
-            /* Mengatur opasitas jika perlu */
         }
 
         .input-icon i {
             position: absolute;
             right: 5px !important;
-            /* Pindahkan ikon ke sisi kanan */
             top: 50%;
             transform: translateY(-50%);
             color: #636362;
-            /* Warna ikon */
         }
 
         .input-icon input {
             width: 100%;
             padding: 10px 40px 10px 10px;
-            /* Tambahkan padding kanan untuk ruang ikon */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
@@ -252,42 +232,30 @@
 
         }
 
-        .
+    
 
-        /* Gaya untuk input saat fokus */
         .input-icon input:focus {
             border-color: #104367;
-            /* Ubah warna border saat fokus */
         }
 
         .horizontalline1 {
-            /* Warna teks, tidak berpengaruh pada <hr> */
             border: none;
-            /* Hapus border default */
             border-bottom: 0.5px solid #ccc;
             width: 100%;
-            /* Lebar penuh */
             margin: 5px 0 15px 0;
-            /* Margin atas, kanan, bawah, kiri */
             opacity: 0.5;
-            /* Nilai opasitas (1 = tidak transparan) */
             padding-top: 20px;
         }
 
         .btn.export {
             display: flex;
             align-items: center;
-            /* Mengatur ikon dan teks dalam satu baris */
             color: white;
-            /* Mengatur warna teks menjadi putih */
             border: none;
-            /* Menghapus border default */
             cursor: pointer;
-            /* Menambahkan kursor pointer */
         }
 
         .btn.export img {
-            /* Jarak antara ikon dan teks */
             filter: brightness(0) invert(1);
 
 
@@ -295,9 +263,7 @@
 
         .search-input::placeholder {
             color: #636362;
-            /* Ganti dengan warna yang diinginkan */
             opacity: 1;
-            /* Mengatur opasitas jika perlu */
         }
 
         .modal {
@@ -319,10 +285,8 @@
             background-color: #F7F7F7;
             border-radius: 8px;
             padding: 25px;
-            /* Tambahan padding agar lebih rapi */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             max-width: 100%;
-            /* Batas maksimal lebar modal */
             width: 100%;
             overflow-y: auto;
         }
@@ -381,29 +345,21 @@
         .form-row {
             display: flex;
             justify-content: space-between;
-            /* Jarak antar kolom */
             align-items: center;
-            /* Pastikan input sejajar secara vertikal */
             gap: 20px;
-            /* Jarak antar elemen */
             flex-wrap: nowrap;
-            /* Tidak membiarkan elemen turun ke baris berikutnya */
         }
 
         .column {
 
             flex: 1;
-            /* Membuat setiap kolom memiliki lebar yang sama */
             display: flex;
             flex-direction: column;
-            /* Menumpuk label di atas input */
             min-width: 150px;
-            /* Memberikan lebar minimum untuk kolom */
         }
 
         .column label {
             margin-bottom: 5px;
-            /* Jarak antara label dan input */
             font-size: 14px;
             color: #636362;
         }
@@ -530,13 +486,9 @@
             justify-items: center;
             align-items: center;
             grid-template-columns: repeat(10, 1fr);
-            /* 10 kolom dengan distribusi merata */
             gap: 10px 5px;
-            /* Atur jarak antar input (atas-bawah dan kiri-kanan) */
             margin: 10px auto;
-            /* Margin atas dan bawah grid */
             width: 85%;
-            /* Lebar grid agar lebih rapat */
             height: 50%;
         }
 
@@ -547,11 +499,8 @@
             border-radius: 5px;
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
             width: 80%;
-            /* Ukuran input agar lebih kecil */
             margin: 0;
-            /* Hilangkan margin default */
             padding: 3px;
-            /* Padding kecil agar lebih rapi */
             text-align: center;
         }
 
@@ -583,9 +532,7 @@
             color: white;
             margin-top: 20px;
             display: block;
-            /* Membuat tombol tetap dalam satu baris */
             margin-left: auto;
-            /* Agar berada di sebelah kanan */
             margin-right: auto;
         }
 
@@ -596,13 +543,11 @@
         .input-field,
         .input-select {
             width: 100%;
-            /* Mengisi seluruh lebar kolom */
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
             box-sizing: border-box;
-            /* Pastikan padding tidak memengaruhi lebar */
             font-size: 14px;
             height: 35px;
 
@@ -618,7 +563,6 @@
             justify-content: space-between;
             align-items: center;
             gap: 20px;
-            /* Jarak antar elemen */
             margin-bottom: 15px;
         }
 
@@ -628,9 +572,7 @@
             margin-top: 20px;
             gap: 15px;
             display: flex;
-            /* Membuat label di sebelah input */
             align-items: left;
-            /* Menyelaraskan label dan input secara vertikal */
             margin-left: 40px;
         }
 
@@ -892,7 +834,7 @@
             let total = 0;
 
             inputs.forEach(input => {
-                total += parseFloat(input.value) || 0; // Tambahkan angka atau 0 jika kosong
+                total += parseFloat(input.value) || 0; 
             });
 
             document.getElementById('timbangan_netto').value = total;
@@ -900,39 +842,33 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            const openFormBtn = document.getElementById('openFormBtn'); // Tombol Tambah Data
-            const modal = document.getElementById('modal'); // Modal utama
+            const openFormBtn = document.getElementById('openFormBtn'); 
+            const modal = document.getElementById('modal'); 
             const closeModalBtn = document.querySelector('.close');
             const form = document.querySelector('form');
 
-            // Fungsi untuk membuka modal
             openFormBtn.addEventListener("click", function() {
                 console.log("Modal dibuka");
-                modal.style.display = "block"; // Menampilkan modal
+                modal.style.display = "block"; 
             });
 
-            // Fungsi untuk menutup modal ketika tombol close diklik
             closeModalBtn.addEventListener("click", function() {
-                modal.style.display = "none"; // Menyembunyikan modal
+                modal.style.display = "none"; 
             });
 
-            // Tutup modal jika pengguna mengklik di luar konten modal
             window.addEventListener("click", function(event) {
                 if (event.target === modal) {
                     modal.style.display = "none";
                 }
             });
 
-            // Fungsi untuk menangani event tombol edit
             document.querySelectorAll('.edit').forEach(button => {
                 button.addEventListener('click', function() {
                     const id = this.getAttribute('data-id');
 
-                    // Ambil data menggunakan fetch atau sesuai dengan cara yang Anda inginkan
                     fetch(`/laporan/tempurung/${id}/edit`)
                         .then(response => response.json())
                         .then(data => {
-                            // Isi nilai form dengan data yang diambil
                             document.getElementById("id").value = data.id;
                             document.getElementById("tanggal").value = data.tanggal;
                             document.getElementById("total_keranjang").value = data
@@ -940,17 +876,14 @@
                             document.getElementById("tipe_keranjang").value = data
                                 .tipe_keranjang;
 
-                            // Isi nilai untuk hasil kerja netto
                             const netto = document.querySelectorAll(
                                 "[name='netto[]']");
                                 netto.forEach((input, index) => {
                                 input.value = data.netto[index] || 0;
                             });
 
-                            // Hitung total netto
                             calculateTotal();
 
-                            // Tampilkan modal untuk edit
                             modal.style.display = 'flex';
                         })
                         .catch(error => {
@@ -959,7 +892,6 @@
                 });
             });
 
-            // Fungsi untuk menghitung total netto
             function calculateTotal() {
                 const inputs = document.querySelectorAll("[name='netto[]']");
                 let total = 0;

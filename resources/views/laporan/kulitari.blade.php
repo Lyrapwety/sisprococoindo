@@ -6,13 +6,11 @@
              flex: 1%;
              background-color: #D9D9D9 !important;
              padding-top: 20px;
-             /* Jarak dari topbar */
              margin-left: 235px;
              overflow-y: auto;
              height: calc(100vh - 70px);
              width: calc(100% - 235px);
              font-family: 'Inter', sans-serif;
-             !important;
          }
 
          .container {
@@ -172,7 +170,6 @@
              background-color: #e74c3c;
          }
 
-         /* Pagination */
          .pagination-container {
              display: flex;
              justify-content: space-between;
@@ -497,7 +494,6 @@
              transform: translateY(-10px);
 
          }
-
 
          .modal2 {
              display: none;
@@ -1061,7 +1057,7 @@
              let total = 0;
 
              inputs.forEach(input => {
-                 total += parseFloat(input.value) || 0; // Tambahkan angka atau 0 jika kosong
+                 total += parseFloat(input.value) || 0; 
              });
 
              document.getElementById('timbangan_hasil').value = total;
@@ -1069,40 +1065,32 @@
          }
 
          document.addEventListener("DOMContentLoaded", function() {
-             // Ambil elemen yang diperlukan
              const openFormBtn1 = document.getElementById("openFormBtn1");
              const modal1 = document.getElementById("modal");
              const closeModal1 = modal1.querySelector(".close");
              const form = document.querySelector('form');
 
-             // Fungsi untuk membuka modal
              openFormBtn1.addEventListener("click", function() {
                  console.log("Modal 1 dibuka");
-                 modal1.style.display = "block"; // Menampilkan modal
+                 modal1.style.display = "block";
              });
 
-             // Fungsi untuk menutup modal ketika tombol close diklik
              closeModal1.addEventListener("click", function() {
-                 modal1.style.display = "none"; // Menyembunyikan modal
+                 modal1.style.display = "none"; 
              });
-
-             // Tutup modal jika pengguna mengklik di luar konten modal
              window.addEventListener("click", function(event) {
                  if (event.target === modal1) {
                      modal1.style.display = "none";
                  }
              });
 
-             // Fungsi untuk menangani event tombol edit
              document.querySelectorAll('.edit').forEach(button => {
                  button.addEventListener('click', function() {
                      const id = this.getAttribute('data-id');
 
-                     // Ambil data menggunakan fetch atau sesuai dengan cara yang Anda inginkan
                      fetch(`/laporan/kulitari/${id}/edit`)
                          .then(response => response.json())
                          .then(data => {
-                             // Isi nilai form dengan data yang diambil
                              document.getElementById("id").value = data.id;
                              document.getElementById("nama_pegawai").value = data.nama_pegawai;
                              document.getElementById("sheller_parer").value = data.sheller_parer;
@@ -1112,17 +1100,14 @@
                              document.getElementById("tipe_keranjang").value = data
                                  .tipe_keranjang;
 
-                             // Isi nilai untuk hasil kerja netto
                              const hasilKerjaInputs = document.querySelectorAll(
                                  "[name='hasil_kerja[]']");
                              hasilKerjaInputs.forEach((input, index) => {
                                  input.value = data.hasil_kerja[index] || 0;
                              });
 
-                             // Hitung total netto
                              calculateTotal();
 
-                             // Tampilkan modal untuk edit
                              modal1.style.display = 'flex';
                          })
                          .catch(error => {
@@ -1130,8 +1115,6 @@
                          });
                  });
              });
-
-             // Fungsi untuk menghitung total netto
              function calculateTotal() {
                  const inputs = document.querySelectorAll("[name='hasil_kerja[]']");
                  let total = 0;
@@ -1163,7 +1146,7 @@
              }
          });
 
-         // Sample data
+        
          const data = [{
                  no: 1,
                  tanggal: "12 Agustus 2024",
@@ -1224,7 +1207,6 @@
                  hasil: null,
                  detail: "Hasil Timbangan"
              },
-             // Tambahkan lebih banyak data sesuai kebutuhan
          ];
 
          const rowsPerPage = 5;
@@ -1281,7 +1263,7 @@
              }
          }
 
-         // Load initial data
+     
          displayData();
 
 

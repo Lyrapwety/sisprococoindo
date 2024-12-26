@@ -2,7 +2,6 @@
 
 @section('content')
     <style>
-        /* Mainbar */
         .mainbar {
             flex: 1%;
             background-color: #D9D9D9 !important;
@@ -12,7 +11,6 @@
             height: calc(100vh - 70px);
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-
         }
 
         .container {
@@ -233,23 +231,19 @@
             position: relative;
             width: 100%;
             max-width: 100px;
-            /* Sesuaikan dengan kebutuhan */
         }
 
         .input-icon i {
             position: absolute;
             right: 5px !important;
-            /* Pindahkan ikon ke sisi kanan */
             top: 50%;
             transform: translateY(-50%);
             color: #636362;
-            /* Warna ikon */
         }
 
         .input-icon input {
             width: 100%;
             padding: 10px 40px 10px 10px;
-            /* Tambahkan padding kanan untuk ruang ikon */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
@@ -259,39 +253,27 @@
 
         .input-icon input:focus {
             border-color: #104367;
-            /* Ubah warna border saat fokus */
         }
 
 
         .horizontalline1 {
-            /* Warna teks, tidak berpengaruh pada <hr> */
             border: none;
-            /* Hapus border default */
             border-bottom: 0.5px solid #ccc;
             width: 100%;
-            /* Lebar penuh */
             margin: 5px 0 15px 0;
-            /* Margin atas, kanan, bawah, kiri */
             opacity: 0.5;
-            /* Nilai opasitas (1 = tidak transparan) */
             padding-top: 20px;
         }
 
         .btn.export {
             display: flex;
             align-items: center;
-            /* Mengatur ikon dan teks dalam satu baris */
             color: white;
-            /* Mengatur warna teks menjadi putih */
             border: none;
-            /* Menghapus border default */
-            /* Menambahkan padding */
             cursor: pointer;
-            /* Menambahkan kursor pointer */
         }
 
         .btn.export img {
-            /* Jarak antara ikon dan teks */
             filter: brightness(0) invert(1);
 
 
@@ -299,9 +281,7 @@
 
         .search-input::placeholder {
             color: #636362;
-            /* Ganti dengan warna yang diinginkan */
             opacity: 1;
-            /* Mengatur opasitas jika perlu */
         }
 
 
@@ -344,7 +324,6 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            /* Untuk membuat tombol close tetap di pojok kanan */
         }
 
         .modal-header h2 {
@@ -364,9 +343,7 @@
         .form-item {
             display: flex;
             flex-direction: column;
-            /* Susunan vertikal */
             align-items: flex-start;
-            /* Label dan input sejajar ke kiri */
             width: 100%;
         }
 
@@ -374,7 +351,6 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-start;
-            /* Elemen sejajar ke kiri */
             align-items: flex-start;
             gap: 20px;
             margin-bottom: 20px;
@@ -406,7 +382,6 @@
         .inline-group input[type="text"],
         .inline-group select {
             width: 100%;
-            /* Input dan select mengisi penuh */
             flex: none;
             padding: 8px;
             border: 1px solid #ccc;
@@ -415,8 +390,6 @@
             color: #636362;
             margin-top: 5px;
         }
-
-        /* To make the inline group take up full width */
         .full-width {
             width: 100%;
         }
@@ -456,7 +429,6 @@
         input[type="date"] {
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
             color: #636362;
-            /* Warna teks pada input */
         }
 
         .timbangan-container {
@@ -519,9 +491,7 @@
             color: white;
             margin-top: 20px;
             display: block;
-            /* Membuat tombol tetap dalam satu baris */
             margin-left: auto;
-            /* Agar berada di sebelah kanan */
             margin-right: auto;
         }
 
@@ -789,7 +759,7 @@
                 let total = 0;
 
                 inputs.forEach(input => {
-                    total += parseFloat(input.value) || 0; // Tambahkan angka atau 0 jika kosong
+                    total += parseFloat(input.value) || 0; 
                 });
 
                 document.getElementById('timbangan_netto').value = total;
@@ -797,39 +767,35 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                // Ambil elemen yang diperlukan
+             
                 const openFormBtn = document.getElementById('openFormBtn');
                 const modal = document.getElementById('modal');
                 const closeModalBtn = document.querySelector('.close');
                 const form = document.querySelector('form');
 
-                // Fungsi untuk membuka modal
                 openFormBtn.addEventListener('click', function() {
-                    modal.style.display = 'flex'; // Menampilkan modal
+                    modal.style.display = 'flex'; 
                 });
 
-                // Fungsi untuk menutup modal ketika tombol close diklik
+  
                 closeModalBtn.addEventListener('click', function() {
-                    modal.style.display = 'none'; // Menyembunyikan modal
+                    modal.style.display = 'none'; 
                 });
 
-                // Tutup modal jika pengguna mengklik di luar konten modal
                 window.addEventListener('click', function(event) {
                     if (event.target === modal) {
                         modal.style.display = 'none';
                     }
                 });
 
-                // Fungsi untuk menangani event tombol edit
                 document.querySelectorAll('.edit').forEach(button => {
                     button.addEventListener('click', function() {
                         const id = this.getAttribute('data-id');
 
-                        // Ambil data menggunakan fetch atau sesuai dengan cara yang Anda inginkan
                         fetch(`/laporan/dkp_reject/${id}/edit`)
                             .then(response => response.json())
                             .then(data => {
-                                // Isi nilai form dengan data yang diambil
+            
                                 document.getElementById("id").value = data.id;
                                 document.getElementById("nama_pegawai").value = data.nama_pegawai;
                                 document.getElementById("sheller_parer").value = data.sheller_parer;
@@ -837,16 +803,16 @@
                                 document.getElementById("total_keranjang").value = data.total_keranjang;
                                 document.getElementById("tipe_keranjang").value = data.tipe_keranjang;
 
-                                // Isi nilai untuk hasil kerja netto
+               
                                 const hasilKerjaNettoInputs = document.querySelectorAll("[name='hasil_kerja_netto[]']");
                                 hasilKerjaNettoInputs.forEach((input, index) => {
                                     input.value = data.hasil_kerja_netto[index] || 0;
                                 });
 
-                                // Hitung total netto
+                      
                                 calculateTotal();
 
-                                // Tampilkan modal untuk edit
+                             
                                 modal.style.display = 'flex';
                             })
                             .catch(error => {
@@ -855,7 +821,7 @@
                     });
                 });
 
-                // Fungsi untuk menghitung total netto
+           
                 function calculateTotal() {
                     const inputs = document.querySelectorAll("[name='hasil_kerja_netto[]']");
                     let total = 0;
@@ -867,7 +833,6 @@
             });
 
 
-        // Sample data
         const data = [{
                 no: 1,
                 tanggal: "12 Agustus 2024",
@@ -928,7 +893,7 @@
                 hasil: null,
                 detail: "Hasil Timbangan"
             },
-            // Tambahkan lebih banyak data sesuai kebutuhan
+         
         ];
 
         const rowsPerPage = 5;
@@ -985,6 +950,5 @@
             }
         }
 
-        // Load initial data
         displayData();
     </script>
