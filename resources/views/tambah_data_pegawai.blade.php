@@ -2,18 +2,15 @@
 
 @section('content')
     <style>
-        /* Mainbar */
         .mainbar {
             flex: 1;
             flex-grow: 1;
             background-color: #D9D9D9 !important;
             padding-top: 20px;
-            /* Jarak dari topbar */
             margin-left: 255px;
             height: 100%;
             width: calc(100%-235px);
-            font-family: 'Inter', sans-serif;
-            !important;
+            font-family: 'Inter', sans-serif; 
         }
 
         .container {
@@ -25,7 +22,6 @@
             margin: 20px auto;
             font-family: 'Inter', sans-serif;
             flex-grow: 1;
-            /* Agar container meregang sesuai konten */
         }
 
         .header {
@@ -53,7 +49,6 @@
             border-radius: 50%;
         }
 
-        //* Container Utama */
         .form-container {
             background-color: #fff;
             padding: 20px;
@@ -81,7 +76,6 @@
             gap: 10px;
         }
 
-        /* Gambar foto profil */
         #profile-image {
             width: 150px;
             height: 200px;
@@ -90,7 +84,6 @@
             border: 2px solid #ccc;
         }
 
-        /* Mengatur layout dua kolom menggunakan grid */
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -133,22 +126,18 @@
             background-color: #f9f9f9;
             color: #636362;
             appearance: none;
-            /* Hilangkan tanda panah bawaan browser */
             background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns%3D%22http://www.w3.org/2000/svg%22 width%3D%228%22 height%3D%228%22 viewBox%3D%220 0 8 8%22%3E%3Cpath d%3D%22M0 2l4 4 4-4H0z%22 fill%3D%22%23636362%22/%3E%3C/svg%3E');
-            /* Ikon panah bawah */
             background-repeat: no-repeat;
             background-position: right 10px center;
             background-size: 10px;
             cursor: pointer;
         }
 
-        /* Fokus pada elemen dropdown */
         .custom-dropdown:focus {
             outline: none;
             border-color: #636362;
         }
 
-        /* Form Group Styling */
         .form-group {
             margin-bottom: 15px;
         }
@@ -157,20 +146,14 @@
         .profile-picture {
             display: flex;
             flex-direction: column;
-            /* Mengatur elemen di dalamnya berurutan secara vertikal */
             align-items: center;
-            /* Pusatkan elemen di tengah secara horizontal */
             gap: 10px;
-            /* Jarak antara gambar dan tombol */
         }
 
         #profile-image {
             width: 150px;
-            /* Atur ukuran gambar */
             height: 200px;
-            /* Sesuaikan ukuran gambar */
             object-fit: cover;
-            /* Pastikan gambar tidak terdistorsi */
             border-radius: 10px;
             border: 2px solid #ccc;
         }
@@ -228,11 +211,8 @@
         .button-container {
             display: flex;
             justify-content: center;
-            /* Posisi tombol di ujung kanan */
             gap: 10px;
-            /* Jarak antara tombol */
             margin-top: 20px;
-            /* Jarak dari elemen sebelumnya */
         }
 
 
@@ -288,7 +268,6 @@
             vertical-align: middle;
             border: 1px solid #ddd;
             width: auto;
-            /* Lebar mengikuti konten */
             word-break: break-word;
         }
 
@@ -346,17 +325,11 @@
 
         .fixed-width {
             width: 60px;
-            /* Anda bisa menyesuaikan lebar sesuai kebutuhan */
             max-width: 60px;
-            /* Membatasi lebar maksimum */
             min-width: 50px;
-            /* Membatasi lebar minimum */
             white-space: nowrap;
-            /* Mencegah teks untuk wrap ke baris baru */
             overflow: hidden;
-            /* Menyembunyikan teks yang melebihi lebar kolom */
             text-overflow: ellipsis;
-            /* Mengganti teks yang terpotong dengan elipsis (...) */
         }
     </style>
 
@@ -563,18 +536,17 @@
             var profileInput = document.getElementById('profile-input');
             var profileImage = document.getElementById('profile-image');
 
-            // Ketika tombol "Ganti Profil" diklik
+          
             changeProfileBtn.addEventListener('click', function() {
-                profileInput.click(); // Memicu input file
+                profileInput.click(); 
             });
 
-            // Ketika file dipilih
             profileInput.addEventListener('change', function() {
                 var file = profileInput.files[0];
                 if (file) {
                     var reader = new FileReader();
                     reader.onload = function(e) {
-                        profileImage.src = e.target.result; // Tampilkan gambar baru
+                        profileImage.src = e.target.result; 
                     };
                     reader.readAsDataURL(file);
                 }

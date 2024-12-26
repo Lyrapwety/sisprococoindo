@@ -2,17 +2,14 @@
 
 @section('content')
     <style>
-        /* Mainbar */
         .mainbar {
             flex: 1%;
             background-color: #D9D9D9 !important;
             padding-top: 20px;
-            /* Jarak dari topbar */
             margin-left: 235px;
             height: 100vh;
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-            !important;
         }
 
         .container {
@@ -51,7 +48,6 @@
             border-radius: 50%;
         }
 
-        //* Container Utama */
         .form-container {
             background-color: #fff;
             padding: 20px;
@@ -78,7 +74,6 @@
             align-items: center;
         }
 
-        /* Gambar foto profil */
         #profile-image {
             width: 150px;
             height: 200px;
@@ -88,7 +83,6 @@
             transform: translateY(-20px);
         }
 
-        /* Mengatur layout dua kolom menggunakan grid */
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -121,7 +115,6 @@
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        /* Tombol Update */
         .btn-update {
             width: 20%;
             padding: 8px;
@@ -214,7 +207,6 @@
                             <button type="submit" class="btn-update">Update</button>
                         </div>
 
-                        <!-- Bagian kanan (Foto Profil) -->
                         <div class="profile-picture">
                             <img src="{{ asset('img/hi logo.png') }}" alt="Foto Profil" id="profile-image">
                             <input type="file" id="profile-input" accept="image/*" style="display: none;">
