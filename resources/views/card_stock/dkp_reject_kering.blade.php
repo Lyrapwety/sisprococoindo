@@ -2,7 +2,7 @@
 
 @section('content')
     <style>
- 
+
         .mainbar {
             flex: 1%;
             background-color: #D9D9D9 !important;
@@ -484,9 +484,9 @@
                     <span class="close">&times;</span>
                     <h2>Form Input Stok DKP Reject Kering (Kopra)</h2>
 
-                    <form id="stokForm" action="{{ route('card_stock.dkp_reject_kering.store') }}" method="POST" enctype="multipart/form-data">
-
+                    <form id="stokForm" action="{{ route('card_stock.dkp_reject_kering.store') }}" method="POST" enctype="multipart/form-data" id="stokForm">
                         @csrf
+                        <input type="hidden" name="_method" id="formMethod" value="POST">
                         <input type="hidden" name="id" id="id">
                         <!-- Tanggal -->
                         <div class="form-group">
@@ -561,11 +561,11 @@
                     const form = document.querySelector('form');
 
                     openFormBtn.addEventListener('click', function() {
-                        modal.style.display = 'flex'; 
+                        modal.style.display = 'flex';
                     });
 
                     closeModalBtn.addEventListener('click', function() {
-                        modal.style.display = 'none'; 
+                        modal.style.display = 'none';
                     });
 
                     window.addEventListener('click', function(event) {
@@ -586,6 +586,10 @@
                                     document.getElementById("tanggal").value = data.tanggal;
                                     document.getElementById("stok").value = data.stok;
                                     document.getElementById("keterangan").value = data.keterangan;
+
+                                    const form = document.getElementById('stokForm');
+                                    form.action = `/card_stock/dkp_reject_kering/${id}`;
+                                    document.getElementById("formMethod").value = "PUT"; // Set method to PUT
 
                                     modal.style.display = 'flex';
                                 })

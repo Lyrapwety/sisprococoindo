@@ -257,7 +257,7 @@
         }
 
 
-     
+
         .modal {
             display: none;
             position: fixed;
@@ -478,9 +478,9 @@
                     <span class="close">&times;</span>
                     <h2>Form Input Stok Kulit Ari Kering</h2>
 
-                    <form id="stokForm" action="{{ route('card_stock.kulit_ari_kering.store') }}" method="POST" enctype="multipart/form-data">
-
+                    <form id="stokForm" action="{{ route('card_stock.kulit_ari_kering.store') }}" method="POST" enctype="multipart/form-data" id="stokForm">
                         @csrf
+                        <input type="hidden" name="_method" id="formMethod" value="POST">
                         <input type="hidden" name="id" id="id">
                         <!-- Tanggal -->
                         <div class="form-group">
@@ -555,11 +555,11 @@
                     const form = document.querySelector('form');
 
                     openFormBtn.addEventListener('click', function() {
-                        modal.style.display = 'flex'; 
+                        modal.style.display = 'flex';
                     });
 
                     closeModalBtn.addEventListener('click', function() {
-                        modal.style.display = 'none'; 
+                        modal.style.display = 'none';
                     });
 
                     window.addEventListener('click', function(event) {
@@ -568,7 +568,7 @@
                         }
                     });
 
-    
+
                     document.querySelectorAll('.edit').forEach(button => {
                         button.addEventListener('click', function() {
                             const id = this.getAttribute('data-id');
@@ -576,12 +576,16 @@
                             fetch(`/card_stock/kulit_ari_kering/${id}/edit`)
                                 .then(response => response.json())
                                 .then(data => {
-                               
+
                                     document.getElementById("id").value = data.id;
                                     document.getElementById("activity_type").value = data.activity_type;
                                     document.getElementById("tanggal").value = data.tanggal;
                                     document.getElementById("stok").value = data.stok;
                                     document.getElementById("remark").value = data.remark;
+
+                                    const form = document.getElementById('stokForm');
+                                    form.action = `/card_stock/kulit_ari_kering/${id}`;
+                                    document.getElementById("formMethod").value = "PUT"; // Set method to PUT
 
                                     modal.style.display = 'flex';
                                 })
@@ -652,7 +656,7 @@
                         hasil: null,
                         detail: "Hasil Timbangan"
                     },
-                   
+
                 ];
 
                 const rowsPerPage = 5;

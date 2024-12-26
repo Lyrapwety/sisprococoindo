@@ -22,15 +22,13 @@ class ProduksisantanController extends Controller
         'keterangan' => 'nullable|string|max:255',
         'activity_type' => 'required|string|max:255',
         'sn' => 'nullable|string|max:255',
-        'bags' => 'required|numeric', // Wajib input angka
+        'bags' => 'required|numeric',
     ]);
 
-    // Ambil nilai dari request
     $activity_type = $request->activity_type;
     $sn = $request->sn;
-    $bags = $request->bags * 5; // Kalikan dengan 5
+    $bags = $request->bags * 5;
 
-    // Inisialisasi variabel
     $begin = ProduksiSantan::latest()->value('remain') ?? 0; // Sisa stok terakhir
     $in_steril = 0;
     $in_nonsteril = 0;
@@ -39,7 +37,6 @@ class ProduksisantanController extends Controller
     $out_adj = 0;
     $remain = $begin;
 
-    // Logika berdasarkan tipe aktivitas
     switch ($activity_type) {
         case 'produksi':
             if ($sn === 'steril') {
@@ -47,17 +44,17 @@ class ProduksisantanController extends Controller
             } elseif ($sn === 'nonsteril') {
                 $in_nonsteril = $bags;
             }
-            $remain += $bags; // Tambahkan ke remain
+            $remain += $bags;
             break;
 
         case 'adjust':
             $out_adj = $bags;
-            $remain -= $bags; // Kurangi dari remain
+            $remain -= $bags;
             break;
 
         case 'ekspor':
             $out_eks = $bags;
-            $remain -= $bags; // Kurangi dari remain
+            $remain -= $bags;
             break;
 
         case 'reproses':

@@ -60,7 +60,7 @@
             color: #636362;
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
         }
- 
+
         .filters .input-icon {
             position: relative;
             width: 250px;
@@ -118,7 +118,7 @@
 
         }
 
-  
+
         .table-container {
             overflow-x: auto;
             font-size: 11px;
@@ -475,9 +475,9 @@
                     <span class="close">&times;</span>
                     <h2>Form Input Stok DKP Reject Basah (Kopra)</h2>
 
-                    <form id="stokForm" action="{{ route('card_stock.dkp_reject_basah.store') }}" method="POST" enctype="multipart/form-data">
-
+                    <form id="stokForm" action="{{ route('card_stock.dkp_reject_basah.store') }}" method="POST" enctype="multipart/form-data" id="stokForm">
                         @csrf
+                        <input type="hidden" name="_method" id="formMethod" value="POST">
                         <input type="hidden" name="id" id="id">
                         <!-- Tanggal -->
                         <div class="form-group">
@@ -497,11 +497,9 @@
                             <select class="form-control @error('activity_type') is-invalid @enderror"
                             id="activity_type" name="activity_type" value="{{ old('activity_type') }}" required>
                                 <option value="" disabled selected>Pilih Jenis Aktivitas</option>
-                                <option value="hasil_produksi">Hasil Produksi</option> <!-- stok tambah-->
-                                <option value="pengambilan">Pengambilan PT lain</option> <!-- stok tambah-->
-                                <option value="pemakaian_produksi">Pemakaian Produksi</option>
-                                <!-- stok berkurang atau out-->
-                                <option value="reject">Reject</option> <!-- stok berkurang atau out-->
+                                <option value="reject">Reject</option>
+                                <option value="produksi">Produksi</option>
+                                <option value="penjualan">Penjualan</option>
                             </select>
                             @error('activity_type')
                                     <div class="alert alert-danger mt-2">
@@ -546,23 +544,23 @@
         @section('scripts')
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
-              
+
                     const openFormBtn = document.getElementById('openFormBtn');
                     const modal = document.getElementById('modal');
                     const closeModalBtn = document.querySelector('.close');
                     const form = document.querySelector('form');
 
-                
+
                     openFormBtn.addEventListener('click', function() {
-                        modal.style.display = 'flex'; 
+                        modal.style.display = 'flex';
                     });
 
-                   
+
                     closeModalBtn.addEventListener('click', function() {
-                        modal.style.display = 'none'; 
+                        modal.style.display = 'none';
                     });
 
-                    
+
                     window.addEventListener('click', function(event) {
                         if (event.target === modal) {
                             modal.style.display = 'none';
@@ -574,7 +572,7 @@
                         button.addEventListener('click', function() {
                             const id = this.getAttribute('data-id');
 
-                          
+
                             fetch(`/card_stock/dkp_reject_basah/${id}/edit`)
                                 .then(response => response.json())
                                 .then(data => {
@@ -585,7 +583,11 @@
                                     document.getElementById("stok").value = data.stok;
                                     document.getElementById("keterangan").value = data.keterangan;
 
-                                  
+
+                                    const form = document.getElementById('stokForm');
+                                    form.action = `/card_stock/dkp_reject_basah/${id}`;
+                                    document.getElementById("formMethod").value = "PUT"; // Set method to PUT
+
                                     modal.style.display = 'flex';
                                 })
                                 .catch(error => {
@@ -655,7 +657,7 @@
                         hasil: null,
                         detail: "Hasil Timbangan"
                     },
-                  
+
                 ];
 
                 const rowsPerPage = 5;

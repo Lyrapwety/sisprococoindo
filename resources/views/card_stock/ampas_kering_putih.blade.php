@@ -386,7 +386,7 @@
                 <h2>Card Stock Ampas Kering Putih</h2>
             </div>
 
-            
+
             <div class="filters">
                 <select class="pilihtanggal">
                     <option>Pilih Tanggal</option>
@@ -395,7 +395,7 @@
                 </select>
                 <div class="input-icon">
                     <input type="text" placeholder="Cari Data" class="search-input">
-                    <i class="fas fa-search"></i> 
+                    <i class="fas fa-search"></i>
                 </div>
                 <div class="actions">
                     @if (session('success'))
@@ -484,9 +484,9 @@
                     <span class="close">&times;</span>
                     <h2>Form Input Stok Ampas Kering Putih</h2>
 
-                    <form id="stokForm" action="{{ route('card_stock.ampas_kering_putih.store') }}" method="POST" enctype="multipart/form-data">
-
+                    <form id="stokForm" action="{{ route('card_stock.ampas_kering_putih.store') }}" method="POST" enctype="multipart/form-data" id="stokForm">
                         @csrf
+                        <input type="hidden" name="_method" id="formMethod" value="POST">
                         <input type="hidden" name="id" id="id">
                         <!-- Tanggal -->
                         <div class="form-group">
@@ -589,12 +589,12 @@
                     const form = document.querySelector('form');
 
                     openFormBtn.addEventListener('click', function() {
-                        modal.style.display = 'flex'; 
+                        modal.style.display = 'flex';
                     });
 
-              
+
                     closeModalBtn.addEventListener('click', function() {
-                        modal.style.display = 'none'; 
+                        modal.style.display = 'none';
                     });
 
                     window.addEventListener('click', function(event) {
@@ -603,16 +603,16 @@
                         }
                     });
 
-        
+
                     document.querySelectorAll('.edit').forEach(button => {
                         button.addEventListener('click', function() {
                             const id = this.getAttribute('data-id');
 
-         
+
                             fetch(`/card_stock/ampas_kering_putih/${id}/edit`)
                                 .then(response => response.json())
                                 .then(data => {
-                          
+
                                     document.getElementById("id").value = data.id;
                                     document.getElementById("activity_type").value = data.activity_type;
                                     document.getElementById("kategori").value = data.kategori;
@@ -620,7 +620,11 @@
                                     document.getElementById("stok").value = data.stok;
                                     document.getElementById("keterangan").value = data.keterangan;
 
-                               
+
+                                    const form = document.getElementById('stokForm');
+                                    form.action = `/card_stock/ampas_kering_putih/${id}`;
+                                    document.getElementById("formMethod").value = "PUT"; // Set method to PUT
+
                                     modal.style.display = 'flex';
                                 })
                                 .catch(error => {
@@ -629,7 +633,7 @@
                         });
                     });
                 });
-         
+
                 const data = [{
                         no: 1,
                         tanggal: "12 Agustus 2024",
@@ -690,7 +694,7 @@
                         hasil: null,
                         detail: "Hasil Timbangan"
                     },
-    
+
                 ];
 
                 const rowsPerPage = 5;

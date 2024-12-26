@@ -469,7 +469,7 @@
                                 <td>{{ $stoksantan->jenis_berat === '4KG' ? $stoksantan->in_box * 20 : '-' }}</td>
                                 <td>{{ $stoksantan->jenis_berat === '3KG' ? $stoksantan->in_box * 20 : '-' }}</td>
                                 <td>{{ $stoksantan->jenis_berat === '2KG' ? $stoksantan->in_box * 20 : '-' }}</td>
-                                <td>{{ $stoksantan->jenis_berat === '1KG' ? $stoksantan->in_box * 20 : '-' }}</td>
+                                <td>{{ $stoksantan->jenis_berat === '1KG' ? $stoksantan->in_box * 18 : '-' }}</td>
                                 <td>{{ $stoksantan->remain }}</td>
                                 <td>{{ $stoksantan->catatan }}</td>
                             </tr>
@@ -593,7 +593,7 @@
                         <div class="form-group">
                             <label for="ph">PH</label>
                             <input type="number" class="form-control @error('ph') is-invalid @enderror"
-                            id="ph" name="ph" value="{{ old('ph') }}">
+                            id="ph" name="ph" step="0.01" value="{{ old('ph') }}">
                             @error('ph')
                                 <div class="alert alert-danger mt-2">
                                     {{ $message }}

@@ -821,7 +821,6 @@
                 </ul>
             </div>
 
-
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <div id="modal-back" class="modal-back">
@@ -829,9 +828,9 @@
                             <h2>FORM INPUT HASIL KERJA SHELLER - PARER ( DKP )</h2>
                             <span class="close">&times;</span>
                         </div>
-                        <form action="{{ route('laporan.dkp.store') }}" method="POST" enctype="multipart/form-data">
-
+                        <form action="{{ route('laporan.dkp.store') }}" method="POST" enctype="multipart/form-data" id="laporanForm">
                             @csrf
+                            <input type="hidden" name="_method" id="formMethod" value="POST">
                             <input type="hidden" name="id" id="id">
                             <div class="form-container">
                                 <div class="form-row">
@@ -1041,7 +1040,7 @@
                 const container = document.getElementById('anggota-parer-container');
                 const template = container.querySelector('.anggota-block.template');
 
-             
+
                 const newMemberBlock = template.cloneNode(true);
                 newMemberBlock.classList.remove('template');
 
@@ -1057,7 +1056,7 @@
                     if (input.type === 'text') input.value = '';
                 });
 
-             
+
                 container.appendChild(newMemberBlock);
             });
 
@@ -1071,18 +1070,18 @@
                     let blockTotal = 0;
                     let filledColumns = 0;
 
-                 
+
                     inputs.forEach(input => {
                         if (input.value) {
-                            filledColumns += 1; 
+                            filledColumns += 1;
                             blockTotal += parseFloat(input.value) || 0;
                         }
                     });
 
-               
+
                     const totalKeranjangField = block.querySelector('[name="total_keranjang"]');
                     if (totalKeranjangField) {
-                        totalKeranjangField.value = filledColumns; 
+                        totalKeranjangField.value = filledColumns;
                     }
 
                     const blockTotalField = block.querySelector('#timbangan_hasil_kerja_parer');
@@ -1091,14 +1090,14 @@
                     grandTotal += blockTotal;
                 });
 
-       
+
                 const totalLabel = document.getElementById('total-label');
                 totalLabel.textContent = `Total: ${grandTotal} kg`;
             }
 
 
             document.addEventListener("DOMContentLoaded", function() {
-           
+
                 const openFormBtn = document.getElementById('openFormBtn');
                 const modal = document.getElementById('modal');
                 const closeModalBtn = document.querySelector('.close');
@@ -1108,9 +1107,9 @@
                     modal.style.display = 'flex';
                 });
 
-     
+
                 closeModalBtn.addEventListener('click', function() {
-                    modal.style.display = 'none'; 
+                    modal.style.display = 'none';
                 });
 
                 window.addEventListener('click', function(event) {
@@ -1119,7 +1118,7 @@
                     }
                 });
 
-     
+
                 document.querySelectorAll('.edit').forEach(button => {
                     button.addEventListener('click', function() {
                         const id = this.getAttribute('data-id');
@@ -1131,18 +1130,20 @@
                                 document.getElementById("nama_sheller").value = data.nama_sheller;
                                 document.getElementById("tanggal").value = data.tanggal;
                                 document.getElementById("nama_parer").value = data.nama_parer;
-                                document.getElementById("total_keranjang").value = data
-                                    .total_keranjang;
-                                document.getElementById("tipe_keranjang").value = data
-                                    .tipe_keranjang;
+                                document.getElementById("total_keranjang").value = data.total_keranjang;
+                                document.getElementById("tipe_keranjang").value = data.tipe_keranjang;
 
-                                const hasilKerjaParerInputs = document.querySelectorAll(
-                                    "[name='hasil_kerja_parer[]']");
+                                const hasilKerjaParerInputs = document.querySelectorAll("[name='hasil_kerja_parer[]']");
                                 hasilKerjaParerInputs.forEach((input, index) => {
                                     input.value = data.hasil_kerja_parer[index] || 0;
                                 });
 
-                                calculateTotal(); 
+                                calculateTotal();
+
+                                // Set form action to update route
+                                const form = document.getElementById('laporanForm');
+                                form.action = `/laporan/dkp/${id}`;
+                                document.getElementById("formMethod").value = "PUT"; // Set method to PUT
 
                                 modal.style.display = 'flex';
                             })
@@ -1152,14 +1153,13 @@
                     });
                 });
 
-        
                 function calculateTotal() {
                     const inputs = document.querySelectorAll("[name='hasil_kerja_parer[]']");
                     let total = 0;
                     let filledCount = 0;
 
                     inputs.forEach(input => {
-                    
+
                         if (input.value !== "" && !isNaN(input.value) && parseFloat(input.value) > 0) {
                             filledCount++;
                         }
@@ -1278,7 +1278,7 @@
                 const anggotaBlock = document.createElement('div');
                 anggotaBlock.classList.add('anggota-block');
 
-            
+
                 const formRow = `
                 <div class="form-row">
                                     <div class="form-group">

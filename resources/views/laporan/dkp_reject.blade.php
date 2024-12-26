@@ -620,9 +620,9 @@
                             <span class="close">&times;</span>
                         </div>
                         <form action="{{ route('laporan.dkp_reject.store') }}" method="POST"
-                            enctype="multipart/form-data">
-
+                            enctype="multipart/form-data" id="laporanForm">
                             @csrf
+                            <input type="hidden" name="_method" id="formMethod" value="POST">
                             <input type="hidden" name="id" id="id">
                             <div class="form-group">
                                 <div>
@@ -759,7 +759,7 @@
                 let total = 0;
 
                 inputs.forEach(input => {
-                    total += parseFloat(input.value) || 0; 
+                    total += parseFloat(input.value) || 0;
                 });
 
                 document.getElementById('timbangan_netto').value = total;
@@ -767,19 +767,19 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-             
+
                 const openFormBtn = document.getElementById('openFormBtn');
                 const modal = document.getElementById('modal');
                 const closeModalBtn = document.querySelector('.close');
                 const form = document.querySelector('form');
 
                 openFormBtn.addEventListener('click', function() {
-                    modal.style.display = 'flex'; 
+                    modal.style.display = 'flex';
                 });
 
-  
+
                 closeModalBtn.addEventListener('click', function() {
-                    modal.style.display = 'none'; 
+                    modal.style.display = 'none';
                 });
 
                 window.addEventListener('click', function(event) {
@@ -795,7 +795,7 @@
                         fetch(`/laporan/dkp_reject/${id}/edit`)
                             .then(response => response.json())
                             .then(data => {
-            
+
                                 document.getElementById("id").value = data.id;
                                 document.getElementById("nama_pegawai").value = data.nama_pegawai;
                                 document.getElementById("sheller_parer").value = data.sheller_parer;
@@ -803,16 +803,20 @@
                                 document.getElementById("total_keranjang").value = data.total_keranjang;
                                 document.getElementById("tipe_keranjang").value = data.tipe_keranjang;
 
-               
+
                                 const hasilKerjaNettoInputs = document.querySelectorAll("[name='hasil_kerja_netto[]']");
                                 hasilKerjaNettoInputs.forEach((input, index) => {
                                     input.value = data.hasil_kerja_netto[index] || 0;
                                 });
 
-                      
+
                                 calculateTotal();
 
-                             
+
+                                const form = document.getElementById('laporanForm');
+                                form.action = `/laporan/dkp_reject/${id}`;
+                                document.getElementById("formMethod").value = "PUT"; // Set method to PUT
+
                                 modal.style.display = 'flex';
                             })
                             .catch(error => {
@@ -821,7 +825,7 @@
                     });
                 });
 
-           
+
                 function calculateTotal() {
                     const inputs = document.querySelectorAll("[name='hasil_kerja_netto[]']");
                     let total = 0;
@@ -893,7 +897,7 @@
                 hasil: null,
                 detail: "Hasil Timbangan"
             },
-         
+
         ];
 
         const rowsPerPage = 5;

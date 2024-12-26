@@ -50,7 +50,7 @@
             font-size: 12px;
         }
 
- 
+
         .filters select.pilihtanggal,
         .filters .input-icon input[type="text"] {
             padding: 8px 12px;
@@ -480,9 +480,9 @@
                     <span class="close">&times;</span>
                     <h2>Form Input Stok Kulit Ari Basah</h2>
 
-                    <form id="stokForm" action="{{ route('card_stock.kulit_ari_basah.store') }}" method="POST" enctype="multipart/form-data">
-
+                    <form id="stokForm" action="{{ route('card_stock.kulit_ari_basah.store') }}" method="POST" enctype="multipart/form-data" id="stokForm">
                         @csrf
+                        <input type="hidden" name="_method" id="formMethod" value="POST">
                         <input type="hidden" name="id" id="id">
                         <!-- Tanggal -->
                         <div class="form-group">
@@ -503,8 +503,8 @@
                             id="activity_type" name="activity_type" value="{{ old('activity_type') }}" required>
                                 <option value="" disabled selected>Pilih Jenis Aktivitas</option>
                                 <option value="hasil_produksi">Hasil Produksi</option> <!-- stok tambah-->
-                                <option value="pengambilan">Pengambilan PT lain</option> <!-- stok tambah-->
-                                <option value="pemakaian_produksi">Pemakaian Produksi</option>
+                                <option value="produksi">Produksi</option> <!-- stok tambah-->
+                                <option value="penjualan">Penjualan</option>
                                 <!-- stok berkurang atau out-->
                                 <option value="reject">Reject</option> <!-- stok berkurang atau out-->
                             </select>
@@ -556,14 +556,14 @@
                     const closeModalBtn = document.querySelector('.close');
                     const form = document.querySelector('form');
 
-              
+
                     openFormBtn.addEventListener('click', function() {
                         modal.style.display = 'flex';
                     });
 
-               
+
                     closeModalBtn.addEventListener('click', function() {
-                        modal.style.display = 'none'; 
+                        modal.style.display = 'none';
                     });
 
                     window.addEventListener('click', function(event) {
@@ -584,6 +584,10 @@
                                     document.getElementById("tanggal").value = data.tanggal;
                                     document.getElementById("stok").value = data.stok;
                                     document.getElementById("remark").value = data.remark;
+
+                                    const form = document.getElementById('stokForm');
+                                    form.action = `/card_stock/kulit_ari_basah/${id}`;
+                                    document.getElementById("formMethod").value = "PUT"; // Set method to PUT
 
                                     modal.style.display = 'flex';
                                 })

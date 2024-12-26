@@ -61,7 +61,7 @@
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
- 
+
         .filters .input-icon {
             position: relative;
             width: 250px;
@@ -252,7 +252,7 @@
             cursor: pointer;
         }
 
-        .btn.export img { 
+        .btn.export img {
             filter: brightness(0) invert(1);
 
 
@@ -264,7 +264,7 @@
         }
 
 
-      
+
         .modal {
             display: none;
             position: fixed;
@@ -294,7 +294,7 @@
             margin: 0 auto;
         }
 
-    
+
         @keyframes fadeIn {
             from {
                 transform: scale(0.8);
@@ -362,7 +362,7 @@
             box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
         }
 
-     
+
         .form-control option {
             padding: 8px;
         }
@@ -439,7 +439,7 @@
                         <tr>
                             <th>Fine</th>
                             <th>Medium</th>
-                    
+
                         </tr>
 
                     </thead>
@@ -495,9 +495,9 @@
                     <span class="close">&times;</span>
                     <h2>Form Input Stok Ampas Kering Yellow</h2>
 
-                    <form id="stokForm" action="{{ route('card_stock.ampas_kering_yellow.store') }}" method="POST" enctype="multipart/form-data">
-
+                    <form id="stokForm" action="{{ route('card_stock.ampas_kering_yellow.store') }}" method="POST" enctype="multipart/form-data" id="stokForm">
                         @csrf
+                        <input type="hidden" name="_method" id="formMethod" value="POST">
                         <input type="hidden" name="id" id="id">
                         <!-- Tanggal -->
                         <div class="form-group">
@@ -593,39 +593,39 @@
                 });
 
                 document.addEventListener("DOMContentLoaded", function() {
-               
+
                     const openFormBtn = document.getElementById('openFormBtn');
                     const modal = document.getElementById('modal');
                     const closeModalBtn = document.querySelector('.close');
                     const form = document.querySelector('form');
 
-                
+
                     openFormBtn.addEventListener('click', function() {
-                        modal.style.display = 'flex'; 
+                        modal.style.display = 'flex';
                     });
 
-                  
+
                     closeModalBtn.addEventListener('click', function() {
-                        modal.style.display = 'none'; 
+                        modal.style.display = 'none';
                     });
 
-                    
+
                     window.addEventListener('click', function(event) {
                         if (event.target === modal) {
                             modal.style.display = 'none';
                         }
                     });
 
-                    
+
                     document.querySelectorAll('.edit').forEach(button => {
                         button.addEventListener('click', function() {
                             const id = this.getAttribute('data-id');
 
-                            
+
                             fetch(`/card_stock/ampas_kering_yellow/${id}/edit`)
                                 .then(response => response.json())
                                 .then(data => {
-                                 
+
                                     document.getElementById("id").value = data.id;
                                     document.getElementById("activity_type").value = data.activity_type;
                                     document.getElementById("kategori").value = data.kategori;
@@ -633,7 +633,11 @@
                                     document.getElementById("stok").value = data.stok;
                                     document.getElementById("keterangan").value = data.keterangan;
 
-                                
+
+                                    const form = document.getElementById('stokForm');
+                                    form.action = `/card_stock/ampas_kering_yellow/${id}`;
+                                    document.getElementById("formMethod").value = "PUT"; // Set method to PUT
+
                                     modal.style.display = 'flex';
                                 })
                                 .catch(error => {
@@ -703,7 +707,7 @@
                         hasil: null,
                         detail: "Hasil Timbangan"
                     },
-                
+
                 ];
 
                 const rowsPerPage = 5;

@@ -492,9 +492,9 @@
                     <span class="close">&times;</span>
                     <h2>Form Input Stok Kelapa Bulat</h2>
 
-                    <form id="stokForm" action="{{ route('card_stock.KB_Kelapa_Bulat.store') }}" method="POST" enctype="multipart/form-data">
-
+                    <form id="stokForm" action="{{ route('card_stock.KB_Kelapa_Bulat.store') }}" method="POST" enctype="multipart/form-data" id="stokForm">
                         @csrf
+                        <input type="hidden" name="_method" id="formMethod" value="POST">
                         <input type="hidden" name="id" id="id">
                         <!-- Tanggal -->
                         <div class="form-group">
@@ -587,8 +587,8 @@
                     document.querySelectorAll('.detail').forEach(button => {
                         button.addEventListener('click', function () {
                             const tanggal = this.dataset.tanggal;
-                            const remark = this.dataset.remark;  
-                            const trip = this.dataset.trip;  
+                            const remark = this.dataset.remark;
+                            const trip = this.dataset.trip;
                             const url = `{{ route('card_stock.kelapa_bulat.index') }}?tanggal=${encodeURIComponent(tanggal)}&remark=${encodeURIComponent(remark)}&trip=${encodeURIComponent(trip)}`;
                             window.location.href = url;
                         });
@@ -629,7 +629,11 @@
                                     document.getElementById("stok").value = data.stok;
                                     document.getElementById("remark").value = data.remark;
 
-                                
+
+                                    const form = document.getElementById('stokForm');
+                                    form.action = `/card_stock/KB_Kelapa_Bulat/${id}`;
+                                    document.getElementById("formMethod").value = "PUT"; // Set method to PUT
+
                                     modal.style.display = 'flex';
                                 })
                                 .catch(error => {
@@ -698,7 +702,7 @@
                         hasil: null,
                         detail: "Hasil Timbangan"
                     },
-          
+
                 ];
 
                 const rowsPerPage = 5;

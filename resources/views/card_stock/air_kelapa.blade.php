@@ -414,7 +414,7 @@
                 </select>
                 <div class="input-icon">
                     <input type="text" placeholder="Cari Data" class="search-input">
-                    <i class="fas fa-search"></i> 
+                    <i class="fas fa-search"></i>
                 </div>
                 <div class="actions">
                     @if (session('success'))
@@ -595,7 +595,7 @@
 
                         <div class="form-group">
                             <label for="ph">PH</label>
-                            <input type="number" class="form-control @error('ph') is-invalid @enderror"
+                            <input type="number" step="0.01" class="form-control @error('ph') is-invalid @enderror"
                             id="ph" name="ph" value="{{ old('ph') }}">
                             @error('ph')
                                 <div class="alert alert-danger mt-2">

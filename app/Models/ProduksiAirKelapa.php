@@ -25,7 +25,7 @@ class ProduksiAirKelapa extends Model
         'bags',
         'begin',
         'in_steril',
-        'in_nonstreil',
+        'in_nonsteril',
         'out_rep',
         'out_eks',
         'out_adj',

@@ -264,7 +264,7 @@
                 </select>
                 <div class="input-icon">
                     <input type="text" placeholder="Cari Data" class="search-input">
-                    <i class="fas fa-search"></i> 
+                    <i class="fas fa-search"></i>
                 </div>
                 <div class="actions">
                     <button class="btn export">
@@ -278,7 +278,7 @@
 
                 </div>
             </div>
-          
+
             <table>
                 <thead>
                     <tr>
@@ -339,21 +339,21 @@
                         <td colspan="2" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
                             Awal / Sisa Tanggal</td>
                         <td colspan="3" style="text-align: center; border-right: 1px solid black;">
-                            {{ number_format($awalSisaTanggal, 0, ',', '.') }}</td> 
+                            {{ number_format($awalSisaTanggal, 0, ',', '.') }}</td>
                         <td colspan="5" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
                             Pengisian Hari Ini</td>
                         <td colspan="4" style="text-align: center; border-right: 1px solid black;">
-                            {{ number_format($totalQtyToday, 0, ',', '.') }}</td> 
+                            {{ number_format($totalQtyToday, 0, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
                             Pemakaian Hari Ini</td>
                         <td colspan="3" style="text-align: center; border-right: 1px solid black;">
-                            {{ number_format($totalQtyToday, 0, ',', '.') }}</td> 
+                            {{ number_format($totalQtyToday, 0, ',', '.') }}</td>
                         <td colspan="5" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
                             Sisa Hari Ini</td>
                         <td colspan="4" style="text-align: center; border-right: 1px solid black;">
-                            {{ number_format($sisaHariIni, 0, ',', '.') }}</td> 
+                            {{ number_format($sisaHariIni, 0, ',', '.') }}</td>
                     </tr>
 
                 </tfoot>

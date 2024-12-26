@@ -825,9 +825,9 @@
                              <h2 class="judul">FORM INPUT HASIL KERJA SHELLER - PARER ( KULIT ARI BASAH )</h2>
                              <span class="close">&times;</span>
                          </div>
-                         <form action="{{ route('laporan.kulitari.store') }}" method="POST" enctype="multipart/form-data">
-
-                             @csrf
+                         <form action="{{ route('laporan.kulitari.store') }}" method="POST" enctype="multipart/form-data" id="laporanForm">
+                            @csrf
+                            <input type="hidden" name="_method" id="formMethod" value="POST">
                              <input type="hidden" name="id" id="id">
                              <div class="form-group">
                                  <input type="hidden" name="id" id="id">
@@ -1057,7 +1057,7 @@
              let total = 0;
 
              inputs.forEach(input => {
-                 total += parseFloat(input.value) || 0; 
+                 total += parseFloat(input.value) || 0;
              });
 
              document.getElementById('timbangan_hasil').value = total;
@@ -1076,7 +1076,7 @@
              });
 
              closeModal1.addEventListener("click", function() {
-                 modal1.style.display = "none"; 
+                 modal1.style.display = "none";
              });
              window.addEventListener("click", function(event) {
                  if (event.target === modal1) {
@@ -1108,8 +1108,12 @@
 
                              calculateTotal();
 
-                             modal1.style.display = 'flex';
-                         })
+                             const form = document.getElementById('laporanForm');
+                                form.action = `/laporan/kulitari/${id}`;
+                                document.getElementById("formMethod").value = "PUT"; // Set method to PUT
+
+                                modal1.style.display = 'flex';
+                            })
                          .catch(error => {
                              console.error("Error fetching data:", error);
                          });
@@ -1146,7 +1150,7 @@
              }
          });
 
-        
+
          const data = [{
                  no: 1,
                  tanggal: "12 Agustus 2024",
@@ -1263,7 +1267,7 @@
              }
          }
 
-     
+
          displayData();
 
 

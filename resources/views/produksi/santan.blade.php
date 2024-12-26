@@ -587,7 +587,7 @@
                             <div class="form-group">
                                 <label for="ph">PH</label>
                                 <input type="number" class="form-control @error('ph') is-invalid @enderror"
-                                id="ph" name="ph" value="{{ old('ph') }}">
+                                id="ph" name="ph" step="0.01" value="{{ old('ph') }}">
                                 @error('ph')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}

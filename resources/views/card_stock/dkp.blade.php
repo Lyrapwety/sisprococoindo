@@ -230,7 +230,7 @@
             border-color: #104367;
         }
 
-     
+
         .horizontalline1 {
             border: none;
             border-bottom: 0.5px solid #ccc;
@@ -340,7 +340,7 @@
             background-color: #fff;
             box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
             appearance: none;
-       
+
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23666" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
             background-repeat: no-repeat;
             background-position: right 10px center;
@@ -354,7 +354,7 @@
             box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
         }
 
-    
+
         .form-control option {
             padding: 8px;
         }
@@ -365,7 +365,7 @@
             box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
         }
 
-    
+
         .submit-btn {
             background-color: #104367;
             color: white;
@@ -484,9 +484,9 @@
 
                     </div>
 
-                    <form id="stokForm" action="{{ route('card_stock.dkp.store') }}" method="POST" enctype="multipart/form-data">
-
+                    <form id="stokForm" action="{{ route('card_stock.dkp.store') }}" method="POST" enctype="multipart/form-data" id="stokForm">
                         @csrf
+                        <input type="hidden" name="_method" id="formMethod" value="POST">
                         <input type="hidden" name="id" id="id">
                         <!-- Tanggal -->
                         <div class="form-group">
@@ -555,19 +555,19 @@
         @section('scripts')
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
-          
+
                     const openFormBtn = document.getElementById('openFormBtn');
                     const modal = document.getElementById('modal');
                     const closeModalBtn = document.querySelector('.close');
                     const form = document.querySelector('form');
 
-        
+
                     openFormBtn.addEventListener('click', function() {
-                        modal.style.display = 'flex'; 
+                        modal.style.display = 'flex';
                     });
 
                     closeModalBtn.addEventListener('click', function() {
-                        modal.style.display = 'none'; 
+                        modal.style.display = 'none';
                     });
 
                     window.addEventListener('click', function(event) {
@@ -576,21 +576,26 @@
                         }
                     });
 
-                
+
                     document.querySelectorAll('.edit').forEach(button => {
                         button.addEventListener('click', function() {
                             const id = this.getAttribute('data-id');
 
-                
+
                             fetch(`/card_stock/dkp/${id}/edit`)
                                 .then(response => response.json())
                                 .then(data => {
-                   
+
                                     document.getElementById("id").value = data.id;
                                     document.getElementById("activity_type").value = data.activity_type;
                                     document.getElementById("tanggal").value = data.tanggal;
                                     document.getElementById("stok").value = data.stok;
                                     document.getElementById("keterangan").value = data.keterangan;
+
+                                    const form = document.getElementById('stokForm');
+                                    form.action = `/card_stock/dkp/${id}`;
+                                    document.getElementById("formMethod").value = "PUT"; // Set method to PUT
+
                                     modal.style.display = 'flex';
                                 })
                                 .catch(error => {

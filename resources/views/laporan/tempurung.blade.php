@@ -11,7 +11,7 @@
             height: calc(100vh - 70px);
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-      
+
         }
 
         .container {
@@ -232,7 +232,7 @@
 
         }
 
-    
+
 
         .input-icon input:focus {
             border-color: #104367;
@@ -682,7 +682,7 @@
                                 <td>{{ $laporantempurung->bruto }}</td>
                                 <td>{{ $laporantempurung->tipe_keranjang }}</td>
                                 <td>{{ $laporantempurung->total_keranjang }}</td>
-                                <td>{{ $laporantempurung->timbangan_netto }}</td>
+                                <td>{{ $laporantempurung->netto }}</td>
                                 <td><button class="detail-btn" id="openModal2" data-id="{{ $laporantempurung->id }}">Hasil
                                         Timbangan</button></td>
                                 <td>
@@ -727,9 +727,9 @@
                             <h2>FORM INPUT HASIL TEMPURUNG BASAH</h2>
                             <button class="close">&times;</button>
                         </div>
-                        <form action="{{ route('laporan.tempurung.store') }}" method="POST" enctype="multipart/form-data">
-
+                        <form action="{{ route('laporan.tempurung.store') }}" method="POST" enctype="multipart/form-data" id="laporanForm">
                             @csrf
+                            <input type="hidden" name="_method" id="formMethod" value="POST">
                             <input type="hidden" name="id" id="id">
 
                             <div class="form-container">
@@ -834,7 +834,7 @@
             let total = 0;
 
             inputs.forEach(input => {
-                total += parseFloat(input.value) || 0; 
+                total += parseFloat(input.value) || 0;
             });
 
             document.getElementById('timbangan_netto').value = total;
@@ -842,18 +842,18 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            const openFormBtn = document.getElementById('openFormBtn'); 
-            const modal = document.getElementById('modal'); 
+            const openFormBtn = document.getElementById('openFormBtn');
+            const modal = document.getElementById('modal');
             const closeModalBtn = document.querySelector('.close');
             const form = document.querySelector('form');
 
             openFormBtn.addEventListener("click", function() {
                 console.log("Modal dibuka");
-                modal.style.display = "block"; 
+                modal.style.display = "block";
             });
 
             closeModalBtn.addEventListener("click", function() {
-                modal.style.display = "none"; 
+                modal.style.display = "none";
             });
 
             window.addEventListener("click", function(event) {
@@ -884,7 +884,11 @@
 
                             calculateTotal();
 
-                            modal.style.display = 'flex';
+                            const form = document.getElementById('laporanForm');
+                                form.action = `/laporan/tempurung/${id}`;
+                                document.getElementById("formMethod").value = "PUT"; // Set method to PUT
+
+                                modal.style.display = 'flex';
                         })
                         .catch(error => {
                             console.error("Error fetching data:", error);

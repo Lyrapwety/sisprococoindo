@@ -52,6 +52,7 @@ Route::prefix('laporan')->name('laporan.')->group(function () {
     Route::delete('dkp/{id}', [LaporandkpController::class, 'destroy'])->name('dkp.destroy');
     Route::get('dkp/{id}/edit', [LaporandkpController::class, 'edit'])->name('dkp.edit');
     Route::get('/laporan/dkp/{id}', [LaporandkpController::class, 'show'])->name('laporan.dkp.show');
+    Route::put('/laporan/dkp/{id}', [LaporandkpController::class, 'update'])->name('laporan.dkp.update');
 
 
     //dkp reject
@@ -60,6 +61,7 @@ Route::prefix('laporan')->name('laporan.')->group(function () {
     Route::post('dkp_reject', [LaporandkprejectController::class, 'store'])->name('dkp_reject.store');
     Route::delete('dkp_reject/{id}', [LaporandkprejectController::class, 'destroy'])->name('dkp_reject.destroy');
     Route::get('dkp_reject/{id}/edit', [LaporandkprejectController::class, 'edit'])->name('dkp_reject.edit');
+    Route::put('/laporan/dkp_reject/{id}', [LaporandkprejectController::class, 'update'])->name('laporan.dkp_reject.update');
 
     //kulit ari laporan
     Route::resource('kulitari', LaporankulitariController::class);
@@ -67,6 +69,7 @@ Route::prefix('laporan')->name('laporan.')->group(function () {
     Route::post('kulitari', [LaporankulitariController::class, 'store'])->name('kulitari.store');
     Route::delete('kulitari/{id}', [LaporankulitariController::class, 'destroy'])->name('kulitari.destroy');
     Route::get('kulitari/{id}/edit', [LaporankulitariController::class, 'edit'])->name('kulitari.edit');
+    Route::put('/laporan/kulitari/{id}', [LaporankulitariController::class, 'update'])->name('laporan.kulitari.update');
 
     //air kelapa laporan
     Route::resource('airkelapa', LaporanairkelapaController::class);
@@ -74,6 +77,7 @@ Route::prefix('laporan')->name('laporan.')->group(function () {
     Route::post('airkelapa', [LaporanairkelapaController::class, 'store'])->name('airkelapa.store');
     Route::delete('airkelapa/{id}', [LaporanairkelapaController::class, 'destroy'])->name('airkelapa.destroy');
     Route::get('airkelapa/{id}/edit', [LaporanairkelapaController::class, 'edit'])->name('airkelapa.edit');
+    Route::put('/laporan/airkelapa/{id}', [LaporanairkelapaController::class, 'update'])->name('laporan.airkelapa.update');
 
     //tempurung laporan
     Route::resource('tempurung', LaporantempurungController::class);
@@ -81,6 +85,7 @@ Route::prefix('laporan')->name('laporan.')->group(function () {
     Route::post('tempurung', [LaporantempurungController::class, 'store'])->name('tempurung.store');
     Route::delete('tempurung/{id}', [LaporantempurungController::class, 'destroy'])->name('tempurung.destroy');
     Route::get('tempurung/{id}/edit', [LaporantempurungController::class, 'edit'])->name('tempurung.edit');
+    Route::put('/laporan/tempurung/{id}', [LaporantempurungController::class, 'update'])->name('laporan.tempurung.update');
 });
 
 //rekap view
@@ -115,6 +120,7 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::post('dkp', [StokdkpController::class, 'store'])->name('dkp.store');
     Route::delete('dkp/{id}', [StokdkpController::class, 'destroy'])->name('dkp.destroy');
     Route::get('dkp/{id}/edit', [StokdkpController::class, 'edit'])->name('dkp.edit');
+    Route::put('/stok/dkp/{id}', [StokdkpController::class, 'update'])->name('stok.dkp.update');
 
     //stok kelapa bulat
     Route::resource('kelapa_bulat', KelapabulatController::class);
@@ -129,6 +135,7 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::post('KB_Kelapa_Bulat', [StokKbController::class, 'store'])->name('KB_Kelapa_Bulat.store');
     Route::delete('KB_Kelapa_Bulat/{id}', [StokKbController::class, 'destroy'])->name('KB_Kelapa_Bulat.destroy');
     Route::get('KB_Kelapa_Bulat/{id}/edit', [StokKbController::class, 'edit'])->name('KB_Kelapa_Bulat.edit');
+    Route::put('/stok/kb/{id}', [StokkbController::class, 'update'])->name('stok.kb.update');
 
     //stok santan
     Route::resource('santan', StoksantanController::class);
@@ -148,6 +155,7 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::post('kulit_ari_kering', [StokarikeringController::class, 'store'])->name('kulit_ari_kering.store');
     Route::delete('kulit_ari_kering/{id}', [StokarikeringController::class, 'destroy'])->name('kulit_ari_kering.destroy');
     Route::get('kulit_ari_kering/{id}/edit', [StokdkpController::class, 'edit'])->name('kulit_ari_kering.edit');
+    Route::put('/stok/kulit-ari-kering/{id}', [StokarikeringController::class, 'update'])->name('stok.kulit_ari_kering.update');
 
 
     //stok ari basah
@@ -156,7 +164,7 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::post('kulit_ari_basah', [StokaribasahController::class, 'store'])->name('kulit_ari_basah.store');
     Route::delete('kulit_ari_basah/{id}', [StokaribasahController::class, 'destroy'])->name('kulit_ari_basah.destroy');
     Route::get('kulit_ari_basah/{id}/edit', [StokaribasahController::class, 'edit'])->name('kulit_ari_basah.edit');
-
+    Route::put('/stok/kulit-ari-basah/{id}', [StokaribasahController::class, 'update'])->name('stok.kulit_ari_basah.update');
 
     //stok minyak kelapa
     Route::resource('minyak_kelapa', StokminyakkelapaController::class);
@@ -164,6 +172,7 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::post('minyak_kelapa', [StokminyakkelapaController::class, 'store'])->name('minyak_kelapa.store');
     Route::delete('minyak_kelapa/{id}', [StokminyakkelapaController::class, 'destroy'])->name('minyak_kelapa.destroy');
     Route::get('minyak_kelapa/{id}/edit', [StokminyakkelapaController::class, 'edit'])->name('minyak_kelapa.edit');
+    Route::put('/stok/minyak-kelapa/{id}', [StokminyakkelapaController::class, 'update'])->name('stok.minyak_kelapa.update');
 
 
     //stok reject kering
@@ -172,6 +181,7 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::post('dkp_reject_kering', [StokrejectkeringController::class, 'store'])->name('dkp_reject_kering.store');
     Route::delete('dkp_reject_kering/{id}', [StokrejectkeringController::class, 'destroy'])->name('dkp_reject_kering.destroy');
     Route::get('dkp_reject_kering/{id}/edit', [StokrejectkeringController::class, 'edit'])->name('dkp_reject_kering.edit');
+    Route::put('/stok/reject-kering/{id}', [StokrejectkeringController::class, 'update'])->name('stok.reject_kering.update');
 
 
     //stok reject basah
@@ -180,6 +190,7 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::post('dkp_reject_basah', [StokrejectbasahController::class, 'store'])->name('dkp_reject_basah.store');
     Route::delete('dkp_reject_basah/{id}', [StokrejectbasahController::class, 'destroy'])->name('dkp_reject_basah.destroy');
     Route::get('dkp_reject_basah/{id}/edit', [StokrejectbasahController::class, 'edit'])->name('dkp_reject_basah.edit');
+    Route::put('/stok/reject-basah/{id}', [StokrejectbasahController::class, 'update'])->name('stok.reject_basah.update');
 
 
     //stok tempurung
@@ -188,6 +199,7 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::post('tempurung_basah', [StoktempurungbasahController::class, 'store'])->name('tempurung_basah.store');
     Route::delete('tempurung_basah/{id}', [StoktempurungbasahController::class, 'destroy'])->name('tempurung_basah.destroy');
     Route::get('tempurung_basah/{id}/edit', [StoktempurungbasahController::class, 'edit'])->name('tempurung_basah.edit');
+    Route::put('/stok/tempurung-basah/{id}', [StoktempurungbasahController::class, 'update'])->name('stok.tempurung_basah.update');
 
 
     //stok ampas kering putih
@@ -196,6 +208,7 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::post('ampas_kering_putih', [StokampasputihController::class, 'store'])->name('ampas_kering_putih.store');
     Route::delete('ampas_kering_putih/{id}', [StokampasputihController::class, 'destroy'])->name('ampas_kering_putih.destroy');
     Route::get('ampas_kering_putih/{id}/edit', [StokampasputihController::class, 'edit'])->name('ampas_kering_putih.edit');
+    Route::put('/stok/ampas-kering-putih/{id}', [StokampasputihController::class, 'update'])->name('stok.ampas_kering_putih.update');
 
 
     //stok ampas kering putih
@@ -204,6 +217,7 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::post('ampas_kering_yellow', [StokampasyellowController::class, 'store'])->name('ampas_kering_yellow.store');
     Route::delete('ampas_kering_yellow/{id}', [StokampasyellowController::class, 'destroy'])->name('ampas_kering_yellow.destroy');
     Route::get('ampas_kering_yellow/{id}/edit', [StokampasyellowController::class, 'edit'])->name('ampas_kering_yellow.edit');
+    Route::put('/stok/ampas-kering-yellow/{id}', [StokampasyellowController::class, 'update'])->name('stok.ampas_kering_yellow.update');
 
 });
 
@@ -214,7 +228,7 @@ Route::prefix('data_pegawai')->name('data_pegawai.')->group(function () {
     Route::get('/tambah_data_pegawai', [DatapegawaiController::class, 'tambah_data_pegawai'])->name('tambah_data_pegawai');
     Route::post('/store', [DatapegawaiController::class, 'store'])->name('store');
     Route::delete('/{id}', [DatapegawaiController::class, 'destroy'])->name('destroy');
-    Route::get('/edit/{id}', [DatapegawaiController::class, 'edit'])->name('edit'); 
+    Route::get('/edit/{id}', [DatapegawaiController::class, 'edit'])->name('edit');
     Route::put('/update/{id}', [DatapegawaiController::class, 'update'])->name('update');
 });
 

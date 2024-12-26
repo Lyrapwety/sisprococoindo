@@ -62,11 +62,8 @@ class LaporandkpController extends Controller
 
         $total_potongan_keranjang = $request->total_keranjang * $berat_per_keranjang;
 
-        // Here is where you might need to loop through a certain array (for example, if you're processing `hasil_kerja_parer`)
-        $i = 0; // Initialize $i before the loop
+        $i = 0;
         foreach ($request->hasil_kerja_parer as $value) {
-            // Perform any necessary logic using $i as the index
-            // For example, you could store something or do further calculations
             $i++;
         }
 
@@ -88,7 +85,7 @@ class LaporandkpController extends Controller
         // Redirect dengan pesan sukses
         return redirect()->route('laporan.dkp.index')->with('success', 'Data berhasil ditambahkan!');
     }
-    
+
 
 
 
@@ -110,6 +107,58 @@ class LaporandkpController extends Controller
         ]);
     }
 
+    public function update(Request $request, $id)
+    {
+        // Validasi data
+        $request->validate([
+            'id_kelapa_bulat' => 'nullable|string|max:255',
+            'no' => 'nullable|string|max:255',
+            'tanggal' => 'nullable|string|max:255',
+            'nama_sheller' => 'nullable|string|max:255',
+            'nama_parer' => 'nullable|string|max:255',
+            'hasil_kerja_parer' => 'nullable|array',
+            'hasil_kerja_parer.*' => 'nullable|numeric',
+            'timbangan_hasil_kerja_parer' => 'nullable|numeric',
+            'hasil_kerja_sheller' => 'nullable|string|max:255',
+            'total_keranjang' => 'nullable|string|max:255',
+            'tipe_keranjang' => 'nullable|string|max:255',
+            'berat_keranjang' => 'nullable|string|max:255',
+            'total_potongan_keranjang' => 'nullable|string|max:255',
+        ]);
+
+        // Temukan laporan berdasarkan ID
+        $laporan = Laporandkp::findOrFail($id);
+
+        // Hitung berat per keranjang
+        $berat_per_keranjang = 0;
+        if ($request->tipe_keranjang == 'Keranjang Besar') {
+            $berat_per_keranjang = 3.8;
+        } elseif ($request->tipe_keranjang == 'Keranjang Kecil') {
+            $berat_per_keranjang = 1.3;
+        }
+
+        // Hitung total potongan keranjang
+        $total_potongan_keranjang = $request->total_keranjang * $berat_per_keranjang;
+
+        // Perbarui data laporan
+        $laporan->update([
+            'id_kelapa_bulat' => $request->id_kelapa_bulat,
+            'no' => $request->no,
+            'tanggal' => $request->tanggal,
+            'nama_sheller' => $request->nama_sheller,
+            'nama_parer' => $request->nama_parer,
+            'hasil_kerja_parer' => json_encode($request->hasil_kerja_parer),
+            'timbangan_hasil_kerja_parer' => $request->timbangan_hasil_kerja_parer,
+            'hasil_kerja_sheller' => $request->hasil_kerja_sheller,
+            'total_keranjang' => $request->total_keranjang,
+            'tipe_keranjang' => $request->tipe_keranjang,
+            'berat_keranjang' => $berat_per_keranjang,
+            'total_potongan_keranjang' => $total_potongan_keranjang,
+        ]);
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('laporan.dkp.index')->with('success', 'Data berhasil diperbarui!');
+    }
 
     public function edit($id)
     {

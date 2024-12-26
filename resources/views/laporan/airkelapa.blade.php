@@ -121,6 +121,7 @@
             transform: translateX(-2px);
 
         }
+
         .table-container {
             overflow-x: auto;
             font-size: 11px;
@@ -165,6 +166,7 @@
         table td button.delete {
             background-color: #e74c3c;
         }
+
         .pagination-container {
             display: flex;
             justify-content: space-between;
@@ -555,7 +557,8 @@
                                 <td>{{ $laporanairkelapa->bruto }}</td>
                                 <td>{{ $laporanairkelapa->total_potongan_keranjang }}</td>
                                 <td>{{ $laporanairkelapa->timbangan_hasil }}</td>
-                                <td><button id="openFormBtn2" data-id="{{ $laporanairkelapa->id }}">Hasil Timbangan</button></td>
+                                <td><button id="openFormBtn2" data-id="{{ $laporanairkelapa->id }}">Hasil Timbangan</button>
+                                </td>
                                 <td>
                                     <button class="edit" data-id="{{ $laporanairkelapa->id }}">Edit</button>
                                     <form action="{{ route('laporan.airkelapa.destroy', $laporanairkelapa->id) }}"
@@ -600,10 +603,10 @@
                             <h2 class="judul">FORM INPUT HASIL KERJA SHELLER - PARER ( AIR KELAPA )</h2>
                             <span class="close">&times;</span>
                         </div>
-                        <form action="{{ route('laporan.airkelapa.store') }}" method="POST"
-                            enctype="multipart/form-data">
-
+                        <form action="{{ route('laporan.airkelapa.store') }}" method="POST" enctype="multipart/form-data"
+                            id="laporanForm">
                             @csrf
+                            <input type="hidden" name="_method" id="formMethod" value="POST">
                             <input type="hidden" name="id" id="id">
                             <div class="form-group">
                                 <div>
@@ -620,7 +623,8 @@
                                 <div>
                                     <label for="nama-sheller">Sheller / Parer</label>
                                     <input type="text" class="form-control @error('sheller_parer') is-invalid @enderror"
-                                    id="sheller_parer" name="sheller_parer" value="{{ old('sheller_parer') }}" required>
+                                        id="sheller_parer" name="sheller_parer" value="{{ old('sheller_parer') }}"
+                                        required>
                                     @error('sheller_parer')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -631,7 +635,7 @@
                                 <div>
                                     <label for="tanggal-picker">Tanggal</label>
                                     <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                    id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
+                                        id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
                                     @error('tanggal')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
@@ -652,7 +656,7 @@
                                         @enderror
                                     </div>
 
-                                  
+
                                 </div>
                             </div>
 
@@ -663,27 +667,18 @@
                                         @for ($i = 0; $i < 12; $i++)
                                             <div class="col-1 text-center">
                                                 <!-- Menempatkan nomor di atas input -->
-                                                <label for="hasil_kerja_{{ $i }}" style="display: block;">{{ $i + 1 }}</label>
-                                                <input
-                                                    class="basket-input"
-                                                    type="number"
-                                                    name="hasil_kerja[]"
+                                                <label for="hasil_kerja_{{ $i }}"
+                                                    style="display: block;">{{ $i + 1 }}</label>
+                                                <input class="basket-input" type="number" name="hasil_kerja[]"
                                                     id="hasil_kerja_{{ $i }}"
-                                                    value="{{ old('hasil_kerja.' . $i, 0) }}"
-                                                    oninput="calculateTotal()"
-                                                >
+                                                    value="{{ old('hasil_kerja.' . $i, 0) }}" oninput="calculateTotal()">
                                             </div>
                                         @endfor
                                     </div>
                                     <div class="total-container">
                                         <label for="timbangan_hasil">Total:</label>
-                                        <input
-                                            type="number"
-                                            id="timbangan_hasil"
-                                            name="timbangan_hasil"
-                                            value="{{ old('timbangan_hasil', 0) }}"
-                                            readonly
-                                        >
+                                        <input type="number" id="timbangan_hasil" name="timbangan_hasil"
+                                            value="{{ old('timbangan_hasil', 0) }}" readonly>
                                     </div>
                                     @error('hasil_kerja')
                                         <div class="alert alert-danger mt-2">
@@ -719,79 +714,83 @@
 @section('scripts')
     <script>
         function calculateTotal() {
-                const inputs = document.querySelectorAll('.basket-input');
-                let total = 0;
+            const inputs = document.querySelectorAll('.basket-input');
+            let total = 0;
 
-                inputs.forEach(input => {
-                    total += parseFloat(input.value) || 0; // Tambahkan angka atau 0 jika kosong
-                });
+            inputs.forEach(input => {
+                total += parseFloat(input.value) || 0; // Tambahkan angka atau 0 jika kosong
+            });
 
-                document.getElementById('timbangan_hasil').value = total;
-                document.getElementById('total-label').textContent = 'Total: ' + total + ' kg';
-            }
+            document.getElementById('timbangan_hasil').value = total;
+            document.getElementById('total-label').textContent = 'Total: ' + total + ' kg';
+        }
 
-            document.addEventListener("DOMContentLoaded", function() {
-             // Ambil elemen yang diperlukan
-             const openFormBtn1 = document.getElementById("openFormBtn1");
-             const modal1 = document.getElementById("modal");
-             const closeModal1 = modal1.querySelector(".close");
-             const form = document.querySelector('form');
+        document.addEventListener("DOMContentLoaded", function() {
+            // Ambil elemen yang diperlukan
+            const openFormBtn1 = document.getElementById("openFormBtn1");
+            const modal1 = document.getElementById("modal");
+            const closeModal1 = modal1.querySelector(".close");
+            const form = document.querySelector('form');
 
-             // Fungsi untuk membuka modal
-             openFormBtn1.addEventListener("click", function() {
-                 console.log("Modal 1 dibuka");
-                 modal1.style.display = "block"; 
-             });
+            // Fungsi untuk membuka modal
+            openFormBtn1.addEventListener("click", function() {
+                console.log("Modal 1 dibuka");
+                modal1.style.display = "block";
+            });
 
-             closeModal1.addEventListener("click", function() {
-                 modal1.style.display = "none"; 
-             });
+            closeModal1.addEventListener("click", function() {
+                modal1.style.display = "none";
+            });
 
-             window.addEventListener("click", function(event) {
-                 if (event.target === modal1) {
-                     modal1.style.display = "none";
-                 }
-             });
-             document.querySelectorAll('.edit').forEach(button => {
-                 button.addEventListener('click', function() {
-                     const id = this.getAttribute('data-id');
-                     fetch(`/laporan/airkelapa/${id}/edit`)
-                         .then(response => response.json())
-                         .then(data => {
-                             document.getElementById("id").value = data.id;
-                             document.getElementById("nama_pegawai").value = data.nama_pegawai;
-                             document.getElementById("sheller_parer").value = data.sheller_parer;
-                             document.getElementById("tanggal").value = data.tanggal;
-                             document.getElementById("total_keranjang").value = data
-                                 .total_keranjang;
-                             document.getElementById("tipe_keranjang").value = data
-                                 .tipe_keranjang;
+            window.addEventListener("click", function(event) {
+                if (event.target === modal1) {
+                    modal1.style.display = "none";
+                }
+            });
+            document.querySelectorAll('.edit').forEach(button => {
+                button.addEventListener('click', function() {
+                        const id = this.getAttribute('data-id');
+                        fetch(`/laporan/airkelapa/${id}/edit`)
+                            .then(response => response.json())
+                            .then(data => {
+                                document.getElementById("id").value = data.id;
+                                document.getElementById("nama_pegawai").value = data.nama_pegawai;
+                                document.getElementById("sheller_parer").value = data.sheller_parer;
+                                document.getElementById("tanggal").value = data.tanggal;
+                                document.getElementById("total_keranjang").value = data
+                                    .total_keranjang;
 
-                             const hasilKerjaInputs = document.querySelectorAll(
-                                 "[name='hasil_kerja[]']");
-                             hasilKerjaInputs.forEach((input, index) => {
-                                 input.value = data.hasil_kerja[index] || 0;
-                             });
-                             calculateTotal();
+                                const hasilKerjaInputs = document.querySelectorAll(
+                                    "[name='hasil_kerja[]']");
+                                hasilKerjaInputs.forEach((input, index) => {
+                                    input.value = data.hasil_kerja[index] || 0;
+                                });
+                                calculateTotal();
 
-                             modal1.style.display = 'flex';
-                         })
-                         .catch(error => {
-                             console.error("Error fetching data:", error);
-                         });
-                 });
-             });
+                                const form = document.getElementById('laporanForm');
+                                form.action = `/laporan/airkelapa/${id}`;
+                                document.getElementById("formMethod").value =
+                                "PUT"; // Set method to PUT
+
+                                modal1.style.display = 'flex';
+                            })
+                    })
+                    .catch(error => {
+                        console.error("Error fetching data:", error);
+                    });
+            });
+        });
 
 
-             function calculateTotal() {
-                 const inputs = document.querySelectorAll("[name='hasil_kerja[]']");
-                 let total = 0;
-                 inputs.forEach(input => {
-                     total += parseFloat(input.value) || 0;
-                 });
-                 document.getElementById("timbangan_hasil").value = total;
-             }
-         });
+        function calculateTotal() {
+            const inputs = document.querySelectorAll("[name='hasil_kerja[]']");
+            let total = 0;
+            inputs.forEach(input => {
+                total += parseFloat(input.value) || 0;
+            });
+            document.getElementById("timbangan_hasil").value = total;
+        }
+        });
 
         openFormBtn1.addEventListener("click", function() {
             modal1.style.display = "block";

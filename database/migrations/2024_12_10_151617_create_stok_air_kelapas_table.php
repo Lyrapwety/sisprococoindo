@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('jenis_berat')->nullable();
             $table->string('jumlah')->nullable();
             $table->string('briz')->nullable();
-            $table->string('ph')->nullable();
+            $table->decimal('ph', 5, 2)->nullable();
             $table->string('begin')->nullable();
             $table->string('in_bags')->nullable();
             $table->string('in_box')->nullable();

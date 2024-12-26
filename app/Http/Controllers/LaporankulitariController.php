@@ -56,6 +56,50 @@ class LaporankulitariController extends Controller
             return redirect()->route('laporan.kulitari.index')->with('success', 'Data berhasil ditambahkan!');
         }
 
+        public function update(Request $request, $id)
+{
+    // Validasi data
+    $request->validate([
+        'id_kelapa_bulat' => 'nullable|string|max:255',
+        'no' => 'nullable|string|max:255',
+        'tanggal' => 'nullable|string|max:255',
+        'nama_pegawai' => 'nullable|string|max:255',
+        'sheller_parer' => 'nullable|string|max:255',
+        'total_keranjang' => 'nullable|string|max:255',
+        'tipe_keranjang' => 'nullable|string|max:255',
+        'berat_keranjang' => 'nullable|string|max:255',
+        'hasil_kerja' => 'nullable|array',
+        'hasil_kerja.*' => 'nullable|numeric',
+        'timbangan_hasil' => 'nullable|numeric',
+    ]);
+
+    // Temukan laporan berdasarkan ID
+    $laporan = LaporanKulitAriBasah::findOrFail($id);
+
+    // Hitung bruto dan potongan keranjang
+    $bruto = $request->total_keranjang * 1.1;
+    $potonganKeranjang = $request->total_keranjang - $request->timbangan_hasil;
+
+    // Perbarui data laporan
+    $laporan->update([
+        'id_kelapa_bulat' => $request->id_kelapa_bulat,
+        'no' => $request->no,
+        'tanggal' => $request->tanggal,
+        'nama_pegawai' => $request->nama_pegawai,
+        'sheller_parer' => $request->sheller_parer,
+        'bruto' => $bruto,
+        'total_keranjang' => $request->total_keranjang,
+        'tipe_keranjang' => $request->tipe_keranjang,
+        'berat_keranjang' => $request->berat_keranjang,
+        'total_potongan_keranjang' => $potonganKeranjang,
+        'hasil_kerja' => json_encode($request->hasil_kerja),
+        'timbangan_hasil' => $request->timbangan_hasil,
+    ]);
+
+    // Redirect dengan pesan sukses
+    return redirect()->route('laporan.kulitari.index')->with('success', 'Data berhasil diperbarui!');
+}
+
         public function edit($id)
         {
             $laporan = LaporanKulitAriBasah::findOrFail($id);
