@@ -63,7 +63,6 @@
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-
         .filters .input-icon {
             position: relative;
             width: 250px;
@@ -290,7 +289,6 @@
             margin: 0 auto;
         }
 
-        /* Animasi Modal */
         @keyframes fadeIn {
             from {
                 transform: scale(0.8);
@@ -348,7 +346,6 @@
             background-color: #fff;
             box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
             appearance: none;
-            /* Hilangkan gaya default browser */
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23666" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
             background-repeat: no-repeat;
             background-position: right 10px center;
@@ -362,7 +359,6 @@
             box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
         }
 
-        /* Style untuk option */
         .form-control option {
             padding: 8px;
         }
@@ -373,7 +369,6 @@
             box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
         }
 
-        /* Tombol Submit */
         .submit-btn {
             background-color: #104367;
             color: white;
@@ -470,7 +465,6 @@
                     </tbody>
                 </table>
             </div>
-
 
             <!-- Pagination Section -->
             <hr class="horizontalline1">
@@ -593,8 +587,8 @@
                     document.querySelectorAll('.detail').forEach(button => {
                         button.addEventListener('click', function () {
                             const tanggal = this.dataset.tanggal;
-                            const remark = this.dataset.remark;  // Assuming 'remark' is passed in dataset
-                            const trip = this.dataset.trip;      // Assuming 'trip' is passed in dataset
+                            const remark = this.dataset.remark;  
+                            const trip = this.dataset.trip;  
                             const url = `{{ route('card_stock.kelapa_bulat.index') }}?tanggal=${encodeURIComponent(tanggal)}&remark=${encodeURIComponent(remark)}&trip=${encodeURIComponent(trip)}`;
                             window.location.href = url;
                         });
@@ -635,7 +629,7 @@
                                     document.getElementById("stok").value = data.stok;
                                     document.getElementById("remark").value = data.remark;
 
-                                    // Tampilkan modal untuk edit
+                                
                                     modal.style.display = 'flex';
                                 })
                                 .catch(error => {
@@ -704,7 +698,7 @@
                         hasil: null,
                         detail: "Hasil Timbangan"
                     },
-                    // Tambahkan lebih banyak data sesuai kebutuhan
+          
                 ];
 
                 const rowsPerPage = 5;
@@ -761,6 +755,5 @@
                     }
                 }
 
-                // Load initial data
                 displayData();
             </script>

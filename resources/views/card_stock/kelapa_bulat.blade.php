@@ -56,13 +56,10 @@
             width: 140px !important;
         }
 
-        /* Dropdown tanggal */
         .filters select.pilihtanggal,
         .filters .input-icon input[type="text"] {
             padding: 8px 12px;
-            /* Padding yang sama */
             height: 36px;
-            /* Tinggi yang sama */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 12px;
@@ -70,18 +67,15 @@
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        /* Input pencarian dan ikon */
         .filters .input-icon {
             position: relative;
             width: 250px;
-            /* Lebar lebih pendek untuk input pencarian */
         }
 
         .filters input[type="text"] {
             width: 100%;
             height: 36px;
             padding: 8px 35px 8px 12px;
-            /* Tambahkan padding untuk ikon */
             border: 1px solid #cc;
             border-radius: 5px;
             font-size: 12px;
@@ -100,7 +94,6 @@
             color: #636362;
         }
 
-        /* Tombol aksi */
         .filters .actions {
             display: flex;
             gap: 10px;
@@ -134,7 +127,6 @@
 
         }
 
-        /* Tabel */
         .table-container {
             overflow-x: auto;
             font-size: 11px;
@@ -143,7 +135,6 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            /* Agar garis antar sel menyatu */
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(230, 238, 241, 0.1);
 
@@ -154,14 +145,12 @@
             padding: 8px;
             text-align: center;
             border: 1px solid #636362;
-            /* Garis antar sel */
             color: #636362;
             font-size: 11px;
         }
 
         table th {
             border-bottom: 1px solid #636362;
-            /* Garis tebal untuk header */
         }
 
         table td button {
@@ -188,7 +177,6 @@
             position: relative;
             width: 100%;
             max-width: 100px;
-            /* Sesuaikan dengan kebutuhan */
         }
 
         .input-icon i {
@@ -228,7 +216,7 @@
             align-items: center;
             color: white;
             border: none;
-            =cursor: pointer;
+            cursor: pointer;
         }
 
         .btn.export img {
@@ -267,7 +255,6 @@
                 <h2>Laporan Pemakaian Kelapa Bulat</h2>
             </div>
 
-            <!-- Filter Section -->
             <div class="filters">
                 <select class="pilihtanggal">
                     <option>Pilih Periode</option>
@@ -277,7 +264,7 @@
                 </select>
                 <div class="input-icon">
                     <input type="text" placeholder="Cari Data" class="search-input">
-                    <i class="fas fa-search"></i> <!-- Ikon pencarian (search icon) -->
+                    <i class="fas fa-search"></i> 
                 </div>
                 <div class="actions">
                     <button class="btn export">
@@ -291,7 +278,7 @@
 
                 </div>
             </div>
-            <!-- Table Section -->
+          
             <table>
                 <thead>
                     <tr>
@@ -352,21 +339,21 @@
                         <td colspan="2" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
                             Awal / Sisa Tanggal</td>
                         <td colspan="3" style="text-align: center; border-right: 1px solid black;">
-                            {{ number_format($awalSisaTanggal, 0, ',', '.') }}</td> <!-- Menampilkan Awal / Sisa Tanggal -->
+                            {{ number_format($awalSisaTanggal, 0, ',', '.') }}</td> 
                         <td colspan="5" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
                             Pengisian Hari Ini</td>
                         <td colspan="4" style="text-align: center; border-right: 1px solid black;">
-                            {{ number_format($totalQtyToday, 0, ',', '.') }}</td> <!-- Menampilkan Pemakaian Hari Ini -->
+                            {{ number_format($totalQtyToday, 0, ',', '.') }}</td> 
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
                             Pemakaian Hari Ini</td>
                         <td colspan="3" style="text-align: center; border-right: 1px solid black;">
-                            {{ number_format($totalQtyToday, 0, ',', '.') }}</td> <!-- Pemakaian Hari Ini (sudah ada) -->
+                            {{ number_format($totalQtyToday, 0, ',', '.') }}</td> 
                         <td colspan="5" style="text-align: center; font-weight: bold; border-right: 1px solid black;">
                             Sisa Hari Ini</td>
                         <td colspan="4" style="text-align: center; border-right: 1px solid black;">
-                            {{ number_format($sisaHariIni, 0, ',', '.') }}</td> <!-- Menampilkan Sisa Hari Ini -->
+                            {{ number_format($sisaHariIni, 0, ',', '.') }}</td> 
                     </tr>
 
                 </tfoot>
@@ -586,7 +573,6 @@
                 }
             });
         });
-        // Sample data
         const data = [{
                 no: 1,
                 tanggal: "12 Agustus 2024",
@@ -647,7 +633,6 @@
                 hasil: null,
                 detail: "Hasil Timbangan"
             },
-            // Tambahkan lebih banyak data sesuai kebutuhan
         ];
 
         const rowsPerPage = 5;
@@ -704,7 +689,5 @@
             }
         }
 
-
-        // Load initial data
         displayData();
     </script>

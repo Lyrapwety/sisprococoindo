@@ -2,18 +2,15 @@
 
 @section('content')
     <style>
-        /* Mainbar */
-        .mainbar {
+      .mainbar {
             flex: 1%;
             background-color: #D9D9D9 !important;
             padding-top: 20px;
-            /* Jarak dari topbar */
             margin-left: 235px;
             overflow-y: auto;
             height: calc(100vh - 70px);
             width: calc(100% - 235px);
             font-family: 'Inter', sans-serif;
-            !important;
         }
 
         .container {
@@ -53,32 +50,26 @@
             font-size: 12px;
         }
 
-        /* Dropdown tanggal */
         .filters select.pilihtanggal,
         .filters .input-icon input[type="text"] {
             padding: 8px 12px;
-            /* Padding yang sama */
             height: 36px;
-            /* Tinggi yang sama */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 12px;
             color: #636362;
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
         }
-
-        /* Input pencarian dan ikon */
+ 
         .filters .input-icon {
             position: relative;
             width: 250px;
-            /* Lebar lebih pendek untuk input pencarian */
         }
 
         .filters input[type="text"] {
             width: 100%;
             height: 36px;
             padding: 8px 35px 8px 12px;
-            /* Tambahkan padding untuk ikon */
             border: 1px solid #cc;
             border-radius: 5px;
             font-size: 12px;
@@ -96,7 +87,6 @@
             color: #636362;
         }
 
-        /* Tombol aksi */
         .filters .actions {
             display: flex;
             gap: 10px;
@@ -120,8 +110,6 @@
         .filters .actions .btn.add {
             background-color: #71bc74;
             transform: translateX(-2px);
-
-
         }
 
         .filters .actions .btn.export {
@@ -130,7 +118,7 @@
 
         }
 
-        /* Tabel */
+  
         .table-container {
             overflow-x: auto;
             font-size: 11px;
@@ -139,7 +127,6 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            /* Agar garis antar sel menyatu */
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(230, 238, 241, 0.1);
 
@@ -150,14 +137,12 @@
             padding: 10px;
             text-align: center;
             border: 1px solid #636362;
-            /* Garis antar sel */
             color: #636362;
             font-size: 12px;
         }
 
         table th {
             border-bottom: 1px solid #636362;
-            /* Garis tebal untuk header */
         }
 
         table td button {
@@ -179,7 +164,7 @@
             background-color: #e74c3c;
         }
 
-        /* Pagination */
+
         .pagination-container {
             display: flex;
             justify-content: space-between;
@@ -222,23 +207,19 @@
             position: relative;
             width: 100%;
             max-width: 100px;
-            /* Sesuaikan dengan kebutuhan */
         }
 
         .input-icon i {
             position: absolute;
             right: 5px !important;
-            /* Pindahkan ikon ke sisi kanan */
             top: 50%;
             transform: translateY(-50%);
             color: #636362;
-            /* Warna ikon */
         }
 
         .input-icon input {
             width: 100%;
             padding: 10px 40px 10px 10px;
-            /* Tambahkan padding kanan untuk ruang ikon */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
@@ -248,7 +229,6 @@
 
         .input-icon input:focus {
             border-color: #104367;
-            /* Ubah warna border saat fokus */
         }
 
 
@@ -266,13 +246,11 @@
             align-items: center;
             color: white;
             border: none;
-
             cursor: pointer;
         }
 
         .btn.export img {
             filter: brightness(0) invert(1);
-
 
         }
 
@@ -289,12 +267,10 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.6);
-            /* Transparan hitam */
             justify-content: center;
             align-items: center;
         }
 
-        /* Modal Konten */
         .modal-content {
             background-color: #fff;
             padding: 20px;
@@ -310,7 +286,7 @@
             margin: 0 auto;
         }
 
-        /* Animasi Modal */
+
         @keyframes fadeIn {
             from {
                 transform: scale(0.8);
@@ -322,7 +298,6 @@
                 opacity: 1;
             }
         }
-
 
         .close-btn {
             position: absolute;
@@ -347,7 +322,6 @@
             display: block;
             margin-bottom: 5px;
 
-
         }
 
         .form-control {
@@ -368,7 +342,6 @@
             background-color: #fff;
             box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
             appearance: none;
-            /* Hilangkan gaya default browser */
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23666" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
             background-repeat: no-repeat;
             background-position: right 10px center;
@@ -382,7 +355,6 @@
             box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
         }
 
-        /* Style untuk option */
         .form-control option {
             padding: 8px;
         }
@@ -393,7 +365,6 @@
             box-shadow: 0 0 5px rgba(8, 22, 57, 0.5);
         }
 
-        /* Tombol Submit */
         .submit-btn {
             background-color: #104367;
             color: white;
@@ -575,46 +546,46 @@
         @section('scripts')
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
-                    // Ambil elemen yang diperlukan
+              
                     const openFormBtn = document.getElementById('openFormBtn');
                     const modal = document.getElementById('modal');
                     const closeModalBtn = document.querySelector('.close');
                     const form = document.querySelector('form');
 
-                    // Fungsi untuk membuka modal
+                
                     openFormBtn.addEventListener('click', function() {
-                        modal.style.display = 'flex'; // Menampilkan modal
+                        modal.style.display = 'flex'; 
                     });
 
-                    // Fungsi untuk menutup modal ketika tombol close diklik
+                   
                     closeModalBtn.addEventListener('click', function() {
-                        modal.style.display = 'none'; // Menyembunyikan modal
+                        modal.style.display = 'none'; 
                     });
 
-                    // Tutup modal jika pengguna mengklik di luar konten modal
+                    
                     window.addEventListener('click', function(event) {
                         if (event.target === modal) {
                             modal.style.display = 'none';
                         }
                     });
 
-                    // Fungsi untuk menangani event tombol edit
+
                     document.querySelectorAll('.edit').forEach(button => {
                         button.addEventListener('click', function() {
                             const id = this.getAttribute('data-id');
 
-                            // Ambil data menggunakan fetch atau sesuai dengan cara yang Anda inginkan
+                          
                             fetch(`/card_stock/dkp_reject_basah/${id}/edit`)
                                 .then(response => response.json())
                                 .then(data => {
-                                    // Isi nilai form dengan data yang diambil
+
                                     document.getElementById("id").value = data.id;
                                     document.getElementById("activity_type").value = data.activity_type;
                                     document.getElementById("tanggal").value = data.tanggal;
                                     document.getElementById("stok").value = data.stok;
                                     document.getElementById("keterangan").value = data.keterangan;
 
-                                    // Tampilkan modal untuk edit
+                                  
                                     modal.style.display = 'flex';
                                 })
                                 .catch(error => {
@@ -684,7 +655,7 @@
                         hasil: null,
                         detail: "Hasil Timbangan"
                     },
-                    // Tambahkan lebih banyak data sesuai kebutuhan
+                  
                 ];
 
                 const rowsPerPage = 5;
@@ -741,6 +712,5 @@
                     }
                 }
 
-                // Load initial data
                 displayData();
             </script>
