@@ -497,6 +497,230 @@
             transform: translateY(-10px);
 
         }
+        
+        .modal2 {
+             display: none;
+             justify-content: center;
+             align-items: center;
+             height: 100%;
+             width: 100%;
+             background-color: rgba(0, 0, 0, 0.4);
+             position: fixed;
+             z-index: 9999;
+             top: 0;
+             left: 0;
+             overflow: auto;
+         }
+
+         .modal-back2 {
+             background-color: #D9D9D9;
+             margin: auto;
+             padding: 20px;
+             border: 1px solid #888;
+             width: 70%;
+             border-radius: 10px;
+             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+             max-width: 100%;
+             display: flex;
+             height: auto;
+             flex-direction: column;
+         }
+
+         .modal-content2 {
+             padding: 10px;
+             background-color: #F7F7F7;
+             border-radius: 10px;
+             margin: 15px;
+             padding-left: 25px;
+         }
+
+         .header2 {
+             text-align: center;
+             padding: 10px 0;
+             margin-bottom: 15px;
+             margin-top: 10px;
+             font-weight: 200;
+         }
+
+         .header2 h2 {
+             font-size: 14px;
+             color: #636362;
+         }
+
+         .row2 {
+             display: flex;
+             align-items: center;
+             justify-content: space-between;
+             margin-bottom: 20px;
+             margin-left: 20px;
+         }
+
+         .form-group2 {
+             flex: 1;
+             display: flex;
+             flex-direction: column;
+             margin-right: 10px;
+
+         }
+
+         .form-item {
+             display: flex;
+             align-items: center;
+             gap: 10px;
+         }
+
+         .form-item .label {
+             width: 120px;
+             font-weight: bold;
+         }
+
+
+         .nama-parer2 {
+             margin-bottom: 5px;
+             font-weight: 200;
+             color: #636362;
+             font-size: 0.9em;
+
+         }
+
+         .input-nama2 {
+             width: 95% !important;
+             height: 60%;
+             padding: 8px;
+             border: 1px solid #ccc;
+             margin-top: 10px;
+             border-radius: 5px;
+             background-color: #F7F7F7;
+             box-shadow: 1px 4px 2px rgba(217, 217, 217, 0.5);
+         }
+
+         .input-group {
+             flex: 1;
+             background-color: #F7F7F7;
+         }
+
+         .input-group label {
+             display: block;
+             font-weight: 200 !important;
+             font-size: 0.9em;
+             color: #636362;
+         }
+
+         .input-group input {
+             width: 95% !important;
+             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+             padding: 8px;
+             border: 1px solid #ccc;
+             margin-top: 10px;
+             border-radius: 4px;
+             background-color: #F7F7F7;
+         }
+
+         .potongan-keranjang2 label {
+             font-size: 0.9em;
+             color: #636362;
+             margin-top: 10px;
+             font-weight: 200;
+
+         }
+
+         .potongan-keranjang2 {
+             color: #636362;
+             flex: 1;
+             text-align: center;
+             transform: translateY(0px);
+         }
+
+         .tabel-potongan2 {
+             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+             border-collapse: collapse;
+             font-weight: 200;
+             border-radius: 8px;
+             font-size: 0.75em;
+             width: 75%;
+             transform: translateX(30px);
+             margin-top: 15px;
+         }
+
+         .tabel-potongan2 th,
+         .tabel-potongan2 td {
+             border: 1px solid #ccc;
+             padding: 8px;
+             text-align: center;
+             font-weight: 200;
+             border-radius: 8px 8px 0 0;
+             width: 33.33%;
+         }
+
+         .weight-tables {
+             display: flex;
+             margin-left: 20px;
+             gap: 24px;
+             justify-content: flex-start;
+             margin-top: 20px;
+         }
+
+         .weight-table {
+             width: 31%;
+             border-collapse: collapse;
+             border-radius: 10px;
+             color: #636362;
+             font-size: 0.75em;
+             border: 1px solid #ccc;
+             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+         }
+
+         .weight-table,
+         .weight-table th,
+         .weight-table td {
+             border: 1px solid #ccc;
+             text-align: center;
+             border-radius: 10px;
+         }
+
+         .weight-table th {
+             background-color: #f9f9f9;
+             padding: 10px;
+             font-weight: normal;
+             color: #777;
+         }
+
+         .weight-table td {
+             padding: 8px;
+             height: 40px;
+         }
+
+         .total {
+             text-align: right;
+             font-weight: 200;
+             margin-top: 20px;
+             color: #555;
+             justify-content: center;
+             text-align: center;
+             align-items: center;
+             transform: translateX(70px);
+             font-size: 0.75em;
+         }
+
+
+         .close-btn2 {
+             background-color: #4CAF50;
+             color: white;
+             padding: 10px;
+             border: none;
+             border-radius: 5px;
+             cursor: pointer;
+             width: 15%;
+             font-size: 0.75em;
+             display: block;
+             float: right;
+             transform: translateX(-60px);
+             margin-bottom: 15px;
+         }
+
+         .close-btn2:hover {
+             background-color: #3f8d43;
+         }
     </style>
 
     <div class="mainbar">

@@ -628,6 +628,241 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+        
+.modal2 {
+            display: flex;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        .modal-back2{
+            background-color: #F7F7F7;
+            border-radius: 8px;
+            padding: 25px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px; 
+            width: 100%;
+            overflow-y: auto;
+        }
+        .modal-content2 {
+                position: relative;
+                background-color: #D9D9D9;
+                margin: auto;
+                padding: 20px;
+                width: 60%;
+                border-radius: 10px;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+                max-width: 90%;
+                display: flex;
+                flex-direction: column;
+                height: auto;
+                overflow-y: auto;
+}
+    
+
+        .modal-header2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+           
+        }
+
+        .modal-header2 h2 {
+            font-size: 14px;
+            color: #636362;
+            margin: 10px 0 15px;
+            margin: 0 auto;       
+        }
+
+        .modal-header2 .close {
+            font-size: 18px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .input h3{    
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 auto; 
+
+        }
+        .form-container2 {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .form-container2 input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-container2 label {
+            font-size: 14px;
+        }
+
+        .form-container2 .column {
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .form-container2 .column:first-child {
+            margin-left: 0;
+        }
+
+        .form-container2 .column:last-child {
+            margin-right: 0;
+        }
+
+        .buttons2 {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .buttons2 button {
+            padding: 8px 15px;
+            margin-right: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+    .buttons2 button:last-child {
+            margin-right: 0;
+        }
+
+    .buttons2 button:hover {
+            background-color: #0056b3;
+        }
+
+ .timbangan-container2 {
+        text-align: center;
+        margin-top: 40px;
+}
+
+.timbangan-container2 h3 {
+        font-size: 14px;
+        color: #636362;
+        margin: 10px 0 15px;
+
+}
+
+.timbangan-inputs2 {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(7, 1fr);
+    margin: 0 auto; 
+    width: auto; 
+  
+   
+}
+
+.timbangan-inputs2 div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  
+}
+
+.timbangan-inputs2 label {
+    font-size: 12px;
+    color: #636362;
+    margin: 0;
+    width: 20px; 
+    text-align: right; 
+    margin-right: 10px;
+}
+
+.timbangan-inputs2 input {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    height: 30%;
+}
+
+.total-container2 {
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 10px;
+    color: #555;
+    font-size: 14px;
+}
+
+.submit-btn {
+    width: 20%;
+    padding: 10px;
+    border: none;
+    background-color: #104367;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    margin-top: 20px;
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.submit-btn:hover {
+    background-color: #aaa;
+}
+.input-field {
+  
+    margin-bottom: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    height: 45%;
+}
+
+.input-select {
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    height: 45%;
+}
+
+.form-row2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px; /* Jarak antar elemen */
+}
+
+
+.input-field, .input-select {
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box; /* Pastikan padding tidak memengaruhi lebar */
+}
     </style>
 
     <div class="mainbar">
@@ -704,12 +939,10 @@
 
             <hr class="horizontalline1">
             <div class="pagination-container">
-
                 <div class="showing-entries">
                     Showing <span id="start"></span> to <span id="end"></span> from <span id="total"></span>
                     entries
                 </div>
-
                 <ul class="pagination">
                     <li><button onclick="prevPage()">&#60;</button></li>
                     <li><button onclick="goToPage(1)">1</button></li>
@@ -812,6 +1045,107 @@
                         </form>
                     </div>
                 </div>
+        </div>  
+
+        <div class="modal2" id="modal2">
+            <div class="modal-content2">
+                <div id="modal-back2" class="modal-back2">
+            <div class="modal-header2">
+                <h2>DETAIL TIMBANGAN TEMPURUNG BASAH</h2>
+                <button class="close">&times;</button>
+            </div>
+    
+            <div class="form-container2">
+                <div class="form-row2">
+                <div class="column2">
+                    <label for="tanggal">Tanggal</label>
+                    <input type="text" id="tanggal"  class="input-field">
+                </div>
+                <div class="column2">
+                    <label for="tipe-keranjang">Tipe Keranjang</label>
+
+                    <input type="text" id="total-keranjang" class="input-field">
+                    
+                </div>
+                <div class="column2">
+                    <label for="total-keranjang">Total Keranjang</label>
+                    <input type="text" id="total-keranjang" class="input-field">
+                </div>
+            </div>
+            </div>
+    
+       
+    <div class="timbangan-container2">
+            <h3>Hasil Timbangan Tempurung Basah</h3>
+            <div class="timbangan-inputs2">
+                <!-- Input grid -->
+                <div><label>1</label><input type="number"></div>
+                <div><label>2</label><input type="number"></div>
+                <div><label>3</label><input type="number"></div>
+                <div><label>4</label><input type="number"></div>
+                <div><label>5</label><input type="number"></div>
+                <div><label>6</label><input type="number"></div>
+                <div><label>7</label><input type="number"></div>
+
+                <div><label>8</label><input type="number"></div>
+                <div><label>9</label><input type="number"></div>
+                <div><label>10</label><input type="number"></div>
+                <div><label>11</label><input type="number"></div>
+                <div><label>12</label><input type="number"></div>
+                <div><label>13</label><input type="number"></div>
+                <div><label>14</label><input type="number"></div>
+
+                <div><label>15</label><input type="number"></div>
+                <div><label>16</label><input type="number"></div>
+                <div><label>17</label><input type="number"></div>
+                <div><label>18</label><input type="number"></div>
+                <div><label>19</label><input type="number"></div>
+                <div><label>20</label><input type="number"></div>
+                <div><label>21</label><input type="number"></div>
+
+                <div><label>22</label><input type="number"></div>
+                <div><label>23</label><input type="number"></div>
+                <div><label>24</label><input type="number"></div>
+                <div><label>25</label><input type="number"></div>
+                <div><label>26</label><input type="number"></div>
+                <div><label>27</label><input type="number"></div>
+                <div><label>28</label><input type="number"></div>
+
+                <div><label>29</label><input type="number"></div>
+                <div><label>30</label><input type="number"></div>
+                <div><label>31</label><input type="number"></div>
+                <div><label>32</label><input type="number"></div>
+                <div><label>33</label><input type="number"></div>
+                <div><label>34</label><input type="number"></div>
+                <div><label>35</label><input type="number"></div>
+                <div><label>36</label><input type="number"></div>
+                <div><label>37</label><input type="number"></div>
+                <div><label>38</label><input type="number"></div>
+                <div><label>39</label><input type="number"></div>
+                <div><label>40</label><input type="number"></div>
+                <div><label>41</label><input type="number"></div>
+                <div><label>42</label><input type="number"></div>
+                <div><label>43</label><input type="number"></div>
+                <div><label>44</label><input type="number"></div>
+                <div><label>45</label><input type="number"></div>
+                <div><label>46</label><input type="number"></div>
+                <div><label>47</label><input type="number"></div>
+                <div><label>48</label><input type="number"></div>
+                <div><label>49</label><input type="number"></div>
+                <div><label>50</label><input type="number"></div>
+
+               
+            </div>
+        </div>
+    
+            <div class="total-container2">
+                Total: 250 KG
+            </div>
+        
+            <button class="submit-btn">Kirim</button>
+        </div>
+            </div>
+        </div>
             </div>
         </div>
     </div>
@@ -861,8 +1195,41 @@
                     modal.style.display = "none";
                 }
             });
+            });
 
-            document.querySelectorAll('.edit').forEach(button => {
+    
+            document.addEventListener('DOMContentLoaded', function () {
+             const openModal2 = document.getElementById('openModal2'); // Tombol
+             const modal2 = document.getElementById('modal2'); // Modal
+             const closeModal2 = document.querySelector('.modal2 .close');
+             const modalData = document.getElementById('modalData'); // Kontainer data modal
+
+
+        function openModal() {
+          const laporanId = openModal2 ? openModal2.getAttribute('data-id') : 'Tidak ada ID'; 
+          modalData.textContent = `Laporan ID: ${laporanId}`; 
+          modal2.style.display = 'flex'; 
+              }
+         if (openModal2) {
+            openModal2.addEventListener('click', function () {
+            openModal();
+                 });
+             }
+
+          if (closeModal2) {
+              closeModal2.addEventListener('click', function () {
+              modal2.style.display = 'none'; // Sembunyikan modal
+            });
+             }
+
+    // Tutup modal jika pengguna klik di luar konten modal
+    window.addEventListener('click', function (event) {
+        if (event.target === modal2) {
+            modal2.style.display = 'none'; // Sembunyikan modal
+        }
+    });
+
+           document.querySelectorAll('.edit').forEach(button => {
                 button.addEventListener('click', function() {
                     const id = this.getAttribute('data-id');
 

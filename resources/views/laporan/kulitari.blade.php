@@ -544,19 +544,13 @@
              color: #636362;
          }
 
-         .row2 {
-             display: flex;
-             align-items: center;
-             justify-content: space-between;
-             margin-bottom: 20px;
-             margin-left: 20px;
-         }
 
          .form-group2 {
              flex: 1;
              display: flex;
              flex-direction: column;
              margin-right: 10px;
+             width: 35%;
 
          }
 
