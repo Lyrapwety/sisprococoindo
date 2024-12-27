@@ -43,6 +43,7 @@ class StokaribasahController extends Controller
 
             case 'produksi':
             case 'penjualan':
+            case 'reject':
                 // Aktivitas mengurangi stok
                 $out = $stok;
                 $remain = $begin - $out; // Kurangi stok dari remain
