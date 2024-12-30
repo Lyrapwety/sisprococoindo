@@ -505,8 +505,7 @@
                                 <option value="hasil_produksi">Hasil Produksi</option> <!-- stok tambah-->
                                 <option value="produksi">Produksi</option> <!-- stok tambah-->
                                 <option value="penjualan">Penjualan</option>
-                                <!-- stok berkurang atau out-->
-                                <option value="reject">Reject</option> <!-- stok berkurang atau out-->
+                                <option value="adjustment">Adjustment</option> <!-- stok berkurang atau out-->
                             </select>
                             @error('activity_type')
                                     <div class="alert alert-danger mt-2">

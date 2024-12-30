@@ -500,11 +500,8 @@
                             <select class="form-control @error('activity_type') is-invalid @enderror"
                             id="activity_type" name="activity_type" value="{{ old('activity_type') }}" required>
                                 <option value="" disabled selected>Pilih Jenis Aktivitas</option>
-                                <option value="hasil_produksi">Hasil Produksi</option> <!-- stok tambah-->
-                                <option value="pengambilan">Pengambilan PT lain</option> <!-- stok tambah-->
-                                <option value="pemakaian_produksi">Pemakaian Produksi</option>
-                                <!-- stok berkurang atau out-->
-                                <option value="reject">Reject</option> <!-- stok berkurang atau out-->
+                                <option value="produksi">Hasil Produksi</option> <!-- stok tambah-->
+                                <option value="penjualan">Penjualan</option> <!-- stok tambah-->
                             </select>
                             @error('activity_type')
                                     <div class="alert alert-danger mt-2">
@@ -527,7 +524,7 @@
 
                         <!-- remark -->
                         <div class="form-group">
-                            <label for="remark">remark (Remark)</label>
+                            <label for="remark">Remark </label>
                             <textarea class="form-control @error('remark') is-invalid @enderror"
                             id="remark" name="remark" value="{{ old('remark') }}" required>
                             @error('remark')

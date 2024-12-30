@@ -9,140 +9,88 @@ class StokaribasahController extends Controller
 {
     public function index()
     {
-        $stokaribasahs = StokKulitAriBasah::all();
+        // Ambil data diurutkan berdasarkan tanggal
+        $stokaribasahs = StokKulitAriBasah::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
         return view('card_stock.kulit_ari_basah', compact('stokaribasahs'));
     }
-
     public function store(Request $request)
     {
-        // Validasi data
         $request->validate([
             'id_laporan_kulit_ari_basah' => 'nullable|string|max:255',
-            'tanggal' => 'nullable|string|max:255',
+            'tanggal' => 'required|date',
             'remark' => 'nullable|string|max:255',
             'activity_type' => 'required|string|max:255',
             'stok' => 'required|numeric',
         ]);
 
-        $stok = $request->stok;
-        $activity_type = $request->activity_type;
+        // Simpan data baru
+        $newEntry = StokKulitAriBasah::create($request->only([
+            'id_laporan_kulit_ari_basah',
+            'tanggal',
+            'remark',
+            'activity_type',
+            'stok',
+        ]));
+        
 
-        $last_remain = StokKulitAriBasah::latest()->value('remain') ?? 0;
+        // Recalculate semua stok berdasarkan tanggal
+        $this->recalculateRemains();
 
-        $begin = $last_remain;
-        $in = 0;
-        $out = 0;
-        $remain = $begin;
-
-        // Logika berdasarkan tipe aktivitas
-        switch ($activity_type) {
-            case 'hasil_produksi':
-                $in = $stok;
-                $remain = $begin + $in; // Tambah stok ke remain
-                break;
-
-            case 'produksi':
-            case 'penjualan':
-            case 'reject':
-                // Aktivitas mengurangi stok
-                $out = $stok;
-                $remain = $begin - $out; // Kurangi stok dari remain
-
-                // Validasi jika remain negatif
-                if ($remain < 0) {
-                    return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
-                }
-                break;
-
-            default:
-                return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
-        }
-
-        // Simpan data ke database
-        StokKulitAriBasah::create([
-            'id_laporan_kulit_ari_basah' => $request->id_laporan_kulit_ari_basah,
-            'tanggal' => $request->tanggal,
-            'remark' => $request->remark,
-            'activity_type' => $activity_type,
-            'stok' => $stok,
-            'begin' => $begin,
-            'in' => $in,
-            'out' => $out,
-            'remain' => $remain,
-        ]);
-
-        // Redirect dengan pesan sukses
         return redirect()->route('card_stock.kulit_ari_basah.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
-{
-    // Validasi data
-    $request->validate([
-        'id_laporan_kulit_ari_basah' => 'nullable|string|max:255',
-        'tanggal' => 'nullable|string|max:255',
-        'remark' => 'nullable|string|max:255',
-        'activity_type' => 'required|string|max:255',
-        'stok' => 'required|numeric',
-    ]);
+    {
+        $request->validate([
+            'id_laporan_kulit_ari_basah' => 'nullable|string|max:255',
+            'tanggal' => 'required|date',
+            'remark' => 'nullable|string|max:255',
+            'activity_type' => 'required|string|max:255',
+            'stok' => 'required|numeric',
+        ]);
 
-    // Temukan stok berdasarkan ID
-    $stokaribasah = StokKulitAriBasah::findOrFail($id);
+        $stokaribasah = StokKulitAriBasah::findOrFail($id);
 
-    // Ambil jumlah stok dan tipe aktivitas
-    $stok = $request->stok;
-    $activity_type = $request->activity_type;
+        // Update data
+        $stokaribasah->update($request->only([
+            'id_laporan_kulit_ari_basah',
+            'tanggal',
+            'remark',
+            'activity_type',
+            'stok',
+        ]));
 
-    // Ambil sisa stok terakhir (remain) dari record yang akan diupdate
-    $last_remain = $stokaribasah->remain;
+        // Recalculate semua stok berdasarkan tanggal
+        $this->recalculateRemains();
 
-    // Inisialisasi nilai begin, in, out, dan remain
-    $begin = $last_remain; // Begin adalah stok terakhir sebelumnya
-    $in = 0;
-    $out = 0;
-    $remain = $begin; // Default remain sama dengan begin
-
-    // Logika berdasarkan tipe aktivitas
-    switch ($activity_type) {
-        case 'hasil_produksi':
-            // Aktivitas menambah stok
-            $in = $stok;
-            $remain = $begin + $in; // Tambah stok ke remain
-            break;
-
-        case 'produksi':
-        case 'penjualan':
-            // Aktivitas mengurangi stok
-            $out = $stok;
-            $remain = $begin - $out; // Kurangi stok dari remain
-
-            // Validasi jika remain negatif
-            if ($remain < 0) {
-                return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
-            }
-            break;
-
-        default:
-            return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
+        return redirect()->route('card_stock.kulit_ari_basah.index')->with('success', 'Data berhasil diperbarui!');
     }
 
-    // Perbarui data stok
-    $stokaribasah->update([
-        'id_laporan_kulit_ari_basah' => $request->id_laporan_kulit_ari_basah,
-        'tanggal' => $request->tanggal,
-        'remark' => $request->remark,
-        'activity_type' => $activity_type,
-        'stok' => $stok,
-        'begin' => $begin,
-        'in' => $in,
-        'out' => $out,
-        'remain' => $remain,
-    ]);
+    protected function recalculateRemains()
+    {
+        // Ambil semua data diurutkan berdasarkan tanggal
+        $entries = StokKulitAriBasah::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
 
-    // Redirect dengan pesan sukses
-    return redirect()->route('card_stock.kulit_ari_basah.index')->with('success', 'Data berhasil diperbarui!');
-}
+        $lastRemain = 0;
 
+        foreach ($entries as $entry) {
+            // Perhitungan stok
+            $begin = $lastRemain;
+            $in = $entry->activity_type === 'hasil_produksi' ? $entry->stok : 0;
+            $out = in_array($entry->activity_type, ['produksi', 'penjualan', 'adjustment']) ? $entry->stok : 0;
+            $remain = $begin + $in - $out;
+
+            // Update nilai
+            $entry->update([
+                'begin' => $begin,
+                'in' => $in,
+                'out' => $out,
+                'remain' => $remain,
+            ]);
+
+            $lastRemain = $remain;
+        }
+    }
     public function edit($id)
     {
         // Find the record by its ID
@@ -162,11 +110,14 @@ class StokaribasahController extends Controller
         ]);
     }
 
-
+   
     public function destroy($id)
     {
         $stokaribasah = StokKulitAriBasah::findOrFail($id);
         $stokaribasah->delete();
+
+        // Recalculate semua stok setelah penghapusan
+        $this->recalculateRemains();
 
         return redirect()->route('card_stock.kulit_ari_basah.index')->with('success', 'Data berhasil dihapus!');
     }

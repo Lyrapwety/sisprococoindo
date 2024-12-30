@@ -1197,37 +1197,7 @@
             });
             });
 
-    
-            document.addEventListener('DOMContentLoaded', function () {
-             const openModal2 = document.getElementById('openModal2'); // Tombol
-             const modal2 = document.getElementById('modal2'); // Modal
-             const closeModal2 = document.querySelector('.modal2 .close');
-             const modalData = document.getElementById('modalData'); // Kontainer data modal
-
-
-        function openModal() {
-          const laporanId = openModal2 ? openModal2.getAttribute('data-id') : 'Tidak ada ID'; 
-          modalData.textContent = `Laporan ID: ${laporanId}`; 
-          modal2.style.display = 'flex'; 
-              }
-         if (openModal2) {
-            openModal2.addEventListener('click', function () {
-            openModal();
-                 });
-             }
-
-          if (closeModal2) {
-              closeModal2.addEventListener('click', function () {
-              modal2.style.display = 'none'; // Sembunyikan modal
-            });
-             }
-
-    // Tutup modal jika pengguna klik di luar konten modal
-    window.addEventListener('click', function (event) {
-        if (event.target === modal2) {
-            modal2.style.display = 'none'; // Sembunyikan modal
-        }
-    });
+     
 
            document.querySelectorAll('.edit').forEach(button => {
                 button.addEventListener('click', function() {

@@ -9,7 +9,8 @@ class StokminyakkelapaController extends Controller
 {
     public function index()
     {
-        $stokminyakkelapas = StokMinyakKelapa::all();
+        $stokminyakkelapas = StokMinyakKelapa::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
+
         return view('card_stock.minyak_kelapa', compact('stokminyakkelapas'));
     }
 
@@ -22,61 +23,21 @@ class StokminyakkelapaController extends Controller
         'activity_type' => 'required|string|max:255', // Aktivitas wajib dipilih
         'stok' => 'required|numeric', // Stok wajib dan harus numerik
     ]);
-
+      // Simpan data baru
+      $newEntry = StokMinyakKelapa::create($request->only([
+        'tanggal',
+        'remark',
+        'activity_type',
+        'stok',
+    ]));
+    
     // Ambil data stok dan tipe aktivitas
-    $stok = $request->stok;
-    $activity_type = $request->activity_type;
+     // Recalculate semua stok berdasarkan tanggal
+     $this->recalculateRemains();
 
-    // Ambil stok terakhir dari database (remain), default 0 jika tidak ada data
-    $last_remain = StokMinyakKelapa::latest()->value('remain') ?? 0;
+     return redirect()->route('card_stock.minyak_kelapa.index')->with('success', 'Data berhasil ditambahkan!');
+ }
 
-    // Inisialisasi nilai awal
-    $begin = $last_remain; // Nilai awal adalah stok terakhir
-    $in = 0;
-    $out = 0;
-    $remain = $begin; // Default remain sama dengan begin
-
-    // Logika berdasarkan tipe aktivitas
-    switch ($activity_type) {
-        case 'hasil_produksi':
-        case 'pengambilan':
-            // Aktivitas menambah stok
-            $in = $stok;
-            $remain = $begin + $in; // Tambah stok ke remain
-            break;
-
-        case 'pemakaian_produksi':
-        case 'reject':
-            // Aktivitas mengurangi stok
-            $out = $stok;
-            $remain = $begin - $out; // Kurangi stok dari remain
-
-            // Validasi jika remain negatif
-            if ($remain < 0) {
-                return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
-            }
-            break;
-
-        default:
-            // Aktivitas tidak valid
-            return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
-    }
-
-    // Simpan data ke database
-    StokMinyakKelapa::create([
-        'tanggal' => $request->tanggal,
-        'remark' => $request->remark,
-        'activity_type' => $activity_type,
-        'stok' => $stok,
-        'begin' => $begin,
-        'in' => $in,
-        'out' => $out,
-        'remain' => $remain,
-    ]);
-
-    // Redirect dengan pesan sukses
-    return redirect()->route('card_stock.minyak_kelapa.index')->with('success', 'Data berhasil ditambahkan!');
-}
 
 public function update(Request $request, $id)
 {
@@ -87,63 +48,46 @@ public function update(Request $request, $id)
         'activity_type' => 'required|string|max:255', // Aktivitas wajib dipilih
         'stok' => 'required|numeric', // Stok wajib dan harus numerik
     ]);
-
-    // Temukan stok berdasarkan ID
     $stokminyakkelapas = StokMinyakKelapa::findOrFail($id);
 
-    // Ambil data stok dan tipe aktivitas
-    $stok = $request->stok;
-    $activity_type = $request->activity_type;
+    // Update data
+    $stokminyakkelapas->update($request->only([
+        'tanggal',
+        'remark',
+        'activity_type',
+        'stok',
+    ]));
 
-    // Ambil sisa stok terakhir (remain) dari record yang akan diupdate
-    $last_remain = $stokminyakkelapas->remain;
+    // Recalculate semua stok berdasarkan tanggal
+    $this->recalculateRemains();
 
-    // Inisialisasi nilai awal
-    $begin = $last_remain; // Nilai awal adalah stok terakhir
-    $in = 0;
-    $out = 0;
-    $remain = $begin; // Default remain sama dengan begin
-
-    // Logika berdasarkan tipe aktivitas
-    switch ($activity_type) {
-        case 'hasil_produksi':
-        case 'pengambilan':
-            // Aktivitas menambah stok
-            $in = $stok;
-            $remain = $begin + $in; // Tambah stok ke remain
-            break;
-
-        case 'pemakaian_produksi':
-        case 'reject':
-            // Aktivitas mengurangi stok
-            $out = $stok;
-            $remain = $begin - $out; // Kurangi stok dari remain
-
-            // Validasi jika remain negatif
-            if ($remain < 0) {
-                return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
-            }
-            break;
-
-        default:
-            // Aktivitas tidak valid
-            return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
-    }
-
-    // Perbarui data stok
-    $stokminyakkelapas->update([
-        'tanggal' => $request->tanggal,
-        'remark' => $request->remark,
-        'activity_type' => $activity_type,
-        'stok' => $stok,
-        'begin' => $begin,
-        'in' => $in,
-        'out' => $out,
-        'remain' => $remain,
-    ]);
-
-    // Redirect dengan pesan sukses
     return redirect()->route('card_stock.minyak_kelapa.index')->with('success', 'Data berhasil diperbarui!');
+}
+
+protected function recalculateRemains()
+{
+    // Ambil semua data diurutkan berdasarkan tanggal
+    $entries = StokMinyakKelapa::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
+
+    $lastRemain = 0;
+
+    foreach ($entries as $entry) {
+        // Perhitungan stok
+        $begin = $lastRemain;
+        $in = $entry->activity_type === 'hasil_produksi' ? $entry->stok : 0;
+        $out = in_array($entry->activity_type, [ 'penjualan']) ? $entry->stok : 0;
+        $remain = $begin + $in - $out;
+
+        // Update nilai
+        $entry->update([
+            'begin' => $begin,
+            'in' => $in,
+            'out' => $out,
+            'remain' => $remain,
+        ]);
+
+        $lastRemain = $remain;
+    }
 }
 
     public function edit($id)

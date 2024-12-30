@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\StokDkp;
 
@@ -9,75 +8,37 @@ class StokdkpController extends Controller
 {
     public function index()
     {
-        $stokdkps = StokDkp::all();
+        // Ambil data diurutkan berdasarkan tanggal
+        $stokdkps = StokDkp::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
         return view('card_stock.dkp', compact('stokdkps'));
     }
 
     public function store(Request $request)
 {
-    // Validasi data
-    $request->validate([
+        $request->validate([
         'id_laporan_dkp' => 'nullable|string|max:255',
-        'tanggal' => 'nullable|string|max:255',
+        'tanggal' => 'required|date',
         'keterangan' => 'nullable|string|max:255',
-        'activity_type' => 'required|string|max:255', // Aktivitas wajib dipilih
-        'stok' => 'required|numeric', // Stok wajib dan harus numerik
+        'activity_type' => 'required|string|max:255',
+        'stok' => 'required|numeric',
     ]);
 
-    // Ambil jumlah stok dan tipe aktivitas
-    $stok = $request->stok;
-    $activity_type = $request->activity_type;
+    // Simpan data baru
+    $newEntry = StokDkp::create($request->only([
+        'id_laporan_dkp',
+        'tanggal',
+        'keterangan',
+        'activity_type',
+        'stok',
+    ]));
+    
 
-    // Ambil sisa stok terakhir (remain) atau default ke 0 jika tidak ada data sebelumnya
-    $last_remain = StokDkp::latest()->value('remain') ?? 0;
+    // Recalculate semua stok berdasarkan tanggal
+    $this->recalculateRemains();
 
-    // Inisialisasi nilai begin, in, out, dan remain
-    $begin = $last_remain; // Begin adalah stok terakhir sebelumnya
-    $in = 0;
-    $out = 0;
-    $remain = $begin; // Default remain sama dengan begin
-
-    // Logika berdasarkan tipe aktivitas
-    switch ($activity_type) {
-        case 'hasil_produksi':
-        case 'pengambilan':
-            // Aktivitas menambah stok
-            $in = $stok;
-            $remain = $begin + $in; // Tambah stok ke remain
-            break;
-
-        case 'pemakaian_produksi':
-        case 'reject':
-            // Aktivitas mengurangi stok
-            $out = $stok;
-            $remain = $begin - $out; // Kurangi stok dari remain
-
-            // Validasi jika remain negatif
-            if ($remain < 0) {
-                return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
-            }
-            break;
-
-        default:
-            return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
-    }
-
-    // Simpan data ke database
-    StokDkp::create([
-        'id_laporan_dkp' => $request->id_laporan_dkp,
-        'tanggal' => $request->tanggal,
-        'keterangan' => $request->keterangan,
-        'activity_type' => $activity_type,
-        'stok' => $stok,
-        'begin' => $begin,
-        'in' => $in,
-        'out' => $out,
-        'remain' => $remain,
-    ]);
-
-    // Redirect dengan pesan sukses
     return redirect()->route('card_stock.dkp.index')->with('success', 'Data berhasil ditambahkan!');
 }
+
 
 public function update(Request $request, $id)
 {
@@ -90,63 +51,56 @@ public function update(Request $request, $id)
         'stok' => 'required|numeric', // Stok wajib dan harus numerik
     ]);
 
-    // Temukan stok berdasarkan ID
-    $stokdkp = StokDkp::findOrFail($id);
+        $request->validate([
+            'id_laporan_dkp' => 'nullable|string|max:255',
+            'tanggal' => 'required|date',
+            'keterangan' => 'nullable|string|max:255',
+            'activity_type' => 'required|string|max:255',
+            'stok' => 'required|numeric',
+        ]);
 
-    // Ambil jumlah stok dan tipe aktivitas
-    $stok = $request->stok;
-    $activity_type = $request->activity_type;
+        $stokdkp = StokDkp::findOrFail($id);
 
-    // Ambil sisa stok terakhir (remain) dari record yang akan diupdate
-    $last_remain = $stokdkp->remain;
+        // Update data
+        $stokdkp->update($request->only([
+            'id_laporan_dkp',
+            'tanggal',
+            'keterangan',
+            'activity_type',
+            'stok',
+        ]));
 
-    // Inisialisasi nilai begin, in, out, dan remain
-    $begin = $last_remain; // Begin adalah stok terakhir sebelumnya
-    $in = 0;
-    $out = 0;
-    $remain = $begin; // Default remain sama dengan begin
+        // Recalculate semua stok berdasarkan tanggal
+        $this->recalculateRemains();
 
-    // Logika berdasarkan tipe aktivitas
-    switch ($activity_type) {
-        case 'hasil_produksi':
-        case 'pengambilan':
-            // Aktivitas menambah stok
-            $in = $stok;
-            $remain = $begin + $in; // Tambah stok ke remain
-            break;
+        return redirect()->route('card_stock.dkp.index')->with('success', 'Data berhasil diperbarui!');
+    }    
 
-        case 'pemakaian_produksi':
-        case 'reject':
-            // Aktivitas mengurangi stok
-            $out = $stok;
-            $remain = $begin - $out; // Kurangi stok dari remain
+    protected function recalculateRemains()
+    {
+        // Ambil semua data diurutkan berdasarkan tanggal
+        $entries = StokDkp::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
 
-            // Validasi jika remain negatif
-            if ($remain < 0) {
-                return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
-            }
-            break;
+        $lastRemain = 0;
 
-        default:
-            return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
+        foreach ($entries as $entry) {
+            // Perhitungan stok
+            $begin = $lastRemain;
+            $in = in_array($entry->activity_type, ['hasil_produksi','pengambilan' ])? $entry->stok : 0;
+            $out = in_array($entry->activity_type, ['pemakaian_produksi', 'reject']) ? $entry->stok : 0;
+            $remain = $begin + $in - $out;
+
+            // Update nilai
+            $entry->update([
+                'begin' => $begin,
+                'in' => $in,
+                'out' => $out,
+                'remain' => $remain,
+            ]);
+
+            $lastRemain = $remain;
+        }
     }
-
-    // Perbarui data stok
-    $stokdkp->update([
-        'id_laporan_dkp' => $request->id_laporan_dkp,
-        'tanggal' => $request->tanggal,
-        'keterangan' => $request->keterangan,
-        'activity_type' => $activity_type,
-        'stok' => $stok,
-        'begin' => $begin,
-        'in' => $in,
-        'out' => $out,
-        'remain' => $remain,
-    ]);
-
-    // Redirect dengan pesan sukses
-    return redirect()->route('card_stock.dkp.index')->with('success', 'Data berhasil diperbarui!');
-}
 
     public function edit($id)
     {
@@ -171,6 +125,8 @@ public function update(Request $request, $id)
     {
         $stokdkp = StokDkp::findOrFail($id);
         $stokdkp->delete();
+
+        $this->recalculateRemains();
 
         return redirect()->route('card_stock.dkp.index')->with('success', 'Data berhasil dihapus!');
     }

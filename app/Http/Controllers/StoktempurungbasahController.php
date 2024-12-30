@@ -9,7 +9,7 @@ class StoktempurungbasahController extends Controller
 {
     public function index()
     {
-        $stoktempurungs = StokTempurungBasah::all();
+        $stoktempurungs = StokTempurungBasah::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
         return view('card_stock.tempurung_basah', compact('stoktempurungs'));
     }
 
@@ -18,128 +18,78 @@ class StoktempurungbasahController extends Controller
         // Validasi data
         $request->validate([
             'id_laporan_tempurung_basah' => 'nullable|string|max:255',
-            'tanggal' => 'nullable|string|max:255',
+            'tanggal' => 'required|date_format:Y-m-d',
             'keterangan' => 'nullable|string|max:255',
             'activity_type' => 'required|string|max:255',
             'stok' => 'required|numeric',
         ]);
 
-        $stok = $request->stok;
-        $activity_type = $request->activity_type;
+           // Simpan data baru
+           $newEntry = StokTempurungBasah::create($request->only([
+          'id_laporan_tempurung_basah',
+            'tanggal',
+            'keterangan',
+            'activity_type',
+            'stok',
+        ]));
+          // Recalculate semua stok berdasarkan tanggal
+          $this->recalculateRemains();
 
-        $last_remain = StokTempurungBasah::latest()->value('remain') ?? 0;
+          return redirect()->route('card_stock.tempurung_basah.index')->with('success', 'Data berhasil ditambahkan!');
+      }
 
-        $begin = $last_remain;
-        $in = 0;
-        $out = 0;
-        $remain = $begin;
-
-        switch ($activity_type) {
-            case 'produksi':
-                $in = $stok;
-                $remain = $begin + $in;
-                break;
-
-            case 'penjualan':
-            case 'adjustment':
-                $out = $stok;
-                $remain = $begin - $out;
-
-                if ($remain < 0) {
-                    return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
-                }
-                break;
-
-            default:
-                // Aktivitas tidak valid
-                return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
-        }
-
-        // Simpan data ke database
-        StokTempurungBasah::create([
-            'id_laporan_tempurung_basah' => $request->id_laporan_tempurung_basah,
-            'tanggal' => $request->tanggal,
-            'keterangan' => $request->keterangan,
-            'activity_type' => $activity_type,
-            'stok' => $stok,
-            'begin' => $begin,
-            'in' => $in,
-            'out' => $out,
-            'remain' => $remain,
+      
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'id_laporan_tempurung_basah' => 'nullable|string|max:255',
+            'tanggal' => 'required|date',
+            'keterangan' => 'nullable|string|max:255',
+            'activity_type' => 'required|string|max:255',
+            'stok' => 'required|numeric',
         ]);
 
-        // Redirect dengan pesan sukses
-        return redirect()->route('card_stock.tempurung_basah.index')->with('success', 'Data berhasil ditambahkan!');
+        $stoktempurungbasah = StokTempurungBasah::findOrFail($id);
+
+        // Update data
+        $stoktempurungbasah->update($request->only([
+            'id_laporan_tempurung_basah',
+            'tanggal',
+            'keterangan',
+            'activity_type',
+            'stok',
+        ]));
+
+        // Recalculate semua stok berdasarkan tanggal
+        $this->recalculateRemains();
+
+        return redirect()->route('card_stock.tempurung_basah.index')->with('success', 'Data berhasil diperbarui!');
     }
 
-    public function update(Request $request, $id)
-{
-    // Validasi data
-    $request->validate([
-        'id_laporan_tempurung_basah' => 'nullable|string|max:255',
-        'tanggal' => 'nullable|string|max:255',
-        'keterangan' => 'nullable|string|max:255',
-        'activity_type' => 'required|string|max:255',
-        'stok' => 'required|numeric',
-    ]);
+      protected function recalculateRemains()
+      {
+        $entries = StokTempurungBasah::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
 
-    // Temukan stok berdasarkan ID
-    $stoktempurung = StokTempurungBasah::findOrFail($id);
+        $lastRemain = 0;
 
-    // Ambil data stok dan tipe aktivitas
-    $stok = $request->stok;
-    $activity_type = $request->activity_type;
+        foreach ($entries as $entry) {
+            // Perhitungan stok
+            $begin = $lastRemain;
+            $in = $entry->activity_type === 'produksi' ? $entry->stok : 0;
+            $out = in_array($entry->activity_type, ['penjualan', 'adjustment']) ? $entry->stok : 0;
+            $remain = $begin + $in - $out;
 
-    // Ambil sisa stok terakhir (remain) dari record yang akan diupdate
-    $last_remain = $stoktempurung->remain;
+            // Update nilai
+            $entry->update([
+                'begin' => $begin,
+                'in' => $in,
+                'out' => $out,
+                'remain' => $remain,
+            ]);
 
-    // Inisialisasi nilai awal
-    $begin = $last_remain; // Nilai awal adalah stok terakhir
-    $in = 0;
-    $out = 0;
-    $remain = $begin; // Default remain sama dengan begin
-
-    // Logika berdasarkan tipe aktivitas
-    switch ($activity_type) {
-        case 'produksi':
-            // Aktivitas menambah stok
-            $in = $stok;
-            $remain = $begin + $in; // Tambah stok ke remain
-            break;
-
-        case 'penjualan':
-        case 'adjustment':
-            // Aktivitas mengurangi stok
-            $out = $stok;
-            $remain = $begin - $out; // Kurangi stok dari remain
-
-            // Validasi jika remain negatif
-            if ($remain < 0) {
-                return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
-            }
-            break;
-
-        default:
-            // Aktivitas tidak valid
-            return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
+            $lastRemain = $remain;
+        }
     }
-
-    // Perbarui data stok
-    $stoktempurung->update([
-        'id_laporan_tempurung_basah' => $request->id_laporan_tempurung_basah,
-        'tanggal' => $request->tanggal,
-        'keterangan' => $request->keterangan,
-        'activity_type' => $activity_type,
-        'stok' => $stok,
-        'begin' => $begin,
-        'in' => $in,
-        'out' => $out,
-        'remain' => $remain,
-    ]);
-
-    // Redirect dengan pesan sukses
-    return redirect()->route('card_stock.tempurung_basah.index')->with('success', 'Data berhasil diperbarui!');
-}
 
     public function edit($id)
     {
@@ -165,7 +115,12 @@ class StoktempurungbasahController extends Controller
     {
         $stoktempurung = StokTempurungBasah::findOrFail($id);
         $stoktempurung->delete();
+        
+            // Recalculate semua stok setelah penghapusan
+            $this->recalculateRemains();
 
         return redirect()->route('card_stock.tempurung_basah.index')->with('success', 'Data berhasil dihapus!');
     }
 }
+
+
