@@ -18,7 +18,7 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             border-radius: 15px;
             width: 94%;
-            height: 97%;
+            height: 85%;
             margin-left: 40px;
             font-family: 'Inter', sans-serif;
         }
@@ -27,7 +27,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            padding: 5px;
 
         }
 
@@ -35,7 +35,6 @@
             font-size: 16px;
             margin: 0;
             color: #636362;
-            margin-bottom: 20px;
             display: flex;
             justify-content: center;
             text-align: center;
@@ -49,11 +48,10 @@
         }
 
         .form-container {
-            background-color: #fff;
+            background-color: #F7F7F7;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
+            height: 85%;
             margin: 0 auto;
         }
 
@@ -115,7 +113,22 @@
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
+        .form-group select {
+        width: 100%; 
+        height: 80%;
+        padding: 8px; 
+        font-size: 12px; 
+        border: 1px solid #ccc; 
+        border-radius: 5px; 
+        background-color: #f9f9f9; 
+        color: #636362; 
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2); 
+        appearance: none; 
+        -webkit-appearance: none; 
+        -moz-appearance: none; 
+}
         .btn-update {
+            display: flex;
             width: 20%;
             padding: 8px;
             margin-top: 5px;
@@ -125,9 +138,11 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 14px;
-            margin-left: 10px;
+            margin-left: 50px;
             text-align: center;
-            transform: translateX(220px);
+        justify-content: center;
+        align-content: center;
+        margin: 0 auto;
         }
 
         .btn-update:hover {
@@ -198,19 +213,39 @@
                                     <label for="status-kepegawaian">Status Kepegawaian</label>
                                     <input type="text" name="kepagawaian" id="status-kepegawaian" value="{{ old('kepagawaian', $pegawai->kepagawaian) }}">
                                 </div>
-                                <div class="form-group">
-                                    <label for="status">Status</label>
-                                    <input type="text" name="status" id="status" value="{{ old('status', $pegawai->status) }}">
-                                </div>
+                                
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select id="status" class="form-control" id="status" name="status" value="{{ old('status', $pegawai->status) }}">
+                                            <option value="" disabled selected>Pilih Status</option>
+                                            <option value="Aktif">Aktif</option>
+                                            <option value="Tidak Aktif">Tidak Aktif</option>
+                                        </select>
+                                    </div>
                             </div>
 
                             <button type="submit" class="btn-update">Update</button>
                         </div>
-
-                        <div class="profile-picture">
-                            <img src="{{ asset('img/hi logo.png') }}" alt="Foto Profil" id="profile-image">
-                            <input type="file" id="profile-input" accept="image/*" style="display: none;">
-                            <button type="button" class="btn-update-foto" id="change-profile-btn">Ganti Profil</button>
+                      
+                        </form>
+                        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 50px;">
+                            @if($pegawai->foto)
+                                <div class="mb-3">
+                                    <img src="{{ asset('storage/' . $pegawai->foto) }}" alt="Foto Pegawai" id="profile-image" 
+                                         style="width: 150px; height: auto; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                                </div>
+                            @endif
+                        
+                            <form method="POST" action="{{ route('data_pegawai.update', $pegawai->id) }}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <div class="form-group">
+                                  
+                                    <input type="file" name="foto" class="form-control" id="foto" accept="image/*" style="display: none;">
+                                </div>
+                                </form>
+                        </div>
+                        </div>
                         </div>
                     </div>
                 </form>
@@ -225,4 +260,29 @@
 @endsection
 
 @section('scripts')
-    <script></script>
+    <script>
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        // Ambil elemen dari halaman
+        var changeProfileBtn = document.getElementById('change-profile-btn');
+        var profileInput = document.getElementById('foto');
+        var profileImage = document.getElementById('profile-image');
+
+        // Ketika tombol "Ganti Foto" diklik, buka file input
+        changeProfileBtn.addEventListener('click', function() {
+            profileInput.click(); 
+        });
+
+        // Ketika file dipilih, baca dan tampilkan gambar
+        profileInput.addEventListener('change', function() {
+            var file = profileInput.files[0]; // Ambil file pertama dari input
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImage.src = e.target.result; // Set src gambar dengan hasil pembacaan
+                };
+                reader.readAsDataURL(file); // Baca file sebagai URL data
+            }
+        });
+    });
+    </script>

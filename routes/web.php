@@ -142,6 +142,8 @@ Route::prefix('card_stock')->name('card_stock.')->group(function () {
     Route::get('santan/create', [StoksantanController::class, 'create'])->name('santan.create');
     Route::post('santan', [StoksantanController::class, 'store'])->name('santan.store');
     Route::delete('santan/{id}', [StoksantanController  ::class, 'destroy'])->name('santan.destroy');
+    Route::get('santan/{id}/edit', [StokSantanController::class, 'edit'])->name('santan.edit');
+    Route::put('/stok/santan/{id}', [StokSantanController::class, 'update'])->name('stok.santan.update');
 
     //stok air kelapa
     Route::resource('air_kelapa', StokairkelapaController::class);

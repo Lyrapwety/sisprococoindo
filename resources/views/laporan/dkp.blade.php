@@ -59,14 +59,10 @@
             font-size: 12px;
             color: #636362;
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Input pencarian dan ikon */
-        .filters .input-icon {
+        } .filters .input-icon {
             position: relative;
             width: 250px;
-            /* Lebar lebih pendek untuk input pencarian */
-        }
+       }
 
         .filters input[type="text"] {
             width: 100%;
@@ -142,15 +138,13 @@
             padding: 10px;
             text-align: center;
             border: 1px solid #636362;
-            /* Garis antar sel */
             color: #636362;
             font-size: 12px;
         }
 
         table th {
             border-bottom: 1px solid #636362;
-            /* Garis tebal untuk header */
-        }
+         }
 
         table td button {
             padding: 8px 12px;
@@ -214,31 +208,25 @@
             position: relative;
             width: 100%;
             max-width: 100px;
-            /* Sesuaikan dengan kebutuhan */
             color: #636362;
         }
 
         .search-input::placeholder {
             color: #636362;
-            /* Ganti dengan warna yang diinginkan */
-            opacity: 1;
-            /* Mengatur opasitas jika perlu */
+             opacity: 1;
         }
 
         .input-icon i {
             position: absolute;
             right: 5px !important;
-            /* Pindahkan ikon ke sisi kanan */
-            top: 50%;
+           top: 50%;
             transform: translateY(-50%);
             color: #636362;
-            /* Warna ikon */
-        }
+          }
 
         .input-icon input {
             width: 100%;
             padding: 10px 40px 10px 10px;
-            /* Tambahkan padding kanan untuk ruang ikon */
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
@@ -246,12 +234,11 @@
 
         }
 
-        .
 
-        /* Gaya untuk input saat fokus */
+
         .input-icon input:focus {
             border-color: #104367;
-            /* Ubah warna border saat fokus */
+       
         }
 
         /* Gaya Modal */

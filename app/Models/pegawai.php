@@ -21,6 +21,7 @@ class pegawai extends Model
         'kepagawaian',
         'status',
         'email',
+        'foto',
     ];
 
 }

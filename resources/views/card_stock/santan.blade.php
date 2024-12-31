@@ -392,6 +392,25 @@
             flex: 1;
             min-width: 45%;
         }
+        table td button {
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #104367;
+            color: white;
+            font-size: 12px;
+
+        }
+
+        table td button.edit {
+            background-color: #3498db;
+        }
+
+        table td button.delete {
+            background-color: #e74c3c;
+        }
+
     </style>
 
     <div class="mainbar">
@@ -431,20 +450,21 @@
                 <table>
                     <thead>
                         <tr>
-                            <th rowspan="2">Date<br>日期</th>
-                            <th rowspan="2">Remark<br>评论</th>
-                            <th rowspan="2">Making Product<br>制作产品</th>
-                            <th rowspan="2">Fat<br>胖的</th>
-                            <th rowspan="2">PH<br>酸碱度</th>
-                            <th rowspan="2">Begin<br>开始</th>
-                            <th colspan="2">IN<br>入库</th>
-                            <th rowspan="2">Out<br>出库</th>
-                            <th colspan="6">Remain<br>库存</th>
-                            <th rowspan="2">Remark<br>评论</th>
+                            <th rowspan="2">Date<br></th>
+                            <th rowspan="2">Remark<br></th>
+                            <th rowspan="2">Making Product<br></th>
+                            <th rowspan="2">Fat<br></th>
+                            <th rowspan="2">PH<br></th>
+                            <th rowspan="2">Begin<br></th>
+                            <th colspan="2">IN<br></th>
+                            <th rowspan="2">Out<br></th>
+                            <th colspan="6">Remain<br></th>
+                            <th rowspan="2">Remark<br></th>
+                            <th rowspan="2">Aksi</th>
                         </tr>
                         <tr>
-                            <th>Bags<br>包</th>
-                            <th>Box<br>盒子</th>
+                            <th>Bags<br></th>
+                            <th>Box<br></th>
                             <th>5 kg</th>
                             <th>4 kg</th>
                             <th>3 kg</th>
@@ -472,6 +492,15 @@
                                 <td>{{ $stoksantan->jenis_berat === '1KG' ? $stoksantan->in_box * 18 : '-' }}</td>
                                 <td>{{ $stoksantan->remain }}</td>
                                 <td>{{ $stoksantan->catatan }}</td>
+                                <td>
+                                    <form action="{{ route('card_stock.santan.destroy', $stoksantan->id) }}" method="POST"
+                                        style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="delete"
+                                            data-id="{{ $stoksantan->id }}">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
 
@@ -519,8 +548,6 @@
                     @enderror
                     </div>
                     <div class="inline-form">
-
-
                         <div class="form-group">
                             <label for="activity_type">Tipe Aktivitas</label>
                             <select class="form-control @error('activity_type') is-invalid @enderror"
@@ -636,6 +663,31 @@
                     modal.style.display = "none";
                 }
             };
+            document.querySelectorAll('.edit').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+
+                            fetch(`/card_stock/santan/${id}/edit`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    document.getElementById("id").value = data.id;
+                                    document.getElementById("activity_type").value = data.activity_type;
+                                    document.getElementById("tanggal").value = data.tanggal;
+                                    document.getElementById("stok").value = data.stok;
+                                    document.getElementById("remark").value = data.remark;
+
+                                    const form = document.getElementById('stokForm');
+                                    form.action = `/card_stock/santan/${id}`;
+                                    document.getElementById("formMethod").value = "PUT"; // Set method to PUT
+
+                                    modal.style.display = 'flex';
+                                })
+                                .catch(error => {
+                                    console.error("Error fetching data:", error);
+                                });
+                        });
+                    });
+         
 
             function goToPage(page) {
                 if (page >= 1 && page <= totalPages) {

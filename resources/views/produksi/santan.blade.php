@@ -414,6 +414,25 @@
             flex: 1;
             min-width: 45%;
         }
+        table td button {
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #104367;
+            color: white;
+            font-size: 12px;
+
+        }
+
+        table td button.edit {
+            background-color: #3498db;
+        }
+
+        table td button.delete {
+            background-color: #e74c3c;
+        }
+
     </style>
 
     <div class="mainbar">
@@ -462,6 +481,7 @@
                                     <th colspan="2">In</th>
                                     <th colspan="3">Out</th>
                                     <th rowspan="2">Remain</th>
+                                    <th rowspan="2">Aksi</th>
                                 </tr>
                                 <tr>
                                     <th>Bags@1kgs</th>
@@ -485,13 +505,21 @@
                                         <td>{{ $produksisantan->briz }}</td>
                                         <td>{{ $produksisantan->bags }}</td>
                                         <td>{{ $produksisantan->begin }}</td>
-                                        <td>{{ $produksisantan->in_steril }}</td>
-                                        <td>{{ $produksisantan->in_nonsteril }}</td>
-                                        <td>{{ $produksisantan->out_rep }}</td>
-                                        <td>{{ $produksisantan->out_eks }}</td>
-                                        <td>{{ $produksisantan->out_adj }}</td>
+                                        <td>{{ $produksisantan->in_steril >0 ? $produksisantan->in_steril : '-' }}</td>
+                                        <td>{{ $produksisantan->in_nonsteril >0 ? $produksisantan->in_nonsteril : '-' }}</td>
+                                        <td>{{ $produksisantan->out_rep > 0 ?  $produksisantan->out_rep: '-' }}</td>
+                                        <td>{{ $produksisantan->out_eks > 0 ?   $produksisantan->out_eks : '-' }}</td>
+                                        <td>{{ $produksisantan->out_adj > 0 ? $produksisantan->out_adj : '-'}}</td>
                                         <td>{{ $produksisantan->remain }}</td>
-
+                                        <td>
+                                            <form action="{{ route('produksi.santan.destroy', $produksisantan->id) }}" method="POST"
+                                                style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="delete"
+                                                    data-id="{{ $produksisantan->id }}">Delete</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -519,7 +547,7 @@
             <div id="modal" class="modal">
                 <div class="modal-content">
                     <span class="close-btn" onclick="closeModal()">&times;</span>
-                    <h2>Form Input Stok Packing Santan</h2>
+                    <h2>Form Input Hasil Produksi Santan</h2>
 
                     <form id="stokForm" action="{{ route('produksi.santan.store') }}" method="POST"
                         enctype="multipart/form-data">

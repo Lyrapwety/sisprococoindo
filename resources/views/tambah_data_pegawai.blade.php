@@ -450,21 +450,19 @@
                                 <button type="submit" class="btn-update">Tambah</button>
                             </div>
                         </div>
-
-                        <!-- Bagian kanan (Foto Profil) -->
                         <div class="profile-picture">
                             <img src="{{ asset('img/hi logo.png') }}" alt="Foto Profil" id="profile-image">
-                            <input type="file" id="profile-input" accept="image/*" style="display: none;">
+                            <input type="file" name="foto" id="foto" accept="image/*" style="display: none;">
                             <button type="button" class="btn-update-foto" id="change-profile-btn">Ganti Profil</button>
-
                         </div>
+                      
                     </div>
                 </form>
             </div>
         </div>
 
 
-        <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
+       <!-- <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -473,9 +471,9 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-8">-->
                                 <!-- Tampilkan Data Pegawai -->
-                                <table class="table table-bordered">
+                            <!--    <table class="table table-bordered">
                                     <tr>
                                         <th class="fixed-width">Tanggal Join</th>
                                         <td id="preview-tgl-join">-</td>
@@ -510,16 +508,16 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-4 text-center">-->
                                 <!-- Preview Foto Profil -->
-                                <img id="preview-foto" src="{{ asset('img/hi logo.png') }}" alt="Preview Foto"
+                               <!-- <img id="preview-foto" src="{{ asset('img/hi logo.png') }}" alt="Preview Foto"
                                     class="img-fluid rounded" style="max-height: 200px;">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
@@ -533,7 +531,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var changeProfileBtn = document.getElementById('change-profile-btn');
-            var profileInput = document.getElementById('profile-input');
+            var profileInput = document.getElementById('foto');
             var profileImage = document.getElementById('profile-image');
 
           
@@ -566,7 +564,7 @@
                 const departemen = document.querySelector('#department').value || '-';
                 const statusKepegawaian = document.querySelector('#status-kepegawaian').value || '-';
                 const status = document.getElementById('status').value || '-';
-                const fotoSrc = document.getElementById('profile-image').src;
+                const fotoSrc = document.getElementById('foto').src;
 
                 // Isi data ke modal
                 document.getElementById('preview-tgl-join').textContent = tglJoin;

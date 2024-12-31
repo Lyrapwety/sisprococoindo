@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -9,7 +8,8 @@ class StoksantanController extends Controller
 {
     public function index()
     {
-        $stoksantans = StokSantan::all();
+        // Mengurutkan berdasarkan tanggal dan ID
+        $stoksantans = StokSantan::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
         return view('card_stock.santan', compact('stoksantans'));
     }
 
@@ -39,13 +39,11 @@ class StoksantanController extends Controller
 
         // Logika berdasarkan tipe aktivitas
         if ($activity_type === 'produksi') {
-            // Jika jenis aktivitasnya produksi, in_bags akan dihitung berdasarkan jumlah box dan berat
             $in_box = $jumlah;
-            $remain = $begin + $in_box;
+            $remain = $begin + $in_box; // perhitungan untuk produksi
         } elseif ($activity_type === 'ekspor') {
-            // Jika jenis aktivitas ekspor, jumlah yang dikeluarkan dari stok adalah $jumlah
             $out = $jumlah;
-            $remain = $begin - $out;
+            $remain = $begin - $out; // perhitungan untuk ekspor
         } else {
             return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
         }
@@ -56,22 +54,21 @@ class StoksantanController extends Controller
         $remain_kg = 0;
         $calculated_bags = 0;
 
-        // Kalkulasi berat berdasarkan jenis berat yang dipilih
         if ($jenisBerat == "5KG") {
-            $remain_kg = $in_box * 20;  // 20 untuk 5KG
-            $calculated_bags = $remain_kg / 5;  // Dibagi dengan 5KG
+            $remain_kg = $in_box * 20;  
+            $calculated_bags = $remain_kg / 5;
         } elseif ($jenisBerat == "4KG") {
-            $remain_kg = $in_box * 20;  // 20 untuk 4KG
-            $calculated_bags = $remain_kg / 4;  // Dibagi dengan 4KG
+            $remain_kg = $in_box * 20;
+            $calculated_bags = $remain_kg / 4;
         } elseif ($jenisBerat == "3KG") {
-            $remain_kg = $in_box * 20;  // 20 untuk 3KG
-            $calculated_bags = $remain_kg / 3;  // Dibagi dengan 3KG
+            $remain_kg = $in_box * 20;
+            $calculated_bags = $remain_kg / 3;
         } elseif ($jenisBerat == "2KG") {
-            $remain_kg = $in_box * 20;  // 20 untuk 2KG
-            $calculated_bags = $remain_kg / 2;  // Dibagi dengan 2KG
+            $remain_kg = $in_box * 20;
+            $calculated_bags = $remain_kg / 2;
         } elseif ($jenisBerat == "1KG") {
-            $remain_kg = $in_box * 18;  // 18 untuk 1KG
-            $calculated_bags = $remain_kg / 1;  // Dibagi dengan 1KG
+            $remain_kg = $in_box * 18;
+            $calculated_bags = $remain_kg / 1;
         }
 
         // Kalkulasi in_bags yang sesuai dengan jenis berat yang dipilih
@@ -98,13 +95,139 @@ class StoksantanController extends Controller
             'calculated_bags' => $calculated_bags,
         ]);
 
-        // Redirect dengan pesan sukses
+        // Recalculate semua stok setelah penambahan
+        $this->recalculateRemains();
+
         return redirect()->route('card_stock.santan.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
+    public function update(Request $request, $id)
+    {
+        // Validasi data
+        $request->validate([
+            'id_laporan_dkp' => 'nullable|string|max:255',
+            'tanggal' => 'required|string|max:255',
+            'keterangan' => 'nullable|string|max:255',
+            'activity_type' => 'required|string|max:255',
+            'making_product' => 'nullable|numeric',
+            'jumlah' => 'nullable|numeric',
+            'jenis_berat' => 'nullable|string|max:255',
+            'fat' => 'nullable|numeric',
+            'ph' => 'nullable|numeric',
+        ]);
 
+        // Temukan data yang sedang diedit
+        $laporan = StokSantan::findOrFail($id);
+        $old_remain = $laporan->remain;  // Menyimpan nilai remain lama sebelum diubah
 
+        // Perbarui data berdasarkan inputan pengguna
+        $activity_type = $request->activity_type;
+        $jumlah = $request->jumlah;
+        $remain = $old_remain; // Tetap menggunakan remain lama sebelum perubahan
 
+        if ($activity_type === 'produksi') {
+            $remain += $jumlah; // Tambah stok jika produksi
+        } elseif ($activity_type === 'ekspor') {
+            $remain -= $jumlah; // Kurangi stok jika ekspor
+        }
 
+        // Kalkulasi jenis berat yang dipilih
+        $jenisBerat = $request->jenis_berat;
+        $remain_kg = 0;
+        $calculated_bags = 0;
 
+        if ($jenisBerat == "5KG") {
+            $remain_kg = $jumlah * 20;  
+            $calculated_bags = $remain_kg / 5;
+        } elseif ($jenisBerat == "4KG") {
+            $remain_kg = $jumlah * 20;
+            $calculated_bags = $remain_kg / 4;
+        } elseif ($jenisBerat == "3KG") {
+            $remain_kg = $jumlah * 20;
+            $calculated_bags = $remain_kg / 3;
+        } elseif ($jenisBerat == "2KG") {
+            $remain_kg = $jumlah * 20;
+            $calculated_bags = $remain_kg / 2;
+        } elseif ($jenisBerat == "1KG") {
+            $remain_kg = $jumlah * 18;
+            $calculated_bags = $remain_kg / 1;
+        }
+
+        // Perbarui data di database
+        $laporan->update($request->only([
+            'id_laporan_dkp', 
+            'tanggal' ,
+            'keterangan' ,
+            'activity_type' ,
+            'making_product' ,
+            'jenis_berat' ,
+            'jumlah',
+            'fat',
+            'ph' ,
+            'remain' ,
+            'remain_kg' ,
+            'calculated_bags',
+           ]));
+
+        // Recalculate semua stok setelah pembaruan
+        $this->recalculateRemains();
+
+        return redirect()->route('card_stock.santan.index')->with('success', 'Data berhasil diperbarui!');
+    }
+
+    protected function recalculateRemains()
+{
+    // Ambil semua data yang diurutkan berdasarkan tanggal dan ID
+    $entries = StokSantan::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
+
+    $remain = 0;
+
+    foreach ($entries as $entry) {
+        // Set nilai awal begin sebagai remain sebelumnya
+        $entry->begin = $remain;
+
+        // Perhitungan stok berdasarkan aktivitas
+        if ($entry->activity_type === 'produksi') {
+            $remain += $entry->in_box;  // Tambahkan in_box untuk produksi
+        } elseif ($entry->activity_type === 'ekspor') {
+            $remain -= $entry->out;  // Kurangi out untuk ekspor
+        }
+
+        // Update nilai remain
+        $entry->update([
+            'remain' => $remain,
+            'begin' => $entry->begin,
+        ]);
+    }
+}
+
+    public function edit($id)
+    {
+        // Temukan data berdasarkan ID
+        $laporan = StokSantan::findOrFail($id);
+
+        // Kembalikan data dalam format JSON
+        return response()->json([
+            'id_laporan_dkp' => $laporan->id_laporan_dkp,
+            'tanggal' => $laporan->tanggal,
+            'keterangan' => $laporan->keterangan,
+            'activity_type' => $laporan->activity_type,
+            'making_product' => $laporan->making_product,
+            'jumlah' => $laporan->jumlah,
+            'jenis_berat' => $laporan->jenis_berat,
+            'fat' => $laporan->fat,
+            'ph' => $laporan->ph,
+        ]);
+    }
+public function destroy($id)
+    {
+        // Hapus entri berdasarkan ID
+        $stoksantan = StokSantan::findOrFail($id);
+        $stoksantan->delete();
+    
+        // Recalculate remain dan begin
+        $this->recalculateRemains();
+    
+        return redirect()->route('card_stock.santan.index')->with('success', 'Data berhasil dihapus!');
+    }
 }

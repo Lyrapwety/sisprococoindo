@@ -7,13 +7,75 @@ use App\Models\StokAmpasKeringYellow;
 
 class StokampasyellowController extends Controller
 {
+    // Menampilkan daftar stok
     public function index()
     {
-        $stokampaskeringyellows = StokAmpasKeringYellow::all();
+        // Ambil semua data, urutkan berdasarkan tanggal
+        $stokampaskeringyellows = StokAmpasKeringYellow::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
         return view('card_stock.ampas_kering_yellow', compact('stokampaskeringyellows'));
     }
-
     public function store(Request $request)
+    {
+        // Validasi data
+        $request->validate([
+            'id_stok_ampas_kering_putih' => 'nullable|string|max:255',
+            'tanggal' => 'required|date',
+            'keterangan' => 'nullable|string|max:255',
+            'activity_type' => 'required|string|max:255',
+            'stok' => 'required|numeric',
+            'kategori' => 'nullable|string|in:fine,medium',
+        ]);
+    
+        // Tambahkan entri baru ke database
+        StokAmpasKeringYellow::create([
+            'id_stok_ampas_kering_putih' => $request->id_stok_ampas_kering_putih,
+            'tanggal' => $request->tanggal,
+            'keterangan' => $request->keterangan,
+            'activity_type' => $request->activity_type,
+            'stok' => $request->stok,
+            'kategori' => $request->kategori,
+            'begin' => 0, // Akan dihitung ulang
+            'in_fine' => $request->kategori === 'fine' ? $request->stok : 0,
+            'in_medium' => $request->kategori === 'medium' ? $request->stok : 0,
+            'out' => in_array($request->activity_type, ['ekspor', 'penjualan']) ? $request->stok : 0,
+            'remain' => 0, // Akan dihitung ulang
+        ]);
+    
+        // Panggil metode untuk menghitung ulang stok
+        $this->recalculateStock();
+    
+        return redirect()->route('card_stock.ampas_kering_yellow.index')
+            ->with('success', 'Data berhasil ditambahkan dan stok dihitung ulang!');
+    }
+    private function recalculateStock()
+    {
+        // Ambil semua entri yang diurutkan berdasarkan tanggal
+        $allEntries = StokAmpasKeringYellow::orderBy('tanggal', 'asc')
+            ->orderBy('id', 'asc')
+            ->get();
+    
+        $current_remain = 0; // Inisialisasi remain awal
+    
+        // Hitung ulang begin dan remain untuk setiap entri
+        foreach ($allEntries as $row) {
+            $begin = $current_remain; // Begin adalah remain dari entri sebelumnya
+            $in_fine = $row->in_fine;
+            $in_medium = $row->in_medium;
+            $out = $row->out;
+    
+            // Hitung remain baru
+            $remain = $begin + $in_fine + $in_medium - $out;
+    
+            // Perbarui entri
+            $row->update([
+                'begin' => $begin,
+                'remain' => $remain,
+            ]);
+    
+            // Perbarui nilai remain untuk entri berikutnya
+            $current_remain = $remain;
+        }
+    }public function update(Request $request, $id)
     {
         // Validasi data
         $request->validate([
@@ -24,146 +86,34 @@ class StokampasyellowController extends Controller
             'stok' => 'required|numeric',
             'kategori' => 'nullable|string|in:fine,medium',
         ]);
-
-        $stok = $request->stok;
-        $activity_type = $request->activity_type;
-
-        $begin = 0;
-        $in_fine = 0;
-        $in_medium = 0;
-        $out = 0;
-        $remain = 0;
-
-        $last_entry = StokAmpasKeringYellow::latest()->first();
-
-        switch ($activity_type) {
-            case 'produksi':
-                if ($request->kategori === 'fine') {
-                    $in_fine = $stok;
-                    $begin = $last_entry ? $last_entry->remain : 0;
-                    $remain = $begin + $in_fine;
-                } elseif ($request->kategori === 'medium') {
-                    $in_medium = $stok;
-                    $begin = $last_entry ? $last_entry->remain : 0;
-                    $remain = $begin + $in_medium;
-                }
-                break;
-
-            case 'ekspor':
-            case 'penjualan':
-                $out = $stok;
-
-                $begin = $last_entry ? $last_entry->remain : 0;
-                $remain = $begin - $out;
-
-                if ($remain < 0) {
-                    return redirect()->back()->withErrors(['stok' => 'Stok tidak cukup untuk aktivitas ini.']);
-                }
-                break;
-
-            default:
-                return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
-        }
-
-        StokAmpasKeringYellow::create([
-            'id_stok_ampas_kering_putih' => $request->id_stok_ampas_kering_putih,
+    
+        // Temukan stok berdasarkan ID
+        $stokampaskeringyellow = StokAmpasKeringYellow::findOrFail($id);
+    
+        // Perbarui data entri ini
+        $stokampaskeringyellow->update([
+            'id_stok_ampas_kering_putih' => $request-> id_stok_ampas_kering_putih,
             'tanggal' => $request->tanggal,
             'keterangan' => $request->keterangan,
-            'activity_type' => $activity_type,
-            'stok' => $stok,
+            'activity_type' => $request->activity_type,
+            'stok' => $request->stok,
             'kategori' => $request->kategori,
-            'begin' => $begin,
-            'in_fine' => $in_fine,
-            'in_medium' => $in_medium,
-            'out' => $out,
-            'remain' => $remain,
+            'in_fine' => $request->kategori === 'fine' ? $request->stok : 0,
+            'in_medium' => $request->kategori === 'medium' ? $request->stok : 0,
+            'out' => in_array($request->activity_type, ['ekspor', 'penjualan']) ? $request->stok : 0,
         ]);
-
-        return redirect()->route('card_stock.ampas_kering_yellow.index')->with('success', 'Data berhasil ditambahkan!');
+    
+        // Panggil metode untuk menghitung ulang stok dari awal
+        $this->recalculateStock();
+    
+        return redirect()->route('card_stock.ampas_kering_yellow.index')
+            ->with('success', 'Data berhasil diperbarui');
     }
 
-    public function update(Request $request, $id)
-{
-    // Validasi data
-    $request->validate([
-        'id_stok_ampas_kering_putih' => 'nullable|string|max:255',
-        'tanggal' => 'nullable|string|max:255',
-        'keterangan' => 'nullable|string|max:255',
-        'activity_type' => 'required|string|max:255',
-        'stok' => 'required|numeric',
-        'kategori' => 'nullable|string|in:fine,medium',
-    ]);
-
-    // Temukan stok berdasarkan ID
-    $stokampaskeringyellow = StokAmpasKeringYellow::findOrFail($id);
-
-    // Ambil jumlah stok dan tipe aktivitas
-    $stok = $request->stok;
-    $activity_type = $request->activity_type;
-
-    // Ambil sisa stok terakhir (remain) dari record yang akan diupdate
-    $last_remain = $stokampaskeringyellow->remain;
-
-    // Inisialisasi nilai awal
-    $begin = $last_remain; // Nilai awal adalah stok terakhir
-    $in_fine = 0;
-    $in_medium = 0;
-    $out = 0;
-    $remain = $begin; // Default remain sama dengan begin
-
-    // Logika berdasarkan tipe aktivitas
-    switch ($activity_type) {
-        case 'produksi':
-            if ($request->kategori === 'fine') {
-                $in_fine = $stok;
-                $remain = $begin + $in_fine; // Tambah stok ke remain
-            } elseif ($request->kategori === 'medium') {
-                $in_medium = $stok;
-                $remain = $begin + $in_medium; // Tambah stok ke remain
-            }
-            break;
-
-        case 'ekspor':
-        case 'penjualan':
-            // Aktivitas mengurangi stok
-            $out = $stok;
-            $remain = $begin - $out; // Kurangi stok dari remain
-
-            // Validasi jika remain negatif
-            if ($remain < 0) {
-                return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
-            }
-            break;
-
-        default:
-            // Aktivitas tidak valid
-            return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
-    }
-
-    // Perbarui data stok
-    $stokampaskeringyellow->update([
-        'id_stok_ampas_kering_putih' => $request->id_stok_ampas_kering_putih,
-        'tanggal' => $request->tanggal,
-        'keterangan' => $request->keterangan,
-        'activity_type' => $activity_type,
-        'stok' => $stok,
-        'kategori' => $request->kategori,
-        'begin' => $begin,
-        'in_fine' => $in_fine,
-        'in_medium' => $in_medium,
-        'out' => $out,
-        'remain' => $remain,
-    ]);
-
-    // Redirect dengan pesan sukses
-    return redirect()->route('card_stock.ampas_kering_yellow.index')->with('success', 'Data berhasil diperbarui!');
-}
     public function edit($id)
     {
-        // Find the record by its ID
         $laporan = StokAmpasKeringYellow::findOrFail($id);
 
-        // Return the data in JSON format
         return response()->json([
             'id_stok_ampas_kering_putih' => $laporan->id_stok_ampas_kering_putih,
             'tanggal' => $laporan->tanggal,
@@ -179,14 +129,39 @@ class StokampasyellowController extends Controller
         ]);
     }
 
-    public function destroy($id)
-    {
-        $stokampaskeringyellow = StokAmpasKeringYellow::findOrFail($id);
-        $stokampaskeringyellow->delete();
+    // Menghapus data stok// Menghapus data stok
+public function destroy($id)
+{
+    // Temukan stok berdasarkan ID
+    $stokampaskeringyellow = StokAmpasKeringYellow::findOrFail($id);
 
-        return redirect()->route('card_stock.ampas_kering_yellow.index')->with('success', 'Data berhasil dihapus!');
+    // Hapus entri stok
+    $stokampaskeringyellow->delete();
+
+    // Ambil semua entri yang ada saat ini
+    $allEntries = StokAmpasKeringYellow::orderBy('id', 'asc')->get();
+    $current_remain = 0; // Inisialisasi remain awal
+
+    // Hitung ulang begin dan remain untuk setiap entri
+    foreach ($allEntries as $row) {
+        $begin = $current_remain; // Begin adalah remain dari entri sebelumnya
+        $in_fine = $row->in_fine;
+        $in_medium = $row->in_medium;
+        $out = $row->out;
+
+        // Hitung remain baru
+        $remain = $begin + $in_fine + $in_medium - $out;
+
+        // Perbarui entri
+        $row->update([
+            'begin' => $begin,
+            'remain' => $remain,
+        ]);
+
+        // Update nilai remain terbaru
+        $current_remain = $remain;
     }
 
-
-
+    return redirect()->route('card_stock.ampas_kering_yellow.index')->with('success', 'Data berhasil dihapus dan stok dihitung ulang!');
+}
 }

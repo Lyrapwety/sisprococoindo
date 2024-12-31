@@ -398,6 +398,24 @@
             flex: 1;
             min-width: 45%;
         }
+        table td button {
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #104367;
+            color: white;
+            font-size: 12px;
+
+        }
+
+        table td button.edit {
+            background-color: #3498db;
+        }
+
+        table td button.delete {
+            background-color: #e74c3c;
+        }
     </style>
 
     <div class="mainbar">
@@ -436,20 +454,21 @@
                     <table>
                         <thead>
                             <tr>
-                                <th rowspan="2">Date<br>日期</th>
-                                <th rowspan="2">Remark<br>评论</th>
-                                <th rowspan="2">Making Product<br>制作产品</th>
+                                <th rowspan="2">Date<br></th>
+                                <th rowspan="2">Remark<br></th>
+                                <th rowspan="2">Making Product<br></th>
                                 <th rowspan="2">Briz<br></th>
-                                <th rowspan="2">PH<br>酸碱度</th>
-                                <th rowspan="2">Begin<br>开始</th>
-                                <th colspan="2">IN<br>入库</th>
-                                <th rowspan="2">Out<br>出库</th>
-                                <th colspan="6">Remain<br>库存</th>
-                                <th rowspan="2">Remark<br>评论</th>
+                                <th rowspan="2">PH<br></th>
+                                <th rowspan="2">Begin<br></th>
+                                <th colspan="2">IN<br></th>
+                                <th rowspan="2">Out<br></th>
+                                <th colspan="6">Remain<br></th>
+                                <th rowspan="2">Remark<br></th>
+                                <th rowspan="2">Aksi<br></th>
                             </tr>
                             <tr>
-                                <th>Bags<br>包</th>
-                                <th>Box<br>盒子</th>
+                                <th>Bags<br></th>
+                                <th>Box<br></th>
                                 <th>5 kg</th>
                                 <th>4 kg</th>
                                 <th>3 kg</th>
@@ -477,6 +496,15 @@
                                 <td>{{ $stokairkelapa->jenis_berat === '1KG' ? $stokairkelapa->in_box * 20 : '-' }}</td>
                                 <td>{{ $stokairkelapa->remain }}</td>
                                 <td>{{ $stokairkelapa->catatan }}</td>
+                                <td>
+                                    <form action="{{ route('card_stock.air_kelapa.destroy', $stokairkelapa->id) }}" method="POST"
+                                        style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="delete"
+                                            data-id="{{ $stokairkelapa->id }}">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

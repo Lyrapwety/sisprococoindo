@@ -9,7 +9,7 @@ class StokairkelapaController extends Controller
 {
     public function index()
     {
-        $stokairkelapas = StokAirKelapa::all();
+        $stokairkelapas = StokAirKelapa::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
         return view('card_stock.air_kelapa', compact('stokairkelapas'));
     }
 
@@ -51,6 +51,7 @@ class StokairkelapaController extends Controller
     }
 
     $jenisBerat = $request->jenis_berat;
+
     $limakg = 0;
     $empatkg = 0;
     $tigakg = 0;
@@ -94,7 +95,45 @@ class StokairkelapaController extends Controller
         'catatan' => $request->catatan,
     ]);
 
-    // Redirect dengan pesan sukses
+    // Redirect dengan pesan sukses $this->recalculateRemains();
+    $this->recalculateRemains();
+    
     return redirect()->route('card_stock.air_kelapa.index')->with('success', 'Data berhasil ditambahkan!');
 }
+protected function recalculateRemains()
+{
+    // Ambil semua data yang diurutkan berdasarkan tanggal dan ID
+    $entries = StokAirKelapa::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
+
+    $remain = 0;
+
+    foreach ($entries as $entry) {
+        // Set nilai awal begin sebagai remain sebelumnya
+        $entry->begin = $remain;
+
+        // Perhitungan stok berdasarkan aktivitas
+        if ($entry->activity_type === 'produksi') {
+            $remain += $entry->in_box;  // Tambahkan in_box untuk produksi
+        } elseif ($entry->activity_type === 'ekspor') {
+            $remain -= $entry->out;  // Kurangi out untuk ekspor
+        }
+
+        // Update nilai remain
+        $entry->update([
+            'remain' => $remain,
+            'begin' => $entry->begin,
+        ]);
+    }
+}
+public function destroy($id)
+    {
+        // Hapus entri berdasarkan ID
+        $stokairkelapa = StokAirKelapa::findOrFail($id);
+        $stokairkelapa->delete();
+    
+        // Recalculate remain dan begin
+        $this->recalculateRemains();
+    
+        return redirect()->route('card_stock.air_kelapa.index')->with('success', 'Data berhasil dihapus!');
+    }
 }

@@ -114,8 +114,8 @@ class RekapkulitariController extends Controller
         $greaterThan350Pendapatan = $categories['greaterThan350'] * 600;
 
         // Total pendapatan dengan tambahan 3
-        $totalPendapatan = $lessThan300Pendapatan + $between300And350Pendapatan + $greaterThan350Pendapatan + 3;
+        $totalPendapatan = $lessThan300Pendapatan + $between300And350Pendapatan + $greaterThan350Pendapatan ;
 
-        return number_format($totalPendapatan, 2, ',', '.'); // Format ke Rp.xxx.xxx,xx
+        return number_format($totalPendapatan, 0, ',', '.');
     }
 }
