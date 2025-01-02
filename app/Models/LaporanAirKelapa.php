@@ -19,10 +19,9 @@ class LaporanAirKelapa extends Model
         'nama_pegawai',
         'sheller_parer',
         'bruto',
-        'total_keranjang',
-        'tipe_keranjang',
-        'berat_keranjang',
-        'total_potongan_keranjang',
+        'total_ember',
+        'berat_ember',
+        'total_potongan_ember',
         'hasil_kerja',
         'timbangan_hasil'
     ];

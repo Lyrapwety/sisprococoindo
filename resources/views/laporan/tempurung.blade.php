@@ -630,7 +630,7 @@
         }
         
 .modal2 {
-            display: flex;
+            display: none;
             position: fixed;
             z-index: 999;
             left: 0;
@@ -1133,8 +1133,7 @@
                 <div><label>48</label><input type="number"></div>
                 <div><label>49</label><input type="number"></div>
                 <div><label>50</label><input type="number"></div>
-
-               
+    
             </div>
         </div>
     
@@ -1174,30 +1173,31 @@
             document.getElementById('timbangan_netto').value = total;
             document.getElementById('total-label').textContent = 'Total: ' + total + ' kg';
         }
+        document.addEventListener("DOMContentLoaded", function () {
+    const openFormBtn = document.getElementById('openFormBtn');
+    const modal = document.getElementById('modal');
+    const closeModalBtn = document.querySelector('.close');
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const openFormBtn = document.getElementById('openFormBtn');
-            const modal = document.getElementById('modal');
-            const closeModalBtn = document.querySelector('.close');
-            const form = document.querySelector('form');
+    if (!openFormBtn || !modal || !closeModalBtn) {
+        console.error("Elemen yang dibutuhkan tidak ditemukan.");
+        return;
+    }
 
-            openFormBtn.addEventListener("click", function() {
-                console.log("Modal dibuka");
-                modal.style.display = "block";
-            });
+    openFormBtn.addEventListener("click", function () {
+        console.log("Modal dibuka");
+        modal.style.display = "block";
+    });
 
-            closeModalBtn.addEventListener("click", function() {
-                modal.style.display = "none";
-            });
+    closeModalBtn.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
 
-            window.addEventListener("click", function(event) {
-                if (event.target === modal) {
-                    modal.style.display = "none";
-                }
-            });
-            });
-
-     
+    window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
 
            document.querySelectorAll('.edit').forEach(button => {
                 button.addEventListener('click', function() {

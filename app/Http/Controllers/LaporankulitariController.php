@@ -9,10 +9,15 @@ class LaporankulitariController extends Controller
 {
     public function index()
     {
-        $laporankulitaris = LaporanKulitAriBasah::all();
+        $laporankulitaris = LaporanKulitAriBasah::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
+    
+
+        foreach ($laporankulitaris as $laporan) {
+            $laporan->timbangan_hasil = $laporan->bruto - $laporan->total_potongan_keranjang;
+        }
+    
         return view('laporan.kulitari', compact('laporankulitaris'));
     }
-
     public function store(Request $request)
         {
             // Validasi data
@@ -32,10 +37,17 @@ class LaporankulitariController extends Controller
                 'timbangan_hasil' => 'nullable|numeric',
             ]);
 
-            $bruto = $request->total_keranjang * 1.1;
-
-            $potonganKeranjang = $request->total_keranjang - $request->timbangan_netto;
-
+            $nilaiPotongan = 0;
+            if ($request->tipe_keranjang === 'Keranjang Besar') {
+                $nilaiPotongan = 3.8;
+            } elseif ($request->tipe_keranjang === 'Keranjang Kecil') {
+                $nilaiPotongan = 1.3;
+            }
+    
+            $bruto = $request->timbangan_hasil;
+            $potonganKeranjang = $nilaiPotongan * $request->total_keranjang;
+            $timbangan_hasil = $bruto - $potonganKeranjang;
+           
             // Simpan data ke database
             LaporanKulitAriBasah::create([
                 'id_kelapa_bulat' => $request->id_kelapa_bulat,
@@ -49,7 +61,7 @@ class LaporankulitariController extends Controller
                 'berat_keranjang' => $request->berat_keranjang,
                 'total_potongan_keranjang' => $potonganKeranjang,
                 'hasil_kerja' => json_encode($request->hasil_kerja),
-                'timbangan_hasil' => $request->timbangan_hasil,
+                'timbangan_hasil' => $timbangan_hasil,
             ]);
 
             // Redirect dengan pesan sukses
@@ -76,10 +88,17 @@ class LaporankulitariController extends Controller
     // Temukan laporan berdasarkan ID
     $laporan = LaporanKulitAriBasah::findOrFail($id);
 
-    // Hitung bruto dan potongan keranjang
-    $bruto = $request->total_keranjang * 1.1;
-    $potonganKeranjang = $request->total_keranjang - $request->timbangan_hasil;
-
+   // Hitung potongan dan netto
+   $nilaiPotongan = 0;
+   if ($request->tipe_keranjang === 'Keranjang Besar') {
+       $nilaiPotongan = 3.8;
+   } elseif ($request->tipe_keranjang === 'Keranjang Kecil') {
+       $nilaiPotongan = 1.3;
+   }
+   $bruto = $request->timbangan_hasil;
+   $potonganKeranjang = $nilaiPotongan * $request->total_keranjang;
+   $timbangan_hasil = $bruto - $potonganKeranjang;
+ 
     // Perbarui data laporan
     $laporan->update([
         'id_kelapa_bulat' => $request->id_kelapa_bulat,
@@ -93,7 +112,7 @@ class LaporankulitariController extends Controller
         'berat_keranjang' => $request->berat_keranjang,
         'total_potongan_keranjang' => $potonganKeranjang,
         'hasil_kerja' => json_encode($request->hasil_kerja),
-        'timbangan_hasil' => $request->timbangan_hasil,
+        'timbangan_hasil' => $timbangan_hasil,
     ]);
 
     // Redirect dengan pesan sukses

@@ -264,236 +264,260 @@
              color: #636362;
              opacity: 1;
          }
-
-
          .modal {
-             display: none;
-             position: fixed;
-             z-index: 9999;
-             left: 0;
-             top: 0;
-             width: 100%;
-             height: 100%;
-             overflow: auto;
-             background-color: rgba(0, 0, 0, 0.4);
-             justify-content: center;
-             align-items: center;
-         }
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
 
-         .modal-back {
-             background-color: #F7F7F7;
-             border-radius: 8px;
-         }
+.modal-back {
+            background-color: #F7F7F7;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            overflow-y: auto;
+        }
 
-         .modal-content {
-             background-color: #D9D9D9;
-             margin: auto;
-             padding: 20px;
-             width: 80%;
-             border-radius: 10px;
-             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-             max-width: 90%;
-             display: flex;
-             flex-direction: column;
-             overflow-y: auto;
-             height: 95%;
-         }
+.modal-content {
+    position: relative;
+    background-color: #D9D9D9;
+    margin: auto;
+    padding: 20px;
+    width: 60%;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto;
+}
 
-         .modal-header {
-             margin-bottom: 15px;
-             display: flex;
-             justify-content: center;
-             align-items: center;
-             position: relative;
+.modal-header {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
 
-         }
+.modal-header h2 {
+    color: #636362;
+    text-align: center;
+    flex-grow: 1;
+}
 
-         .modal-header h2 {
-             color: #636362;
-             text-align: center;
-             flex-grow: 1;
+.judul {
+    font-size: 14px;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+    .form-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
 
-         }
+.form-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 20px;
+            margin-left: 10px;
+        }
+        .inline-group {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; /* Kurangi jarak antar elemen */
+    justify-content: flex-start; /* Pastikan elemen dirapatkan ke kiri */
+    align-items: center;
+    margin-left: 0; /* Hilangkan margin kiri */
+    margin-top: 5px;
+}
+        
+        .inline-group label {
+            font-size: 14px;
+            color: #636362;
+            margin-right: 5px;
+        }
+   
+        .full-width {
+            width: 100%;
+        }
 
-         .judul {
-             font-size: 14px;
-             justify-content: center;
-             margin-bottom: 20px;
-             margin-top: 5px;
-         }
+        label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #636362;
+            display: block;
+        }
 
-         .inline-group {
-             display: flex;
-             gap: 15px;
-             justify-content: flex-end;
-             align-items: center;
-             margin-left: auto;
-             margin-top: 5px;
-             flex-wrap: nowrap;
-         }
+        .inline-group select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    color: #636362;
+    background-color: #fff;
+    appearance: none; 
+}
+        .inline-group input[type="date"] {
+            width: 100%;
+        }
 
-         .inline-group select {
-             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-         }
+        select {
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    appearance: none;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
 
-         .inline-group input[type="text"],
-         .inline-group select {
-             width: 50%;
-             flex: 1;
-             padding: 8px;
-             border: 1px solid #ccc;
-             border-radius: 5px;
-             font-size: 13px;
-             color: #636362;
-             margin-top: 5px;
-         }
+        }
 
-         .form-item {
-             display: flex;
-             align-items: center;
-             gap: 10px;
-             width: 100%;
+        input[type="text"],
+        input[type="number"]::placeholder
+        input[type="date"]::placeholder {
+            color: #636362;
+            opacity: 1;
+        }
 
-         }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+            color: #636362;
+        }
+.timbangan-container {
+            text-align: center;
+            margin-top: 30px;
+        }
 
-         .form-item .label {
-             font-size: 14px;
-             color: #636362;
-             margin-right: 5px;
-             min-width: 150px;
-             font-weight: bold;
-         }
+        .timbangan-container h3 {
+            font-size: 14px;
+            color: #636362;
+            margin: 10px 0 15px;
 
-         .form-group {
-             display: flex;
-             flex-direction: column;
-             gap: 20px;
-             margin-bottom: 20px;
-             margin-left: 10px;
-         }
+        }
+.basket-input div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-         .full-width {
-             width: 100%;
-         }
+.basket-input label {
+    font-size: 12px;
+    color: #636362;
+    margin-bottom: 5px; 
+}
+        .basket-input {
+            display: grid;
+            justify-items: center;
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: 5px !important;
 
-         label {
-             font-size: 14px;
-             margin-bottom: 5px;
-             color: #636362;
-             display: block;
-         }
+        }
 
-         .inline-group input[type="date"] {
-             width: 90%;
-         }
+        .basket-input div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-         input[type="text"],
-         input[type="number"],
-         input[type="date"] {
-             width: 100%;
-             padding: 8px;
-             margin-top: 10px;
-             border: 1px solid #ccc;
-             border-radius: 5px;
-             font-size: 14px;
 
-         }
+        .basket-input input {
+            text-align: center;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            height: 80%;
+        }
 
-         input[type="text"],
-         input[type="number"]::placeholder,
-         input[type="date"]::placeholder {
-             color: #636362;
-             opacity: 1;
-         }
+        
+.total-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-right: 0;
+}
 
-         input[type="text"],
-         input[type="number"],
-         input[type="date"] {
-             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-             color: #636362;
+.total-container label{
+    margin-top: 20px;
+}
+.total-container label,
+.total-container input {
+  font-size: 14px;
+  color: #636362;
+  text-align: center; 
+  line-height: 2; 
+}
 
-         }
+.total-container input {
 
-         .timbangan-container {
-             text-align: center;
-             margin-top: 20px;
-         }
+  background-color: transparent;
+  width: 75px;
+  outline: none;
+  padding: 0;
+}
 
-         .timbangan-container h3 {
-             font-size: 14px;
-             color: #636362;
-             margin: 10px 0 15px;
+/* Button Styles */
+.submit-btn {
+    width: 20%;
+    padding: 10px;
+    border: none;
+    background-color: #104367;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-         }
+.submit-btn:hover {
+    background-color: #aaa;
+}
 
-         .timbangan-inputs {
-             display: grid;
-             justify-items: center;
-             grid-template-columns: repeat(12, 0.5fr);
+/* Close Button */
+.close {
+    position: absolute;
+    top: 5px;
+    right: 2px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #636362;
+    cursor: pointer;
+}
 
-         }
-
-         .timbangan-inputs div {
-             display: flex;
-             flex-direction: column;
-             align-items: center;
-         }
-
-         .timbangan-inputs label {
-             font-size: 12px;
-             color: #636362;
-             margin-top: 10px;
-         }
-
-         .timbangan-inputs input {
-             padding: 8px;
-             text-align: center;
-             font-size: 14px;
-             border: 1px solid #ccc;
-             border-radius: 5px;
-             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-             width: 90%;
-             height: 80%;
-         }
-
-         .total-container {
-             text-align: right;
-             margin-top: 20px;
-             font-size: 14px;
-             color: #636362;
-         }
-
-         .submit-btn {
-             width: 20%;
-             padding: 10px;
-             border: none;
-             background-color: #104367;
-             border-radius: 5px;
-             font-size: 16px;
-             cursor: pointer;
-             color: white;
-             margin-top: 20px;
-             display: block;
-             margin-left: auto;
-             margin-right: auto;
-         }
-
-         .submit-btn:hover {
-             background-color: #aaa;
-         }
-
-         .close {
-             position: absolute;
-             top: 5px;
-             right: 2px;
-             font-size: 15px;
-             font-weight: bold;
-             color: #636362;
-             cursor: pointer;
-             transform: translateX(12px);
-             transform: translateY(-10px);
-
-         }
 
          .modal2 {
              display: none;
@@ -823,105 +847,83 @@
                             @csrf
                             <input type="hidden" name="_method" id="formMethod" value="POST">
                              <input type="hidden" name="id" id="id">
-                             <div class="form-group">
-                                 <input type="hidden" name="id" id="id">
-                                 <div class="form-group">
+                                <div class="inline-group">
+                                    <div>
+                                        <label for="tanggal-picker">Tanggal</label>
+                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
+                                        @error('tanggal')
+                                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                  <div>
+                                            <label for="nama-pegawai">Nama Pegawai</label>
+                                            <input type="text" class="form-control @error('nama_pegawai') is-invalid @enderror" id="nama_pegawai" name="nama_pegawai" value="{{ old('nama_pegawai') }}" required>
+                                            @error('nama_pegawai')
+                                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                      <div>
-                                         <label for="nama-pegawai">Nama Pegawai</label>
-                                         <input type="text"
-                                             class="form-control @error('nama_pegawai') is-invalid @enderror"
-                                             id="nama_pegawai" name="nama_pegawai" value="{{ old('nama_pegawai') }}" required>
-                                         @error('nama_pegawai')
-                                             <div class="alert alert-danger mt-2">
-                                                 {{ $message }}
-                                             </div>
-                                         @enderror
-                                     </div>
+                                        <label for="sheller_parer">Sheller/Parer</label>
+                                        <select class="form-control @error('sheller_parer') is-invalid @enderror" 
+                                                id="sheller_parer" 
+                                                name="sheller_parer" 
+                                                required>
+                                            <option value="" disabled selected>Pilih</option>
+                                            <option value="Sheller" {{ old('sheller_parer') == 'Sheller' ? 'selected' : '' }}>Sheller</option>
+                                            <option value="Parer" {{ old('sheller_parer') == 'Parer' ? 'selected' : '' }}>Parer</option>
+                                        </select>
+                                            @error('sheller_parer')
+                                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        
+                                
+                                        <div >
+                                            <label for="total-keranjang">Total Keranjang</label>
+                                            <input type="number" class="form-control @error('total_keranjang') is-invalid @enderror" id="total_keranjang" name="total_keranjang"  style="width: 100px;" class="form-control" value="{{ old('total_keranjang') }}" required>
+                                            @error('total_keranjang')
+                                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                     <div>
-                                         <label for="sp">S / P</label>
-                                         <input type="text"
-                                             class="form-control @error('sheller_parer') is-invalid @enderror"
-                                             id="sheller_parer" name="sheller_parer" value="{{ old('sheller_parer') }}" required>
-                                         @error('sheller_parer')
-                                             <div class="alert alert-danger mt-2">
-                                                 {{ $message }}
-                                             </div>
-                                         @enderror
-                                     </div>
-
-                                     <div>
-                                         <label for="tanggal-picker">Tanggal</label>
-                                         <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                             id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
-                                         @error('tanggal')
-                                             <div class="alert alert-danger mt-2">
-                                                 {{ $message }}
-                                             </div>
-                                         @enderror
-                                     </div>
-
-                                     <div class="inline-group">
-                                         <div class="form-item">
-                                             <label for="total-keranjang">Total Keranjang</label>
-                                             <input type="number"
-                                                 class="form-control @error('total_keranjang') is-invalid @enderror"
-                                                 id="total_keranjang" name="total_keranjang"
-                                                 value="{{ old('total_keranjang') }}">
-                                             @error('total_keranjang')
-                                                 <div class="alert alert-danger mt-2">
-                                                     {{ $message }}
-                                                 </div>
-                                             @enderror
-                                         </div>
-
-                                         <div class="form-item">
-                                             <label for="tipe-keranjang">Tipe Keranjang</label>
-                                             <select id="tipe_keranjang" name="tipe_keranjang"
-                                                 value="{{ old('tipe_keranjang') }}" class="custom-select">
-                                                 <option value="Keranjang Besar">Keranjang Besar</option>
-                                                 <option value="Keranjang Kecil">Keranjang Kecil</option>
-                                             </select>
-                                             @error('tipe_keranjang')
-                                                 <div class="alert alert-danger mt-2">
-                                                     {{ $message }}
-                                                 </div>
-                                             @enderror
-                                         </div>
-                                     </div>
-                                 </div>
-
+                                        <div>
+                                            <label for="tipe-keranjang">Tipe Keranjang</label>
+                                            <select id="tipe_keranjang" name="tipe_keranjang"  style="width: 140px;" class="form-control" value="{{ old('tipe_keranjang') }}" class="custom-select" required>
+                                                <option value="Keranjang Besar">Keranjang Besar</option>
+                                                <option value="Keranjang Kecil">Keranjang Kecil</option>
+                                            </select>
+                                            @error('tipe_keranjang')
+                                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                
+                                 
                                  <div class="timbangan-container">
                                      <h3>Hasil Timbangan Kulit Ari Basah</h3>
                                      <div class="basket-container">
-                                         <div class="row">
-                                             @for ($i = 0; $i < 12; $i++)
-                                                 <div class="col-1 text-center">
-                                                     <!-- Menempatkan nomor di atas input -->
-                                                     <label for="hasil_kerja_{{ $i }}"
-                                                         style="display: block;">{{ $i + 1 }}</label>
-                                                     <input class="basket-input" type="number" name="hasil_kerja[]"
-                                                         id="hasil_kerja_{{ $i }}"
-                                                         value="{{ old('hasil_kerja.' . $i, 0) }}"
-                                                         oninput="calculateTotal()">
-                                                 </div>
-                                             @endfor
-                                         </div>
-                                         <div class="total-container">
-                                             <label for="timbangan_hasil">Total:</label>
-                                             <input type="number" id="timbangan_hasil" name="timbangan_hasil"
-                                                 value="{{ old('timbangan_hasil', 0) }}" readonly>
-                                         </div>
-                                         @error('hasil_kerja')
-                                             <div class="alert alert-danger mt-2">
-                                                 {{ $message }}
-                                             </div>
-                                         @enderror
-                                     </div>
-                                 </div>
-
-                                 <div class="total-container">
-                                     <label id="total-label">Total: 0 kg</label>
+                                        <div class="basket-input">
+                                            @for ($i = 0; $i < 12; $i++)
+                                                <div>
+                                                    <!-- Menempatkan nomor di atas input -->
+                                                    <label for="hasil_kerja_{{ $i }}">{{ $i + 1 }}</label>
+                                                    <input type="number" name="hasil_kerja[]" id="hasil_kerja_{{ $i }}" 
+                                                           value="{{ old('hasil_kerja.' . $i, 0) }}" oninput="calculateTotal()">
+                                                </div>
+                                            @endfor
+                                        </div>
+                                    
+                                        <div class="total-container">
+                                            <label for="timbangan_hasil">Total:</label>
+                                            <input type="text" id="timbangan_hasil" name="timbangan_hasil"
+                                                   value="{{ old('timbangan_hasil', 0) }}" readonly>
+                                        </div>
+                                        @error('hasil_kerja')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                  </div>
 
                                  <div class="action-buttons">
@@ -930,7 +932,7 @@
                          </form>
                      </div>
                  </div>
-
+                
 
 
                  <div class="modal2" id="modal2">
@@ -1047,16 +1049,20 @@
  @section('scripts')
      <script>
          function calculateTotal() {
-             const inputs = document.querySelectorAll('.basket-input');
-             let total = 0;
+        let total = 0;
 
-             inputs.forEach(input => {
-                 total += parseFloat(input.value) || 0;
-             });
+      
+        const inputs = document.querySelectorAll('input[name="hasil_kerja[]"]');
+        
+   
+        inputs.forEach(input => {
+            let value = parseFloat(input.value) || 0; 
+            total += value;
+        });
 
-             document.getElementById('timbangan_hasil').value = total;
-             document.getElementById('total-label').textContent = 'Total: ' + total + ' kg';
-         }
+
+        document.getElementById('timbangan_hasil').value = total;
+    }
 
          document.addEventListener("DOMContentLoaded", function() {
              const openFormBtn1 = document.getElementById("openFormBtn1");

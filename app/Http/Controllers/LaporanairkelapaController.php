@@ -9,7 +9,8 @@ class LaporanairkelapaController extends Controller
 {
     public function index()
     {
-        $laporanairkelapas = LaporanAirKelapa::all();
+        $laporanairkelapas = LaporanAirKelapa::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
+     
         return view('laporan.airkelapa', compact('laporanairkelapas'));
     }
 
@@ -22,20 +23,19 @@ class LaporanairkelapaController extends Controller
         'nama_pegawai' => 'nullable|string|max:255',
         'sheller_parer' => 'nullable|string|max:255',
         'bruto' => 'nullable|string|max:255',
-        'total_keranjang' => 'nullable|string|max:255',
-        'tipe_keranjang' => 'nullable|string|max:255',
-        'berat_keranjang' => 'nullable|string|max:255',
-        'total_potongan_keranjang' => 'nullable|string|max:255',
+        'total_ember' => 'nullable|string|max:255',
+        'berat_ember' => 'nullable|string|max:255',
+        'total_potongan_ember' => 'nullable|string|max:255',
         'hasil_kerja' => 'nullable|array',
         'hasil_kerja.*' => 'nullable|numeric',
         'timbangan_hasil' => 'nullable|numeric',
     ]);
 
     $nilaiPotongan = 0.8;
-
+    
     $bruto = $request->timbangan_hasil;
-    $potonganKeranjang = $nilaiPotongan * $request->total_keranjang;
-    $timbangan_hasil = $bruto - $potonganKeranjang;
+    $potonganEmber = $nilaiPotongan * $request->total_ember;
+    $timbangan_hasil = $bruto - $potonganEmber;
 
     // Simpan data ke database
     LaporanAirKelapa::create([
@@ -44,10 +44,9 @@ class LaporanairkelapaController extends Controller
         'nama_pegawai' => $request->nama_pegawai,
         'sheller_parer' => $request->sheller_parer,
         'bruto' => $bruto,
-        'total_keranjang' => $request->total_keranjang,
-        'tipe_keranjang' => $request->tipe_keranjang,
-        'berat_keranjang' => $request->berat_keranjang,
-        'total_potongan_keranjang' => $potonganKeranjang,
+        'total_ember' => $request->total_ember,
+        'berat_ember' => $request->berat_ember,
+        'total_potongan_ember' => $potonganEmber,
         'hasil_kerja' => json_encode($request->hasil_kerja),
         'timbangan_hasil' => $timbangan_hasil,
     ]);
@@ -65,9 +64,8 @@ public function update(Request $request, $id)
         'nama_pegawai' => 'nullable|string|max:255',
         'sheller_parer' => 'nullable|string|max:255',
         'bruto' => 'nullable|string|max:255',
-        'total_keranjang' => 'nullable|string|max:255',
-        'tipe_keranjang' => 'nullable|string|max:255',
-        'berat_keranjang' => 'nullable|string|max:255',
+        'total_ember' => 'nullable|string|max:255',
+        'berat_ember' => 'nullable|string|max:255',
         'hasil_kerja' => 'nullable|array',
         'hasil_kerja.*' => 'nullable|numeric',
         'timbangan_hasil' => 'nullable|numeric',
@@ -79,8 +77,8 @@ public function update(Request $request, $id)
     // Hitung potongan dan timbangan hasil
     $nilaiPotongan = 0.8;
     $bruto = $request->timbangan_hasil;
-    $potonganKeranjang = $nilaiPotongan * $request->total_keranjang;
-    $timbangan_hasil = $bruto - $potonganKeranjang;
+    $potonganEmber = $nilaiPotongan * $request->total_ember;
+    $timbangan_hasil = $bruto - $potonganEmber;
 
     // Perbarui data laporan
     $laporan->update([
@@ -89,10 +87,9 @@ public function update(Request $request, $id)
         'nama_pegawai' => $request->nama_pegawai,
         'sheller_parer' => $request->sheller_parer,
         'bruto' => $bruto,
-        'total_keranjang' => $request->total_keranjang,
-        'tipe_keranjang' => $request->tipe_keranjang,
-        'berat_keranjang' => $request->berat_keranjang,
-        'total_potongan_keranjang' => $potonganKeranjang,
+        'total_ember' => $request->total_ember,
+        'berat_ember' => $request->berat_ember,
+        'total_potongan_ember' => $potonganEmber,
         'hasil_kerja' => json_encode($request->hasil_kerja),
         'timbangan_hasil' => $timbangan_hasil,
     ]);
@@ -113,10 +110,9 @@ public function update(Request $request, $id)
                 'nama_pegawai' => $laporan->nama_pegawai,
                 'sheller_parer' => $laporan->sheller_parer,
                 'bruto' => $laporan->bruto,
-                'total_keranjang' => $laporan->total_keranjang,
-                'tipe_keranjang' => $laporan->tipe_keranjang,
-                'berat_keranjang' => $laporan->berat_keranjang,
-                'total_potongan_keranjang' => $laporan->total_potongan_keranjang,
+                'total_ember' => $laporan->total_ember,
+                'berat_ember' => $laporan->berat_ember,
+                'total_potongan_ember' => $laporan->total_potongan_ember,
                 'hasil_kerja' => json_decode($laporan->hasil_kerja, true), // Decode JSON field
                 'timbangan_hasil' => $laporan->timbangan_hasil,
             ]);

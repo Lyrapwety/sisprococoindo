@@ -254,7 +254,6 @@
         .btn.export img {
             filter: brightness(0) invert(1);
 
-
         }
 
         .search-input::placeholder {
@@ -344,13 +343,12 @@
 
         .inline-group {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             gap: 15px;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
             margin-left: auto;
             margin-top: 5px;
-
 
         }
 
@@ -360,21 +358,6 @@
             margin-right: 5px;
         }
 
-        .inline-group select {
-            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-        }
-
-        .inline-group input[type="text"],
-        .inline-group select {
-            width: 100%;
-            flex: none;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 13px;
-            color: #636362;
-            margin-top: 5px;
-        }
 
         .full-width {
             width: 100%;
@@ -387,10 +370,27 @@
             display: block;
         }
 
+        .inline-group select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    color: #636362;
+    background-color: #fff;
+    appearance: none; /* Hilangkan tampilan default browser */
+}
         .inline-group input[type="date"] {
-            width: 90%;
+            width: 100%;
         }
 
+        select {
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    appearance: none;
+        }
         input[type="text"],
         input[type="number"],
         input[type="date"] {
@@ -404,7 +404,7 @@
         }
 
         input[type="text"],
-        input[type="number"]::placeholder,
+        input[type="number"]::placeholder
         input[type="date"]::placeholder {
             color: #636362;
             opacity: 1;
@@ -419,7 +419,7 @@
 
         .timbangan-container {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .timbangan-container h3 {
@@ -428,44 +428,69 @@
             margin: 10px 0 15px;
 
         }
+.basket-input div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        .timbangan-inputs {
+
+.basket-input label {
+    font-size: 12px;
+    color: #636362;
+    margin-bottom: 5px; 
+}
+        .basket-input {
             display: grid;
             justify-items: center;
-            grid-template-columns: repeat(12, 0.5fr);
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: 5px !important;
 
         }
 
-        .timbangan-inputs div {
+        .basket-input div {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .timbangan-inputs label {
-            font-size: 12px;
-            color: #636362;
-            margin-top: 10px;
-        }
 
-        .timbangan-inputs input {
-            padding: 8px;
+        .basket-input input {
             text-align: center;
             font-size: 14px;
             border: 1px solid #ccc;
             border-radius: 5px;
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-            width: 90%;
+            width: 100%;
             height: 80%;
         }
 
         .total-container {
-            text-align: right;
-            margin-top: 20px;
-            font-size: 14px;
-            color: #636362;
-        }
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-right: 0;
+}
 
+.total-container label{
+    margin-top: 20px;
+}
+.total-container label,
+.total-container input {
+  font-size: 14px;
+  color: #636362;
+  text-align: center; /* Menyelaraskan teks ke tengah secara horizontal */
+  line-height: 2; /* Mengatur tinggi baris agar teks tepat di tengah secara vertikal */
+}
+
+.total-container input {
+
+  background-color: transparent;
+  width: 75px;
+  outline: none;
+  padding: 0;
+}
         .submit-btn {
             width: 20%;
             padding: 10px;
@@ -779,7 +804,7 @@
                                 <td>{{ $laporanairkelapa->nama_pegawai }}</td>
                                 <td>{{ $laporanairkelapa->sheller_parer }}</td>
                                 <td>{{ $laporanairkelapa->bruto }}</td>
-                                <td>{{ $laporanairkelapa->total_potongan_keranjang }}</td>
+                                <td>{{ $laporanairkelapa->total_potongan_ember }}</td>
                                 <td>{{ $laporanairkelapa->timbangan_hasil }}</td>
                                 <td><button id="openFormBtn2" data-id="{{ $laporanairkelapa->id }}">Hasil Timbangan</button>
                                 </td>
@@ -820,7 +845,7 @@
 
 
             <!-- Modal -->
-            <div id="modal" class="modal">
+            <div id="modal1" class="modal">
                 <div class="modal-content">
                     <div id="modal-back" class="modal-back">
                         <div class="modal-header">
@@ -832,8 +857,20 @@
                             @csrf
                             <input type="hidden" name="_method" id="formMethod" value="POST">
                             <input type="hidden" name="id" id="id">
-                            <div class="form-group">
-                                <div>
+
+                            <div class="inline-group">
+                              <div>
+                                    <label for="tanggal-picker">Tanggal</label>
+                                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
+                                        id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
+                                    @error('tanggal')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                              </div>
+                              
+                                    <div>
                                     <label for="nama-pegawai">Nama Pegawai</label>
                                     <input type="text" class="form-control @error('nama_pegawai') is-invalid @enderror"
                                         id="nama_pegawai" name="nama_pegawai" value="{{ old('nama_pegawai') }}" required>
@@ -843,66 +880,59 @@
                                         </div>
                                     @enderror
                                 </div>
+                                
 
+        
                                 <div>
-                                    <label for="nama-sheller">Sheller / Parer</label>
-                                    <input type="text" class="form-control @error('sheller_parer') is-invalid @enderror"
-                                        id="sheller_parer" name="sheller_parer" value="{{ old('sheller_parer') }}"
-                                        required>
+                                    <label for="sheller_parer">Sheller/Parer</label>
+                                    <select class="form-control @error('sheller_parer') is-invalid @enderror" 
+                                            id="sheller_parer" 
+                                            name="sheller_parer" 
+                                            required>
+                                        <option value="" disabled selected>Pilih</option>
+                                        <option value="Sheller" {{ old('sheller_parer') == 'Sheller' ? 'selected' : '' }}>Sheller</option>
+                                        <option value="Parer" {{ old('sheller_parer') == 'Parer' ? 'selected' : '' }}>Parer</option>
+                                    </select>
                                     @error('sheller_parer')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
-
-                                <div>
-                                    <label for="tanggal-picker">Tanggal</label>
-                                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                        id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
-                                    @error('tanggal')
-                                        <div class="alert alert-danger mt-2">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="inline-group">
-                                    <div class="form-item">
-                                        <label for="total-keranjang">Total Ember</label>
+                                
+    
+                                    <div >
+                                        <label for="total-ember">Total Ember</label>
                                         <input type="number"
-                                            class="form-control @error('total_keranjang') is-invalid @enderror"
-                                            id="total_keranjang" name="total_keranjang"
-                                            value="{{ old('total_keranjang') }}">
-                                        @error('total_keranjang')
+                                            class="form-control @error('total_ember') is-invalid @enderror"
+                                            id="total_ember" name="total_ember"
+                                            value="{{ old('total_ember') }}" required>
+                                        @error('total_ember')
                                             <div class="alert alert-danger mt-2">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
-
-
                                 </div>
-                            </div>
-
+                  
                             <div class="timbangan-container">
                                 <h3>Hasil Timbangan Kulit Air Kelapa</h3>
                                 <div class="basket-container">
-                                    <div class="row">
+                                    <div class="basket-input">
                                         @for ($i = 0; $i < 12; $i++)
-                                            <div class="col-1 text-center">
+                                            <div>
                                                 <!-- Menempatkan nomor di atas input -->
-                                                <label for="hasil_kerja_{{ $i }}"
-                                                    style="display: block;">{{ $i + 1 }}</label>
-                                                <input class="basket-input" type="number" name="hasil_kerja[]"
-                                                    id="hasil_kerja_{{ $i }}"
-                                                    value="{{ old('hasil_kerja.' . $i, 0) }}" oninput="calculateTotal()">
+                                                <label for="hasil_kerja_{{ $i }}">{{ $i + 1 }}</label>
+                                                <input type="number" name="hasil_kerja[]" id="hasil_kerja_{{ $i }}" 
+                                                       value="{{ old('hasil_kerja.' . $i, 0) }}" oninput="calculateTotal()">
                                             </div>
                                         @endfor
                                     </div>
+                                
                                     <div class="total-container">
                                         <label for="timbangan_hasil">Total:</label>
-                                        <input type="number" id="timbangan_hasil" name="timbangan_hasil"
-                                            value="{{ old('timbangan_hasil', 0) }}" readonly>
+                                        <input type="text" id="timbangan_hasil" name="timbangan_hasil"
+                                               value="{{ old('timbangan_hasil', 0) }}" readonly>
                                     </div>
                                     @error('hasil_kerja')
                                         <div class="alert alert-danger mt-2">
@@ -912,9 +942,6 @@
                                 </div>
                             </div>
 
-                            <div class="total-container">
-                                <label id="total-label">Total: 0 kg</label>
-                            </div>
 
                             <div class="action-buttons">
                                 <button type="submit" class="submit-btn">Kirim</button>
@@ -981,7 +1008,7 @@
                                 document.getElementById("nama_pegawai").value = data.nama_pegawai;
                                 document.getElementById("sheller_parer").value = data.sheller_parer;
                                 document.getElementById("tanggal").value = data.tanggal;
-                                document.getElementById("total_keranjang").value = data
+                                document.getElementById("total_ember").value = data
                                     .total_keranjang;
 
                                 const hasilKerjaInputs = document.querySelectorAll(
@@ -1014,7 +1041,7 @@
             });
             document.getElementById("timbangan_hasil").value = total;
         }
-        });
+    
 
         openFormBtn1.addEventListener("click", function() {
             modal1.style.display = "block";
