@@ -371,25 +371,25 @@
         }
 
         .inline-group select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-    color: #636362;
-    background-color: #fff;
-    appearance: none; /* Hilangkan tampilan default browser */
+        width: 100%;
+        padding: 8px;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+        color: #636362;
+        background-color: #fff;
+        appearance: none; 
 }
         .inline-group input[type="date"] {
             width: 100%;
         }
 
         select {
-    -webkit-appearance: none; 
-    -moz-appearance: none; 
-    appearance: none;
+        -webkit-appearance: none; 
+        -moz-appearance: none;
+        appearance: none;
         }
         input[type="text"],
         input[type="number"],

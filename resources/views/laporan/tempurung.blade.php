@@ -232,8 +232,6 @@
 
         }
 
-
-
         .input-icon input:focus {
             border-color: #104367;
         }
@@ -257,8 +255,6 @@
 
         .btn.export img {
             filter: brightness(0) invert(1);
-
-
         }
 
         .search-input::placeholder {

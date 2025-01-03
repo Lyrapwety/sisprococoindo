@@ -286,7 +286,6 @@
             margin: 0 auto;
         }
 
-
         @keyframes fadeIn {
             from {
                 transform: scale(0.8);

@@ -420,9 +420,6 @@
                     <button id="openFormBtn" class="btn add">+ Tambah Data</button>
                 </div>
             </div>
-
-            <!-- Table Section -->
-
             <div class="table-container">
                 <table>
                     <thead>
@@ -439,9 +436,7 @@
                         <tr>
                             <th>Fine</th>
                             <th>Medium</th>
-
                         </tr>
-
                     </thead>
                     <tbody>
                         @foreach ($stokampaskeringyellows as $stokampaskeringyellow)

@@ -68,7 +68,6 @@
             width: 100%;
             height: 36px;
             padding: 8px 35px 8px 12px;
-            /* Tambahkan padding untuk ikon */
             border: 1px solid #cc;
             border-radius: 5px;
             font-size: 12px;
@@ -86,7 +85,6 @@
             color: #636362;
         }
 
-        /* Tombol aksi */
         .filters .actions {
             display: flex;
             gap: 10px;
@@ -119,7 +117,6 @@
 
         }
 
-        /* Tabel */
         .table-container {
             overflow-x: auto;
             font-size: 11px;
@@ -165,7 +162,6 @@
             background-color: #e74c3c;
         }
 
-        /* Pagination */
         .pagination-container {
             display: flex;
             justify-content: space-between;
@@ -241,7 +237,6 @@
        
         }
 
-        /* Gaya Modal */
         .modal {
             display: none;
             position: fixed;
@@ -275,7 +270,6 @@
             height: 95%;
         }
 
-        /* Gaya header modal */
         .modal-header {
             display: flex;
             align-items: center;
@@ -299,7 +293,6 @@
             margin-right: 15px;
         }
 
-        /* Gaya form */
         .form-group {
             margin-bottom: 15px;
             display: flex;
@@ -361,22 +354,18 @@
             box-shadow: 0px 1px 1px rgba(92, 90, 90, 0.602);
             font-size: 14px;
             box-sizing: border-box;
-            /* Ini dapat diatur sesuai kebutuhan */
         }
 
         #nama-sheller {
             width: 80%;
             transform: translateX(-6px);
-            /* Lebar nama sheller */
         }
 
         #tanggal-picker {
             width: 50%;
-            /* Lebar date picker */
             height: 40px;
         }
 
-        /* Gaya untuk kontainer keranjang */
         .basket-container {
             display: flex;
             flex-wrap: wrap;
@@ -416,7 +405,6 @@
             box-shadow: 0px 1px 2px rgba(92, 90, 90, 0.602);
         }
 
-        /* Gaya untuk tombol */
         .submit-btn {
             background-color: #4CAF50;
             color: white;
@@ -428,11 +416,8 @@
             margin-top: 10px;
             font-size: 14px;
             display: block;
-            /* Membuat tombol tetap dalam satu baris */
             margin-left: auto;
-            /* Agar berada di sebelah kanan */
             margin-right: auto;
-            /* Agar memusatkan tombol */
         }
 
         .submit-btn:hover {
@@ -464,19 +449,15 @@
         #anggota-parer-container {
             display: flex;
             flex-direction: column;
-            /* Atur arah kolom agar elemen ditumpuk secara vertikal */
             gap: 15px;
-            /* Jarak antar elemen */
             flex-grow: 1;
             margin-bottom: 20px;
-            /* Jarak bawah untuk memastikan tombol submit tidak menempel */
         }
 
         .add-member-btn img {
             margin-right: 5px;
         }
 
-        /* Gaya untuk title */
         .title {
             font-size: 14px;
             text-align: center;
@@ -484,7 +465,6 @@
             margin: 10px 0;
         }
 
-        /* Gaya untuk total */
         .total-container {
             display: flex;
             justify-content: space-between;
@@ -500,17 +480,14 @@
             color: #636362 !important;
         }
 
-        /* Gaya untuk action buttons */
         .action-buttons {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: auto;
-            /* Untuk memastikan tombol berada di bawah konten */
             flex-direction: column;
         }
 
-        /* Gaya untuk garis horizontal */
         .hori-line {
             color: #565655;
             width: auto;
@@ -522,35 +499,25 @@
 
         .horizontalline1 {
             border: none;
-            /* Hapus border default */
             border-bottom: 0.5px solid #ccc;
             width: 100%;
-            /* Lebar penuh */
             margin: 5px 0 15px 0;
-            /* Margin atas, kanan, bawah, kiri */
             opacity: 0.5;
-            /* Nilai opasitas (1 = tidak transparan) */
             padding-top: 20px;
         }
 
-        /* Gaya untuk tombol export */
         .btn.export {
             display: flex;
             align-items: center;
-            /* Mengatur ikon dan teks dalam satu baris */
             color: white;
-            /* Mengatur warna teks menjadi putih */
             border: none;
-            /* Menghapus border default */
             cursor: pointer;
-            /* Menambahkan kursor pointer */
         }
 
         .btn.export img {
             filter: brightness(0) invert(1);
         }
 
-        /* Gaya untuk modal tambahan */
         .modal2 {
             display: none;
             justify-content: center;
@@ -577,7 +544,6 @@
             display: flex;
             height: auto;
             flex-direction: column;
-            /* Use column layout */
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
 
@@ -614,7 +580,6 @@
             flex: 0.5;
             display: flex;
             flex-direction: column;
-            /* Atur menjadi vertikal */
         }
 
         .nama-parer2 {
@@ -685,7 +650,6 @@
 
         .tabel-hasil2 {
             border-radius: 8px 8px 0 0;
-            /* Radius atas */
             margin-bottom: 20px;
         }
 
@@ -720,7 +684,6 @@
                 <h2>Laporan Harian Hasil Kerja Sheller - Parer (DKP)</h2>
             </div>
 
-            <!-- Filter Section -->
             <div class="filters">
                 <select class="pilihtanggal">
                     <option>Pilih Tanggal</option>
@@ -746,7 +709,6 @@
                 </div>
             </div>
 
-            <!-- Table Section -->
             <div class="table-container">
                 <table>
                     <thead>
@@ -925,8 +887,6 @@
                                  </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         </form>
                     </div>
@@ -1102,10 +1062,9 @@
 
                                 calculateTotal();
 
-                                // Set form action to update route
                                 const form = document.getElementById('laporanForm');
                                 form.action = `/laporan/dkp/${id}`;
-                                document.getElementById("formMethod").value = "PUT"; // Set method to PUT
+                                document.getElementById("formMethod").value = "PUT"; 
 
                                 modal.style.display = 'flex';
                             })

@@ -2,11 +2,10 @@
 
 @section('content')
 <style>
-    /* Mainbar */
 .mainbar {
     flex: 1%;
     background-color: #D9D9D9 !important;
-    padding-top: 20px; /* Jarak dari topbar */
+    padding-top: 20px;
     margin-left: 235px;
     overflow-y: auto;
     height: calc(100vh - 70px);
@@ -56,7 +55,6 @@
   
 }
 
-/* Dropdown tanggal */
 .filters select.pilihtanggal {
     padding: 8px 12px;
     border: 1px solid #ccc;
@@ -76,17 +74,16 @@
     margin-left: 6px;
 }
 
-/* Input pencarian dan ikon */
 .filters .input-icon {
     position: relative;
     width: 250px;
-     /* Lebar lebih pendek untuk input pencarian */
+
 }
 
 .filters input[type="text"] {
     width: 100%;
     height: 36px;
-    padding: 8px 35px 8px 12px; /* Tambahkan padding untuk ikon */
+    padding: 8px 35px 8px 12px; 
     border: 1px solid #cc;
     border-radius: 5px;
     font-size: 12px;
@@ -104,7 +101,6 @@
     color:#636362;
 }
 
-/* Tombol aksi */
 .filters .actions {
     display: flex;
     gap: 10px;
@@ -130,7 +126,7 @@
     transform: translateX(-2px);
     
 }
-/* Tabel */
+
 .table-container {
     overflow-x: auto;
     font-size: 11px;
@@ -138,7 +134,7 @@
 
 table {
     width: 100%;
-    border-collapse: collapse; /* Agar garis antar sel menyatu */
+    border-collapse: collapse; 
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(230, 238, 241, 0.1);
     
@@ -147,13 +143,12 @@ table {
 table th, table td {
     padding: 10px;
     text-align: center;
-    border: 1px solid #636362; /* Garis antar sel */
-    color: #636362;
+    border: 1px solid #636362; 
     font-size: 12px;
 }
 
 table th {
-    border-bottom: 1px solid #636362; /* Garis tebal untuk header */
+    border-bottom: 1px solid #636362;
 }
 
 table td button {
@@ -175,7 +170,7 @@ table td button.delete {
     background-color: #e74c3c;
 }
 
-/* Pagination */
+
 .pagination-container {
     display: flex;
     justify-content: space-between;
@@ -217,20 +212,20 @@ table td button.delete {
 .input-icon {
     position: relative;
     width: 100%;
-    max-width: 100px; /* Sesuaikan dengan kebutuhan */
+    max-width: 100px; 
 }
 
 .input-icon i {
     position: absolute;
-    right: 5px !important;/* Pindahkan ikon ke sisi kanan */
+    right: 5px !important;
     top: 50%;
     transform: translateY(-50%);
-    color: #636362; /* Warna ikon */
+    color: #636362; 
 }
 
 .input-icon input {
     width: 100%;
-    padding: 10px 40px 10px 10px; /* Tambahkan padding kanan untuk ruang ikon */
+    padding: 10px 40px 10px 10px; 
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
@@ -239,31 +234,29 @@ table td button.delete {
 }
 
 .input-icon input:focus {
-    border-color: #104367; /* Ubah warna border saat fokus */
+    border-color: #104367; /
 }
 
-/* Modal container */
+
         .horizontalline1 {
-        /* Warna teks, tidak berpengaruh pada <hr> */
-        border: none; /* Hapus border default */
+
+        border: none; 
         border-bottom: 0.5px solid #ccc;
-         width: 100%; /* Lebar penuh */
-         margin: 5px 0 15px 0; /* Margin atas, kanan, bawah, kiri */
-        opacity: 0.5; /* Nilai opasitas (1 = tidak transparan) */
+         width: 100%; 
+         margin: 5px 0 15px 0; 
+        opacity: 0.5; 
         padding-top: 20px;
 }
 
         .btn.export {
         display: flex;
-        align-items: center; /* Mengatur ikon dan teks dalam satu baris */
-        color: white; /* Mengatur warna teks menjadi putih */
-        border: none; /* Menghapus border default */
-         /* Menambahkan padding */
-        cursor: pointer; /* Menambahkan kursor pointer */
+        align-items: center; 
+        color: white; 
+        border: none;
+        cursor: pointer; 
     }
 
      .btn.export img {
-      /* Jarak antara ikon dan teks */  
         filter: brightness(0) invert(1);
       
    
@@ -277,7 +270,6 @@ table td button.delete {
             <h2>Rekap Laporan Hasil Kerja Pegawai ( Daging Kelapa Putih )</h2>
         </div>
 
-        <!-- Filter Section -->
         <div class="filters">
             <div class="select">
             <select class="pilihtanggal">
@@ -296,7 +288,7 @@ table td button.delete {
             </div>
             <div class="input-icon">
                 <input type="text" class="caridata" placeholder="Cari Data">
-                <i class="fas fa-search"></i> <!-- Ikon pencarian (search icon) -->
+                <i class="fas fa-search"></i> 
             </div>
             <div class="actions"> 
                 <button class="btn export">
@@ -305,9 +297,6 @@ table td button.delete {
                 
         </div>
         </div>
-
-        <!-- Table Section -->
-       
         <div class="table-container">
             <table>
                 <thead>
@@ -335,15 +324,10 @@ table td button.delete {
                         <td>20</td>
                         <td>29</td>
                     </tr>
-                    <!-- Tambah data lainnya -->
                 </tbody>
             </table>
         </div>
         
-
-      
-
-        <!-- Pagination Section -->
         <hr class="horizontalline1">
         <div class="pagination-container">
           
@@ -361,10 +345,6 @@ table td button.delete {
             </ul>
         </div>
 
-
-    <!-- Modal -->
-  
-    <!-- Script to close the modal -->
     <script>
         document.querySelector('.close').addEventListener('click', function () {
             document.querySelector('.modal').style.display = 'none';
@@ -380,7 +360,7 @@ table td button.delete {
 @section('scripts')
 <script>
 
-// Sample data
+
 const data = [
     { no: 1, tanggal: "12 Agustus 2024", nama: "Marcella", sp: "S", bruto: 50, potongan: 0, hasil: 150, detail: "Hasil Timbangan" },
     { no: 2, tanggal: "12 Agustus 2024", nama: "Zhuxin", sp: "P", bruto: 75, potongan: 0, hasil: null, detail: "Hasil Timbangan" },
@@ -388,7 +368,7 @@ const data = [
     { no: 4, tanggal: "12 Agustus 2024", nama: "Aurora", sp: "S", bruto: 240, potongan: 0, hasil: 240, detail: "Hasil Timbangan" },
     { no: 5, tanggal: "12 Agustus 2024", nama: "Layla", sp: "P", bruto: 125, potongan: 0, hasil: 250, detail: "Hasil Timbangan" },
     { no: 6, tanggal: "12 Agustus 2024", nama: "Sonya", sp: "S", bruto: 125, potongan: 0, hasil: null, detail: "Hasil Timbangan" },
-    // Tambahkan lebih banyak data sesuai kebutuhan
+  
 ];
 
 const rowsPerPage = 5;
@@ -445,7 +425,6 @@ function goToPage(page) {
     }
 }
 
-// Load initial data
 displayData();
 
 

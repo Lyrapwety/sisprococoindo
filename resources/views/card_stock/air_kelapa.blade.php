@@ -209,7 +209,6 @@
             top: 50%;
             transform: translateY(-50%);
             color: #636362;
-            /* Warna ikon */
         }
 
         .input-icon input {
@@ -328,7 +327,7 @@
 
         }
 
-        . .form-control {
+         .form-control {
             width: 100%;
             padding: 8px;
             font-size: 14px;
@@ -529,7 +528,6 @@
 
         </div>
 
-        <!-- Modal -->
         <div id="modal" class="modal">
             <div class="modal-content">
                 <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -550,8 +548,6 @@
                     @enderror
                     </div>
                     <div class="inline-form">
-
-
                         <div class="form-group">
                             <label for="activity_type">Tipe Aktivitas</label>
                             <select class="form-control @error('activity_type') is-invalid @enderror"
@@ -584,8 +580,6 @@
                                 @enderror
                         </div>
                     </div>
-
-
                     <div class="inline-form">
                         <div class="form-group">
                             <label for="making_product">Making Product</label>
@@ -631,11 +625,7 @@
                                 </div>
                             @enderror
                         </div>
-
-
                     </div>
-
-
                     <div class="form-group">
                         <label for="keterangan">Keterangan (Remark)</label>
                         <textarea id="keterangan" name="keterangan" class="form-control" required></textarea>
@@ -645,14 +635,10 @@
                         <label for="catatan">Catatan</label>
                         <textarea id="catatan" name="catatan" class="form-control" required></textarea>
                     </div>
-
-
                     <button type="submit" class="submit-btn">Simpan</button>
                 </form>
             </div>
         </div>
-
-
     @endsection
 
     @section('scripts')

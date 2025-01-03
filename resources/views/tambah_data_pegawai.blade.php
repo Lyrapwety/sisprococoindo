@@ -344,7 +344,6 @@
                     @csrf
                     <input type="hidden" name="id" id="id">
                     <div class="form-main">
-                        <!-- Bagian kiri (Form Input) -->
                         <div class="form-inputs">
                             <div class="form-row">
                                 <div class="form-group">
@@ -368,7 +367,6 @@
                                 @enderror
                                 </div>
                             </div>
-
 
                             <div class="form-row">
                                 <div class="form-group">
@@ -524,7 +522,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </div>
 
-
 @endsection
 
 @section('scripts')
@@ -565,8 +562,6 @@
                 const statusKepegawaian = document.querySelector('#status-kepegawaian').value || '-';
                 const status = document.getElementById('status').value || '-';
                 const fotoSrc = document.getElementById('foto').src;
-
-                // Isi data ke modal
                 document.getElementById('preview-tgl-join').textContent = tglJoin;
                 document.getElementById('preview-tgl-out').textContent = tglOut;
                 document.getElementById('preview-nama').textContent = nama;

@@ -15,7 +15,6 @@
 
                     </div>
 
-                    <!-- Remember Me & Forgot Password -->
                     <div class="flex items-center justify-between mb-4">
                         <label class="inline-flex items-center text-sm text-gray-600">
                             <input type="checkbox" class="form-checkbox text-blue-600">

@@ -203,7 +203,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            /* Menjaga label dan angka di sisi berlawanan */
             margin-bottom: 7px;
             margin-left: 15px;
             padding: 5px 10px;
@@ -219,7 +218,6 @@
             width: 20px;
             height: 20px;
             margin-right: 10px;
-            /* Jarak antara kotak warna dan teks */
             border-radius: 3px;
             border: 1px solid #ccc;
         }
@@ -285,7 +283,6 @@
                                 </select>
 
                                 <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
-                                    <!-- Chart Container -->
                                     <div style="max-width: 200px; margin-right: 20px;">
                                         <canvas id="myChart"
                                             style="max-width: 200px; margin: 0 auto; margin-top:70px; margin-bottom:10px;"></canvas>
@@ -314,9 +311,9 @@
                             {{ $kulitAriBasahPercentage }},
                             {{ $tempurungKelapaPercentage }},
                             {{ $missingPercentage }}
-                        ], // Data persentase dari controller
-                        backgroundColor: ["#c6e2ff", "#779ecb", "#bcbcbc", "#b3cde3", "#d3d3d3"], // Warna
-                        borderWidth: 0, // Hilangkan border antar data
+                        ], 
+                        backgroundColor: ["#c6e2ff", "#779ecb", "#bcbcbc", "#b3cde3", "#d3d3d3"], 
+                        borderWidth: 0, 
                     }],
                 };
 

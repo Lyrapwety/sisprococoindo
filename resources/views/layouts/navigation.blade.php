@@ -12,10 +12,8 @@
         padding-top: 10px;
         position: fixed;
         overflow-y: auto;
-     
     }
 
-  
     .sidebar-logo-container {
         display: flex;
         align-items: center;

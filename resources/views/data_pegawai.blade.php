@@ -287,7 +287,6 @@
                 <h2>Data Pegawai</h2>
             </div>
 
-            <!-- Filter Section -->
             <div class="filters">
                 <select class="pilihtanggal">
                     <option>Pilih Departemen</option>
@@ -299,7 +298,7 @@
                 </select>
                 <div class="input-icon">
                     <input type="text" placeholder="Cari Data" class="search-input">
-                    <i class="fas fa-search"></i> <!-- Ikon pencarian (search icon) -->
+                    <i class="fas fa-search"></i> 
                 </div>
                 <div class="actions">
                     @if (session('success'))
@@ -311,8 +310,6 @@
                         <img width="10" height="10" src="https://img.icons8.com/forma-thin/24/export.png"
                             alt="export" /> Export
                     </button>
-
-
                     <a href="{{ route('data_pegawai.tambah_data_pegawai') }}"><button id="openFormBtn" class="btn add">+ Tambah
                             Data</button></a>
                 </div>
@@ -366,8 +363,6 @@
                 </table>
             </div>
 
-
-            <!-- Pagination Section -->
             <hr class="horizontalline1">
             <div class="pagination-container">
 

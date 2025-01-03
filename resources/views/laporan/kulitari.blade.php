@@ -265,17 +265,17 @@
              opacity: 1;
          }
          .modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-    justify-content: center;
-    align-items: center;
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
 }
 
 .modal-back {
@@ -340,13 +340,13 @@
             margin-left: 10px;
         }
         .inline-group {
-    display: flex;
-    flex-direction: row;
-    gap: 10px; /* Kurangi jarak antar elemen */
-    justify-content: flex-start; /* Pastikan elemen dirapatkan ke kiri */
-    align-items: center;
-    margin-left: 0; /* Hilangkan margin kiri */
-    margin-top: 5px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px; 
+            justify-content: flex-start; 
+            align-items: center;
+            margin-left: 0; 
+            margin-top: 5px;
 }
         
         .inline-group label {
@@ -367,25 +367,25 @@
         }
 
         .inline-group select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-    color: #636362;
-    background-color: #fff;
-    appearance: none; 
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+            color: #636362;
+            background-color: #fff;
+            appearance: none; 
 }
         .inline-group input[type="date"] {
             width: 100%;
         }
 
         select {
-    -webkit-appearance: none; 
-    -moz-appearance: none; 
-    appearance: none;
+        -webkit-appearance: none; 
+        -moz-appearance: none; 
+        appearance: none;
         }
         input[type="text"],
         input[type="number"],
@@ -487,7 +487,6 @@
   padding: 0;
 }
 
-/* Button Styles */
 .submit-btn {
     width: 20%;
     padding: 10px;
@@ -507,7 +506,6 @@
     background-color: #aaa;
 }
 
-/* Close Button */
 .close {
     position: absolute;
     top: 5px;
@@ -517,7 +515,6 @@
     color: #636362;
     cursor: pointer;
 }
-
 
          .modal2 {
              display: none;
@@ -744,7 +741,6 @@
                  <h2>Laporan Harian Hasil Kerja Sheller - Parer ( Kulit Ari Basah )</h2>
              </div>
 
-             <!-- Filter Section -->
              <div class="filters">
                  <select class="pilihtanggal">
                      <option>Pilih Tanggal</option>
@@ -753,7 +749,7 @@
                  </select>
                  <div class="input-icon">
                      <input type="text" placeholder="Cari Data" class="search-input">
-                     <i class="fas fa-search"></i> <!-- Ikon pencarian (search icon) -->
+                     <i class="fas fa-search"></i> 
                  </div>
                  <div class="actions">
                      @if (session('success'))
@@ -768,9 +764,6 @@
                      <button id="openFormBtn1" class="btn add">+ Tambah Data</button>
                  </div>
              </div>
-
-             <!-- Table Section -->
-
              <div class="table-container">
                  <table>
                      <thead>
@@ -814,8 +807,6 @@
                  </table>
              </div>
 
-
-             <!-- Pagination Section -->
              <hr class="horizontalline1">
              <div class="pagination-container">
 
@@ -905,7 +896,6 @@
                                         <div class="basket-input">
                                             @for ($i = 0; $i < 12; $i++)
                                                 <div>
-                                                    <!-- Menempatkan nomor di atas input -->
                                                     <label for="hasil_kerja_{{ $i }}">{{ $i + 1 }}</label>
                                                     <input type="number" name="hasil_kerja[]" id="hasil_kerja_{{ $i }}" 
                                                            value="{{ old('hasil_kerja.' . $i, 0) }}" oninput="calculateTotal()">
@@ -1050,11 +1040,7 @@
      <script>
          function calculateTotal() {
         let total = 0;
-
-      
         const inputs = document.querySelectorAll('input[name="hasil_kerja[]"]');
-        
-   
         inputs.forEach(input => {
             let value = parseFloat(input.value) || 0; 
             total += value;
@@ -1110,7 +1096,7 @@
 
                              const form = document.getElementById('laporanForm');
                                 form.action = `/laporan/kulitari/${id}`;
-                                document.getElementById("formMethod").value = "PUT"; // Set method to PUT
+                                document.getElementById("formMethod").value = "PUT"; 
 
                                 modal1.style.display = 'flex';
                             })
@@ -1129,8 +1115,6 @@
              }
          });
 
-
-         // Modal 2
          const openFormBtn2 = document.getElementById("openFormBtn2");
          const modal2 = document.getElementById("modal2");
          const closeModal2 = document.getElementById("closeModal2");
@@ -1274,7 +1258,7 @@
          document.getElementById('tanggal-picker').addEventListener('change', function() {
              var selectedDate = new Date(this.value);
              var year = selectedDate.getFullYear();
-             var month = selectedDate.getMonth() + 1; // Januari adalah 0
+             var month = selectedDate.getMonth() + 1; 
              var day = selectedDate.getDate();
 
              console.log('Tanggal dipilih: ' + year + '-' + month + '-' + day);

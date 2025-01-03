@@ -440,8 +440,6 @@
             <div class="header">
                 <h2>Laporan Produksi Santan ( Coconut Milk )</h2>
             </div>
-
-            <!-- Filter Section -->
             <div class="filters">
                 <select class="pilihtanggal">
                     <option>Pilih Periode</option>
@@ -450,7 +448,7 @@
                 </select>
                 <div class="input-icon">
                     <input type="text" placeholder="Cari Data" class="search-input">
-                    <i class="fas fa-search"></i> <!-- Ikon pencarian (search icon) -->
+                    <i class="fas fa-search"></i> 
                 </div>
                 <div class="actions">
                     @if (session('success'))

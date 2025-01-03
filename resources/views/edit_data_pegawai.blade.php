@@ -140,9 +140,9 @@
             font-size: 14px;
             margin-left: 50px;
             text-align: center;
-        justify-content: center;
-        align-content: center;
-        margin: 0 auto;
+            justify-content: center;
+            align-content: center;
+            margin: 0 auto;
         }
 
         .btn-update:hover {
@@ -263,25 +263,23 @@
     <script>
       
       document.addEventListener('DOMContentLoaded', function() {
-        // Ambil elemen dari halaman
+    
         var changeProfileBtn = document.getElementById('change-profile-btn');
         var profileInput = document.getElementById('foto');
         var profileImage = document.getElementById('profile-image');
 
-        // Ketika tombol "Ganti Foto" diklik, buka file input
         changeProfileBtn.addEventListener('click', function() {
             profileInput.click(); 
         });
 
-        // Ketika file dipilih, baca dan tampilkan gambar
         profileInput.addEventListener('change', function() {
-            var file = profileInput.files[0]; // Ambil file pertama dari input
+            var file = profileInput.files[0]; 
             if (file) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    profileImage.src = e.target.result; // Set src gambar dengan hasil pembacaan
+                    profileImage.src = e.target.result; 
                 };
-                reader.readAsDataURL(file); // Baca file sebagai URL data
+                reader.readAsDataURL(file); 
             }
         });
     });
