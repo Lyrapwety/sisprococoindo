@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class LaporanController extends Controller
 
 {
-    // Fungsi untuk menampilkan halaman DKP
+   
     public function dkp()
     {
         return view('laporan.dkp');
@@ -17,7 +17,7 @@ class LaporanController extends Controller
     {
         return view('laporan.kulitari');
     }
-    // Tambahkan fungsi untuk halaman lain jika perlu
+
 
     public function airkelapa()
     {

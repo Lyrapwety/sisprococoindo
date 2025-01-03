@@ -36,7 +36,7 @@ class LaporandkpController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data
+      
         $request->validate([
             'id_kelapa_bulat' => 'nullable|string|max:255',
             'no' => 'nullable|string|max:255',
@@ -82,7 +82,7 @@ class LaporandkpController extends Controller
             'total_potongan_keranjang' => $total_potongan_keranjang,
         ]);
 
-        // Redirect dengan pesan sukses
+   
         return redirect()->route('laporan.dkp.index')->with('success', 'Data berhasil ditambahkan!');
     }
 

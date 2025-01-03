@@ -5,18 +5,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
-    /* Sidebar */
+  
     .sidebar {
         height: 100vh;
-        /* Sidebar memiliki tinggi penuh layar */
         background-color: #104367;
         padding-top: 10px;
         position: fixed;
         overflow-y: auto;
-        /* Aktifkan scroll secara vertikal */
+     
     }
 
-    /* Gaya Logo Sidebar */
+  
     .sidebar-logo-container {
         display: flex;
         align-items: center;
@@ -45,7 +44,7 @@
         margin-bottom: 0;
     }
 
-    /* Gaya untuk garis horizontal */
+    
     .horizontal-line {
         border: none;
         border-bottom: 0.5px solid white;
@@ -56,7 +55,6 @@
         transform: translateY(-15px);
     }
 
-    /* Dropdown Button */
     .dropdown-btn {
         padding: 15px 20px;
         font-size: 12px;
@@ -72,7 +70,7 @@
         vertical-align: middle;
         align-items: center;
         gap: 10px;
-        /* Menambahkan jarak antara ikon dan teks */
+     
     }
 
     .dropdown-btn img {
@@ -88,13 +86,13 @@
         background-color: #3e759d;
     }
 
-    /* Dropdown Arrow */
+   
     .dropdown-arrow {
         margin-left: auto;
         right: 30px;
     }
 
-    /* Dropdown Container */
+  
     .dropdown-container {
         display: none;
         background-color: #104367;
@@ -184,10 +182,10 @@
     }
 </style>
 <div class="flex h-screen">
-    <!-- Sidebar -->
+    
     <aside class="sidebar w-64 bg-gray-100">
         <div x-data="{ open: false }" class="flex h-screen">
-            <!-- Tombol hamburger untuk layar kecil -->
+          
             <div class="absolute top-4 left-4 sm:hidden">
                 <button @click="open = !open" class="p-2 text-white bg-blue-600 rounded-md">
                     <i class="fas fa-bars"></i>
@@ -267,9 +265,8 @@
         </div>
     </aside>
 
-    <!-- Main Content -->
     <div class="flex-1 flex flex-col">
-        <!-- Topbar (Navbar) -->
+    
         <nav class="bg-[#F7F7F7] border-b border-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-20">
@@ -277,7 +274,6 @@
 
                     </div>
 
-                    <!-- Settings Dropdown -->
                     <div class="hidden sm:flex sm:items-center sm:ms-6">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">

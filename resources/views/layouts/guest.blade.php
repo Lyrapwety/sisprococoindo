@@ -20,13 +20,13 @@
         color: #636362;
     }
     .custom-button {
-        width: 100%; /* Lebar tombol 100% dari kontainer form */
+        width: 100%; 
         padding: 10px;
         border: none;
         border-radius: 10px;
-        background-color: #104367; /* Warna latar belakang tombol */
-        color: white; /* Warna teks tombol */
-        cursor: pointer; /* Menunjukkan bahwa tombol dapat diklik */
+        background-color: #104367; 
+        color: white; 
+        cursor: pointer;
         font-size: 14px;
     }
     .custom-button:hover{

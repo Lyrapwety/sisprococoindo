@@ -31,12 +31,12 @@ class DatapegawaiController extends Controller
             'kepagawaian' => 'required|string|max:255',
             'status' => 'required|string|max:255',
             'email' => 'nullable|email|unique:pegawais,email|max:255',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validasi foto
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
         ]);
 
         $foto = null;
         if ($request->hasFile('foto')) {
-            $foto = $request->file('foto')->store('foto_pegawai', 'public'); // Simpan file foto di storage
+            $foto = $request->file('foto')->store('foto_pegawai', 'public'); 
         }
     
         Pegawai::create([
@@ -81,7 +81,7 @@ class DatapegawaiController extends Controller
             'kepagawaian' => 'required|string|max:255',
             'status' => 'required|string|max:255',
             'email' => 'nullable|email|unique:pegawais,email,' . $id,
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validasi foto
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
         ]);
     
         $pegawai = Pegawai::findOrFail($id);

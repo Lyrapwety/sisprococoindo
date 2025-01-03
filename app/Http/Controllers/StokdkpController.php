@@ -8,7 +8,7 @@ class StokdkpController extends Controller
 {
     public function index()
     {
-        // Ambil data diurutkan berdasarkan tanggal
+        
         $stokdkps = StokDkp::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
         return view('card_stock.dkp', compact('stokdkps'));
     }
@@ -23,7 +23,7 @@ class StokdkpController extends Controller
         'stok' => 'required|numeric',
     ]);
 
-    // Simpan data baru
+   
     $newEntry = StokDkp::create($request->only([
         'id_laporan_dkp',
         'tanggal',
@@ -33,7 +33,7 @@ class StokdkpController extends Controller
     ]));
     
 
-    // Recalculate semua stok berdasarkan tanggal
+  
     $this->recalculateRemains();
 
     return redirect()->route('card_stock.dkp.index')->with('success', 'Data berhasil ditambahkan!');
@@ -42,13 +42,13 @@ class StokdkpController extends Controller
 
 public function update(Request $request, $id)
 {
-    // Validasi data
+   
     $request->validate([
         'id_laporan_dkp' => 'nullable|string|max:255',
         'tanggal' => 'nullable|string|max:255',
         'keterangan' => 'nullable|string|max:255',
-        'activity_type' => 'required|string|max:255', // Aktivitas wajib dipilih
-        'stok' => 'required|numeric', // Stok wajib dan harus numerik
+        'activity_type' => 'required|string|max:255', 
+        'stok' => 'required|numeric', 
     ]);
 
         $request->validate([
@@ -61,7 +61,7 @@ public function update(Request $request, $id)
 
         $stokdkp = StokDkp::findOrFail($id);
 
-        // Update data
+     
         $stokdkp->update($request->only([
             'id_laporan_dkp',
             'tanggal',
@@ -70,7 +70,7 @@ public function update(Request $request, $id)
             'stok',
         ]));
 
-        // Recalculate semua stok berdasarkan tanggal
+        
         $this->recalculateRemains();
 
         return redirect()->route('card_stock.dkp.index')->with('success', 'Data berhasil diperbarui!');
@@ -78,19 +78,19 @@ public function update(Request $request, $id)
 
     protected function recalculateRemains()
     {
-        // Ambil semua data diurutkan berdasarkan tanggal
+        
         $entries = StokDkp::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
 
         $lastRemain = 0;
 
         foreach ($entries as $entry) {
-            // Perhitungan stok
+           
             $begin = $lastRemain;
             $in = in_array($entry->activity_type, ['hasil_produksi','pengambilan' ])? $entry->stok : 0;
             $out = in_array($entry->activity_type, ['pemakaian_produksi', 'reject']) ? $entry->stok : 0;
             $remain = $begin + $in - $out;
 
-            // Update nilai
+           
             $entry->update([
                 'begin' => $begin,
                 'in' => $in,
@@ -104,10 +104,10 @@ public function update(Request $request, $id)
 
     public function edit($id)
     {
-        // Find the record by its ID
+       
         $laporan = StokDkp::findOrFail($id);
 
-        // Return the data in JSON format
+       
         return response()->json([
             'id_laporan_dkp' => $laporan->id_laporan_dkp,
             'tanggal' => $laporan->tanggal,

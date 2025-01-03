@@ -15,13 +15,13 @@ class StokarikeringController extends Controller
 
     public function store(Request $request)
 {
-    // Validasi data
+    
     $request->validate([
         'id_laporan_kulit_ari_basah' => 'nullable|string|max:255',
         'tanggal' => 'nullable|string|max:255',
         'remark' => 'nullable|string|max:255',
         'activity_type' => 'required|string|max:255',
-        'stok' => 'required|numeric', // Stok wajib dan harus numerik
+        'stok' => 'required|numeric', 
     ]);
     $newEntry = StokKulitAriKering::create($request->only([
         'id_laporan_kulit_ari_basah',
@@ -31,7 +31,7 @@ class StokarikeringController extends Controller
         'stok',
     ]));
     
-      // Recalculate semua stok berdasarkan tanggal
+      
       $this->recalculateRemains();
 
       return redirect()->route('card_stock.kulit_ari_kering.index')->with('success', 'Data berhasil ditambahkan!');
@@ -49,7 +49,7 @@ class StokarikeringController extends Controller
 
       $stokarikering = StokKulitAriKering::findOrFail($id);
 
-      // Update data
+    
       $stokarikering->update($request->only([
           'id_laporan_kulit_ari_basah',
           'tanggal',
@@ -58,7 +58,7 @@ class StokarikeringController extends Controller
           'stok',
       ]));
 
-      // Recalculate semua stok berdasarkan tanggal
+     
       $this->recalculateRemains();
 
       return redirect()->route('card_stock.kulit_ari_kering.index')->with('success', 'Data berhasil diperbarui!');
@@ -66,19 +66,19 @@ class StokarikeringController extends Controller
 
   protected function recalculateRemains()
   {
-      // Ambil semua data diurutkan berdasarkan tanggal
+      
       $entries = StokKulitAriKering::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
 
       $lastRemain = 0;
 
       foreach ($entries as $entry) {
-          // Perhitungan stok
+       
           $begin = $lastRemain;
           $in = $entry->activity_type === 'produksi' ? $entry->stok : 0;
           $out = in_array($entry->activity_type, [ 'penjualan' ]) ? $entry->stok : 0;
           $remain = $begin + $in - $out;
 
-          // Update nilai
+       
           $entry->update([
               'begin' => $begin,
               'in' => $in,
@@ -91,10 +91,10 @@ class StokarikeringController extends Controller
   }
   public function edit($id)
   {
-      // Find the record by its ID
+      
       $laporan = StokKulitAriKering::findOrFail($id);
 
-      // Return the data in JSON format
+     
       return response()->json([
           'id_laporan_kulit_ari_basah' => $laporan->id_laporan_kulit_ari_basah,
           'tanggal' => $laporan->tanggal,
@@ -114,7 +114,7 @@ class StokarikeringController extends Controller
       $stokarikering = StokKulitAriKering::findOrFail($id);
       $stokarikering->delete();
 
-      // Recalculate semua stok setelah penghapusan
+      
       $this->recalculateRemains();
 
       return redirect()->route('card_stock.kulit_ari_kering.index')->with('success', 'Data berhasil dihapus!');

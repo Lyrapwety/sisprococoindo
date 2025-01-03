@@ -10,7 +10,7 @@ class StokRejectKeringController extends Controller
 {
     public function index()
     {
-        // Ambil data diurutkan berdasarkan tanggal
+       
         $stokrejectkerings = StokDkpRejectKering::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
         return view('card_stock.dkp_reject_kering', compact('stokrejectkerings'));
     }
@@ -24,7 +24,7 @@ class StokRejectKeringController extends Controller
             'stok' => 'required|numeric',
         ]);
 
-        // Simpan data baru
+        
         $newEntry = StokDkpRejectKering::create($request->only([
             'id_laporan_dkp_reject_basah',
             'tanggal',
@@ -34,7 +34,7 @@ class StokRejectKeringController extends Controller
         ]));
         
 
-        // Recalculate semua stok berdasarkan tanggal
+        
         $this->recalculateRemains();
 
         return redirect()->route('card_stock.dkp_reject_kering.index')->with('success', 'Data berhasil ditambahkan!');
@@ -52,7 +52,7 @@ class StokRejectKeringController extends Controller
 
         $stokrejectkering = StokDkpRejectKering::findOrFail($id);
 
-        // Update data
+       
         $stokrejectkering->update($request->only([
             'id_laporan_dkp_reject_basah',
             'tanggal',
@@ -61,7 +61,7 @@ class StokRejectKeringController extends Controller
             'stok',
         ]));
 
-        // Recalculate semua stok berdasarkan tanggal
+       
         $this->recalculateRemains();
 
         return redirect()->route('card_stock.dkp_reject_kering.index')->with('success', 'Data berhasil diperbarui!');
@@ -69,19 +69,19 @@ class StokRejectKeringController extends Controller
 
     protected function recalculateRemains()
     {
-        // Ambil semua data diurutkan berdasarkan tanggal
+       
         $entries = StokDkpRejectKering::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
 
         $lastRemain = 0;
 
         foreach ($entries as $entry) {
-            // Perhitungan stok
+            
             $begin = $lastRemain;
             $in = $entry->activity_type === 'produksi' ? $entry->stok : 0;
             $out = in_array($entry->activity_type, [ 'penjualan']) ? $entry->stok : 0;
             $remain = $begin + $in - $out;
 
-            // Update nilai
+        
             $entry->update([
                 'begin' => $begin,
                 'in' => $in,
@@ -94,10 +94,10 @@ class StokRejectKeringController extends Controller
     }
     public function edit($id)
     {
-        // Find the record by its ID
+        
         $laporan = StokDkpRejectKering::findOrFail($id);
 
-        // Return the data in JSON format
+       
         return response()->json([
             'id_laporan_dkp_reject_basah' => $laporan->id_laporan_dkp_reject_basah,
             'tanggal' => $laporan->tanggal,
@@ -117,7 +117,7 @@ class StokRejectKeringController extends Controller
         $stokrejectkering = StokDkpRejectKering::findOrFail($id);
         $stokrejectkering->delete();
 
-        // Recalculate semua stok setelah penghapusan
+       
         $this->recalculateRemains();
 
         return redirect()->route('card_stock.dkp_reject_basah.index')->with('success', 'Data berhasil dihapus!');

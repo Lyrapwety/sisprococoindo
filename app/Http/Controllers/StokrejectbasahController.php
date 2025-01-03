@@ -16,7 +16,7 @@ class StokrejectbasahController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data
+        
         $request->validate([
             'id_laporan_dkp_reject_basah' => 'nullable|string|max:255',
             'tanggal' => 'nullable|string|max:255',
@@ -24,7 +24,7 @@ class StokrejectbasahController extends Controller
             'activity_type' => 'required|string|max:255',
             'stok' => 'required|numeric',
         ]);
-        // Simpan data baru
+       
         $newEntry = StokDkpRejectBasah::create($request->only([
             'id_laporan_dkp_reject_basah',
             'tanggal',
@@ -34,7 +34,7 @@ class StokrejectbasahController extends Controller
         ]));
         
 
-        // Recalculate semua stok berdasarkan tanggal
+        
         $this->recalculateRemains();
 
         return redirect()->route('card_stock.dkp_reject_basah.index')->with('success', 'Data berhasil ditambahkan!');
@@ -53,7 +53,7 @@ class StokrejectbasahController extends Controller
 
         $stokrejectbasah = StokDkpRejectBasah::findOrFail($id);
 
-        // Update data
+     
         $stokrejectbasah->update($request->only([
             'id_laporan_dkp_reject_basah',
             'tanggal',
@@ -62,26 +62,26 @@ class StokrejectbasahController extends Controller
             'stok',
         ]));
 
-        // Recalculate semua stok berdasarkan tanggal
+     
         $this->recalculateRemains();
 
         return redirect()->route('card_stock.dkp_reject_basah.index')->with('success', 'Data berhasil diperbarui!');
     }
     protected function recalculateRemains()
     {
-        // Ambil semua data diurutkan berdasarkan tanggal
+        
         $entries = StokDkpRejectBasah::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
 
         $lastRemain = 0;
 
         foreach ($entries as $entry) {
-            // Perhitungan stok
+         
             $begin = $lastRemain;
             $in = $entry->activity_type === 'reject' ? $entry->stok : 0;
             $out = in_array($entry->activity_type, ['produksi', 'penjualan']) ? $entry->stok : 0;
             $remain = $begin + $in - $out;
 
-            // Update nilai
+           
             $entry->update([
                 'begin' => $begin,
                 'in' => $in,
@@ -94,10 +94,10 @@ class StokrejectbasahController extends Controller
     }
     public function edit($id)
     {
-        // Find the record by its ID
+       
         $laporan = StokDkpRejectBasah::findOrFail($id);
 
-        // Return the data in JSON format
+       
         return response()->json([
             'id_laporan_dkp_reject_basah' => $laporan->id_laporan_kulit_ari_basah,
             'tanggal' => $laporan->tanggal,

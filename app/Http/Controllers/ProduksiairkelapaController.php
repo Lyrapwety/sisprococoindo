@@ -15,14 +15,14 @@ class ProduksiairkelapaController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data
+       
         $request->validate([
             'id_air_kelapa' => 'nullable|string|max:255',
             'tanggal' => 'required|date',
             'keterangan' => 'nullable|string|max:255',
             'activity_type' => 'required|string|max:255',
-            'sn' => 'nullable|string|max:255', // steril atau nonsteril
-            'bags' => 'required|numeric', // Wajib input angka
+            'sn' => 'nullable|string|max:255', 
+            'bags' => 'required|numeric', 
         ]);
 
         $activity_type = $request->activity_type;
@@ -30,8 +30,8 @@ class ProduksiairkelapaController extends Controller
         $bags = $request->bags;
         $bags_calculated = $bags * 5;
 
-        // Inisialisasi variabel
-        $begin = ProduksiAirKelapa::latest()->value('remain') ?? 0; // Sisa stok terakhir
+   
+        $begin = ProduksiAirKelapa::latest()->value('remain') ?? 0; 
         $in_steril = 0;
         $in_nonsteril = 0;
         $out_rep = 0;
@@ -39,7 +39,7 @@ class ProduksiairkelapaController extends Controller
         $out_adj = 0;
         $remain = $begin;
 
-        // Logika berdasarkan tipe aktivitas
+      
         switch ($activity_type) {
             case 'produksi':
                 if ($sn === 'steril') {
@@ -92,30 +92,29 @@ class ProduksiairkelapaController extends Controller
 
         $this->recalculateRemains();
 
-        // Redirect dengan pesan sukses
         return redirect()->route('produksi.air_kelapa.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     protected function recalculateRemains()
     {
-        // Ambil semua data yang diurutkan berdasarkan tanggal dan ID
+    
         $entries = ProduksiAirKelapa::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
 
         $remain = 0;
 
         foreach ($entries as $entry) {
-            // Set nilai awal begin sebagai remain sebelumnya
+          
             $entry->begin = $remain;
 
-            // Perhitungan stok berdasarkan aktivitas
+     
             $in_steril = $entry->in_steril ?? 0;
             $in_nonsteril = $entry->in_nonsteril ?? 0;
             $out_total = ($entry->out_rep ?? 0) + ($entry->out_eks ?? 0) + ($entry->out_adj ?? 0);
 
-            // Tambahkan atau kurangi remain berdasarkan data
+          
             $remain += $in_steril + $in_nonsteril - $out_total;
 
-            // Update nilai remain
+           
             $entry->update([
                 'remain' => $remain,
                 'begin' => $entry->begin,
@@ -128,7 +127,7 @@ class ProduksiairkelapaController extends Controller
         $produksiairkelapa = ProduksiAirKelapa::findOrFail($id);
         $produksiairkelapa->delete();
 
-        // Panggil ulang recalculateRemains
+   
         $this->recalculateRemains();
 
         return redirect()->route('produksi.air_kelapa.index')->with('success', 'Data berhasil dihapus!');

@@ -8,16 +8,16 @@ use Illuminate\Http\Request;
 
 class StokampasputihController extends Controller
 {
-    // Menampilkan daftar stok
+   
     public function index()
     {
-        // Ambil semua data, urutkan berdasarkan tanggal
+       
         $stokampaskeringputihs = StokAmpasKeringPutih::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
         return view('card_stock.ampas_kering_putih', compact('stokampaskeringputihs'));
     }
     public function store(Request $request)
     {
-        // Validasi data
+        
         $request->validate([
             'id_laporan_santan' => 'nullable|string|max:255',
             'tanggal' => 'required|date',
@@ -27,7 +27,7 @@ class StokampasputihController extends Controller
             'kategori' => 'nullable|string|in:fine,medium',
         ]);
     
-        // Tambahkan entri baru ke database
+       
         StokAmpasKeringPutih::create([
            'id_laporan_santan' => $request->id_laporan_santan,
             'tanggal' => $request->tanggal,
@@ -42,7 +42,7 @@ class StokampasputihController extends Controller
             'remain' => 0, // Akan dihitung ulang
         ]);
     
-        // Panggil metode untuk menghitung ulang stok
+       
         $this->recalculateStock();
     
         return redirect()->route('card_stock.ampas_kering_putih.index')
@@ -50,35 +50,36 @@ class StokampasputihController extends Controller
     }
     private function recalculateStock()
     {
-        // Ambil semua entri yang diurutkan berdasarkan tanggal
+       
         $allEntries = StokAmpasKeringPutih::orderBy('tanggal', 'asc')
             ->orderBy('id', 'asc')
             ->get();
     
-        $current_remain = 0; // Inisialisasi remain awal
+        $current_remain = 0; 
     
-        // Hitung ulang begin dan remain untuk setiap entri
+      
         foreach ($allEntries as $row) {
-            $begin = $current_remain; // Begin adalah remain dari entri sebelumnya
+            $begin = $current_remain; 
             $in_fine = $row->in_fine;
             $in_medium = $row->in_medium;
             $out = $row->out;
     
-            // Hitung remain baru
+         
             $remain = $begin + $in_fine + $in_medium - $out;
     
-            // Perbarui entri
+         
             $row->update([
                 'begin' => $begin,
                 'remain' => $remain,
             ]);
     
-            // Perbarui nilai remain untuk entri berikutnya
+           
             $current_remain = $remain;
         }
-    }public function update(Request $request, $id)
+    }
+    public function update(Request $request, $id)
     {
-        // Validasi data
+       
         $request->validate([
             'id_laporan_santan' => 'nullable|string|max:255',
             'tanggal' => 'nullable|string|max:255',
@@ -88,10 +89,10 @@ class StokampasputihController extends Controller
             'kategori' => 'nullable|string|in:fine,medium',
         ]);
     
-        // Temukan stok berdasarkan ID
+       
         $stokampaskeringputih = StokAmpasKeringPutih::findOrFail($id);
     
-        // Perbarui data entri ini
+       
         $stokampaskeringputih->update([
             'id_laporan_santan' => $request->id_laporan_santan,
             'tanggal' => $request->tanggal,
@@ -104,7 +105,7 @@ class StokampasputihController extends Controller
             'out' => in_array($request->activity_type, ['ekspor', 'penjualan']) ? $request->stok : 0,
         ]);
     
-        // Panggil metode untuk menghitung ulang stok dari awal
+        
         $this->recalculateStock();
     
         return redirect()->route('card_stock.ampas_kering_putih.index')
@@ -130,36 +131,36 @@ class StokampasputihController extends Controller
         ]);
     }
 
-    // Menghapus data stok// Menghapus data stok
+   
 public function destroy($id)
 {
-    // Temukan stok berdasarkan ID
+    
     $stokampaskeringputih = StokAmpasKeringPutih::findOrFail($id);
 
-    // Hapus entri stok
+    
     $stokampaskeringputih->delete();
 
-    // Ambil semua entri yang ada saat ini
+    
     $allEntries = StokAmpasKeringPutih::orderBy('id', 'asc')->get();
-    $current_remain = 0; // Inisialisasi remain awal
+    $current_remain = 0; 
 
-    // Hitung ulang begin dan remain untuk setiap entri
+    
     foreach ($allEntries as $row) {
-        $begin = $current_remain; // Begin adalah remain dari entri sebelumnya
+        $begin = $current_remain;
         $in_fine = $row->in_fine;
         $in_medium = $row->in_medium;
         $out = $row->out;
 
-        // Hitung remain baru
+       
         $remain = $begin + $in_fine + $in_medium - $out;
 
-        // Perbarui entri
+        
         $row->update([
             'begin' => $begin,
             'remain' => $remain,
         ]);
 
-        // Update nilai remain terbaru
+        
         $current_remain = $remain;
     }
 

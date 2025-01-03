@@ -15,7 +15,7 @@ class StokairkelapaController extends Controller
 
     public function store(Request $request)
 {
-    // Validasi data
+  
     $request->validate([
         'id_laporan_air_kelapa' => 'nullable|string|max:255',
         'tanggal' => 'required|string|max:255',
@@ -31,14 +31,14 @@ class StokairkelapaController extends Controller
 
     $activity_type = $request->activity_type;
     $making_product = $request->making_product;
-    $jumlah = $request->jumlah;  // Jumlah box
+    $jumlah = $request->jumlah;  
     $in_bags = 0;
     $in_box = 0;
     $remain = 0;
     $out = 0;
     $begin = StokAirKelapa::latest()->value('remain') ?? 0;
 
-    // Perhitungan untuk produksi dan ekspor
+  
     if ($activity_type === 'produksi') {
         $in_bags = $jumlah * 4;
         $in_box = $jumlah;
@@ -70,7 +70,7 @@ class StokairkelapaController extends Controller
         $satukg = $in_box * 20;
     }
 
-    // Simpan data ke database
+    
     StokAirKelapa::create([
         'id_laporan_air_kelapa' => $request->id_laporan_air_kelapa,
         'tanggal' => $request->tanggal,
@@ -95,30 +95,30 @@ class StokairkelapaController extends Controller
         'catatan' => $request->catatan,
     ]);
 
-    // Redirect dengan pesan sukses $this->recalculateRemains();
+    
     $this->recalculateRemains();
     
     return redirect()->route('card_stock.air_kelapa.index')->with('success', 'Data berhasil ditambahkan!');
 }
 protected function recalculateRemains()
 {
-    // Ambil semua data yang diurutkan berdasarkan tanggal dan ID
+    
     $entries = StokAirKelapa::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
 
     $remain = 0;
 
     foreach ($entries as $entry) {
-        // Set nilai awal begin sebagai remain sebelumnya
+        
         $entry->begin = $remain;
 
-        // Perhitungan stok berdasarkan aktivitas
+       
         if ($entry->activity_type === 'produksi') {
-            $remain += $entry->in_box;  // Tambahkan in_box untuk produksi
+            $remain += $entry->in_box;  
         } elseif ($entry->activity_type === 'ekspor') {
-            $remain -= $entry->out;  // Kurangi out untuk ekspor
+            $remain -= $entry->out;  
         }
 
-        // Update nilai remain
+        
         $entry->update([
             'remain' => $remain,
             'begin' => $entry->begin,
@@ -127,11 +127,11 @@ protected function recalculateRemains()
 }
 public function destroy($id)
     {
-        // Hapus entri berdasarkan ID
+       
         $stokairkelapa = StokAirKelapa::findOrFail($id);
         $stokairkelapa->delete();
     
-        // Recalculate remain dan begin
+        
         $this->recalculateRemains();
     
         return redirect()->route('card_stock.air_kelapa.index')->with('success', 'Data berhasil dihapus!');

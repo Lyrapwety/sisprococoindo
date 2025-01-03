@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class RekapController extends Controller
 {
-    //
+    
     public function tempurung()
     {
         return view('rekap_laporan.pembukaan_tempurung');
@@ -15,7 +15,7 @@ class RekapController extends Controller
     {
         return view('rekap_laporan.pembukaan_kulit_ari');
     }
-    // Tambahkan fungsi untuk halaman lain jika perlu
+    
 
 }
 

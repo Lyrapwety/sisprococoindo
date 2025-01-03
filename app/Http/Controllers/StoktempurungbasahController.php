@@ -24,7 +24,7 @@ class StoktempurungbasahController extends Controller
             'stok' => 'required|numeric',
         ]);
 
-           // Simpan data baru
+          
            $newEntry = StokTempurungBasah::create($request->only([
           'id_laporan_tempurung_basah',
             'tanggal',
@@ -32,7 +32,7 @@ class StoktempurungbasahController extends Controller
             'activity_type',
             'stok',
         ]));
-          // Recalculate semua stok berdasarkan tanggal
+         
           $this->recalculateRemains();
 
           return redirect()->route('card_stock.tempurung_basah.index')->with('success', 'Data berhasil ditambahkan!');
@@ -51,7 +51,7 @@ class StoktempurungbasahController extends Controller
 
         $stoktempurungbasah = StokTempurungBasah::findOrFail($id);
 
-        // Update data
+      
         $stoktempurungbasah->update($request->only([
             'id_laporan_tempurung_basah',
             'tanggal',
@@ -60,7 +60,7 @@ class StoktempurungbasahController extends Controller
             'stok',
         ]));
 
-        // Recalculate semua stok berdasarkan tanggal
+      
         $this->recalculateRemains();
 
         return redirect()->route('card_stock.tempurung_basah.index')->with('success', 'Data berhasil diperbarui!');
@@ -73,13 +73,13 @@ class StoktempurungbasahController extends Controller
         $lastRemain = 0;
 
         foreach ($entries as $entry) {
-            // Perhitungan stok
+         
             $begin = $lastRemain;
             $in = $entry->activity_type === 'produksi' ? $entry->stok : 0;
             $out = in_array($entry->activity_type, ['penjualan', 'adjustment']) ? $entry->stok : 0;
             $remain = $begin + $in - $out;
 
-            // Update nilai
+          
             $entry->update([
                 'begin' => $begin,
                 'in' => $in,
@@ -93,10 +93,10 @@ class StoktempurungbasahController extends Controller
 
     public function edit($id)
     {
-        // Find the record by its ID
+       
         $laporan = StokTempurungBasah::findOrFail($id);
 
-        // Return the data in JSON format
+      
         return response()->json([
             'id_laporan_tempurung_basah' => $laporan->id_laporan_dkp,
             'tanggal' => $laporan->tanggal,
@@ -116,7 +116,7 @@ class StoktempurungbasahController extends Controller
         $stoktempurung = StokTempurungBasah::findOrFail($id);
         $stoktempurung->delete();
         
-            // Recalculate semua stok setelah penghapusan
+            
             $this->recalculateRemains();
 
         return redirect()->route('card_stock.tempurung_basah.index')->with('success', 'Data berhasil dihapus!');

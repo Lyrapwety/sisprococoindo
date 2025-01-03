@@ -20,10 +20,10 @@ class StokminyakkelapaController extends Controller
     $request->validate([
         'tanggal' => 'nullable|string|max:255',
         'remark' => 'nullable|string|max:255',
-        'activity_type' => 'required|string|max:255', // Aktivitas wajib dipilih
-        'stok' => 'required|numeric', // Stok wajib dan harus numerik
+        'activity_type' => 'required|string|max:255', 
+        'stok' => 'required|numeric', 
     ]);
-      // Simpan data baru
+     
       $newEntry = StokMinyakKelapa::create($request->only([
         'tanggal',
         'remark',
@@ -31,8 +31,8 @@ class StokminyakkelapaController extends Controller
         'stok',
     ]));
     
-    // Ambil data stok dan tipe aktivitas
-     // Recalculate semua stok berdasarkan tanggal
+    
+     
      $this->recalculateRemains();
 
      return redirect()->route('card_stock.minyak_kelapa.index')->with('success', 'Data berhasil ditambahkan!');
@@ -41,16 +41,16 @@ class StokminyakkelapaController extends Controller
 
 public function update(Request $request, $id)
 {
-    // Validasi data
+    
     $request->validate([
         'tanggal' => 'nullable|string|max:255',
         'remark' => 'nullable|string|max:255',
-        'activity_type' => 'required|string|max:255', // Aktivitas wajib dipilih
-        'stok' => 'required|numeric', // Stok wajib dan harus numerik
+        'activity_type' => 'required|string|max:255', 
+        'stok' => 'required|numeric', 
     ]);
     $stokminyakkelapas = StokMinyakKelapa::findOrFail($id);
 
-    // Update data
+    
     $stokminyakkelapas->update($request->only([
         'tanggal',
         'remark',
@@ -58,7 +58,7 @@ public function update(Request $request, $id)
         'stok',
     ]));
 
-    // Recalculate semua stok berdasarkan tanggal
+    
     $this->recalculateRemains();
 
     return redirect()->route('card_stock.minyak_kelapa.index')->with('success', 'Data berhasil diperbarui!');
@@ -66,19 +66,19 @@ public function update(Request $request, $id)
 
 protected function recalculateRemains()
 {
-    // Ambil semua data diurutkan berdasarkan tanggal
+   
     $entries = StokMinyakKelapa::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
 
     $lastRemain = 0;
 
     foreach ($entries as $entry) {
-        // Perhitungan stok
+       
         $begin = $lastRemain;
         $in = $entry->activity_type === 'hasil_produksi' ? $entry->stok : 0;
         $out = in_array($entry->activity_type, [ 'penjualan']) ? $entry->stok : 0;
         $remain = $begin + $in - $out;
 
-        // Update nilai
+       
         $entry->update([
             'begin' => $begin,
             'in' => $in,
@@ -92,10 +92,10 @@ protected function recalculateRemains()
 
     public function edit($id)
     {
-        // Find the record by its ID
+        
         $laporan = StokMinyakKelapa::findOrFail($id);
 
-        // Return the data in JSON format
+        
         return response()->json([
             'tanggal' => $laporan->tanggal,
             'remark' => $laporan->remark,

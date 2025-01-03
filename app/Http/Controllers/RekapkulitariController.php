@@ -9,7 +9,7 @@ class RekapkulitariController extends Controller
 {
     public function index()
     {
-        // Ambil semua data dan proses kategori timbangan
+   
         $rekapkulitaris = LaporanKulitAriBasah::all()->map(function ($item) {
             $categories = $this->calculateCategories($item->timbangan_hasil);
             $totalPendapatan = $this->calculateTotalPendapatan($categories);
@@ -30,17 +30,17 @@ class RekapkulitariController extends Controller
                 'lessThan300' => $categories['lessThan300'],
                 'between300And350' => $categories['between300And350'],
                 'greaterThan350' => $categories['greaterThan350'],
-                'totalPendapatan' => $totalPendapatan, // Pendapatan total
+                'totalPendapatan' => $totalPendapatan, 
             ];
         });
 
-        // Kirim data ke view
+      
         return view('rekap_laporan.pembukaan_kulit_ari', compact('rekapkulitaris'));
     }
 
     public function store(Request $request)
     {
-        // Validasi data
+     
         $request->validate([
             'id_kelapa_bulat' => 'nullable|string|max:255',
             'no' => 'nullable|string|max:255',
@@ -57,7 +57,7 @@ class RekapkulitariController extends Controller
             'timbangan_hasil' => 'nullable|numeric',
         ]);
 
-        // Simpan data ke database
+       
         LaporanKulitAriBasah::create([
             'id_kelapa_bulat' => $request->id_kelapa_bulat,
             'no' => $request->no,
@@ -73,13 +73,11 @@ class RekapkulitariController extends Controller
             'timbangan_hasil' => $request->timbangan_hasil,
         ]);
 
-        // Redirect dengan pesan sukses
+       
         return redirect()->route('rekap_laporan.pembukaan_kulit_ari.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    /**
-     * Hitung kategori berdasarkan nilai timbangan hasil.
-     */
+ 
     private function calculateCategories($value)
     {
         $lessThan300 = 0;
@@ -104,16 +102,13 @@ class RekapkulitariController extends Controller
         ];
     }
 
-    /**
-     * Hitung total pendapatan.
-     */
-    private function calculateTotalPendapatan($categories)
+      private function calculateTotalPendapatan($categories)
     {
         $lessThan300Pendapatan = $categories['lessThan300'] * 400;
         $between300And350Pendapatan = $categories['between300And350'] * 500;
         $greaterThan350Pendapatan = $categories['greaterThan350'] * 600;
 
-        // Total pendapatan dengan tambahan 3
+      
         $totalPendapatan = $lessThan300Pendapatan + $between300And350Pendapatan + $greaterThan350Pendapatan ;
 
         return number_format($totalPendapatan, 0, ',', '.');

@@ -61,13 +61,7 @@
                     <img src="{{asset('img/logo_putih.png')}}" alt="Cocoindo Logo" class="h-12 w-14">
                 </div>
 
-                <!-- Navigasi Tengah -->
-                <nav class="flex-1 flex justify-center gap-4">
-                    <a href="#" class="header-link">Home</a>
-                    <a href="#" class="header-link">About</a>
-                    <a href="#" class="header-link">Contact</a>
-                </nav>
-
+    
                 <!-- Login dan Register di Kanan -->
                 <div class="flex gap-4">
                     @if (Route::has('login'))

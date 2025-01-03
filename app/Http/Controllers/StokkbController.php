@@ -78,36 +78,35 @@ class StokkbController extends Controller
         'stok' => 'required|numeric',
     ]);
 
-    // Temukan stok berdasarkan ID
+ 
     $stokkb = StokKbKelapaBulat::findOrFail($id);
 
-    // Ambil jumlah stok dan tipe aktivitas
+   
     $stok = $request->stok;
     $activity_type = $request->activity_type;
 
-    // Ambil sisa stok terakhir (remain) dari record yang akan diupdate
     $last_remain = $stokkb->remain;
 
-    // Inisialisasi nilai begin, in, out, dan remain
-    $begin = $last_remain; // Begin adalah stok terakhir sebelumnya
+    
+    $begin = $last_remain;
     $in = 0;
     $out = 0;
-    $remain = $begin; // Default remain sama dengan begin
+    $remain = $begin; 
 
-    // Logika berdasarkan tipe aktivitas
+   
     switch ($activity_type) {
         case 'pembelian':
-            // Aktivitas menambah stok
+         
             $in = $stok;
-            $remain = $begin + $in; // Tambah stok ke remain
+            $remain = $begin + $in; 
             break;
 
         case 'pemakaian_produksi':
-            // Aktivitas mengurangi stok
+            
             $out = $stok;
-            $remain = $begin - $out; // Kurangi stok dari remain
+            $remain = $begin - $out; 
 
-            // Validasi jika remain negatif
+           
             if ($remain < 0) {
                 return redirect()->back()->withErrors(['stok' => 'Stok tidak mencukupi untuk aktivitas ini!']);
             }
@@ -117,7 +116,7 @@ class StokkbController extends Controller
             return redirect()->back()->withErrors(['activity_type' => 'Tipe aktivitas tidak valid!']);
     }
 
-    // Perbarui data stok
+    
     $stokkb->update([
         'tanggal' => $request->tanggal,
         'remark' => $request->remark,
@@ -130,15 +129,15 @@ class StokkbController extends Controller
         'remain' => $remain,
     ]);
 
-    // Redirect dengan pesan sukses
+    
     return redirect()->route('card_stock.KB_Kelapa_Bulat.index')->with('success', 'Data berhasil diperbarui!');
 }
     public function edit($id)
     {
-        // Find the record by its ID
+        
         $laporan = StokKbKelapaBulat::findOrFail($id);
 
-        // Return the data in JSON format
+       
         return response()->json([
             'tanggal' => $laporan->tanggal,
             'remark' => $laporan->remark,

@@ -15,7 +15,7 @@ class ProduksisantanController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data
+       
         $request->validate([
             'id_santan' => 'nullable|string|max:255',
             'tanggal' => 'required|date',
@@ -30,7 +30,7 @@ class ProduksisantanController extends Controller
         $bags = $request->bags;
         $bags_calculated = $bags * 5;
 
-        // Inisialisasi variabel
+      
         $begin = ProduksiSantan::latest()->value('remain') ?? 0;
         $in_steril = 0;
         $in_nonsteril = 0;
@@ -39,7 +39,7 @@ class ProduksisantanController extends Controller
         $out_adj = 0;
         $remain = $begin;
 
-        // Logika berdasarkan tipe aktivitas
+      
         switch ($activity_type) {
             case 'produksi':
                 if ($sn === 'steril') {
@@ -70,7 +70,7 @@ class ProduksisantanController extends Controller
                 
         }
 
-        // Simpan data ke database
+      
         ProduksiSantan::create([
             'id_santan' => $request->id_santan,
             'tanggal' => $request->tanggal,
@@ -97,24 +97,24 @@ class ProduksisantanController extends Controller
 
     protected function recalculateRemains()
     {
-        // Ambil semua data yang diurutkan berdasarkan tanggal dan ID
+    
         $entries = ProduksiSantan::orderBy('tanggal', 'asc')->orderBy('id', 'asc')->get();
 
         $remain = 0;
 
         foreach ($entries as $entry) {
-            // Set nilai awal begin sebagai remain sebelumnya
+     
             $entry->begin = $remain;
 
-            // Perhitungan stok berdasarkan aktivitas
+           
             $in_steril = $entry->in_steril ?? 0;
             $in_nonsteril = $entry->in_nonsteril ?? 0;
             $out_total = ($entry->out_rep ?? 0) + ($entry->out_eks ?? 0) + ($entry->out_adj ?? 0);
 
-            // Tambahkan atau kurangi remain berdasarkan data
+           
             $remain += $in_steril + $in_nonsteril - $out_total;
 
-            // Update nilai remain
+           
             $entry->update([
                 'remain' => $remain,
                 'begin' => $entry->begin,
@@ -127,7 +127,7 @@ class ProduksisantanController extends Controller
         $produksisantan = ProduksiSantan::findOrFail($id);
         $produksisantan->delete();
 
-        // Panggil ulang recalculateRemains
+        
         $this->recalculateRemains();
 
         return redirect()->route('produksi.santan.index')->with('success', 'Data berhasil dihapus!');

@@ -113,7 +113,7 @@ public function update(Request $request, $id)
                 'total_ember' => $laporan->total_ember,
                 'berat_ember' => $laporan->berat_ember,
                 'total_potongan_ember' => $laporan->total_potongan_ember,
-                'hasil_kerja' => json_decode($laporan->hasil_kerja, true), // Decode JSON field
+                'hasil_kerja' => json_decode($laporan->hasil_kerja, true), 
                 'timbangan_hasil' => $laporan->timbangan_hasil,
             ]);
         }

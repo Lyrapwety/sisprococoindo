@@ -15,7 +15,7 @@ class LaporantempurungController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data
+     
         $request->validate([
             'id_kelapa_bulat' => 'nullable|string|max:255',
             'no' => 'nullable|string|max:255',
@@ -37,7 +37,7 @@ class LaporantempurungController extends Controller
         $potonganKeranjang = $nilaiPotongan * $request->total_keranjang;
         $netto = $bruto - $potonganKeranjang;
 
-        // Simpan data ke database
+
         LaporanTempurungBasah::create([
             'id_kelapa_bulat' => $request->id_kelapa_bulat,
             'no' => $request->no,
@@ -50,13 +50,13 @@ class LaporantempurungController extends Controller
             'timbangan_netto' => $request->timbangan_netto,
         ]);
 
-        // Redirect dengan pesan sukses
+    
         return redirect()->route('laporan.tempurung.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
 {
-    // Validasi data
+   
     $request->validate([
         'id_kelapa_bulat' => 'nullable|string|max:255',
         'no' => 'nullable|string|max:255',
@@ -67,10 +67,10 @@ class LaporantempurungController extends Controller
         'timbangan_netto' => 'nullable|numeric',
     ]);
 
-    // Temukan laporan berdasarkan ID
+
     $laporan = LaporanTempurungBasah::findOrFail($id);
 
-    // Hitung potongan dan netto
+
     $nilaiPotongan = 0;
     if ($request->tipe_keranjang === 'Keranjang Besar') {
         $nilaiPotongan = 3.8;
@@ -82,7 +82,6 @@ class LaporantempurungController extends Controller
     $potonganKeranjang = $nilaiPotongan * $request->total_keranjang;
     $netto = $bruto - $potonganKeranjang;
 
-    // Perbarui data laporan
     $laporan->update([
         'id_kelapa_bulat' => $request->id_kelapa_bulat,
         'no' => $request->no,
@@ -95,7 +94,7 @@ class LaporantempurungController extends Controller
         'timbangan_netto' => $request->timbangan_netto,
     ]);
 
-    // Redirect dengan pesan sukses
+ 
     return redirect()->route('laporan.tempurung.index')->with('success', 'Data berhasil diperbarui!');
 }
 
@@ -112,12 +111,10 @@ class LaporantempurungController extends Controller
             'tipe_keranjang' => $laporan->tipe_keranjang,
             'total_keranjang' => $laporan->total_keranjang,
             'total_potongan_keranjang' => $laporan->total_potongan_keranjang,
-            'netto' => json_decode($laporan->netto, true), // Decode JSON field
+            'netto' => json_decode($laporan->netto, true), 
             'timbangan_netto' => $laporan->timbangan_netto,
         ]);
     }
-
-
 
     public function destroy($id)
         {

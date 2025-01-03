@@ -920,15 +920,13 @@
                                             @enderror
                                         </div>
 
-                                        <hr class="hori-line">
+                                 <div class="action-buttons">
+                                    <button type="submit" class="submit-btn">Kirim</button>
+                                 </div>
                                     </div>
                                 </div>
 
-                                <div class="action-buttons">
-                                    <button type="button" class="add-member-btn">+ Anggota
-                                        Parer</button>
-                                    <button type="submit" class="submit-btn">Kirim</button>
-                                </div>
+
                             </div>
                         </form>
                     </div>
@@ -1023,30 +1021,7 @@
 
     @section('scripts')
         <script>
-            document.querySelector('.add-member-btn').addEventListener('click', function() {
-                const container = document.getElementById('anggota-parer-container');
-                const template = container.querySelector('.anggota-block.template');
-
-
-                const newMemberBlock = template.cloneNode(true);
-                newMemberBlock.classList.remove('template');
-
-                const inputs = newMemberBlock.querySelectorAll('input, select, label');
-                const blockIndex = container.querySelectorAll('.anggota-block').length;
-                inputs.forEach(input => {
-                    if (input.id) input.id = input.id.replace(/\d+$/, blockIndex);
-                    if (input.name) input.name = input.name.replace(/\[\d*\]/,
-                        `[${blockIndex}]`);
-                    if (input.tagName === 'LABEL') input.textContent = input.textContent.replace(/\d+$/,
-                        blockIndex + 1);
-                    if (input.type === 'number') input.value = 0;
-                    if (input.type === 'text') input.value = '';
-                });
-
-
-                container.appendChild(newMemberBlock);
-            });
-
+          
             function calculateTotal() {
                 const container = document.getElementById('anggota-parer-container');
                 const allBlocks = container.querySelectorAll('.anggota-block');
@@ -1260,122 +1235,8 @@
             }
             let anggotaCount = 2;
 
-            function addAnggotaParer() {
-                const container = document.getElementById('anggota-parer-container');
-                const anggotaBlock = document.createElement('div');
-                anggotaBlock.classList.add('anggota-block');
+          
 
-
-                const formRow = `
-                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="nama-sheller-1">Nama Sheller</label>
-                                        <input type="text"
-                                            class="form-control @error('nama_sheller') is-invalid @enderror"
-                                            id="nama_sheller" name="nama_sheller" value="{{ old('nama_sheller') }}">
-                                        @error('nama_sheller')
-                                            <div class="alert alert-danger mt-2">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group-total">
-                                        <label>Total: 250 kg</label>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="tanggal-picker">Pilih Tanggal</label>
-                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
-                                            id="tanggal" name="tanggal" value="{{ old('tanggal') }}">
-                                        @error('tanggal')
-                                            <div class="alert alert-danger mt-2">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-
-                                <div id="anggota-parer-container">
-                                    <div class="anggota-block">
-                                        <div class="form-row">
-                                            <div class="form-group">
-                                                <label for="anggota-parer-1">Anggota Parer 1</label>
-                                                <input type="text"
-                                                    class="form-control @error('nama_parer') is-invalid @enderror"
-                                                    id="nama_parer" name="nama_parer" value="{{ old('nama_parer') }}">
-                                                @error('nama_parer')
-                                                    <div class="alert alert-danger mt-2">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="total-keranjang-1">Total Keranjang</label>
-                                                <input type="number"
-                                                    class="form-control @error('total_keranjang') is-invalid @enderror"
-                                                    id="total_keranjang" name="total_keranjang"
-                                                    value="{{ old('total_keranjang') }}" min="0">
-                                                @error('total_keranjang')
-                                                    <div class="alert alert-danger mt-2">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="tipe-keranjang-1">Tipe Keranjang</label>
-                                                <select id="tipe_keranjang"
-                                                    class="form-control @error('tipe_keranjang') is-invalid @enderror"
-                                                    name="tipe_keranjang" value="{{ old('tipe_keranjang') }}">
-                                                    <option value="Keranjang Besar">Keranjang Besar</option>
-                                                    <option value="Keranjang Kecil">Keranjang Kecil</option>
-                                                </select>
-                                                @error('tipe_keranjang')
-                                                    <div class="alert alert-danger mt-2">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <span class="label-timbangan">Hasil Timbangan DKP</span>
-                                        <div class="basket-container">
-                                            @for ($i = 0; $i < 12; $i++)
-                                                <input
-                                                    class="basket-input"
-                                                    type="number"
-                                                    name="hasil_kerja_parer[]"
-                                                    id="hasil_kerja_parer_{{ $i }}"
-                                                    value="{{ old('hasil_kerja_parer.' . $i, 0) }}"
-                                                    oninput="calculateTotal()"
-                                                >
-                                            @endfor
-                                            <div class="total-container">
-                                                <label for="timbangan_hasil_kerja_parer">Total:</label>
-                                                <input
-                                                    type="number"
-                                                    id="timbangan_hasil_kerja_parer"
-                                                    name="timbangan_hasil_kerja_parer"
-                                                    value="{{ old('timbangan_hasil_kerja_parer', 0) }}"
-                                                    readonly
-                                                >
-                                            </div>
-                                            @error('hasil_kerja_parer')
-                                                <div class="alert alert-danger mt-2">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-
-                                        <hr class="hori-line">
-                                    </div>
-                                </div>
-            `;
-
-                anggotaBlock.innerHTML = formRow;
-                container.appendChild(anggotaBlock);
-
-                anggotaCount++;
-            }
 
             document.querySelector('.submit-btn').addEventListener('click', () => {
                 const formData = new FormData();

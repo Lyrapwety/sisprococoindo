@@ -20,7 +20,7 @@ class LaporankulitariController extends Controller
     }
     public function store(Request $request)
         {
-            // Validasi data
+          
             $request->validate([
                 'id_kelapa_bulat' => 'nullable|string|max:255',
                 'no' => 'nullable|string|max:255',
@@ -48,7 +48,7 @@ class LaporankulitariController extends Controller
             $potonganKeranjang = $nilaiPotongan * $request->total_keranjang;
             $timbangan_hasil = $bruto - $potonganKeranjang;
            
-            // Simpan data ke database
+       
             LaporanKulitAriBasah::create([
                 'id_kelapa_bulat' => $request->id_kelapa_bulat,
                 'no' => $request->no,
@@ -64,13 +64,13 @@ class LaporankulitariController extends Controller
                 'timbangan_hasil' => $timbangan_hasil,
             ]);
 
-            // Redirect dengan pesan sukses
+       
             return redirect()->route('laporan.kulitari.index')->with('success', 'Data berhasil ditambahkan!');
         }
 
         public function update(Request $request, $id)
 {
-    // Validasi data
+
     $request->validate([
         'id_kelapa_bulat' => 'nullable|string|max:255',
         'no' => 'nullable|string|max:255',
@@ -85,10 +85,9 @@ class LaporankulitariController extends Controller
         'timbangan_hasil' => 'nullable|numeric',
     ]);
 
-    // Temukan laporan berdasarkan ID
+ 
     $laporan = LaporanKulitAriBasah::findOrFail($id);
 
-   // Hitung potongan dan netto
    $nilaiPotongan = 0;
    if ($request->tipe_keranjang === 'Keranjang Besar') {
        $nilaiPotongan = 3.8;
@@ -99,7 +98,7 @@ class LaporankulitariController extends Controller
    $potonganKeranjang = $nilaiPotongan * $request->total_keranjang;
    $timbangan_hasil = $bruto - $potonganKeranjang;
  
-    // Perbarui data laporan
+   
     $laporan->update([
         'id_kelapa_bulat' => $request->id_kelapa_bulat,
         'no' => $request->no,
@@ -115,7 +114,7 @@ class LaporankulitariController extends Controller
         'timbangan_hasil' => $timbangan_hasil,
     ]);
 
-    // Redirect dengan pesan sukses
+ 
     return redirect()->route('laporan.kulitari.index')->with('success', 'Data berhasil diperbarui!');
 }
 
@@ -135,13 +134,10 @@ class LaporankulitariController extends Controller
                 'tipe_keranjang' => $laporan->tipe_keranjang,
                 'berat_keranjang' => $laporan->berat_keranjang,
                 'total_potongan_keranjang' => $laporan->total_potongan_keranjang,
-                'hasil_kerja' => json_decode($laporan->hasil_kerja, true), // Decode JSON field
+                'hasil_kerja' => json_decode($laporan->hasil_kerja, true), 
                 'timbangan_hasil' => $laporan->timbangan_hasil,
             ]);
         }
-
-
-
 
         public function destroy($id)
         {
